@@ -52,5 +52,10 @@ public class GameState {
         //TODO return 0 if draw/unfinished, otherwise the winning player.
         return 0;
     }
+    
+    public Subgame getSubgame(int x, int y)
+    {
+        return board[x][y];
+    }
 
 }
