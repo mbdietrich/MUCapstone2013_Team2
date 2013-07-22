@@ -13,6 +13,7 @@ public class GameState {
 
         private int[][] board = new int[3][3];
 
+        //Return 0 if empty, 1 of X, 2 if O
         public int getValue(int x, int y) {
             return board[x][y];
         }
