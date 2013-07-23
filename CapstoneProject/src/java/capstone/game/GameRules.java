@@ -6,18 +6,7 @@
 package capstone.game;
 
 public class GameRules {
-	
-	private int CurrentPlayer; // 1 = Player 1 (X), 2 = Player 2 (O)
-	//TODO: Other properties?
-	
-	public int getCurrentPlayer(){
-		return CurrentPlayer;
-	}
-	
-	public void setCurrentPlayer(int player){
-		CurrentPlayer = player;
-	}
-	
+		
 	/**
 	 * Finds the winner of the game/subgame.
 	 * This should be called after every valid move is placed.
@@ -25,11 +14,20 @@ public class GameRules {
 	 * @param board A 3-by-3 array containing integer elements to represent the current state of the board. 0 = unused space; 1 = Player 1 (X); 2 = Player 2 (O).
 	 * @return 0 if the game is still open; 1 if Player 1 (X) has won; 2 if Player 2 (O) has won; 3 if the game has tied (No more valid spaces and no winner).
 	 */
-	public int findWinner(int[][] board){
+	public static int findWinner(int[][] board){
 		//TODO: Find and implement the algorithm for this.
 		return 0;
 	}
 	
-	//TODO: Other methods called form outside this class?
+	/**
+	 * Checks if the subgame is valid. This means the difference in the number of X tokens and O tokens on the board 
+	 * is not greater than one.
+	 * @param board
+	 * @return
+	 */
+	public static boolean validSubgame(int[][] board){
+		// TODO: implement this. + Other things to check?
+		return true;
+	}
 
 }

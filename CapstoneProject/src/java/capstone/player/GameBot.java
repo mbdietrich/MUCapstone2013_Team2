@@ -18,17 +18,17 @@ public class GameBot
     public GameState makeMove(GameState state, Coordinates lastMove, int player)
     {
         Random random = new Random();
-        GameState.Subgame subgame = state.getSubgame(lastMove.getInnerX(), lastMove.getInnerY());
+        SubGame subgame = state.getCurrentGame().GetSubGame(lastMove.getInnerX(), lastMove.getInnerY());
         //If the nested game that the bot is supposed to play in next is complete, they can choose any one of the nested games available.
-        if (subgame.isDone())
+        if (subgame.getStatus() != 0)
         {
             ArrayList<Coordinates> outerGameCoords = new ArrayList<Coordinates>();
             for (int x = 0; x < 3; x++)
             {
                 for (int y = 0; y < 3; y++)
                 {
-                    GameState.Subgame game2 = state.getSubgame(x, y);
-                    if (!game2.isDone())
+                    SubGame game2 = state.getCurrentGame().GetSubGame(x, y);
+                    if (game2.getStatus() == 0)
                     {
                         Coordinates coord = new Coordinates(x, y, 0, 0);
                         outerGameCoords.add(coord);
@@ -39,7 +39,7 @@ public class GameBot
             Coordinates gameCoords = outerGameCoords.get(chosenCoords);
             int x = gameCoords.getOuterX();
             int y = gameCoords.getOuterY();
-            subgame = state.getSubgame(x, y);
+            subgame = state.getCurrentGame().GetSubGame(x, y);
         }
         
         //Check for all empty places in the subgame, and choose one randomly to play in.
@@ -48,7 +48,7 @@ public class GameBot
         {
             for (int j = 0; j < 3; j++)
             {
-                if (subgame.getValue(i, j) == 0)
+                if (subgame.getGamePiece(i, j) == 0)
                 {
                     Coordinates coord = new Coordinates(0, 0, i, j);
                     innerGames.add(coord);
@@ -59,7 +59,7 @@ public class GameBot
         Coordinates moveCoords = innerGames.get(innerGameCoords);
         int i = moveCoords.getInnerX();
         int j = moveCoords.getInnerY();
-        subgame.setValue(i, j, player);
+        subgame.setGamePiece(i, j, player);
         return state;
     }
 }
