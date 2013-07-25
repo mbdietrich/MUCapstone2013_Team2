@@ -4,6 +4,7 @@
  */
 package capstone.player;
 
+import capstone.game.Coordinates;
 import capstone.game.GameState;
 
 /**
@@ -12,7 +13,7 @@ import capstone.game.GameState;
  */
 public interface Player {
     
-    //Given a game state, return the next game state.
-    public GameState next(GameState prev);
+    //Given a game state and which player we are, return the next game state.
+    public Coordinates next(GameState prev, int player);
     
 }
