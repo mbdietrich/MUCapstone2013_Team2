@@ -21,13 +21,17 @@ public class GameSession {
 		 */
 	}
 
-	public void Join() {
-		/*
-		 * Used by a player to join the game
-		 */
+	public void Join(Player player) throws IllegalGameException {
+		if(player1==null){
+                    player1=player;
+                }
+                else if(player2==null){
+                    player2=player;
+                }
+                else throw new IllegalGameException("Player "+player.toString()+" tried to join a full game.");
 	}
 
-	public void Leave() {
+	public void Leave(Player player) {
 		/*
 		 * Used by a player to leave the game
 		 */
