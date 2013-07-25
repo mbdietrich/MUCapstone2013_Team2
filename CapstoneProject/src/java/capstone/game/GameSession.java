@@ -1,46 +1,36 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package capstone.game;
 
-import capstone.player.Player;
+import capstone.player.*;
+import java.util.UUID;
 
-/**
- *
- * @author Max
- */
 public class GameSession {
-    private GameState game=new GameState();
-    
-    private Player playerA=null, playerB=null;
 
-    public GameState getGame() {
-        return game;
-    }
+	private GameState currentgame;
+	private Player player1, player2;
 
-    public void setGame(GameState game) {
-        this.game = game;
-    }
+        public final String SessionID = UUID.randomUUID().toString();
+        
+	/**
+	 * Constructor.
+	 */
+	public GameSession() {
+		/*
+		 * When both players are ready, create the GameState. While the game is
+		 * not finished, prompt the player for a move When the game is finished,
+		 * display a message
+		 */
+	}
 
-    public Player getPlayerA() {
-        return playerA;
-    }
+	public void Join() {
+		/*
+		 * Used by a player to join the game
+		 */
+	}
 
-    public void setPlayerA(Player playerA) {
-        this.playerA = playerA;
-    }
+	public void Leave() {
+		/*
+		 * Used by a player to leave the game
+		 */
+	}
 
-    public Player getPlayerB() {
-        return playerB;
-    }
-
-    public void setPlayerB(Player playerB) {
-        this.playerB = playerB;
-    }
-    
-    public boolean isReady(){
-        return (playerA!=null)&&(playerB!=null);
-    }
-    
 }
