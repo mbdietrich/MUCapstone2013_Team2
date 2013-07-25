@@ -22,15 +22,9 @@ public class SubGame {
 	/**
 	 * In addition to the usual setter for the board, which sets the entire 2D array, I've included this
 	 * method to easily set individual pieces in the array. 
-	 * @param x Column ( 0 - 2)
-	 * @param y Row (0 - 2)
-	 * @param playerpiece 1 for Player 1 (X), 2 for Player 2 (O)
 	 */
-	public void setGamePiece(int x, int y, int playerpiece){
-		//TODO: Check if placement and piece are both valid
-		board[x][y] = playerpiece;
-		//Check if this move finished the subgame (TODO: only if valid!). Update the status.
-		status = GameRules.findWinner(board);
+	public void setGamePiece(Coordinates newMove, int playerpiece){
+		board[newMove.innerX][newMove.innerY] = playerpiece;
 	}
 	
 	/**
@@ -49,7 +43,6 @@ public class SubGame {
 	}
 
 	public void setBoard(int[][] board) {
-		//TODO: check if board is valid
 		this.board = board;
 	}
 
@@ -58,7 +51,6 @@ public class SubGame {
 	}
 	
 	/**Sets the status of the subgame. 
-	 * NOTE: This is assumed to be valid. Validity should be tested before the method is called.
 	 * @param status 
 	 */
 	public void setStatus(int status) {

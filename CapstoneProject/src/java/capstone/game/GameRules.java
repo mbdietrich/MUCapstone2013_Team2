@@ -6,18 +6,16 @@
 package capstone.game;
 
 public class GameRules {
-		
-	/**
-	 * Finds the winner of the game/subgame.
-	 * This should be called after every valid move is placed.
+	
+	/*TODO: ALL NEW MOVES WILL BE PASSED THOUGH HERE TO CHECK FOR VALIDITY.
+	 * Need:
+	 * + Check if the subgame selected is open
+	 * + Check if the space selected is open
 	 * 
-	 * @param board A 3-by-3 array containing integer elements to represent the current state of the board. 0 = unused space; 1 = Player 1 (X); 2 = Player 2 (O).
-	 * @return 0 if the game is still open; 1 if Player 1 (X) has won; 2 if Player 2 (O) has won; 3 if the game has tied (No more valid spaces and no winner).
 	 */
-	public static int findWinner(int[][] board){
-		//TODO: Find and implement the algorithm for this.
-		return 0;
-	}
+	
+		
+
 	
 	/**
 	 * Checks if the subgame is valid. This means the difference in the number of X tokens and O tokens on the board 
