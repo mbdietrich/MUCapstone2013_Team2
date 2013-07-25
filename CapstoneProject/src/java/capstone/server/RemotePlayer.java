@@ -18,6 +18,10 @@ public class RemotePlayer implements Player {
     
     private HttpSession session;
 
+    public RemotePlayer(HttpSession session) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public HttpSession getSession() {
         return session;
     }
