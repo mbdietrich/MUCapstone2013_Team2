@@ -18,7 +18,7 @@ public class GameBot
     public GameState makeMove(GameState state, Coordinates lastMove, int player)
     {
         Random random = new Random();
-        SubGame subgame = state.getCurrentGame().GetSubGame(lastMove.getInnerX(), lastMove.getInnerY());
+        SubGame subgame = state.GetSubGame(lastMove.getInnerX(), lastMove.getInnerY());
         //If the nested game that the bot is supposed to play in next is complete, they can choose any one of the nested games available.
         if (subgame.getStatus() != 0)
         {
@@ -27,7 +27,7 @@ public class GameBot
             {
                 for (int y = 0; y < 3; y++)
                 {
-                    SubGame game2 = state.getCurrentGame().GetSubGame(x, y);
+                    SubGame game2 = state.GetSubGame(x, y);
                     if (game2.getStatus() == 0)
                     {
                         Coordinates coord = new Coordinates(x, y, 0, 0);
@@ -39,7 +39,7 @@ public class GameBot
             Coordinates gameCoords = outerGameCoords.get(chosenCoords);
             int x = gameCoords.getOuterX();
             int y = gameCoords.getOuterY();
-            subgame = state.getCurrentGame().GetSubGame(x, y);
+            subgame = state.GetSubGame(x, y);
         }
         
         //Check for all empty places in the subgame, and choose one randomly to play in.
