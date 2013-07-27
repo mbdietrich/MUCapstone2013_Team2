@@ -6,7 +6,7 @@ package capstone.player;
 import capstone.game.*;
 import java.util.*;
 
-public class GameBot 
+public class GameBot implements Player
 {
     /**
      * 
@@ -14,12 +14,14 @@ public class GameBot
      * @param player the player the bot is (either 1 or 2).
      * @return GameState after the bot has made its move.
      */
-    public GameState makeMove(GameState state, int player)
+    @Override
+    public Coordinates next(GameState prev, int player)
     {
         Random random = new Random();
+        Coordinates chosenMove = new Coordinates(0,0,0,0);
         int firstX = random.nextInt(3);
         int firstY = random.nextInt(3);
-        SubGame subgame = state.GetSubGame(firstX, firstY);
+        SubGame subgame = prev.GetSubGame(firstX, firstY);
         //If the nested game that the bot is supposed to play in next is complete, they can choose any one of the nested games available.
         if (subgame.getStatus() != 0)
         {
@@ -28,7 +30,7 @@ public class GameBot
             {
                 for (int y = 0; y < 3; y++)
                 {
-                    SubGame game2 = state.GetSubGame(x, y);
+                    SubGame game2 = prev.GetSubGame(x, y);
                     if (game2.getStatus() == 0)
                     {
                         Coordinates coord = new Coordinates(x, y, 0, 0);
@@ -40,7 +42,9 @@ public class GameBot
             Coordinates gameCoords = outerGameCoords.get(chosenCoords);
             int x = gameCoords.getOuterX();
             int y = gameCoords.getOuterY();
-            subgame = state.GetSubGame(x, y);
+            subgame = prev.GetSubGame(x, y);
+            chosenMove.setOuterX(x);
+            chosenMove.setOuterY(y);
         }
         
         //Check for all empty places in the subgame, and choose one randomly to play in.
@@ -58,9 +62,10 @@ public class GameBot
         }
         int innerGameCoords = random.nextInt(innerGames.size());
         Coordinates moveCoords = innerGames.get(innerGameCoords);
-        int i = moveCoords.getInnerX();
-        int j = moveCoords.getInnerY();
-        subgame.setGamePiece(i, j, player);
-        return state;
+        int innerX = moveCoords.getInnerX();
+        int innerY = moveCoords.getInnerY();
+        chosenMove.setInnerX(innerX);
+        chosenMove.setInnerY(innerY);
+        return chosenMove;
     }
 }
