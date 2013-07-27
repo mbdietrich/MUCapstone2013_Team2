@@ -19,6 +19,26 @@ public class Coordinates
         this.innerY = innerY;
     }
     
+    public void setOuterX(int outerX)
+    {
+        this.outerX = outerX;
+    }
+    
+    public void setOuterY(int outerY)
+    {
+        this.outerY = outerY;
+    }
+    
+    public void setInnerX(int innerX)
+    {
+        this.innerX = innerX;
+    }
+    
+    public void setInnerY(int innerY)
+    {
+        this.innerY = innerY;
+    }
+    
     public int getOuterX()
     {
         return outerX;
