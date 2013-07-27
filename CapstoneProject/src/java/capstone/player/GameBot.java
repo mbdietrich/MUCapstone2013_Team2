@@ -11,14 +11,15 @@ public class GameBot
     /**
      * 
      * @param state the current game state before the bot makes a move.
-     * @param lastMove the last move the other player made so the bot knows which sub-game the next move should be made in.
      * @param player the player the bot is (either 1 or 2).
      * @return GameState after the bot has made its move.
      */
-    public GameState makeMove(GameState state, Coordinates lastMove, int player)
+    public GameState makeMove(GameState state, int player)
     {
         Random random = new Random();
-        SubGame subgame = state.GetSubGame(lastMove.getInnerX(), lastMove.getInnerY());
+        int firstX = random.nextInt(3);
+        int firstY = random.nextInt(3);
+        SubGame subgame = state.GetSubGame(firstX, firstY);
         //If the nested game that the bot is supposed to play in next is complete, they can choose any one of the nested games available.
         if (subgame.getStatus() != 0)
         {
