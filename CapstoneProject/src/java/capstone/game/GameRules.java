@@ -68,7 +68,8 @@ public class GameRules {
 	public static boolean validMove(GameState board, Coordinates move){
                 SubGame subgame = board.GetSubGame(move.getOuterX(), move.getOuterY());
                 int position = subgame.getGamePiece(move.getInnerX(), move.getInnerY());
-                if (position == 0) {
+                if ((position == 0)&&(subgame.getStatus()==0)) {
+                	// Subgame is open and the location is empty
                     return true;
                 }
                 else {
