@@ -43,7 +43,7 @@ public class GameState {
     	SelectedSubgame = mainboard[newMove.outerX][newMove.outerY];
     	
 		//Set the player's piece
-		SelectedSubgame.setGamePiece(newMove, CurrentPlayer);
+		SelectedSubgame.setGamePiece(newMove.innerX, newMove.innerY, CurrentPlayer);
 		
 		//Is the subgame now finished?
 		int subwinner = findWinner(SelectedSubgame.getBoard());

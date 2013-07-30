@@ -66,8 +66,14 @@ public class GameRules {
 	 * @return
 	 */
 	public static boolean validMove(GameState board, Coordinates move){
-		// TODO: implement this. + Other things to check?
-		return true;
+                SubGame subgame = board.GetSubGame(move.getOuterX(), move.getOuterY());
+                int position = subgame.getGamePiece(move.getInnerX(), move.getInnerY());
+                if (position == 0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
 	}
         
         
