@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  */
 public class GameManager {
     
-    static Map<HttpSession, Player> players = new ConcurrentHashMap<HttpSession, Player>();
+    static Map<HttpSession, RemotePlayer> players = new ConcurrentHashMap<HttpSession, RemotePlayer>();
     static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
     static Map<String, GameSession> gameIDs = new ConcurrentHashMap<String, GameSession>();
     
