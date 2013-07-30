@@ -68,6 +68,10 @@ public class GameManager {
         return gameSessions.get(session);
     }
     
+    public static Player getPlayer(HttpSession session){
+        return players.get(session);
+    }
+    
     public static void makeMove(HttpSession session, int a, int b, int x, int y){
         Coordinates coords = new Coordinates(a, b, x, y);
         GameSession game = gameSessions.get(session);
