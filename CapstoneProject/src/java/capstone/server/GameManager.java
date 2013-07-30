@@ -53,6 +53,7 @@ public class GameManager {
     }
     
     public static void newPlayer(HttpSession session, String name){
+        session.setAttribute("_user", name);
         if(!players.containsKey(session)){
             players.put(session, new RemotePlayer(name));
         }
