@@ -42,6 +42,18 @@ public class GameSession {
         //If the game is not done, call notify on the next player
         public void move(Player player, Coordinates move){
             //TODO implement
+            if (player == this.currentPlayer) {
+                if (GameRules.validMove(currentgame, move)) {
+                    currentgame.PlacePiece(move);
+                    if (currentPlayer == player1) {
+                        currentPlayer = player2;
+                    }
+                    else if (currentPlayer == player2) {
+                        currentPlayer = player1;
+                    }
+                    currentPlayer.notify(this);
+                }
+            }
         }
         
         //what's my player number?
