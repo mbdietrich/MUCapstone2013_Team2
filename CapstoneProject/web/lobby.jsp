@@ -18,7 +18,7 @@
         <title>Lobby Page</title>
     </head>
     <body>
-        <h3> Welcome <%= session.getAttribute("user") %><%= session.getAttribute("playerid") %></h3>
+        <h3> Welcome <%= session.getAttribute("_user") %></h3>
         <form action="create" method="POST">
             <input type="submit" value="New Game">
         </form>
