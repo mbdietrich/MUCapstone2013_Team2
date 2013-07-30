@@ -13,7 +13,6 @@ public class GameRules {
 	 * @return
 	 */
 	public static int findWinner(GameState board){
-		//TODO: Find and implement the algorithm for this.
             int[][] statusboard = board.getStatusboard();
             return checkStatusBoard(statusboard);
 	}
@@ -21,21 +20,37 @@ public class GameRules {
         private static int checkStatusBoard(int[][] board) {
             int returnValue = 0;
             if(board[0][0] == board[1][0] && board[0][0] == board[2][0]) {
-                returnValue = board[0][0];
+                if(board[0][0] != 0) {
+                    returnValue = board[0][0];
+                }
             } else if (board[0][0] == board[1][1] && board[0][0] == board[2][2]) {
-                returnValue = board[0][0];
+                if(board[0][0] != 0) {
+                    returnValue = board[0][0];
+                }
             } else if (board[0][0] == board[0][1] && board[0][0] == board[0][2]) {
-                returnValue = board[0][0];
+                if(board[0][0] != 0) {
+                    returnValue = board[0][0];
+                }
             } else if (board[1][0] == board[1][1] && board[1][0] == board[1][2]) {
-                returnValue = board[1][0];
+                if(board[1][0] != 0) {
+                    returnValue = board[1][0];
+                }
             } else if (board[2][0] == board[2][1] && board[2][0] == board[2][2]) {
-                returnValue = board[2][0];
+                if(board[2][0] != 0) {
+                    returnValue = board[2][0];
+                }
             } else if (board[2][0] == board[1][1] && board[2][0] == board[0][2]) {
-                returnValue = board[2][0];
+                if(board[2][0] != 0) {
+                    returnValue = board[2][0];
+                }
             } else if (board[0][1] == board[1][1] && board[0][1] == board[2][1]) {
-                returnValue = board[0][1];
+                if(board[0][1] != 0) {
+                    returnValue = board[0][1];
+                }
             } else if (board[0][2] == board[1][2] && board[0][2] == board[2][2]) {
-                returnValue = board[0][2];
+                if(board[0][2] != 0) {
+                    returnValue = board[0][2];
+                }
             }
             return returnValue;
         }
@@ -68,7 +83,8 @@ public class GameRules {
 	public static boolean validMove(GameState board, Coordinates move){
                 SubGame subgame = board.GetSubGame(move.getOuterX(), move.getOuterY());
                 int position = subgame.getGamePiece(move.getInnerX(), move.getInnerY());
-                if (position == 0) {
+                if ((position == 0)&&(subgame.getStatus()==0)) {
+                	// Subgame is open and the location is empty
                     return true;
                 }
                 else {
