@@ -1,7 +1,7 @@
 <%-- 
     Document   : game
     Created on : 30/07/2013, 1:13:18 PM
-    Author     : Max
+    Author     : Max, Jesse
 
     Page where the game is rendered.
 --%>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : lobby
     Created on : 30/07/2013, 1:12:16 PM
-    Author     : Max
+    Author     : Max, Jesse
 
     lobby.jsp is where the player is sent before a game starts, but after logging in.
 --%>

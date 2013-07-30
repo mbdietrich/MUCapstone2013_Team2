@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 21/07/2013, 9:51:01 AM
-    Author     : Max
+    Author     : Max, Jesse
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
