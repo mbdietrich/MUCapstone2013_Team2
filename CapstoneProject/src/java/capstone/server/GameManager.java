@@ -6,6 +6,7 @@ package capstone.server;
 
 import capstone.game.GameSession;
 import capstone.game.IllegalGameException;
+import capstone.player.GameBot;
 import capstone.player.Player;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,6 +24,9 @@ public class GameManager {
     static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
     static Map<String, GameSession> gameIDs = new ConcurrentHashMap<String, GameSession>();
     
+    //For now, only one bot - DefaultBot
+    private static final Player DEFAULT_BOT = new GameBot();
+    
     //Add a player to an existing game
     public static void addPlayer(HttpSession session, String gameID){
         try {
@@ -35,18 +39,27 @@ public class GameManager {
     }
     
     public static void newGame(HttpSession session){
-        //TODO create a new game for a player.
+        //For now, only add the default bot
+        GameSession game = new GameSession();
+        gameIDs.put(game.SessionID, game);
+        try {
+            game.Join(players.get(session));
+            game.Join(DEFAULT_BOT);
+        } catch (IllegalGameException ex) {
+            Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, "Error creating new game", ex);
+        }
+        
     }
     
-    public static void newPlayer(HttpSession session){
+    public static void newPlayer(HttpSession session, String name){
         if(!players.containsKey(session)){
-            players.put(session, new RemotePlayer(session));
+            players.put(session, new RemotePlayer(session, name));
         }
     }
     
     public static void disconnect (HttpSession session) {
-        //TODO method for removing player session
-        //Remove entry form players and gameSessions, force forfeit if in game
+        Player player = players.remove(session);
+        gameSessions.get(session).Leave(player);
     }
     
     public static GameSession getGame(HttpSession session){
