@@ -20,6 +20,8 @@ public class GameCreate extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GameManager.newGame(request.getSession());
+        
+        //For now, single-player only
         this.getServletContext().getRequestDispatcher("/game.jsp").forward(request, response);
     }
 
