@@ -8,8 +8,7 @@ package capstone.game;
 public class GameRules {
 		
 	/**
-	 * Checks if the subgame is valid. This means the difference in the number of X tokens and O tokens on the board 
-	 * is not greater than one.
+	 * Checks if a player has won. Returns 0 if no winner exists.
 	 * @param board
 	 * @return
 	 */
@@ -17,16 +16,22 @@ public class GameRules {
 		//TODO: Find and implement the algorithm for this.
 		return 0;
 	}
+        
+        public static boolean isDone(GameState board){
+            //TODO
+            return false;
+        }
 	
 	/**
-	 * Checks if the subgame is valid. This means the difference in the number of X tokens and O tokens on the board 
-	 * is not greater than one.
+	 * Checks if the next move is valid.
 	 * @param board
 	 * @return
 	 */
-	public static boolean validSubgame(GameState board){
+	public static boolean validMove(GameState board, Coordinates move){
 		// TODO: implement this. + Other things to check?
 		return true;
 	}
+        
+        
 
 }
