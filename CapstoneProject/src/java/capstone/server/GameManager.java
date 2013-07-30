@@ -4,6 +4,7 @@
  */
 package capstone.server;
 
+import capstone.game.Coordinates;
 import capstone.game.GameSession;
 import capstone.game.IllegalGameException;
 import capstone.player.GameBot;
@@ -53,7 +54,7 @@ public class GameManager {
     
     public static void newPlayer(HttpSession session, String name){
         if(!players.containsKey(session)){
-            players.put(session, new RemotePlayer(session, name));
+            players.put(session, new RemotePlayer(name));
         }
     }
     
@@ -66,5 +67,15 @@ public class GameManager {
         return gameSessions.get(session);
     }
     
+    public static void makeMove(HttpSession session, int a, int b, int x, int y){
+        Coordinates coords = new Coordinates(a, b, x, y);
+        GameSession game = gameSessions.get(session);
+        RemotePlayer player = players.get(session);
+        //only move if we're supposed to
+        if(player.isActive()){
+            player.setActive(false);
+            game.move(player, coords);
+        }
+    }
     
 }
