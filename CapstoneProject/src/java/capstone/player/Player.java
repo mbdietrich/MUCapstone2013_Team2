@@ -16,4 +16,5 @@ public interface Player {
     //Given a game state and which player we are, return the next game state.
     public Coordinates next(GameState prev, int player);
     
+    public String getName();
 }

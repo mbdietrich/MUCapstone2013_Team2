@@ -68,4 +68,9 @@ public class GameBot implements Player
         chosenMove.setInnerY(innerY);
         return chosenMove;
     }
+
+    @Override
+    public String getName() {
+        return "Default Bot";
+    }
 }

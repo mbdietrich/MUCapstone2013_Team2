@@ -4,6 +4,7 @@
  */
 package capstone.server;
 
+import capstone.game.Coordinates;
 import capstone.game.GameState;
 import capstone.player.Player;
 import javax.servlet.http.HttpSession;
@@ -17,9 +18,11 @@ import javax.servlet.http.HttpSession;
 public class RemotePlayer implements Player {
     
     private HttpSession session;
-
-    public RemotePlayer(HttpSession session) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private String name;
+    
+    public RemotePlayer(HttpSession session, String name) {
+        this.session=session;
+        this.name=name;
     }
 
     public HttpSession getSession() {
@@ -31,9 +34,16 @@ public class RemotePlayer implements Player {
     }
 
     @Override
-    public GameState next(GameState prev) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //TODO add client interaction code
-        }
+    public Coordinates next(GameState prev, int player) {
+        //TODO
+        Coordinates coords = new Coordinates(0,0,0,0);
+        return coords;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
     
 }
