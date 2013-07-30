@@ -8,65 +8,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style type="text/css">
-            div.game{
-                width:50px;
-                height:50px;
-                background:slategrey;
-                font-size:50;
-                text-align:center;
-                margin:5px;
-                border:#black 1px solid;
-            }
-        </style>
         <script>
-            function makeMove(){
-                var cell1 = document.getElementById("cell1");
-                var cell2 = document.getElementById("cell2");
-                var cell3 = document.getElementById("cell3");
-                var cell4 = document.getElementById("cell4");
-                var cell5 = document.getElementById("cell5");
-                var cell6 = document.getElementById("cell6");
-                var cell7 = document.getElementById("cell7");
-                var cell8 = document.getElementById("cell8");
-                var cell9 = document.getElementById("cell9");
-                
-                cell1.innerHTML = Math.floor(Math.random()*3);
-                cell2.innerHTML = Math.floor(Math.random()*3);
-                cell3.innerHTML = Math.floor(Math.random()*3);
-                cell4.innerHTML = Math.floor(Math.random()*3);
-                cell5.innerHTML = Math.floor(Math.random()*3);
-                cell6.innerHTML = Math.floor(Math.random()*3);
-                cell7.innerHTML = Math.floor(Math.random()*3);
-                cell8.innerHTML = Math.floor(Math.random()*3);
-                cell9.innerHTML = Math.floor(Math.random()*3);
-                
-                
-            }
+               var divsession = document.getElementById("Session");
+               divsession.innerHTML = session;
         </script>
     <body>
-        <table align="center">
-            <tr>
-            <td><div id="cell1" class="game">0</div></td>
-            <td><div id="cell2" class="game">0</div></td>
-            <td><div id="cell3" class="game">0</div></td>
-            </tr>
-            <tr>
-            <td><div id="cell4" class="game">0</div></td>
-            <td><div id="cell5" class="game">0</div></td>
-            <td><div id="cell6" class="game">0</div></td>
-            </tr>
-            <tr>
-            <td><div id="cell7" class="game">0</div></td>
-            <td><div id="cell8" class="game">0</div></td>
-            <td><div id="cell9" class="game">0</div></td>
-            </tr>     
-        </table>
-        <hr style="width: 100%; height: 2px;">
-        <form action="move">
-        <input name="coordinates" size="50" value="PRESSBUTTON!!!"><br>
+        <h3>Login !!!!</h3>
+        <div id="Session"></div>
+        <form action="login" method="POST">
+            <table>
+                <tr><td>User:</td><td><input id="user" name="user" type="text" size="42" /></td></tr>
+                <tr><td colspan="2"><input type="submit" value="join"/></td>
+            </table>
         </form>
-        <button onclick="makeMove()">Make Move</button> 
         
     </body>
 </html>
