@@ -32,6 +32,15 @@
         <url-pattern>/state</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>MakeMove</servlet-name>
+        <servlet-class>capstone.server.MakeMove</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MakeMove</servlet-name>
+        <url-pattern>/move</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             5
