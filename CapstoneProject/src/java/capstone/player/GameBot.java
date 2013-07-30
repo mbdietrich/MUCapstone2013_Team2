@@ -6,7 +6,7 @@ package capstone.player;
 import capstone.game.*;
 import java.util.*;
 
-public class GameBot implements Player
+public class GameBot extends Bot
 {
     /**
      * 

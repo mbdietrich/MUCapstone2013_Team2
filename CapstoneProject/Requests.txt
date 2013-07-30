@@ -1,0 +1,28 @@
+===========================
+CLIENT-SERVER REQUESTS
+===========================
+
+/login
+Request Type: POST
+Paramaters: user
+Description: Adds player to server, then moves them to the lobby.
+Returns: nothing
+
+/create
+Request Type: POST
+Paramaters: none
+Description: Creates a new game, then moves the player to the game screen.
+Returns: nothing
+
+/state
+Request Type: GET
+Paramaters: none
+Description: Queries the server for the new game state.
+Returns: JSON Object (status, player, board)
+
+/move
+Request Type: POST
+Parameters: a, b, x, y
+Description: Post the coordinates of the next move; (a,b) is the outer location,
+            (x,y) the inner location.
+Returns: nothing
