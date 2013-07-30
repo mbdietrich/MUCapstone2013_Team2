@@ -23,7 +23,7 @@ public class PlayerJoin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("user");
-        GameManager.addPlayer(request.getSession(), name);
+        GameManager.newPlayer(request.getSession(), name);
         
         // forward player to game lobby
         this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
