@@ -11,6 +11,10 @@ public class GameSession {
 
         public final String SessionID = UUID.randomUUID().toString();
         
+        public GameState getCurrentGame(){
+            return currentgame;
+        }
+        
 	/**
 	 * Constructor.
 	 */
@@ -32,6 +36,21 @@ public class GameSession {
                 else throw new IllegalGameException("Player "+player.toString()+" tried to join a full game.");
 	}
 	
+        //Called by the players to register a move
+        //Make sure it's the player's move
+        //Make sure move is valid, then set the game state
+        //If the game is not done, call notify on the next player
+        public void move(Player player, Coordinates move){
+            //TODO implement
+        }
+        
+        //what's my player number?
+        public int getPlayerNumber(Player player){
+            //TODO
+            return -1;
+        }
+        
+        //TODO remove this
 	public void Play(){
 		//Get the current player's move
 		Coordinates newMove = new Coordinates(0,0,0,0);
