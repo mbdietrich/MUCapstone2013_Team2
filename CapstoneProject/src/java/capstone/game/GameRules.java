@@ -15,12 +15,10 @@ public class GameRules {
 	public static int findWinner(GameState board){
 		//TODO: Find and implement the algorithm for this.
             int[][] statusboard = board.getStatusboard();
-            
-            
-		return 0;
+            return checkStatusBoard(statusboard);
 	}
         
-        private int checkStatusBoard(int[][] board) {
+        private static int checkStatusBoard(int[][] board) {
             int returnValue = 0;
             if(board[0][0] == board[1][0] && board[0][0] == board[2][0]) {
                 returnValue = board[0][0];
