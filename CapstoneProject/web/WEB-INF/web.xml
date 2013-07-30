@@ -23,6 +23,15 @@
         <url-pattern>/create</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>GameStateGet</servlet-name>
+        <servlet-class>capstone.server.GameStateGet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GameStateGet</servlet-name>
+        <url-pattern>/state</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             5

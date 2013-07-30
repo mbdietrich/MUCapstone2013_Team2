@@ -1,0 +1,39 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package capstone.server;
+
+import capstone.game.GameSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author Max
+ */
+public class GameStateGet extends HttpServlet{
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        response.setContentType("text/event-stream");
+        response.setCharacterEncoding ("UTF-8");
+        GameSession state=GameManager.getGame(request.getSession());
+        
+        PrintWriter out = response.getWriter();
+        out.append("event: move\n");
+        out.append("data:");
+        out.append(JSONBuilder.buildJSON(state, GameManager.getPlayer(request.getSession())));
+        out.append("\n\n");
+        response.flushBuffer();
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Return the game state";
+    }
+}
