@@ -5,6 +5,7 @@
 package capstone.server;
 
 import capstone.game.Coordinates;
+import capstone.game.GameSession;
 import capstone.game.GameState;
 import capstone.player.Player;
 import javax.servlet.http.HttpSession;
@@ -17,32 +18,32 @@ import javax.servlet.http.HttpSession;
  */
 public class RemotePlayer implements Player {
     
-    private HttpSession session;
     private String name;
     
-    public RemotePlayer(HttpSession session, String name) {
-        this.session=session;
+    //Is it our turn?
+    private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
+    public RemotePlayer(String name) {
         this.name=name;
     }
 
-    public HttpSession getSession() {
-        return session;
-    }
-
-    public void setSession(HttpSession session) {
-        this.session = session;
-    }
-
-    @Override
-    public Coordinates next(GameState prev, int player) {
-        //TODO
-        Coordinates coords = new Coordinates(0,0,0,0);
-        return coords;
-    }
 
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void notify(GameSession current) {
+        this.setActive(true);
     }
 
     
