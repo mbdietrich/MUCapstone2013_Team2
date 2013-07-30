@@ -4,8 +4,7 @@
  */
 package capstone.player;
 
-import capstone.game.Coordinates;
-import capstone.game.GameState;
+import capstone.game.GameSession;
 
 /**
  *
@@ -14,7 +13,9 @@ import capstone.game.GameState;
 public interface Player {
     
     //Given a game state and which player we are, return the next game state.
-    public Coordinates next(GameState prev, int player);
-    
     public String getName();
+    
+    //notify the player that they are ready to make the next move
+    public void notify(GameSession current);
+    
 }
