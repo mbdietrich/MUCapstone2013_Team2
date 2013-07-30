@@ -14,8 +14,33 @@ public class GameRules {
 	 */
 	public static int findWinner(GameState board){
 		//TODO: Find and implement the algorithm for this.
+            int[][] statusboard = board.getStatusboard();
+            
+            
 		return 0;
 	}
+        
+        private int checkStatusBoard(int[][] board) {
+            int returnValue = 0;
+            if(board[0][0] == board[1][0] && board[0][0] == board[2][0]) {
+                returnValue = board[0][0];
+            } else if (board[0][0] == board[1][1] && board[0][0] == board[2][2]) {
+                returnValue = board[0][0];
+            } else if (board[0][0] == board[0][1] && board[0][0] == board[0][2]) {
+                returnValue = board[0][0];
+            } else if (board[1][0] == board[1][1] && board[1][0] == board[1][2]) {
+                returnValue = board[1][0];
+            } else if (board[2][0] == board[2][1] && board[2][0] == board[2][2]) {
+                returnValue = board[2][0];
+            } else if (board[2][0] == board[1][1] && board[2][0] == board[0][2]) {
+                returnValue = board[2][0];
+            } else if (board[0][1] == board[1][1] && board[0][1] == board[2][1]) {
+                returnValue = board[0][1];
+            } else if (board[0][2] == board[1][2] && board[0][2] == board[2][2]) {
+                returnValue = board[0][2];
+            }
+            return returnValue;
+        }
         
         public static boolean isDone(GameState board){
             //TODO
