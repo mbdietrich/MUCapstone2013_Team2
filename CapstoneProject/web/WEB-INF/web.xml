@@ -14,6 +14,15 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>GameCreate</servlet-name>
+        <servlet-class>capstone.server.GameCreate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GameCreate</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             5
