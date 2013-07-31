@@ -29,32 +29,41 @@
         <script>
             var arrayHistory = [];
             window.onload = function() {
-                var i, buttonFrame, newButton;
+                var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;
                 buttonFrame = document.getElementById('gameframe');
-                for (i = 0; i < 9; i++) {
-                    for (j = 0; j < 9; j++) {
-                        var fg = document.createElement('br');
-                        //var vert = document.createElement('div');
-                        //vert.class = 'vert';
-                        newButton = document.createElement('input');
-                        newButton.type = 'button';
-                        if((j+i) % 2 == 0){
-                        newButton.value = "X";
-                        }
-                        else
-                        {
-                        newButton.value = "O"; 
-                        }
-                        newButton.id = ((9 * i) + j) + 1;
-                        var test = j % 3;
-                        newButton.onclick = function() {
-                            window.confirm('This is button ' + this.id);
-                            arrayHistory[arrayHistory.length] = this.id;
-                        };
-                        buttonFrame.appendChild(newButton);
-                        if (j === 8)
-                        {
-                            buttonFrame.appendChild(fg);
+
+                for (a = 2; a >= 0; a--) {
+                    //Create a new row of subgames
+                    newRow = buttonFrame.insertRow();
+                    for (b = 2; b >= 0; b--) {
+                        newCell = newRow.insertCell();
+                        subTable=document.createElement('table');
+                        newCell.appendChild(subTable);
+                        for (i = 2; i >= 0; i--) {
+                            newSubRow=subTable.insertRow();
+                            for (j = 2; j >= 0; j--) {
+                                
+                                newButton = document.createElement('input');
+                                newButton.type = 'button';
+                                if ((j + i) % 2 == 0) {
+                                    newButton.value = "X";
+                                }
+                                else
+                                {
+                                    newButton.value = "O";
+                                }
+                                newButton.id=a+'-'+b+'-'+i+'-'+j;
+                                newButton.a=a;
+                                newButton.b=b;
+                                newButton.x=i;
+                                newButton.y=j;
+                                newButton.onclick = function() {
+                                window.confirm('This button\'s coordinates are ' + this.a+','+this.b+';'+this.x+','+this.y);
+                                arrayHistory[arrayHistory.length] = this.id;
+                                };
+                                buttonCell=newSubRow.insertCell();
+                                buttonCell.appendChild(newButton);
+                            }
                         }
                     }
                 }
@@ -69,19 +78,14 @@
                 <td>User Name</td>
                 <td><%= session.getAttribute("_user")%></td>
             </tr>
-            <tr>
-                <td>GameSession:</td>
-                <td> <%= session.getAttribute("_gamesession")%></td>
-            </tr>
         </table>
 
         <p/>
 
         <hr/>
-        <div id="gameframe"></div>   
+        <table id="gameframe"></table>   
 
         <hr/>
-        <a href="leave">leave conversation</a>
 
     </body>
 </html>
