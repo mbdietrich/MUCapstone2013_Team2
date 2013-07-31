@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class GameSession {
 
-	private GameState currentgame;
+	private GameState currentgame=new GameState();
 	private Player player1, player2, currentPlayer, gameWinner;
 
         public final String SessionID = UUID.randomUUID().toString();
@@ -39,6 +39,7 @@ public class GameSession {
 	public void Join(Player player) throws IllegalGameException {
 		if(player1==null){
                     player1=player;
+                    currentPlayer=player1;
                 }
                 else if(player2==null){
                     player2=player;

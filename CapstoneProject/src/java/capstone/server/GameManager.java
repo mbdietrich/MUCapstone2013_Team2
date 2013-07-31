@@ -46,6 +46,7 @@ public class GameManager {
         try {
             game.Join(players.get(session));
             game.Join(DEFAULT_BOT);
+            gameSessions.put(session, game);
         } catch (IllegalGameException ex) {
             Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, "Error creating new game", ex);
         }
@@ -78,8 +79,8 @@ public class GameManager {
         RemotePlayer player = players.get(session);
         //only move if we're supposed to
         if(player.isActive()){
-            player.setActive(false);
             game.move(player, coords);
+            player.setActive(false);
         }
     }
     
