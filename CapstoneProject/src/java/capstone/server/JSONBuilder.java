@@ -76,44 +76,38 @@ public class JSONBuilder {
     	return builder.toString();
     }
     
+    //Returns an array of length 9 containing all subgames
     public static String buildBoardOnly(GameSession game){
     	StringBuilder builder = new StringBuilder();
-    	
-    	int[][] board1,board2,board3;
-    	
-    	builder = builder.append('{');
-    	for (int i = 0; i < 3; i++){
-    		// get each row of subgames
-    		board1 = game.getCurrentGame().GetSubBoard(0, i);
-    		board2 = game.getCurrentGame().GetSubBoard(1, i);
-    		board3 = game.getCurrentGame().GetSubBoard(2, i);
-    		// get each row of integers in the row of subgames
-    		builder = builder.append('{');
-    		for (int j = 0; j < 3; j++){
-    			builder = builder.append(buildRow(board1,j)).append(',')
-    			.append(buildRow(board2,j)).append(',')
-    			.append(buildRow(board3,j));
-    		}
-    		builder = builder.append('}');
-    		if (i<2){
-    			builder = builder.append(',');
-    		}
+        
+    	builder = builder.append("[");
+    	for (int a = 0; a < 3; a++){
+    		for(int b=0; b<3; b++){
+                    //Build each of the subgames
+                    int[][] sub = game.getCurrentGame().GetSubBoard(a, b);
+                    if(a<2||b<2){
+                        builder=builder.append(",");
+                    }
+                }
     	}
-    	builder.append('}');
+    	builder = builder.append("]");
     	
     	return builder.toString();
     }
     
-    public static String buildRow(int[][] board, int rownumber){
+    //Returns an array of length 9 that encodes a subgame state
+    public static String buildSub(int[][] board){
     	StringBuilder builder = new StringBuilder();
-    	
+    	builder=builder.append("[");
     	for (int i = 0; i < 3; i++){
-    		builder = builder.append("\"Integer.toString(board[i][rownumber])\"");
-    		if (i<2){
-    			builder = builder.append(',');
-    		}
+    		for(int j=0; j<3; j++){
+                    builder=builder.append("\""+Integer.toString(board[i][j])+"\"");
+                    if(i<2||j<2){
+                        builder=builder.append(",");
+                    }
+                }
     	}
-    	
+    	builder=builder.append("]");
     	return builder.toString();
     }
 }
