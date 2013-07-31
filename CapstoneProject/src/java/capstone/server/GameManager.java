@@ -46,6 +46,7 @@ public class GameManager {
         try {
             game.Join(players.get(session));
             game.Join(DEFAULT_BOT);
+            gameSessions.put(session, game);
         } catch (IllegalGameException ex) {
             Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, "Error creating new game", ex);
         }
