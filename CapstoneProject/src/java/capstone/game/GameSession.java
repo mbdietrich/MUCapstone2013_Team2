@@ -33,6 +33,7 @@ public class GameSession {
                 }
                 else if(player2==null){
                     player2=player;
+                    currentPlayer.notify(this);
                 }
                 else throw new IllegalGameException("Player "+player.toString()+" tried to join a full game.");
 	}
