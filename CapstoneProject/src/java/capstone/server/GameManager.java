@@ -68,7 +68,7 @@ public class GameManager {
         return gameSessions.get(session);
     }
     
-    public static Player getPlayer(HttpSession session){
+    public static RemotePlayer getPlayer(HttpSession session){
         return players.get(session);
     }
     
