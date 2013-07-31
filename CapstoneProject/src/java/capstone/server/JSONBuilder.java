@@ -18,10 +18,12 @@ public class JSONBuilder {
         StringBuilder builder = new StringBuilder();
         
         builder = builder
+        .append("{")
         .append(buildPlayerNumber(game, target))
         .append(buildIsTurn(game,target))
         .append(buildGameStatus(game, target))
-        .append(buildBoardObject(game));
+        .append(buildBoardObject(game))
+        .append("}");
         
         return builder.toString();
     }
@@ -31,10 +33,7 @@ public class JSONBuilder {
     	
     	int playerNumber = game.getPlayerNumber(target);
     	
-		builder = builder
-		.append('{')
-		.append("\"PlayerNumber\":\"").append(Integer.toString(playerNumber)).append("\"")
-		.append('}');
+		builder = builder.append("\"PlayerNumber\":\"").append(Integer.toString(playerNumber)).append("\"");
 		
 		return builder.toString();
     }
@@ -44,10 +43,7 @@ public class JSONBuilder {
     	
     	String turn = Boolean.toString(target.isActive());
     	
-		builder = builder
-		.append('{')
-		.append("\"isTurn\":\"").append(turn).append("\"")
-		.append('}');
+		builder = builder.append("\"isTurn\":\"").append(turn).append("\"");
 		
 		return builder.toString();
     }
@@ -57,10 +53,7 @@ public class JSONBuilder {
     	
     	String winner = Integer.toString(game.getCurrentGame().getWinner());
     	
-		builder = builder
-		.append('{')
-		.append("\"Status\":\"").append(winner).append("\"")
-		.append('}');
+		builder = builder.append("\"Status\":\"").append(winner).append("\"");
 		
 		return builder.toString();
     }
@@ -68,10 +61,7 @@ public class JSONBuilder {
     public static String buildBoardObject(GameSession game){
     	StringBuilder builder = new StringBuilder();
     	
-    	builder = builder
-		.append('{')
-		.append("\"Board\":").append(buildBoardOnly(game))
-		.append('}');
+    	builder = builder.append("\"Board\":").append(buildBoardOnly(game));
     	
     	return builder.toString();
     }
