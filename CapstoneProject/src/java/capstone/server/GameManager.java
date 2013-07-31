@@ -79,8 +79,8 @@ public class GameManager {
         RemotePlayer player = players.get(session);
         //only move if we're supposed to
         if(player.isActive()){
-            player.setActive(false);
             game.move(player, coords);
+            player.setActive(false);
         }
     }
     
