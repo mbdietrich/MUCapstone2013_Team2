@@ -10,7 +10,15 @@ public class Coordinates
     int outerY = 0;
     int innerX = 0;
     int innerY = 0;
-    
+
+    /**
+     * Constructor.
+     * Sets all the coordinates.
+     * @param outerX The superGame X coordinate.
+     * @param outerY The superGame y coordinate.
+     * @param innerX The subGame X coordinate.
+     * @param innerY The subGame Y coordinate.
+     */
     public Coordinates (int outerX, int outerY, int innerX, int innerY)
     {
         this.outerX = outerX;
@@ -18,42 +26,42 @@ public class Coordinates
         this.innerX = innerX;
         this.innerY = innerY;
     }
-    
+
     public void setOuterX(int outerX)
     {
         this.outerX = outerX;
     }
-    
+
     public void setOuterY(int outerY)
     {
         this.outerY = outerY;
     }
-    
+
     public void setInnerX(int innerX)
     {
         this.innerX = innerX;
     }
-    
+
     public void setInnerY(int innerY)
     {
         this.innerY = innerY;
     }
-    
+
     public int getOuterX()
     {
         return outerX;
     }
-    
+
     public int getOuterY()
     {
         return outerY;
     }
-    
+
     public int getInnerX()
     {
         return innerX;
     }
-    
+
     public int getInnerY()
     {
         return innerY;
