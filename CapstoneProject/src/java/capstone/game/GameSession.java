@@ -10,7 +10,11 @@ public class GameSession {
 	private Player player1, player2, currentPlayer, gameWinner;
 
         public final String SessionID = UUID.randomUUID().toString();
-        
+
+        /**
+         * gets the current GameState.
+         * @return currentgame The current GameState.
+         */
         public GameState getCurrentGame(){
             return currentgame;
         }
@@ -26,6 +30,12 @@ public class GameSession {
 		 */
 	}
 
+        /**
+         * Given a player, Join will either put that player in the game, or throw an
+         * IllegalGameException if the game is full.
+         * @param player The Player who is trying to join the game.
+         * @throws IllegalGameException If the game is full.
+         */
 	public void Join(Player player) throws IllegalGameException {
 		if(player1==null){
                     player1=player;
@@ -40,6 +50,12 @@ public class GameSession {
         //Make sure it's the player's move
         //Make sure move is valid, then set the game state
         //If the game is not done, call notify on the next player
+        /**
+         * Given a player and their move it will check that the move is valid, and then
+         * place the move on the board and change the current player to the next player.
+         * @param player the Player who is making the move.
+         * @param move Coordinates of where the move is to be placed.
+         */
         public void move(Player player, Coordinates move){
             //TODO implement
             if (player == this.currentPlayer) {
@@ -59,6 +75,11 @@ public class GameSession {
         }
         
         //what's my player number?
+        /**
+         * Gets the number of the player, either 1 or 2.
+         * @param player The Player who wants to get their number.
+         * @return Either 1 or 2 depending on which number player the Player is.
+         */
         public int getPlayerNumber(Player player){
             if (player == player1) {
                 return 1;
@@ -69,10 +90,20 @@ public class GameSession {
 
         }
 
+        /**
+         * Used by a player to leave the game.
+         * @param player The Player who is leaving the game.
+         */
 	public void Leave(Player player) {
 		/*
 		 * Used by a player to leave the game
 		 */
+            if (player == player1) {
+                player1 = null;
+            }
+            else if (player == player2) {
+                player2 = null;
+            }
 	}
 
 }
