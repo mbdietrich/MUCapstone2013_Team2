@@ -27,7 +27,59 @@
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
 
         <script>
-            var arrayHistory = [];
+            
+            var makeMove = function(a, b, x, y){
+                $.post(
+                        "move", 
+                        {a:a,b:b,x:x,y:y}
+                );
+            }
+            
+            var source = new EventSource("state");
+            source.onmessage = function(event) {
+                if (event.data) { // only update if the string is not empty
+                    console.log("data received: " + event.data);
+                    var state = jQuery.parseJSON(event.data);
+                    //TODO parse state in
+                    //variables:
+                    //state.PlayerNumber
+                    //state.isTurn
+                    //state.Status
+                    //state.Board
+                    
+                    var subgame=0;
+                    
+                    for(a = 0;a<3;a++){
+                        for(b = 0;b<3;b++){
+                            var buttonNum=0;
+                            for(x = 0;x<3;x++){
+                                for(y = 0;y<3;y++){
+                                    button=document.getElementById(a+'-'+b+'-'+c+'-'+d);
+                                    value=state.Board[subgame][buttonNum]
+                                    if(value==1){
+                                        button.value="X";
+                                    }
+                                    else if(value==2){
+                                        button.value="O";
+                                    }
+                                    else{
+                                        button.value="";
+                                    }
+                                    if(state.isTurn=="true"){
+                                        button.disabled=true;
+                                    }
+                                    else{
+                                        button.disabled.false;
+                                    }
+                                    buttonNum++;
+                                }
+                            }
+                            subgame++;
+                        }
+                    }
+                }
+            };
+            
             window.onload = function() {
                 var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;
                 buttonFrame = document.getElementById('gameframe');
@@ -45,21 +97,14 @@
                                 
                                 newButton = document.createElement('input');
                                 newButton.type = 'button';
-                                if ((j + i) % 2 == 0) {
-                                    newButton.value = "X";
-                                }
-                                else
-                                {
-                                    newButton.value = "O";
-                                }
+                                
                                 newButton.id=a+'-'+b+'-'+i+'-'+j;
                                 newButton.a=a;
                                 newButton.b=b;
                                 newButton.x=i;
                                 newButton.y=j;
                                 newButton.onclick = function() {
-                                window.confirm('This button\'s coordinates are ' + this.a+','+this.b+';'+this.x+','+this.y);
-                                arrayHistory[arrayHistory.length] = this.id;
+                                    makeMove(this.a,this.b,this.x,this.y);
                                 };
                                 buttonCell=newSubRow.insertCell();
                                 buttonCell.appendChild(newButton);
