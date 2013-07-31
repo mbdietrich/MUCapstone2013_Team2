@@ -9,14 +9,19 @@ public class GameRules {
 		
 	/**
 	 * Checks if a player has won. Returns 0 if no winner exists.
-	 * @param board
-	 * @return
+	 * @param board The GameState which is being checked for a winner.
+	 * @return 1 or 2, if player 1 or 2 won the game, or 0 if there is no winner.
 	 */
 	public static int findWinner(GameState board){
             int[][] statusboard = board.getStatusboard();
             return checkStatusBoard(statusboard);
 	}
-        
+
+        /**
+         * Checks board to see if a player has won a game.
+         * @param board A 3-by-3 array of the superGames values.
+         * @return the number of the player who won or 0 if draw.
+         */
         private static int checkStatusBoard(int[][] board) {
             int returnValue = 0;
             if(board[0][0] == board[1][0] && board[0][0] == board[2][0]) {
@@ -54,7 +59,12 @@ public class GameRules {
             }
             return returnValue;
         }
-        
+
+        /**
+         * Checks if board is complete.
+         * @param board The GameState being checked.
+         * @return True if board is done, false otherwise.
+         */
         public static boolean isDone(GameState board){
             //Assumes player can play on a subgame that has already been won
             for(int x=0;x<3;x++) {
@@ -66,7 +76,12 @@ public class GameRules {
             }
             return false;
         }
-        
+
+        /**
+         * Checks to see if the subGame board if finished.
+         * @param board The subGame being checked.
+         * @return true if board's status is 1 or 2, false if 0.
+         */
         private static boolean checkSubBoard(SubGame board) {
             if(board.getStatus() == 0) {
                 return false;
@@ -77,8 +92,9 @@ public class GameRules {
 	
 	/**
 	 * Checks if the next move is valid.
-	 * @param board
-	 * @return
+	 * @param board The current GameState.
+         * @param move The Coordinates being checked.
+	 * @return true if the move is valid or false if not.
 	 */
 	public static boolean validMove(GameState board, Coordinates move){
                 SubGame subgame = board.GetSubGame(move.getOuterX(), move.getOuterY());
