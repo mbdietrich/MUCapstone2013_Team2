@@ -9,10 +9,10 @@ import java.util.*;
 public class GameBot extends Bot
 {
     /**
-     * 
-     * @param state the current game state before the bot makes a move.
+     * Decides which piece the bot will play next.
+     * @param prev the current GameState before the bot makes a move.
      * @param player the player the bot is (either 1 or 2).
-     * @return GameState after the bot has made its move.
+     * @return Coordinates of the bots next move.
      */
     @Override
     public Coordinates next(GameState prev, int player)
@@ -69,6 +69,10 @@ public class GameBot extends Bot
         return chosenMove;
     }
 
+    /**
+     * returns the game of the bot.
+     * @return "Default Bot" A String of the name of the bot.
+     */
     @Override
     public String getName() {
         return "Default Bot";

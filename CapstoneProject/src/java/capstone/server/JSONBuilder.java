@@ -20,8 +20,11 @@ public class JSONBuilder {
         builder = builder
         .append("{")
         .append(buildPlayerNumber(game, target))
+        .append(",")
         .append(buildIsTurn(game,target))
+        .append(",")
         .append(buildGameStatus(game, target))
+        .append(",")
         .append(buildBoardObject(game))
         .append("}");
         
@@ -75,6 +78,7 @@ public class JSONBuilder {
     		for(int b=0; b<3; b++){
                     //Build each of the subgames
                     int[][] sub = game.getCurrentGame().GetSubBoard(a, b);
+                    builder=builder.append(buildSub(sub));
                     if(a<2||b<2){
                         builder=builder.append(",");
                     }
@@ -91,7 +95,7 @@ public class JSONBuilder {
     	builder=builder.append("[");
     	for (int i = 0; i < 3; i++){
     		for(int j=0; j<3; j++){
-                    builder=builder.append("\""+Integer.toString(board[i][j])+"\"");
+                    builder=builder.append("\"").append(Integer.toString(board[i][j])).append("\"");
                     if(i<2||j<2){
                         builder=builder.append(",");
                     }

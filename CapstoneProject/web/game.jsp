@@ -36,7 +36,7 @@
             }
             
             var source = new EventSource("state");
-            source.onmessage = function(event) {
+            source.addEventListener('move', function(e) {
                 if (event.data) { // only update if the string is not empty
                     console.log("data received: " + event.data);
                     var state = jQuery.parseJSON(event.data);
@@ -54,7 +54,7 @@
                             var buttonNum=0;
                             for(x = 0;x<3;x++){
                                 for(y = 0;y<3;y++){
-                                    button=document.getElementById(a+'-'+b+'-'+c+'-'+d);
+                                    button=document.getElementById(a+'-'+b+'-'+x+'-'+y);
                                     value=state.Board[subgame][buttonNum]
                                     if(value==1){
                                         button.value="X";
@@ -63,13 +63,13 @@
                                         button.value="O";
                                     }
                                     else{
-                                        button.value="";
+                                        button.value="nd";
                                     }
                                     if(state.isTurn=="true"){
-                                        button.disabled=true;
+                                        //button.disabled=true;
                                     }
                                     else{
-                                        button.disabled.false;
+                                        //button.disabled.false;
                                     }
                                     buttonNum++;
                                 }
@@ -78,7 +78,7 @@
                         }
                     }
                 }
-            };
+            },          false);
             
             window.onload = function() {
                 var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;

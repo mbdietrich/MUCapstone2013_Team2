@@ -36,7 +36,7 @@ public class GameState {
     
     /**
      * Place a new piece on the board
-     * @param newMove
+     * @param newMove A object of the Coordiantes class to determine where a piece is to be played.
      */
     public void PlacePiece(Coordinates newMove){
     	// Get subgame from the right section.
@@ -105,19 +105,35 @@ public class GameState {
 	public int[][] GetSubBoard(int x, int y){
 		return mainboard[x][y].getBoard();
 	}
-	
+
+        /**
+         * gets the current Statusboard.
+         * @return statusboard a 3-by-3 array that contains the status of the subGames.
+         */
 	public int[][] getStatusboard() {
 		return statusboard;
-	} 
+	}
 
+        /**
+         * gets the current mainboard.
+         * @return mainboard a 3-by-3 array that contains the subGames.
+         */
 	public SubGame[][] getMainboard() {
 		return mainboard;
 	}
 
+        /**
+         * gets the current player.
+         * @return currentPlayer An object of type Player.
+         */
 	public int getCurrentPlayer() {
 		return CurrentPlayer;
 	}
 
+        /**
+         * gets the winner of the board.
+         * @return winner An object of type Player.
+         */
 	public int getWinner() {
 		return winner;
 	}    
