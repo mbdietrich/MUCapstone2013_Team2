@@ -10,35 +10,60 @@ root {
     display: block;
 }
 
-#gameframe {height: 450px; width: 450px; text-align:center; margin:auto;}
+body {
+    font-weight: normal;
+    font-size: 20px;
+    color: #000000;
+    letter-spacing: 1pt;
+    word-spacing: 2pt;
+    font-size: 27px;
+    text-align: center;
+    font-family: Tahoma, sans-serif;
+    line-height: 1;
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: linear-gradient(right, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
+}
+
+body h3 {
+    font-family: Tahoma, sans-serif;
+    line-height: 1em;
+    color: #000000;
+    font-weight: bold;
+    font-size: 57px;
+}
+
+table {
+    margin: auto;
+}
+
+#gameframe {
+    height: 450px; 
+    width: 450px; 
+    text-align:center; 
+    margin:auto;
+    background-color: white;
+    box-shadow: 10px 10px 5px #888888;
+}
 #gameframe td {
     padding: 0px;
     height: 50px;
-    width: 50px;
-    
-    
-    /* IE10 Consumer Preview */ 
-    background-image: -ms-radial-gradient(center, ellipse farthest-corner, #FFFFFF 0%, #1755FF 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: -moz-radial-gradient(center, ellipse farthest-corner, #FFFFFF 0%, #1755FF 100%);
-
-    /* Opera */ 
-    background-image: -o-radial-gradient(center, ellipse farthest-corner, #FFFFFF 0%, #1755FF 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(radial, center center, 0, center center, 505, color-stop(0, #FFFFFF), color-stop(1, #1755FF));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-radial-gradient(center, ellipse farthest-corner, #FFFFFF 0%, #1755FF 100%);
-
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: radial-gradient(ellipse farthest-corner at center, #FFFFFF 0%, #1755FF 100%);
-    
-
+    width: 50px;   
 }
 
-gameframe td td {
-    background: red;
+#gameframe td td {
+    background: rgba(242,246,248,1);
+    background: -moz-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(242,246,248,1)), color-stop(51%, rgba(181,198,208,1)), color-stop(100%, rgba(224,239,249,1)));
+    background: -webkit-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+    background: -o-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+    background: -ms-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+    background: linear-gradient(bottom, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
 }
 
