@@ -5,7 +5,9 @@
 package capstone.server;
 
 import capstone.game.Coordinates;
+import capstone.game.GameRules;
 import capstone.game.GameSession;
+import capstone.game.GameState;
 import capstone.game.IllegalGameException;
 import capstone.player.GameBot;
 import capstone.player.Player;
@@ -77,10 +79,14 @@ public class GameManager {
         Coordinates coords = new Coordinates(a, b, x, y);
         GameSession game = gameSessions.get(session);
         RemotePlayer player = players.get(session);
+        GameState board = game.getCurrentGame();
         //only move if we're supposed to
         if(player.isActive()){
-            player.setActive(false);
-            game.move(player, coords);
+            if (GameRules.validMove(board, coords)){
+                player.setActive(false);
+                game.move(player, coords);                
+            }
+
         }
     }
     
