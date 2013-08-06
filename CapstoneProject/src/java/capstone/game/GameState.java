@@ -38,12 +38,12 @@ public class GameState {
      * Place a new piece on the board
      * @param newMove A object of the Coordiantes class to determine where a piece is to be played.
      */
-    public void PlacePiece(Coordinates newMove){
+    public void PlacePiece(Coordinates newMove, int player){
     	// Get subgame from the right section.
     	SelectedSubgame = mainboard[newMove.outerX][newMove.outerY];
     	
 		//Set the player's piece
-		SelectedSubgame.setGamePiece(newMove.innerX, newMove.innerY, CurrentPlayer);
+		SelectedSubgame.setGamePiece(newMove.innerX, newMove.innerY, player);
 		
 		//Is the subgame now finished?
 		int subwinner = findWinner(SelectedSubgame.getBoard());
