@@ -75,8 +75,7 @@ public class GameState {
 	 * @return 0 if the game is still open; 1 if Player 1 (X) has won; 2 if Player 2 (O) has won; 3 if the game has tied (No more valid spaces and no winner).
 	 */
 	public static int findWinner(int[][] board){
-		//TODO: Find and implement the algorithm for this.
-		return 0;
+            return GameRules.checkStatusBoard(board);
 	}
 		
 	
