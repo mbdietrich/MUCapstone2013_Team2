@@ -102,9 +102,11 @@ public class GameSession {
 		 */
             if (player == player1) {
                 player1 = null;
+                gameWinner = player2;
             }
             else if (player == player2) {
                 player2 = null;
+                gameWinner = player1;
             }
 	}
 
