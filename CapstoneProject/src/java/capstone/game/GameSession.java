@@ -60,9 +60,16 @@ public class GameSession {
          */
         public void move(Player player, Coordinates move){
             //TODO implement
+            int playerInt;
             if (player == this.currentPlayer) {
                 if (GameRules.validMove(currentgame, move)) {
-                    currentgame.PlacePiece(move);
+                    if (currentPlayer == player1){
+                        playerInt = 1;
+                    }
+                    else{
+                        playerInt = 2;
+                    }
+                    currentgame.PlacePiece(move, playerInt);
                     if (currentPlayer == player1) {
                         currentPlayer = player2;
                     }
