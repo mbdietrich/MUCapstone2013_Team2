@@ -4,8 +4,10 @@
  */
 package capstone.server;
 
+import capstone.game.GameRules;
 import capstone.game.GameSession;
 import capstone.player.Player;
+import capstone.game.GameState;
 
 /**
  *
@@ -24,6 +26,8 @@ public class JSONBuilder {
         .append(buildIsTurn(game,target))
         .append(",")
         .append(buildGameStatus(game, target))
+        .append(",")
+        .append(buildGameWon(game))
         .append(",")
         .append(buildBoardObject(game))
         .append("}");
@@ -59,6 +63,16 @@ public class JSONBuilder {
 		builder = builder.append("\"Status\":\"").append(winner).append("\"");
 		
 		return builder.toString();
+    }
+    
+    public static String buildGameWon(GameSession game){
+        StringBuilder builder = new StringBuilder();
+        GameState state = game.getCurrentGame();
+        Boolean result = GameRules.isDone(state);
+        result.toString();
+        
+        builder = builder.append("\"isGameFinished\":\"").append(result).append("\"");
+        return builder.toString();
     }
     
     public static String buildBoardObject(GameSession game){
