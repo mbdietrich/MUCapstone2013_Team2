@@ -21,4 +21,14 @@ public abstract class Bot implements Player {
     }
     
     public abstract Coordinates next(GameState prev, int player);
+    
+    public boolean equals(Object o){
+        if(o!=null){
+            if(o instanceof Bot){
+                Bot b = (Bot)o;
+                return b.getName().equals(this.getName());
+            }
+        }
+        return false;
+    }
 }

@@ -4,11 +4,8 @@
  */
 package capstone.server;
 
-import capstone.game.Coordinates;
 import capstone.game.GameSession;
-import capstone.game.GameState;
 import capstone.player.Player;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -44,6 +41,16 @@ public class RemotePlayer implements Player {
     @Override
     public void notify(GameSession current) {
         this.setActive(true);
+    }
+    
+    public boolean equals(Object o){
+        if(o!=null){
+            if(o instanceof RemotePlayer){
+                RemotePlayer b = (RemotePlayer)o;
+                return b.getName().equals(this.getName());
+            }
+        }
+        return false;
     }
 
     
