@@ -22,7 +22,7 @@ public class GameRules {
          * @param board A 3-by-3 array of the superGames values.
          * @return the number of the player who won or 0 if draw.
          */
-        private static int checkStatusBoard(int[][] board) {
+        public static int checkStatusBoard(int[][] board) {
             int returnValue = 0;
             if(board[0][0] == board[1][0] && board[0][0] == board[2][0]) {
                 if(board[0][0] != 0) {
