@@ -73,6 +73,9 @@ public class GameSession {
                         currentPlayer.notify(this);
                     }
                 }
+                else{
+                	Leave(currentPlayer);
+                }
             }
         }
         
