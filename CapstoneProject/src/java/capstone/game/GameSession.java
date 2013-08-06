@@ -63,10 +63,10 @@ public class GameSession {
             if (player == this.currentPlayer) {
                 if (GameRules.validMove(currentgame, move)) {
                     currentgame.PlacePiece(move);
-                    if (currentPlayer == player1) {
+                    if (currentPlayer.equals(player1)) {
                         currentPlayer = player2;
                     }
-                    else if (currentPlayer == player2) {
+                    else if (currentPlayer.equals(player2)) {
                         currentPlayer = player1;
                     }
                     if (!GameRules.isDone(currentgame)) {
@@ -86,7 +86,7 @@ public class GameSession {
          * @return Either 1 or 2 depending on which number player the Player is.
          */
         public int getPlayerNumber(Player player){
-            if (player == player1) {
+            if (player.equals(player1)) {
                 return 1;
             }
             else {
@@ -103,11 +103,11 @@ public class GameSession {
 		/*
 		 * Used by a player to leave the game
 		 */
-            if (player == player1) {
+            if (player.equals(player1)) {
                 player1 = null;
                 gameWinner = player2;
             }
-            else if (player == player2) {
+            else if (player.equals(player2)) {
                 player2 = null;
                 gameWinner = player1;
             }
