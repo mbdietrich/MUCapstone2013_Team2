@@ -37,9 +37,10 @@
             
             var source = new EventSource("state");
             source.addEventListener('move', function(e) {
-                if (event.data) { // only update if the string is not empty
-                    console.log("data received: " + event.data);
-                    var state = jQuery.parseJSON(event.data);
+                var evt = e || window.event;
+                if (evt.data) { // only update if the string is not empty
+                    console.log("data received: " + evt.data);
+                    var state = jQuery.parseJSON(evt.data);
                     //TODO parse state in
                     //variables:
                     //state.PlayerNumber
