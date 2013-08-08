@@ -57,7 +57,27 @@ public class GameRules {
                     returnValue = board[0][2];
                 }
             }
+            if (returnValue == 0)
+            {
+                if (checkForDraw(board))
+                {
+                    returnValue = 3;
+                }
+            }
             return returnValue;
+        }
+
+        public static boolean checkForDraw(int[][] board)
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    if (board[x][y] == 0)
+                        return false;
+                }
+            }
+            return true;
         }
 
         /**
@@ -67,12 +87,10 @@ public class GameRules {
          */
         public static boolean isDone(GameState board){
             //Assumes player can play on a subgame that has already been won
-            for(int x=0;x<3;x++) {
-                for(int y=0;y<3;y++) {
-                    if(checkSubBoard(board.GetSubGame(x, y))) {
-                        return true;
-                    }
-                }
+            int[][] statusBoard = board.getStatusboard();
+            if (checkStatusBoard(statusBoard) != 0)
+            {
+                return true;
             }
             return false;
         }
