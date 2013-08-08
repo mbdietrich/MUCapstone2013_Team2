@@ -17,6 +17,10 @@ public class GameBot extends Bot
     @Override
     public Coordinates next(GameState prev, int player)
     {
+        int i = 0;
+        int j = 0;
+        int x = 0;
+        int y = 0;
         Random random = new Random();
         Coordinates chosenMove = new Coordinates(0,0,0,0);
         int firstX = random.nextInt(3);
@@ -26,9 +30,9 @@ public class GameBot extends Bot
         if (subgame.getStatus() != 0)
         {
             ArrayList<Coordinates> outerGameCoords = new ArrayList<Coordinates>();
-            for (int x = 0; x < 3; x++)
+            for (x = 0; x < 3; x++)
             {
-                for (int y = 0; y < 3; y++)
+                for (y = 0; y < 3; y++)
                 {
                     SubGame game2 = prev.GetSubGame(x, y);
                     if (game2.getStatus() == 0)
@@ -40,8 +44,8 @@ public class GameBot extends Bot
             }
             int chosenCoords = random.nextInt(outerGameCoords.size());
             Coordinates gameCoords = outerGameCoords.get(chosenCoords);
-            int x = gameCoords.getOuterX();
-            int y = gameCoords.getOuterY();
+            x = gameCoords.getOuterX();
+            y = gameCoords.getOuterY();
             subgame = prev.GetSubGame(x, y);
             chosenMove.setOuterX(x);
             chosenMove.setOuterY(y);
@@ -49,11 +53,12 @@ public class GameBot extends Bot
         
         //Check for all empty places in the subgame, and choose one randomly to play in.
         ArrayList<Coordinates> innerGames = new ArrayList<Coordinates>();
-        for (int i = 0; i < 3; i++)
+        for (i = 0; i < 3; i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (j = 0; j < 3; j++)
             {
-                if (subgame.getGamePiece(i, j) == 0)
+                Coordinates coordCheck = new Coordinates(x, y, i, j);
+                if (GameRules.validMove(prev, coordCheck))
                 {
                     Coordinates coord = new Coordinates(0, 0, i, j);
                     innerGames.add(coord);
