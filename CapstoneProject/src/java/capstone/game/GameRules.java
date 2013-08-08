@@ -67,6 +67,11 @@ public class GameRules {
          */
         public static boolean isDone(GameState board){
             //Assumes player can play on a subgame that has already been won
+            int[][] statusBoard = board.getStatusboard();
+            if (checkStatusBoard(statusBoard) != 0)
+            {
+                return true;
+            }
             for(int x=0;x<3;x++) {
                 for(int y=0;y<3;y++) {
                     if(checkSubBoard(board.GetSubGame(x, y))) {
