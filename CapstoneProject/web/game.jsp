@@ -31,16 +31,22 @@
             var makeMove = function(a, b, x, y){
                 $.post(
                         "move", 
-                        {a:a,b:b,x:x,y:y}
-                );
+                        {a:a,b:b,x:x,y:y}, $.get("state", onState)
+                    );
             }
             
-            var source = new EventSource("state");
-            source.addEventListener('move', function(e) {
+            var onState = function(e) {
                 var evt = e || window.event;
-                if (evt.data) { // only update if the string is not empty
-                    console.log("data received: " + evt.data);
+                var data;
+                if(typeof evt === 'string'){
+                    state = $.parseJSON(evt.substring(17));
+                }
+                else{
                     var state = jQuery.parseJSON(evt.data);
+                }
+                
+                if (state) { // only update if the string is not empty
+                    console.log("data received: " + state);
                     //TODO parse state in
                     //variables:
                     //state.PlayerNumber
@@ -81,7 +87,10 @@
                         }
                     }
                 }
-            },          false);
+            };
+            
+            var source = new EventSource("state");
+            source.addEventListener('move', onState, false);
             
             window.onload = function() {
                 var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;
