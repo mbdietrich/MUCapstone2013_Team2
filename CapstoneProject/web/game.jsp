@@ -66,13 +66,13 @@
                                         button.value="O";
                                     }
                                     else{
-                                        button.value="nd";
+                                        button.value="  ";
                                     }
-                                    if(state.isTurn=="true"){
-                                        //button.disabled=true;
+                                    if(state.isTurn==="true"){
+                                        button.disabled===true;
                                     }
                                     else{
-                                        //button.disabled.false;
+                                        button.disabled.false;
                                     }
                                     buttonNum++;
                                 }

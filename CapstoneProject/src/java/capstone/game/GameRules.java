@@ -92,13 +92,6 @@ public class GameRules {
             {
                 return true;
             }
-            for(int x=0;x<3;x++) {
-                for(int y=0;y<3;y++) {
-                    if(checkSubBoard(board.GetSubGame(x, y))) {
-                        return true;
-                    }
-                }
-            }
             return false;
         }
 
