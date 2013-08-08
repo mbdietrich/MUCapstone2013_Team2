@@ -47,9 +47,11 @@
                     //state.isTurn
                     //state.Status
                     //state.Board
-                    
                     var subgame=0;
-                    
+                    if (state.Status === "1" | state.Status === "2"){
+                        window.alert("Player " + state.Status + " Wins");
+                        
+                    }
                     for(a = 0;a<3;a++){
                         for(b = 0;b<3;b++){
                             var buttonNum=0;
