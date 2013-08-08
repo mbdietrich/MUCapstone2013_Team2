@@ -22,12 +22,12 @@ public class GameStateGet extends HttpServlet{
         
         response.setContentType("text/event-stream");
         response.setCharacterEncoding ("UTF-8");
-        GameSession state=GameManager.getGame(request.getSession());
+        String state=GameManager.getGame(request.getSession());
         
         PrintWriter out = response.getWriter();
         out.append("event: move\n");
         out.append("data:");
-        out.append(JSONBuilder.buildJSON(state, GameManager.getPlayer(request.getSession())));
+        out.append(state);
         out.append("\n\n");
         response.flushBuffer();
     }

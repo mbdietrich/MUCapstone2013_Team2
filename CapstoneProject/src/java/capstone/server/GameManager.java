@@ -4,14 +4,14 @@
  */
 package capstone.server;
 
-import capstone.game.Coordinates;
-import capstone.game.GameRules;
-import capstone.game.GameSession;
-import capstone.game.GameState;
-import capstone.game.IllegalGameException;
+import capstone.game.*;
 import capstone.player.GameBot;
 import capstone.player.Player;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +25,9 @@ public class GameManager {
     
     static Map<HttpSession, RemotePlayer> players = new ConcurrentHashMap<HttpSession, RemotePlayer>();
     static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
+    static Map<GameSession, List<HttpSession>> watchers = new ConcurrentHashMap<GameSession, List<HttpSession>>();
     static Map<String, GameSession> gameIDs = new ConcurrentHashMap<String, GameSession>();
+    static Map<HttpSession, Queue<String>> states = new ConcurrentHashMap<HttpSession, Queue<String>>();
     
     //For now, only one bot - DefaultBot
     private static final Player DEFAULT_BOT = new GameBot();
@@ -34,8 +36,9 @@ public class GameManager {
     public static void addPlayer(HttpSession session, String gameID){
         try {
             session.getServletContext().log("Player joining game session (ID "+gameID+")");
-            Player player = players.get(session);
-            gameIDs.get(gameID).Join(player);
+            RemotePlayer player = players.get(session);
+            GameSession game = gameIDs.get(gameID);
+            game.Join(player);
         } catch (IllegalGameException ex) {
             newGame(session);
         }
@@ -49,6 +52,15 @@ public class GameManager {
             game.Join(players.get(session));
             game.Join(DEFAULT_BOT);
             gameSessions.put(session, game);
+            List<HttpSession> sessions = watchers.get(game);
+            if(sessions==null){
+                sessions=new ArrayList<HttpSession>();
+                watchers.put(game, sessions);
+            }
+            sessions.add(session);
+            
+            String initialMessage = JSONBuilder.buildJSON(game, players.get(session));
+            states.get(session).offer(initialMessage);
         } catch (IllegalGameException ex) {
             Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, "Error creating new game", ex);
         }
@@ -60,15 +72,23 @@ public class GameManager {
         if(!players.containsKey(session)){
             players.put(session, new RemotePlayer(name));
         }
+        Queue<String> messageQueue = new ArrayBlockingQueue<String>(10);
+        states.put(session, messageQueue);
     }
     
     public static void disconnect (HttpSession session) {
         Player player = players.remove(session);
         gameSessions.get(session).Leave(player);
+        states.remove(session);
     }
     
-    public static GameSession getGame(HttpSession session){
-        return gameSessions.get(session);
+    //Return the oldest state. If a newer state is available, remove that state.
+    public static String getGame(HttpSession session){
+        Queue<String> messages = states.get(session);
+        if(messages.size()>1){
+            return messages.poll();
+        }
+        else return messages.peek();
     }
     
     public static RemotePlayer getPlayer(HttpSession session){
@@ -84,7 +104,12 @@ public class GameManager {
         if(player.isActive()){
             if (GameRules.validMove(board, coords)){
                 player.setActive(false);
-                game.move(player, coords);                
+                game.move(player, coords);
+                
+                String nextState=JSONBuilder.buildJSON(game, player);
+                for(HttpSession s: watchers.get(game)){
+                states.get(s).offer(nextState);
+                }
             }
 
         }
