@@ -57,7 +57,27 @@ public class GameRules {
                     returnValue = board[0][2];
                 }
             }
+            if (returnValue == 0)
+            {
+                if (checkForDraw(board))
+                {
+                    returnValue = 3;
+                }
+            }
             return returnValue;
+        }
+
+        public static boolean checkForDraw(int[][] board)
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    if (board[x][y] == 0)
+                        return false;
+                }
+            }
+            return true;
         }
 
         /**
