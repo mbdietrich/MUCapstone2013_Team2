@@ -11,6 +11,11 @@
         <script>
                var divsession = document.getElementById("Session");
                divsession.innerHTML = session;
+               window.onload = function() {
+                   if(session.getAttribute("user")){
+                       window.location.href("CapstoneProject/lobby.jsp");
+                   }
+               }
         </script>
     <body>
         <h3>Login !!!!</h3>
