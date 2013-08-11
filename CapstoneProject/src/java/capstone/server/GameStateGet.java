@@ -26,6 +26,7 @@ public class GameStateGet extends HttpServlet{
         
         PrintWriter out = response.getWriter();
         out.append("event: move\n");
+        out.append("retry: 500\n");
         out.append("data:");
         out.append(state);
         out.append("\n\n");
