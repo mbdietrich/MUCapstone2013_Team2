@@ -39,7 +39,7 @@
                 var evt = e || window.event;
                 var data;
                 if(typeof evt === 'string'){
-                    state = $.parseJSON(evt.substring(17));
+                    state = $.parseJSON(evt.substring(28));
                 }
                 else{
                     var state = jQuery.parseJSON(evt.data);
