@@ -12,13 +12,10 @@ root {
 
 body {
     font-weight: normal;
-    font-size: 20px;
+    font-size: 10px;
     color: #000000;
-    letter-spacing: 1pt;
-    word-spacing: 2pt;
-    font-size: 27px;
     text-align: center;
-    font-family: Tahoma, sans-serif;
+    font-family: 'Century Gothic';
     line-height: 1;
     background: rgba(255,255,255,1);
     background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
@@ -30,12 +27,11 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
 }
 
-body h3 {
-    font-family: Tahoma, sans-serif;
+body h2 {
     line-height: 1em;
     color: #000000;
     font-weight: bold;
-    font-size: 57px;
+    font-size: 35px;
 }
 
 table {
@@ -67,3 +63,6 @@ table {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
 }
 
+#nav {
+    padding-top: 50px;
+}

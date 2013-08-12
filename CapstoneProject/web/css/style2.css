@@ -1,0 +1,29 @@
+/* 
+    Document   : stylesheet
+    Created on : Aug 12, 2013, 11:02 AM
+    Author     : aoutt
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body {
+    font-family: 'Century Gothic';
+    display: box;
+}
+
+#main {
+    
+    width: 80%;
+    height: 80%;
+}
+
+#content {
+  bottom: 0;
+  height: 160px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+}
