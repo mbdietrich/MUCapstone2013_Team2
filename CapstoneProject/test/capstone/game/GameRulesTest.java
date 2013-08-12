@@ -29,20 +29,6 @@ public class GameRulesTest {
     }
 
     /**
-     * Test of findWinner method, of class GameRules.
-     */
-    @Test
-    public void testFindWinner() {
-        System.out.println("findWinner");
-        GameState board = null;
-        int expResult = 0;
-        int result = GameRules.findWinner(board);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of checkStatusBoard method, of class GameRules.
      */
     @Test
@@ -60,14 +46,6 @@ public class GameRulesTest {
         board[0][1] = 1;
         board[1][1] = 1;
         board[2][1] = 1;
-        for (int x = 0; x < 3; x++)
-        {
-            for (int y = 0; y < 3; y++)
-            {
-                System.out.print(board[x][y]);
-            }
-            System.out.println();
-        }
         result.add(GameRules.checkStatusBoard(board));
         expResult.add(1);
 
@@ -121,13 +99,8 @@ public class GameRulesTest {
      */
     @Test
     public void testCheckForDraw() {
-        System.out.println("checkForDraw");
-        int[][] board = null;
-        boolean expResult = false;
-        boolean result = GameRules.checkForDraw(board);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int[][] board = new int[3][3];
+
     }
 
     /**
@@ -149,14 +122,53 @@ public class GameRulesTest {
      */
     @Test
     public void testValidMove() {
-        System.out.println("validMove");
-        GameState board = null;
-        Coordinates move = null;
-        boolean expResult = false;
-        boolean result = GameRules.validMove(board, move);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ArrayList results = new ArrayList();
+        ArrayList expResults = new ArrayList();
+        GameState state = new GameState();
+        Coordinates coord = new Coordinates(0,0,0,0);
+
+        if (GameRules.validMove(state, coord))
+        {
+            results.add(1);
+            state.PlacePiece(coord, 2);
+        }
+        else results.add(0);
+        expResults.add(1);
+
+        if (GameRules.validMove(state, coord))
+        {
+            results.add(1);
+        }
+        else results.add(0);
+        expResults.add(0);
+        
+        coord = new Coordinates(0,0,1,1);
+        if (GameRules.validMove(state, coord))
+        {
+            results.add(1);
+            state.PlacePiece(coord, 2);
+        }
+        else results.add(0);
+        expResults.add(1);
+
+        coord = new Coordinates(0,0,2,2);
+        if (GameRules.validMove(state, coord))
+        {
+            results.add(1);
+            state.PlacePiece(coord, 2);
+        }
+        else results.add(0);
+        expResults.add(1);
+
+        coord = new Coordinates(0,0,1,2);
+        if (GameRules.validMove(state, coord))
+        {
+            results.add(1);
+        }
+        else results.add(0);
+        expResults.add(0);
+
+        assertEquals(expResults, results);
     }
 
 }
