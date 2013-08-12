@@ -79,12 +79,13 @@ public class GameManager {
     public static void disconnect (HttpSession session) {
         GameManager.leave(session);
         players.remove(session);
+        states.remove(session);
     }
     
     public static void leave(HttpSession session){
         GameSession game = gameSessions.get(session);
         game.Leave(players.get(session));
-        states.remove(session);
+        states.get(session).clear();
         gameIDs.remove(game.SessionID);
     }
     
