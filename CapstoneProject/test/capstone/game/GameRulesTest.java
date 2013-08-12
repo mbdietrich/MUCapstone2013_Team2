@@ -91,16 +91,20 @@ public class GameRulesTest {
         result.add(GameRules.checkStatusBoard(board));
         expResult.add(1);
 
+        board = new int[3][3];
+        board[0][0] = 1;
+        board[0][1] = 2;
+        board[0][2] = 1;
+        board[1][0] = 2;
+        board[1][1] = 1;
+        board[1][2] = 2;
+        board[2][0] = 1;
+        board[2][1] = 2;
+        board[2][2] = 1;
+        result.add(GameRules.checkStatusBoard(board));
+        expResult.add(3);
+
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of checkForDraw method, of class GameRules.
-     */
-    @Test
-    public void testCheckForDraw() {
-        int[][] board = new int[3][3];
-
     }
 
     /**
