@@ -77,9 +77,15 @@ public class GameManager {
     }
     
     public static void disconnect (HttpSession session) {
-        Player player = players.remove(session);
-        gameSessions.get(session).Leave(player);
+        GameManager.leave(session);
+        players.remove(session);
+    }
+    
+    public static void leave(HttpSession session){
+        GameSession game = gameSessions.get(session);
+        game.Leave(players.get(session));
         states.remove(session);
+        gameIDs.remove(game.SessionID);
     }
     
     //Return the oldest state. If a newer state is available, remove that state.
