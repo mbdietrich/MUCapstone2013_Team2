@@ -128,7 +128,7 @@
         </script>
 
     </head>
-    <body>
+    <body onunload="$.post('leave');">
         <h2>Game</h2>
         <table>
             <tr>
