@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class GameManager {
     static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
     static Map<GameSession, List<HttpSession>> watchers = new ConcurrentHashMap<GameSession, List<HttpSession>>();
     static Map<String, GameSession> gameIDs = new ConcurrentHashMap<String, GameSession>();
-    static Map<HttpSession, Queue<String>> states = new ConcurrentHashMap<HttpSession, Queue<String>>();
+    static Map<HttpSession, BlockingQueue<String>> states = new ConcurrentHashMap<HttpSession, BlockingQueue<String>>();
     
     //For now, only one bot - DefaultBot
     private static final Player DEFAULT_BOT = new GameBot();
@@ -72,7 +73,7 @@ public class GameManager {
         if(!players.containsKey(session)){
             players.put(session, new RemotePlayer(name));
         }
-        Queue<String> messageQueue = new ArrayBlockingQueue<String>(10);
+        BlockingQueue<String> messageQueue = new ArrayBlockingQueue<String>(10);
         states.put(session, messageQueue);
     }
     
@@ -84,11 +85,13 @@ public class GameManager {
     
     //Return the oldest state. If a newer state is available, remove that state.
     public static String getGame(HttpSession session){
-        Queue<String> messages = states.get(session);
-        if(messages.size()>1){
-            return messages.poll();
+        BlockingQueue<String> messages = states.get(session);
+        try {
+            return messages.take();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, "Error retrieving game state", ex);
+            return null;
         }
-        else return messages.peek();
     }
     
     public static RemotePlayer getPlayer(HttpSession session){
