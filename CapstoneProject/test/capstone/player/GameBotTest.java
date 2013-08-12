@@ -30,9 +30,9 @@ public class GameBotTest {
     }
 
     /**
-     * Test that the next method makes valid moves, of class GameBot.
+     * Test that the next method makes valid moves, and does not hang.
      */
-    @Test
+    @Test(timeout=100)
     public void testNext() {
         GameState state = new GameState();
         int player = 1;
@@ -54,26 +54,6 @@ public class GameBotTest {
         assertTrue(flag);
     }
 
-    /**
-     * Test that the bot does not hang.
-     */
-    //TODO Decide on a proper time
-    @Test(timeout=100)
-    public void testNext2() {
-        GameState state = new GameState();
-        GameBot instance = new GameBot();
-        int player = 1;
-        while (!GameRules.isDone(state))
-        {
-            Coordinates coords = instance.next(state, player);
-            if (GameRules.validMove(state, coords))
-            {
-                state.PlacePiece(coords, player);
-            }
-        }
-        assertTrue(GameRules.isDone(state));
-        
-    }
     /**
      * Test of getName method, of class GameBot.
      */

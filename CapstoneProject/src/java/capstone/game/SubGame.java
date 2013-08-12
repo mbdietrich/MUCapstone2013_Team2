@@ -29,10 +29,14 @@ public class SubGame {
 	public void setGamePiece(int x, int y, int playerpiece){
 		//TODO: Check if placement and piece are both valid
 		board[x][y] = playerpiece;
+                if(GameRules.checkStatusBoard(board) == 1) {
+                    setStatus(1);
+                } else if(GameRules.checkStatusBoard(board) == 2) {
+                    setStatus(2);
+                } else if(GameRules.checkStatusBoard(board) == 3) {
+                    setStatus(3);
+                }
                 
-                //FIXME
-                    //Check if this move finished the subgame (TODO: only if valid!). Update the status.
-                    //status = GameRules.findWinner(board);
 	}
 	
 	/**

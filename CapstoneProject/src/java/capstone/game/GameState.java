@@ -54,7 +54,7 @@ public class GameState {
 			statusboard[newMove.outerX][newMove.outerY] = subwinner;
 			if (findWinner(statusboard)!=0){
 				//Set the winner. 
-				winner = subwinner;
+				winner = findWinner(statusboard);
 			}
 		}
 		nextTurn();
