@@ -26,3 +26,9 @@ Parameters: a, b, x, y
 Description: Post the coordinates of the next move; (a,b) is the outer location,
             (x,y) the inner location.
 Returns: nothing
+
+/leave
+Request Type: POST
+Parameters: none
+Description: Leave the current game session.
+Returns: nothing

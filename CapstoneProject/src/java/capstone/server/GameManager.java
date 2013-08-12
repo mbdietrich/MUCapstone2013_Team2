@@ -10,7 +10,6 @@ import capstone.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -78,9 +77,16 @@ public class GameManager {
     }
     
     public static void disconnect (HttpSession session) {
-        Player player = players.remove(session);
-        gameSessions.get(session).Leave(player);
+        GameManager.leave(session);
+        players.remove(session);
         states.remove(session);
+    }
+    
+    public static void leave(HttpSession session){
+        GameSession game = gameSessions.get(session);
+        game.Leave(players.get(session));
+        states.get(session).clear();
+        gameIDs.remove(game.SessionID);
     }
     
     //Return the oldest state. If a newer state is available, remove that state.
