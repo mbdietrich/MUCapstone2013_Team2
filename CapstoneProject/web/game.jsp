@@ -23,7 +23,7 @@
         </style>
         <title>chat application TICTACTOE</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
 
         <script>
@@ -129,11 +129,11 @@
 
     </head>
     <body>
-        <h3>Game.jsp</h3>
+        <h2>Game</h2>
         <table>
             <tr>
-                <td>User Name</td>
-                <td><%= session.getAttribute("_user")%></td>
+                <td>Logged in as</td>
+                <td> <%= session.getAttribute("_user")%></td>
             </tr>
         </table>
 
@@ -143,6 +143,17 @@
         <table id="gameframe"></table>   
 
         <hr/>
+        
+        <div id="nav">
+            <table>
+                <tr>
+                    <td><a href="/CapstoneProject/lobby.jsp"><img src="images/home.png" alt="home"/></a></td>
+                </tr>
+                <tr>
+                    <td><a href="/CapstoneProject/index.jsp"><img src="images/logout.png" alt="home"/></a></td>
+                </tr>
+            </table>
+        </div>
 
     </body>
 </html>
