@@ -15,6 +15,15 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>Leave</servlet-name>
+        <servlet-class>capstone.server.Leave</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Leave</servlet-name>
+        <url-pattern>/leave</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>GameCreate</servlet-name>
         <servlet-class>capstone.server.GameCreate</servlet-class>
     </servlet>
