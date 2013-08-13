@@ -47,6 +47,10 @@ public class GameSession {
                 }
                 else throw new IllegalGameException("Player "+player.toString()+" tried to join a full game.");
 	}
+        
+        public boolean isOpen(){
+            return player1==null||player2==null;
+        }
 	
         //Called by the players to register a move
         //Make sure it's the player's move
