@@ -29,11 +29,13 @@ public class GameManager {
     static Map<String, GameSession> gameIDs = new ConcurrentHashMap<String, GameSession>();
     static Map<HttpSession, BlockingQueue<String>> states = new ConcurrentHashMap<HttpSession, BlockingQueue<String>>();
     
+    static List<String> openGames = new ArrayList<String>();
+    
     //For now, only one bot - DefaultBot
     private static final Player DEFAULT_BOT = new GameBot();
     
     //Add a player to an existing game
-    public static void addPlayer(HttpSession session, String gameID){
+    public static void joinGame(HttpSession session, String gameID){
         try {
             session.getServletContext().log("Player joining game session (ID "+gameID+")");
             RemotePlayer player = players.get(session);
@@ -44,14 +46,26 @@ public class GameManager {
         }
     }
     
+    public static void BotJoin(HttpSession session){
+        try {
+            gameSessions.get(session).Join(DEFAULT_BOT);
+        } catch (IllegalGameException ex) {
+            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, "Error adding bot to game", ex);
+        }
+    }
+    
+    //Returns a list of open games
+    public static List<String> getOpenGames(){
+        return openGames;
+    }
+    //Create a new game session
     public static void newGame(HttpSession session){
-        //For now, only add the default bot
         GameSession game = new GameSession();
         gameIDs.put(game.SessionID, game);
         try {
             game.Join(players.get(session));
-            game.Join(DEFAULT_BOT);
             gameSessions.put(session, game);
+            openGames.add(game.SessionID);
             List<HttpSession> sessions = watchers.get(game);
             if(sessions==null){
                 sessions=new ArrayList<HttpSession>();
@@ -87,6 +101,7 @@ public class GameManager {
         game.Leave(players.get(session));
         states.get(session).clear();
         gameIDs.remove(game.SessionID);
+        openGames.remove(game.SessionID);
     }
     
     //Return the oldest state. If a newer state is available, remove that state.
