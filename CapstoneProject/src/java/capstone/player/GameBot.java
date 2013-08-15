@@ -100,6 +100,6 @@ public class GameBot extends Bot
      */
     @Override
     public String getName() {
-        return "Default Bot";
+        return "DefaultBot";
     }
 }
