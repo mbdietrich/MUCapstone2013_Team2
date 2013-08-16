@@ -112,13 +112,12 @@ public class GameRulesTest {
      */
     @Test
     public void testIsDone() {
-        System.out.println("isDone");
-        GameState board = null;
+        // Make a new GameState. The game board is filled with zeros, so
+        // isDone should be false
+        GameState newGame = new GameState();
         boolean expResult = false;
-        boolean result = GameRules.isDone(board);
+        boolean result = GameRules.isDone(newGame);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
