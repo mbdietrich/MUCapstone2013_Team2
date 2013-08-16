@@ -10,7 +10,9 @@ Returns: nothing
 
 /create
 Request Type: POST
-Paramaters: none
+Paramaters:
+   type (solo or open)
+   botname (if solo)
 Description: Creates a new game, then moves the player to the game screen.
 Returns: nothing
 
