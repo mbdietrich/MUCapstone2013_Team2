@@ -21,8 +21,11 @@ public class GameCreate extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GameManager.newGame(request.getSession());
         
-        //For now, single-player only
-        this.getServletContext().getRequestDispatcher("/game.jsp").forward(request, response);
+        if(request.getParameter("type").equals("solo")){
+            //For now, only default bot
+        GameManager.BotJoin(request.getSession());
+        }
+        
     }
 
     @Override
