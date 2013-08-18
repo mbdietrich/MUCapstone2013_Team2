@@ -44,11 +44,19 @@ public class GameBotTest {
             if (GameRules.validMove(state, coords))
             {
                 state.PlacePiece(coords, player);
+                if (player == 1)
+                {
+                    player = 2;
+                }
+                else
+                {
+                    player = 1;
+                }
             }
             else
             {
                 flag = false;
-                fail("The bot played an invalid move.");
+                fail("The bot played an invalid move at " + coords.getOuterX() + coords.getOuterY() + coords.getInnerX() + coords.getInnerY());
             }
         }
         assertTrue(flag);
@@ -60,7 +68,7 @@ public class GameBotTest {
     @Test
     public void testGetName() {
         GameBot instance = new GameBot();
-        String expResult = "Default Bot";
+        String expResult = "DefaultBot";
         String result = instance.getName();
         assertEquals(expResult, result);
     }
