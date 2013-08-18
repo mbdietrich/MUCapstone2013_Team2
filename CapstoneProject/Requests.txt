@@ -34,3 +34,15 @@ Request Type: POST
 Parameters: none
 Description: Leave the current game session.
 Returns: nothing
+
+/join
+Request Type: GET
+Parameters: none
+Description: Returns a list of open games
+Returns: JSON Object (a list of IDs and corresponding user names)
+
+/join
+Request Type: POST
+Parameters: id
+Description: Joins a game ID
+Returns: nothing
