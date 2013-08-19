@@ -81,7 +81,7 @@ public class GameManager {
         try {
             game.Join(players.get(session));
             gameSessions.put(session, game);
-            openGames.put(game.SessionID, session.getAttribute("name").toString());
+            openGames.put(game.SessionID, session.getAttribute("_user").toString());
             List<HttpSession> sessions = watchers.get(game);
             if(sessions==null){
                 sessions=new ArrayList<HttpSession>();
