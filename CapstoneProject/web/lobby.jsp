@@ -20,6 +20,10 @@
                 $.post("create", {type: "solo", botname: "DefaultBot"}, function(e){document.location.href="game.jsp";});
                 
             }
+            var multiPlayer = function() {
+                $.post("create", {type: "any"}, function(e){document.location.href="game.jsp";});
+                
+            }
             var openGame = function() {
                 $.post("create", {type: "open"}, onGameCreate);
             }
@@ -37,7 +41,8 @@
             <table>
                 <tr>
                     <td rowspan="2"><h3> Welcome <%= session.getAttribute("_user")%></h3></td>
-                    <td> <input type="image" src="images/newGame.png" alt="Play against a bot" onclick="singlePlayer()" /></td>
+                    <td> <input type="image" src="images/newGame.png" alt="Play against a bot" onclick="singlePlayer();" /></td>
+                    <td> <input type="image" src="images/newGame.png" alt="Play against a person" onclick="multiPlayer();"/></td>
                 </tr>
                 <tr>
 
