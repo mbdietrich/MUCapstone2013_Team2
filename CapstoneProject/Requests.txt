@@ -39,7 +39,7 @@ Returns: nothing
 Request Type: GET
 Parameters: none
 Description: Returns a list of open games
-Returns: JSON Object (a list of IDs and corresponding user names)
+Returns: JSON Object (games - a list of IDs and corresponding user names eg. {"games":[["123abc", "max"], ["424aaa", "luke"],...]})
 
 /join
 Request Type: POST
