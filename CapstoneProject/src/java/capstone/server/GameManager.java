@@ -122,12 +122,18 @@ public class GameManager {
     
     //Return the oldest state. If a newer state is available, remove that state.
     public static String getGame(HttpSession session){
+        
+        if(gameSessions.get(session).isOpen()){
+            return "{\"started:\" \"false\"}";
+        }
+        else{
         BlockingQueue<String> messages = states.get(session);
         try {
             return messages.take();
         } catch (InterruptedException ex) {
             Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
         }
     }
     

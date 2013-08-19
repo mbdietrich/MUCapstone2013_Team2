@@ -22,7 +22,7 @@ Returns:
 Request Type: GET
 Paramaters: none
 Description: Queries the server for the new game state.
-Returns: JSON Object (status, player, board)
+Returns: JSON Object (status, player, board) if the game is active, started otherwise.
 
 /move
 Request Type: POST
