@@ -6,6 +6,12 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String error = request.getParameter("error");
+    if(error==null || error=="null") {
+        error="";
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -67,6 +73,9 @@
                         <tr>
                             <td>password</td>
                             <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan ="2"><%=error%></td>
                         </tr>
                         <tr>
                             <td><input type="submit" name="submit" class="fade" /></td>
