@@ -45,6 +45,16 @@ public class GameManager {
             if(!game.isOpen()){
                 openGames.remove(game.SessionID);
             }
+            gameSessions.put(session, game);
+            List<HttpSession> sessions = watchers.get(game);
+            if(sessions==null){
+                sessions=new ArrayList<HttpSession>();
+                watchers.put(game, sessions);
+            }
+            sessions.add(session);
+            
+            String initialMessage = JSONBuilder.buildJSON(game, players.get(session));
+            states.get(session).offer(initialMessage);
         } catch (IllegalGameException ex) {
             newGame(session);
         }
