@@ -154,5 +154,12 @@ public class GameManager {
 
         }
     }
+
+    public static void joinAnyGame(HttpSession session) {
+        synchronized(openGames){
+        String firstOpen = openGames.keySet().iterator().next();
+        joinGame(session, firstOpen);
+        }
+    }
     
 }

@@ -19,6 +19,22 @@ import javax.servlet.http.HttpServletResponse;
 public class GameCreate extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text");
+        response.setCharacterEncoding("UTF-8");
+        
+        if(request.getParameter("type").equals("any")){
+            if(GameManager.openGames.size()==0){
+                GameManager.newGame(request.getSession());
+                response.getWriter().write("created");
+            }
+            else{
+                GameManager.joinAnyGame(request.getSession());
+                response.getWriter().write("joined");
+            }
+            response.getWriter().close();
+        }
+        else{
+        
         GameManager.newGame(request.getSession());
         
         if(request.getParameter("type").equals("solo")){
@@ -26,7 +42,8 @@ public class GameCreate extends HttpServlet{
         GameManager.BotJoin(request.getSession());
         }
         
-    }
+        
+    }}
 
     @Override
     public String getServletInfo() {
