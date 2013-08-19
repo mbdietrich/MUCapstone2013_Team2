@@ -11,10 +11,12 @@ Returns: nothing
 /create
 Request Type: POST
 Paramaters:
-   type (solo or open)
-   botname (if solo)
+    type (solo or open)
+    botname (if solo)
+    any (join first open game, create one of none exist)
 Description: Creates a new game, then moves the player to the game screen.
-Returns: nothing
+Returns: 
+    any - "created" if a new game was created, "joined" otherwise 
 
 /state
 Request Type: GET
