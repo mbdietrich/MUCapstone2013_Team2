@@ -42,6 +42,9 @@ public class GameManager {
             RemotePlayer player = players.get(session);
             GameSession game = gameIDs.get(gameID);
             game.Join(player);
+            if(!game.isOpen()){
+                openGames.remove(game.SessionID);
+            }
         } catch (IllegalGameException ex) {
             newGame(session);
         }

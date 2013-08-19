@@ -26,6 +26,12 @@ public class GameJoin extends HttpServlet {
     
     //Join an open game
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        String GameID = request.getParameter("id");
+        GameManager.joinGame(request.getSession(), GameID);
+    }
+    
+    @Override
+    public String getServletInfo() {
+        return "Retrieve and join open games";
     }
 }
