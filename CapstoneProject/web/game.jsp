@@ -31,22 +31,22 @@
             var makeMove = function(a, b, x, y){
                 $.post(
                         "move", 
-                        {a:a,b:b,x:x,y:y}, $.get("state", onState)
+                        {a:a,b:b,x:x,y:y}
                     );
             }
             
             var onState = function(e) {
                 var evt = e || window.event;
                 var data;
-                if(typeof evt === 'string'){
-                    state = $.parseJSON(evt.substring(28));
-                }
-                else{
-                    var state = jQuery.parseJSON(evt.data);
-                }
-                
+                var state = jQuery.parseJSON(evt.data);
                 if (state) { // only update if the string is not empty
                     console.log("data received: " + state);
+                    
+                    if(state.open){
+                        document.getElementById("gameframe").style.display = 'none';
+                    }
+                    else{
+                    document.getElementById("gameframe").style.display = '';
                     //TODO parse state in
                     //variables:
                     //state.PlayerNumber
@@ -85,6 +85,7 @@
                     if (state.Status === "1" | state.Status === "2"){
                         window.alert("Player " + state.Status + " Wins");
                         window.location.href="/CapstoneProject/lobby.jsp";
+                    }
                     }
                 }
             };

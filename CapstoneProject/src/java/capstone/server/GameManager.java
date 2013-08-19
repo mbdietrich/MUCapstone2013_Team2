@@ -124,7 +124,7 @@ public class GameManager {
     public static String getGame(HttpSession session){
         
         if(gameSessions.get(session).isOpen()){
-            return "{\"started:\" \"false\"}";
+            return "{\"open\": \"true\"}";
         }
         else{
         BlockingQueue<String> messages = states.get(session);
