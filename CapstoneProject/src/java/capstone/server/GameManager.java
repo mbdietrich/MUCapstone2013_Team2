@@ -10,6 +10,7 @@ import capstone.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,7 +30,7 @@ public class GameManager {
     static Map<String, GameSession> gameIDs = new ConcurrentHashMap<String, GameSession>();
     static Map<HttpSession, BlockingQueue<String>> states = new ConcurrentHashMap<HttpSession, BlockingQueue<String>>();
     
-    static List<String> openGames = new ArrayList<String>();
+    static Map<String, String> openGames = new ConcurrentHashMap<String,String>();
     
     //For now, only one bot - DefaultBot
     private static final Player DEFAULT_BOT = new GameBot();
@@ -54,10 +55,22 @@ public class GameManager {
         }
     }
     
-    //Returns a list of open games
-    public static List<String> getOpenGames(){
-        return openGames;
+    public static String getOpenGames(){
+        StringBuilder builder = new StringBuilder();
+        builder=builder.append("{\"games:\"");
+        boolean first=true;
+        for(Entry<String, String> entry: openGames.entrySet()){
+            if(!first){
+                builder=builder.append(",");
+            }
+            else{
+                first=false;
+            }
+            builder=builder.append("[\"").append(entry.getKey()).append("\",\"").append(entry.getValue()).append("\"]");
+        }
+        return builder.append("}").toString();
     }
+    
     //Create a new game session
     public static void newGame(HttpSession session){
         GameSession game = new GameSession();
@@ -65,7 +78,7 @@ public class GameManager {
         try {
             game.Join(players.get(session));
             gameSessions.put(session, game);
-            openGames.add(game.SessionID);
+            openGames.put(game.SessionID, session.getAttribute("name").toString());
             List<HttpSession> sessions = watchers.get(game);
             if(sessions==null){
                 sessions=new ArrayList<HttpSession>();
