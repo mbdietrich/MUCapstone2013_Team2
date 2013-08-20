@@ -6,6 +6,13 @@
     Page where the game is rendered.
 --%>
 
+<%
+    String userName = (String)session.getAttribute("user");
+    if(userName == null) {
+        response.sendRedirect("index.jsp");
+    }
+%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
