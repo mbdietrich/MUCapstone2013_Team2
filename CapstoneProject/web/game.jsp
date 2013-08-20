@@ -141,7 +141,7 @@
         <table>
             <tr>
                 <td>Logged in as</td>
-                <td> <%= session.getAttribute("_user")%></td>
+                <td> <%= session.getAttribute("user")%></td>
             </tr>
         </table>
 
@@ -158,7 +158,11 @@
                     <td><a href="/CapstoneProject/lobby.jsp"><img src="images/home.png" alt="home"/></a></td>
                 </tr>
                 <tr>
-                    <td><a href="/CapstoneProject/index.jsp"><img src="images/logout.png" alt="home"/></a></td>
+                    <td>
+                        <form name="logout" action="logout.jsp" method="POST">
+                            <input type="image" src="images/logout.png" alt="logout" class="fade" />
+                        </form>
+                    </td>
                 </tr>
             </table>
         </div>
