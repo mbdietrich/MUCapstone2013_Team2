@@ -24,7 +24,7 @@
         String dbdriver = prop.getProperty("driver").toString();
         
         Class.forName(dbdriver);
-        java.sql.Connection con = DriverManager.getConnection(dbhost, dbusername, dbpassword +" ?useUnicode=yes&characterEncoding=UTF-8");
+        java.sql.Connection con = DriverManager.getConnection(dbhost, dbusername, dbpassword);
         Statement st = con.createStatement();
     
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"' OR email ='"+email+"'");
