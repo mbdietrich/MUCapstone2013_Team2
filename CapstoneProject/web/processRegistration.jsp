@@ -16,15 +16,17 @@
     String password = request.getParameter("password");
     
     try {
+        /*
         Properties prop = new Properties();
         prop.load(new FileInputStream(System.getProperty("user.home") + "/mydb.cfg"));
         String dbhost = prop.getProperty("host").toString();
         String dbusername = prop.getProperty("username").toString();
         String dbpassword = prop.getProperty("password").toString();
         String dbdriver = prop.getProperty("driver").toString();
+        */
         
-        Class.forName(dbdriver);
-        java.sql.Connection con = DriverManager.getConnection(dbhost+" ?useUnicode=yes&characterEncoding=UTF-8", dbusername, dbpassword);
+        Class.forName("com.mysql.jdbc.Driver");
+        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql-capstoneg2.jelastic.servint.net?useUnicode=yes&characterEncoding=UTF-8", "root", "TLU1WMUitN");
         Statement st = con.createStatement();
     
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"' OR email ='"+email+"'");
