@@ -58,7 +58,7 @@
                         <tr>
                             <td><img src="images/login1.png" alt="login" /></td>
                             <td><input id="userName" name="userName" type="text" size="20" placeholder="username" /></td>
-                            <td><input id="password" name="password" type="text" size="20" placeholder="password" /></td>
+                            <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
                             <td><input type="image" src="images/login2.png" alt="submit" class="fade" /></td>
                         </tr>
                         <tr>

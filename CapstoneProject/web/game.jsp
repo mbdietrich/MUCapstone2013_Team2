@@ -28,7 +28,7 @@
                 border:#black 1px solid;
             }
         </style>
-        <title>chat application TICTACTOE</title>
+        <title>TIC TAC TOE</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript" src="jquery-1.8.3.js"></script>

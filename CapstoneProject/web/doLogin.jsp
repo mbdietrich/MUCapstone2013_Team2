@@ -6,18 +6,29 @@
 
 <%@ page import = "java.sql.*" %>
 <%@ page import = "javax.sql.*" %>
+<%@ page import = "java.util.Properties" %>
+<%@ page import = "java.io.FileInputStream" %>
 
 <%
     String userName = request.getParameter("userName");
     String password = request.getParameter("password");
     try {
-        Class.forName("com.mysql.jdbc.Driver");
-        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tictactoedb", "root", "stupidpasswords");
+        Properties prop = new Properties();
+        prop.load(new FileInputStream(System.getProperty("user.home") + "/mydb.cfg"));
+        String dbhost = prop.getProperty("host").toString();
+        String dbusername = prop.getProperty("username").toString();
+        String dbpassword = prop.getProperty("password").toString();
+        String dbdriver = prop.getProperty("driver").toString();
+        
+        Class.forName(dbdriver);
+        java.sql.Connection con = DriverManager.getConnection(dbhost, dbusername, dbpassword);
         Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM users WHERE user ='"+userName+"'");
+        
+        ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
+        st.close();
         if(rs.next()) {
-            if(rs.getString(4).equals(password)) {
-                session.setAttribute("user", userName);
+            if(rs.getString(3).equals(password)) {
+                session.setAttribute("user", rs.getString(2));
                 response.sendRedirect("lobby.jsp");
             } else {
                 String message = "User name or password don't match";

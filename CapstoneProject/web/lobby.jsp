@@ -5,6 +5,12 @@
 
     lobby.jsp is where the player is sent before a game starts, but after logging in.
 --%>
+<%
+    String userName = (String)session.getAttribute("user");
+    if(userName == null) {
+        response.sendRedirect("index.jsp");
+    }
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -40,13 +46,17 @@
 
             <table>
                 <tr>
-                    <td rowspan="2"><h3> Welcome <%= session.getAttribute("_user")%></h3></td>
+                    <td rowspan="2"><h3> Welcome <%= session.getAttribute("user")%></h3></td>
                     <td> <input type="image" src="images/newGame.png" alt="Play against a bot" onclick="singlePlayer();" /></td>
                     <td> <input type="image" src="images/newGame.png" alt="Play against a person" onclick="multiPlayer();"/></td>
                 </tr>
                 <tr>
 
-                    <td> <a href="/CapstoneProject/index.jsp"><img src="images/logout.png" alt="logout"/></a></td>
+                    <td>
+                        <form name="logout" action="logout.jsp" method="POST">
+                            <input type="image" src="images/logout.png" alt="logout" class="fade" />
+                        </form>
+                    </td>
                 </tr>
             </table>
         </div>
