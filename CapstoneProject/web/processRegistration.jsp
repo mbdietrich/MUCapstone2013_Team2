@@ -26,7 +26,7 @@
         */
         
         Class.forName("com.mysql.jdbc.Driver");
-        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql-capstoneg2.jelastic.servint.net?useUnicode=yes&characterEncoding=UTF-8", "root", "TLU1WMUitN");
+        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql-capstoneg2.jelastic.servint.net?useUnicode=yes&characterEncoding=UTF-8", "admin", "capstone2");
         Statement st = con.createStatement();
     
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"' OR email ='"+email+"'");
