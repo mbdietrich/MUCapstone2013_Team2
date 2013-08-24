@@ -30,17 +30,47 @@ public class GameSessionTest {
     }
 
     /**
-     * Test of getCurrentGame method, of class GameSession.
+     * Tests that getCurrentGame does get a GameState and that it is the current game.
      */
     @Test
     public void testGetCurrentGame() {
-        //System.out.println("getCurrentGame");
-        GameSession instance = new GameSession();
-        GameState expResult = null;
-        GameState result = instance.getCurrentGame();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        GameSession session = new GameSession();
+        Player player1 = new RemotePlayer("player1");
+        Player player2 = new RemotePlayer("player2");
+        ArrayList expResult = new ArrayList();
+        ArrayList result = new ArrayList();
+        
+        try
+        {
+            session.Join(player1);
+            session.Join(player2);
+            Coordinates player1Move = new Coordinates(1,1,1,1);
+            Coordinates player2Move = new Coordinates(2,2,2,2);
+            
+            session.move(player1, player1Move);
+            session.move(player2, player2Move);
+            GameState state = session.getCurrentGame();
+            
+            if (state.GetSubBoard(1, 1)[1][1] == 1)
+            {
+                result.add(true);
+            }
+            else result.add(false);
+            expResult.add(true);
+            if (state.GetSubBoard(2, 2)[2][2] == 2)
+            {
+                result.add(true);
+            }
+            else result.add(false);
+            expResult.add(true);
+            
+            assertEquals(result, expResult);
+        }
+        catch(IllegalGameException e)
+        {
+            fail("Threw an IllegalGameException");
+        }
+        
     }
 
     /**
@@ -235,18 +265,19 @@ public class GameSessionTest {
             session.Join(player1);
             session.Join(player2);
             
+            //Player1 wins a subgame
             Coordinates coord1 = new Coordinates(1,1,0,0);
             Coordinates coord2 = new Coordinates(1,1,1,1);
             Coordinates coord3 = new Coordinates(1,1,1,0);
             Coordinates coord4 = new Coordinates(1,1,2,2);
             Coordinates coord5 = new Coordinates(1,1,2,0);
-            
             session.move(player1, coord1);
             session.move(player2, coord2);
             session.move(player1, coord3);
             session.move(player2, coord4);
             session.move(player1, coord5);
             
+            //player2 trys to play in finished subgame
             Coordinates player2Move = new Coordinates(1,1,1,2);
             session.move(player2, player2Move);
             GameState state = session.getCurrentGame();
