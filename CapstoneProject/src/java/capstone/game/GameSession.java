@@ -125,5 +125,23 @@ public class GameSession {
                 gameWinner = player1;
             }
 	}
+        
+        /**
+         * Returns the current player.
+         * @return currentPlayer
+         */
+        public Player getCurrentPlayer()
+        {
+            return currentPlayer;
+        }
+        
+        /**
+         * gets the game winner if there is one.
+         * @return gameWinner
+         */
+        public Player getGameWinner()
+        {
+            return gameWinner;
+        }
 
 }
