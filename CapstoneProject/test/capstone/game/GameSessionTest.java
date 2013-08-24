@@ -106,7 +106,8 @@ public class GameSessionTest {
      * Test of move method, of class GameSession.
      */
     @Test
-    public void testMove() {
+    public void testMove() 
+    {
         //System.out.println("move");
         Player player = null;
         Coordinates move = null;
@@ -143,12 +144,21 @@ public class GameSessionTest {
      * Test of Leave method, of class GameSession.
      */
     @Test
-    public void testLeave() {
-        //System.out.println("Leave");
-        Player player = null;
-        GameSession instance = new GameSession();
-        instance.Leave(player);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testLeave() throws IllegalGameException
+    {
+        Player player1 = new RemotePlayer("Player1");
+        Player player2 = new RemotePlayer("Player2");
+        Boolean flag = false;
+        GameSession session = new GameSession();
+        
+        session.Join(player1);
+        session.Join(player2);
+        session.Leave(player2);
+        
+        if (session.isOpen())
+        {
+            flag = true;
+        }
+        assertTrue(flag);
     }
 }
