@@ -44,24 +44,32 @@ public class GameSessionTest {
     }
 
     /**
-     * 
+     * Tests that two players are able to join a game, and the session should not
+     * be open.
      */
     @Test
-    public void testJoin1() throws IllegalGameException
+    public void testJoin1()
     {
         Player player1 = new RemotePlayer("player1");
         Player player2 = new RemotePlayer("player2");
         Boolean flag = false;
         GameSession session = new GameSession();
         
-        session.Join(player1);
-        session.Join(player2);
-        
-        if (!session.isOpen())
+        try
         {
-            flag = true;
+            session.Join(player1);
+            session.Join(player2);
+        
+            if (!session.isOpen())
+            {
+                flag = true;
+            }
+            assertTrue(flag);
         }
-        assertTrue(flag);
+        catch(IllegalGameException e)
+        {
+            fail("Threw an IllegalGameException");
+        }
     }
     
     /**
@@ -84,44 +92,181 @@ public class GameSessionTest {
      * Test of isOpen method, of class GameSession.
      */
     @Test
-    public void testIsOpen() throws IllegalGameException
+    public void testIsOpen()
     {
         Player player1 = new RemotePlayer("Player1");
         Player player2 = new RemotePlayer("Player2");
         GameSession session = new GameSession();
-        session.Join(player1);
-        session.Join(player2);
         
-        if (session.isOpen())
+        try
         {
-            fail("Session is still open.");
+            session.Join(player1);
+            session.Join(player2);
+        
+            if (session.isOpen())
+            {
+                fail("Session is still open.");
+            }
+            else
+            {
+                assertTrue(true);
+            }
         }
-        else
+        catch(IllegalGameException e)
         {
-            assertTrue(true);
+            fail("Threw an IllegalGameException");
+        }
+    }
+    
+    /**
+     * Tests that when a player makes a legal move, it is placed in the GameState.
+     */
+    @Test
+    public void testMove1()
+    {
+        GameSession session = new GameSession();
+        Player player1 = new RemotePlayer("Player1");
+        Player player2 = new RemotePlayer("Player2");
+        
+        try
+        {
+            session.Join(player1);
+            session.Join(player2);
+            Coordinates player1Move = new Coordinates(1,1,1,1);
+            
+            session.move(player1, player1Move);
+            GameState currentGame = session.getCurrentGame();
+            if(currentGame.GetSubBoard(1, 1)[1][1] == 1)
+            {
+                assertTrue(true);
+            }
+            else fail("The move was not placed");
+        }
+        catch(IllegalGameException e)
+        {
+            fail("Threw an IllegalGameException");
         }
     }
 
     /**
-     * Test of move method, of class GameSession.
+     * Tests that the currentPlayer is changed after making a move in the Move method.
      */
     @Test
-    public void testMove() 
+    public void testMove2() 
     {
-        //System.out.println("move");
-        Player player = null;
-        Coordinates move = null;
-        GameSession instance = new GameSession();
-        instance.move(player, move);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        GameSession session = new GameSession();
+        Player player1 = new RemotePlayer("player1");
+        Player player2 = new RemotePlayer("player2");
+        
+        try
+        {
+            session.Join(player1);
+            session.Join(player2);
+            Coordinates player1Move = new Coordinates(1,1,1,1);
+            Coordinates player2Move = new Coordinates(1,1,0,0);
+            session.move(player1, player1Move);
+            //After player1 makes a move, currentPlayer should be player2
+            if (session.getCurrentPlayer() == player1)
+            {
+                fail("It is still player1's turn.");
+            }
+            session.move(player2, player2Move);
+            //After player2 makes a move, currentPlayer should change back to player1
+            if (session.getCurrentPlayer() == player2)
+            {
+                fail("It is still player2's turn.");
+            }
+            else if(session.getCurrentPlayer() == player1)
+            {
+                assertTrue(true);
+            }
+        }
+        catch(IllegalGameException e)
+        {
+            fail("Threw an IllegalGameException");
+        } 
+    }
+    
+    /**
+     * Tests that one player cannot make two moves in a row.
+     */
+    @Test
+    public void testMove3()
+    {
+        GameSession session = new GameSession();
+        Player player1 = new RemotePlayer("player1");
+        Player player2 = new RemotePlayer("player2");
+        
+        try
+        {
+            session.Join(player1);
+            session.Join(player2);
+            Coordinates player1Move = new Coordinates(1,1,1,1);
+            Coordinates player1Move2 = new Coordinates(1,1,0,0);
+            
+            session.move(player1, player1Move);
+            session.move(player1, player1Move);
+            
+            GameState currentGame = session.getCurrentGame();
+            if (currentGame.GetSubBoard(1, 1)[0][0] == 1)
+            {
+                fail("Player was able to make two moves in a row.");
+            }
+            else assertTrue(true);
+        }
+        catch(IllegalGameException e)
+        {
+            fail("Threw an IllegalGameException");
+        }
+    }
+    
+    /**
+     * Tests that a player cannot play in a match that has been won.
+     */
+    @Test
+    public void testMove4()
+    {
+        GameSession session = new GameSession();
+        Player player1 = new RemotePlayer("player1");
+        Player player2 = new RemotePlayer("player2");
+        
+        try
+        {
+            session.Join(player1);
+            session.Join(player2);
+            
+            Coordinates coord1 = new Coordinates(1,1,0,0);
+            Coordinates coord2 = new Coordinates(1,1,1,1);
+            Coordinates coord3 = new Coordinates(1,1,1,0);
+            Coordinates coord4 = new Coordinates(1,1,2,2);
+            Coordinates coord5 = new Coordinates(1,1,2,0);
+            
+            session.move(player1, coord1);
+            session.move(player2, coord2);
+            session.move(player1, coord3);
+            session.move(player2, coord4);
+            session.move(player1, coord5);
+            
+            Coordinates player2Move = new Coordinates(1,1,1,2);
+            session.move(player2, player2Move);
+            GameState state = session.getCurrentGame();
+            if (state.GetSubBoard(1, 1)[1][2] == 2)
+            {
+                fail("Player2 was able to play in a finished subgame.");
+            }
+            else assertTrue(true);
+        }
+        catch(IllegalGameException e)
+        {
+            fail("Threw an IllegalGameException");
+        }
     }
 
     /**
      * Test of getPlayerNumber method, of class GameSession.
      */
     @Test
-    public void testGetPlayerNumber() throws IllegalGameException
+    public void testGetPlayerNumber()
     {
         ArrayList result = new ArrayList();
         ArrayList expResult = new ArrayList();
@@ -129,36 +274,50 @@ public class GameSessionTest {
         Player player2 = new RemotePlayer("player2");
         GameSession session = new GameSession();
         
-        session.Join(player1);
-        session.Join(player2);
+        try
+        {
+            session.Join(player1);
+            session.Join(player2);
         
-        result.add(session.getPlayerNumber(player1));
-        expResult.add(1);
-        result.add(session.getPlayerNumber(player2));
-        expResult.add(2);
+            result.add(session.getPlayerNumber(player1));
+            expResult.add(1);
+            result.add(session.getPlayerNumber(player2));
+            expResult.add(2);
         
-        assertEquals(result, expResult);
+            assertEquals(result, expResult);
+        }
+        catch(IllegalGameException e)
+        {
+            fail("Threw an IllegalGameException");
+        }
     }
 
     /**
      * Test of Leave method, of class GameSession.
      */
     @Test
-    public void testLeave() throws IllegalGameException
+    public void testLeave()
     {
         Player player1 = new RemotePlayer("Player1");
         Player player2 = new RemotePlayer("Player2");
         Boolean flag = false;
         GameSession session = new GameSession();
         
-        session.Join(player1);
-        session.Join(player2);
-        session.Leave(player2);
-        
-        if (session.isOpen())
+        try
         {
-            flag = true;
+            session.Join(player1);
+            session.Join(player2);
+            session.Leave(player2);
+        
+            if (session.getGameWinner() == player1)
+            {
+                flag = true;
+            }
+            assertTrue(flag);
         }
-        assertTrue(flag);
+        catch(IllegalGameException e)
+        {
+            fail("Threw an IllegalGameException");
+        }
     }
 }
