@@ -68,53 +68,50 @@ public class GameStateTest {
      * Test of GetSubGame method, of class GameState.
      */
     @Test
-    public void testGetSubGame() {
+    public void testGetSubGame() 
+    {
         GameState state = new GameState();
         
         state.PlacePiece(new Coordinates(1,1,1,1), 1);
         SubGame game = state.GetSubGame(1, 1);
         int[][] board = game.getBoard();
         int[][] expBoard = new int[][]{{0,0,0},{0,1,0},{0,0,0}};
-        for(int x = 0; x < 3; x++)
-        {
-            for(int y = 0; y < 3; y++)
-            {
-                assertEquals(board[x][y], expBoard[x][y]);
-            }
-        }
+        //Tests that a SubGame from the GameState will have the proper values placed in the 
+        //correct positions.
+        assertArrayEquals(board, expBoard);
     }
 
     /**
      * Test of GetSubBoard method, of class GameState.
      */
     @Test
-    public void testGetSubBoard() {
+    public void testGetSubBoard() 
+    {
         GameState state = new GameState();
         
         state.PlacePiece(new Coordinates(1,1,1,1), 1);
         int[][] board = state.GetSubBoard(1, 1);
         int[][] expBoard = new int[][]{{0,0,0},{0,1,0},{0,0,0}};
         for(int x = 0; x < 3; x++)
-        {
-            for(int y = 0; y < 3; y++)
-            {
-                assertEquals(board[x][y], expBoard[x][y]);
-            }
-        }
+        assertArrayEquals(board, expBoard);
     }
 
     /**
      * Test of getStatusboard method, of class GameState.
      */
     @Test
-    public void testGetStatusboard() {
-        System.out.println("getStatusboard");
-        GameState instance = new GameState();
-        int[][] expResult = null;
-        int[][] result = instance.getStatusboard();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetStatusboard() 
+    {
+        GameState state = new GameState();
+        
+        state.PlacePiece(new Coordinates(1,1,0,0), 1);
+        state.PlacePiece(new Coordinates(1,1,1,1), 1);
+        state.PlacePiece(new Coordinates(1,1,2,2), 1);
+        int[][] statusBoard = state.getStatusboard();
+        int[][] expStatusBoard = new int[][]{{0,0,0},{0,1,0},{0,0,0}};
+        //Test that the status board gotten from the GameState is correct, mainly that it has
+        //recognised one of the subgames has been won.
+        assertArrayEquals(statusBoard, expStatusBoard);
     }
 
     /**
@@ -122,13 +119,12 @@ public class GameStateTest {
      */
     @Test
     public void testGetMainboard() {
-        System.out.println("getMainboard");
-        GameState instance = new GameState();
-        SubGame[][] expResult = null;
-        SubGame[][] result = instance.getMainboard();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        GameState state = new GameState();
+        SubGame[][] subgames = state.getMainboard();
+        SubGame expGame = new SubGame();
+        //Test that the subgame gotten from the GameState has the same initial values
+        //as one directly created.
+        assertArrayEquals(subgames[1][1].getBoard(), expGame.getBoard());
     }
 
     /**
@@ -136,13 +132,8 @@ public class GameStateTest {
      */
     @Test
     public void testGetCurrentPlayer() {
-        System.out.println("getCurrentPlayer");
-        GameState instance = new GameState();
-        int expResult = 0;
-        int result = instance.getCurrentPlayer();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        GameState state = new GameState();
+        assertEquals(state.getCurrentPlayer(), 1);
     }
 
     /**
@@ -150,12 +141,31 @@ public class GameStateTest {
      */
     @Test
     public void testGetWinner() {
-        System.out.println("getWinner");
-        GameState instance = new GameState();
-        int expResult = 0;
-        int result = instance.getWinner();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        GameState state = new GameState();
+        ArrayList<Coordinates> coords = new ArrayList<Coordinates>();
+        ArrayList expResults = new ArrayList();
+        ArrayList results = new ArrayList();
+        //Check that it begins by having no winner.
+        results.add(state.getWinner());
+        expResults.add(0);
+        
+        //win the match.
+        coords.add(new Coordinates(0,0,0,0));
+        coords.add(new Coordinates(0,0,1,1));
+        coords.add(new Coordinates(0,0,2,2));
+        coords.add(new Coordinates(1,1,0,0));
+        coords.add(new Coordinates(1,1,1,1));
+        coords.add(new Coordinates(1,1,2,2));
+        coords.add(new Coordinates(2,2,0,0));
+        coords.add(new Coordinates(2,2,1,1));
+        coords.add(new Coordinates(2,2,2,2));
+        for(Coordinates coord:coords)
+        {
+            state.PlacePiece(coord, 1);
+        }
+        //Check that it returns the right player as winner of the match.
+        results.add(state.getWinner());
+        expResults.add(1);
+        assertEquals(results, expResults);
     }
 }
