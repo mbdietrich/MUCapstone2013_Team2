@@ -31,7 +31,8 @@ public class GameStateTest {
      * Test of PlacePiece method, of class GameState.
      */
     @Test
-    public void testPlacePiece() {
+    public void testPlacePiece() 
+    {
         ArrayList results = new ArrayList();
         ArrayList expResults = new ArrayList();
         GameState state = new GameState();
@@ -56,14 +57,11 @@ public class GameStateTest {
      * Test of findWinner method, of class GameState.
      */
     @Test
-    public void testFindWinner() {
-        System.out.println("findWinner");
-        int[][] board = null;
-        int expResult = 0;
-        int result = GameState.findWinner(board);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testFindWinner() 
+    {
+        int[][] board = new int[][]{{1,1,1},{0,0,0},{0,0,0}};
+        int winner = GameState.findWinner(board);
+        assertEquals(winner, 1);     
     }
 
     /**
@@ -71,15 +69,19 @@ public class GameStateTest {
      */
     @Test
     public void testGetSubGame() {
-        System.out.println("GetSubGame");
-        int x = 0;
-        int y = 0;
-        GameState instance = new GameState();
-        SubGame expResult = null;
-        SubGame result = instance.GetSubGame(x, y);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        GameState state = new GameState();
+        
+        state.PlacePiece(new Coordinates(1,1,1,1), 1);
+        SubGame game = state.GetSubGame(1, 1);
+        int[][] board = game.getBoard();
+        int[][] expBoard = new int[][]{{0,0,0},{0,1,0},{0,0,0}};
+        for(int x = 0; x < 3; x++)
+        {
+            for(int y = 0; y < 3; y++)
+            {
+                assertEquals(board[x][y], expBoard[x][y]);
+            }
+        }
     }
 
     /**
@@ -87,15 +89,18 @@ public class GameStateTest {
      */
     @Test
     public void testGetSubBoard() {
-        System.out.println("GetSubBoard");
-        int x = 0;
-        int y = 0;
-        GameState instance = new GameState();
-        int[][] expResult = null;
-        int[][] result = instance.GetSubBoard(x, y);
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        GameState state = new GameState();
+        
+        state.PlacePiece(new Coordinates(1,1,1,1), 1);
+        int[][] board = state.GetSubBoard(1, 1);
+        int[][] expBoard = new int[][]{{0,0,0},{0,1,0},{0,0,0}};
+        for(int x = 0; x < 3; x++)
+        {
+            for(int y = 0; y < 3; y++)
+            {
+                assertEquals(board[x][y], expBoard[x][y]);
+            }
+        }
     }
 
     /**
