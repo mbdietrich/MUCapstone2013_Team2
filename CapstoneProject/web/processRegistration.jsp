@@ -16,21 +16,18 @@
     String password = request.getParameter("password");
     
     try {
-        /*
         Properties prop = new Properties();
         prop.load(new FileInputStream(System.getProperty("user.home") + "/mydb.cfg"));
         String dbhost = prop.getProperty("host").toString();
         String dbusername = prop.getProperty("username").toString();
         String dbpassword = prop.getProperty("password").toString();
         String dbdriver = prop.getProperty("driver").toString();
-        */
         
         Class.forName("com.mysql.jdbc.Driver");
-        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql-capstoneg2.jelastic.servint.net?useUnicode=yes&characterEncoding=UTF-8", "admin", "capstone2");
+        java.sql.Connection con = DriverManager.getConnection(dbhost, dbusername, dbpassword);
         Statement st = con.createStatement();
     
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"' OR email ='"+email+"'");
-        st.close();
         if(rs.next()) {
             if(rs.getString(1).equals(userName)) {
                 String message = "This username already exists";
@@ -44,6 +41,8 @@
             session.setAttribute("user", name);
             response.sendRedirect("lobby.jsp");
         }
+        st.close();
+
     }
     catch (Exception e) {
         e.printStackTrace();
