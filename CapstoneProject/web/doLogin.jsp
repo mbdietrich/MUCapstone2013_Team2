@@ -25,7 +25,6 @@
         Statement st = con.createStatement();
         
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
-        st.close();
         if(rs.next()) {
             if(rs.getString(3).equals(password)) {
                 session.setAttribute("user", rs.getString(2));
@@ -38,6 +37,7 @@
             String message = "User name or password don't match";
             response.sendRedirect("index.jsp?error="+message);
         }
+        st.close();
     }
     catch (Exception e) {
         e.printStackTrace();
