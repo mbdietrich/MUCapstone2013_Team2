@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 21/07/2013, 9:51:01 AM
-    Author     : Max, Jesse
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String error = request.getParameter("error");
@@ -25,7 +19,7 @@
                }
         </script>
         -->
-        <link rel="stylesheet" type="text/css" href="css/style2.css">
+        <!--<link rel="stylesheet" type="text/css" href="css/style2.css">-->
         
         <script>
             function trim(s)
@@ -34,15 +28,17 @@
             }
             function validate()
             {
+                elem1 = document.getElementById('alert');
                 if(trim(document.login.userName.value)==="")
                     {
-                        alert("Please enter a user name.");
+                        
+                        elem1.innerHTML = "Please enter a Username";
                         document.login.userName.focus();
                         return false;
                     }
                 else if(trim(document.login.password.value)==="")
                     {
-                        alert("Please enter a password");
+                        elem1.innerHTML = "Please enter a password";
                         document.login.password.focus();
                         return false;
                     }
@@ -115,19 +111,26 @@
         <!--<h3>Login !!!!</h3>-->
         <div id="Session"></div>
         <div  id="content">
+            <div id="wrapper" style="width:100%; text-align:center">
+                <br><br><br><br><br><br>
                 <form name="login" onSubmit="return validate();" action="login" method="POST">
-                    <table>
+                    <table align="center">
+                        <tr><td><img src="images/icon.png" alt="login"/></td></tr>
+                        <tr><td><h2>tic tac toe</h2></td></tr>
                         <tr>
-                            <td><img src="images/login1.png" alt="login" /></td>
-                            <td><input id="userName" name="userName" type="text" size="20" placeholder="username" /></td>
-                            <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
-                            <td><input type="image" src="images/login2.png" alt="submit" class="fade" /></td>
+                            <td><input id="userName" name="userName" type="text" size="20" placeholder="username" align="center"/></td>
                         </tr>
                         <tr>
-                            <td><a href="register.jsp">Register</a></td>
+                            <td><input id="password" name="password" type="password" size="20" placeholder="password" align="center"/></td>
                         </tr>
                         <tr>
-                            <td colspan ="4"><%=error%></td>
+                            <td><div id="alert"></div><%=error%></td>
+                        </tr>
+                        <tr>
+                            <td><input type="image" src="images/login2.png" alt="submit" class="fade" align="center"/></td>
+                        </tr>
+                        <tr>
+                            <td><a href="register.jsp" align="center">Register</a></td>
                         </tr>
                         <tr>
                             <td colspan ="4">
@@ -142,7 +145,9 @@
                             </td>
                         </tr>
                     </table>
+            </div>
                 </form>
         </div>
     </body>
 </html>
+>>>>>>> 7523b9dee1031e442d64898d9f0bd403f9c88c11
