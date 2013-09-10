@@ -112,7 +112,6 @@ public class GameManager {
         
         session.setAttribute("user", name);
         players.put(session, new RemotePlayer(name));
-        Logger.getLogger(GameManager.class.getName()).log(Level.INFO, "Player"+name+"joined!");
         BlockingQueue<String> messageQueue = new ArrayBlockingQueue<String>(10);
         states.put(session, messageQueue);
     }
