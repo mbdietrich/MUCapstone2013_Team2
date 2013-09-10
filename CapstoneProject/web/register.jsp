@@ -16,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/style2.css">
+        <!--<link rel="stylesheet" type="text/css" href="css/style2.css">-->
         <title>Register</title>
         
         <script>
@@ -57,21 +57,25 @@
     <body>
         <div id="content">
                 <form name="register" onSubmit="return validate();" action="processRegistration.jsp" method="POST">
-                    <table>
+                    <div id="wrapper" style="width:100%; text-align:center">
+                    <br><br><br><br><br><br>
+                    <table align="center">
                         <tr>
-                            <td>username</td>
-                            <td><input id="userName" name="userName" type="text" size="20" placeholder="username" /></td>
+                            <td><img src="images/icon.png"</td>
                         </tr>
                         <tr>
-                            <td>name</td>
+                            <td><h2>register</h2></td>
+                        </tr>
+                        <tr>
                             <td><input id="name" name="name" type="text" size="20" placeholder="name" /></td>
                         </tr>
                         <tr>
-                            <td>email</td>
+                            <td><input id="userName" name="userName" type="text" size="20" placeholder="username" /></td>
+                        </tr>
+                        <tr>
                             <td><input id="email" name="email" type="text" size="20" placeholder="email" /></td>
                         </tr>
                         <tr>
-                            <td>password</td>
                             <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
                         </tr>
                         <tr>
@@ -81,6 +85,7 @@
                             <td><input type="submit" name="submit" class="fade" /></td>
                         </tr>
                     </table>
+                    </div>
                 </form>
         </div>
     </body>
