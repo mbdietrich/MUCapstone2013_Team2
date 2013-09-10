@@ -108,10 +108,11 @@ public class GameManager {
     }
     
     public static void newPlayer(HttpSession session, String name){
-        session.setAttribute("_user", name);
-        if(!players.containsKey(session)){
-            players.put(session, new RemotePlayer(name));
-        }
+        
+        
+        session.setAttribute("user", name);
+        players.put(session, new RemotePlayer(name));
+        Logger.getLogger(GameManager.class.getName()).log(Level.INFO, "Player"+name+"joined!");
         BlockingQueue<String> messageQueue = new ArrayBlockingQueue<String>(10);
         states.put(session, messageQueue);
     }

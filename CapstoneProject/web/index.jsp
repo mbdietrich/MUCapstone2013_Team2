@@ -115,7 +115,7 @@
         <!--<h3>Login !!!!</h3>-->
         <div id="Session"></div>
         <div  id="content">
-                <form name="login" onSubmit="return validate();" action="doLogin.jsp" method="POST">
+                <form name="login" onSubmit="return validate();" action="login" method="POST">
                     <table>
                         <tr>
                             <td><img src="images/login1.png" alt="login" /></td>
