@@ -13,6 +13,7 @@
 
 <%
     String oldUserName = request.getParameter("oldUserName");
+    String oldEmail = request.getParameter("oldEmail");
     String userName = request.getParameter("userName");
     String name = request.getParameter("oldName");
     String email = request.getParameter("oldEmail");
@@ -31,19 +32,14 @@
         java.sql.Connection con = DriverManager.getConnection(dbhost, dbusername, dbpassword);
         Statement st = con.createStatement();
         
-        if(oldUserName != userName) {
-            String message = "names to not match";
-            response.sendRedirect("accountManagement.jsp?error="+message);
-        }
-        
-        if (request.getParameter("oldUserName") != request.getParameter("userName")) {
+        if (!oldUserName.equals(userName+"/")) {
             ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
             if(rs.next()) {
                 String message = "This username already exists";
                 response.sendRedirect("accountManagement.jsp?error="+message);
                 return;
             }
-        } else if (request.getParameter("oldEmal") != request.getParameter("email")) {
+        } else if (!oldEmail.equals(email+"/")) {
             ResultSet rs = st.executeQuery("SELECT * FROM players WHERE email ='"+email+"'");
             if(rs.next()) {
                 String message = "A player has already registered with this email";
