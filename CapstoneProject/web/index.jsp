@@ -130,7 +130,7 @@
                             <td><input type="image" src="images/login2.png" alt="submit" class="fade" align="center"/></td>
                         </tr>
                         <tr>
-                            <td><a href="register.jsp" align="center">Register</a></td>
+                            <td><a href="accountManagement.jsp" align="center">Register</a></td>
                         </tr>
                         <tr>
                             <td colspan ="4">

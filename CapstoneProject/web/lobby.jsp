@@ -58,6 +58,9 @@
                         </form>
                     </td>
                 </tr>
+                <td>
+                    <a href="accountManagement.jsp" align="center">Account Management</a>
+                </td>
             </table>
         </div>
 </html>
