@@ -45,10 +45,14 @@ public class PlayerJoin extends HttpServlet {
             } else {
                 String message = "User name or password don't match";
                 response.sendRedirect("index.jsp?error="+message);
+                st.close();
+                return;
             }
         } else {
             String message = "User name or password don't match";
             response.sendRedirect("index.jsp?error="+message);
+            st.close();
+            return;
         }
         st.close();
     }
@@ -56,6 +60,7 @@ public class PlayerJoin extends HttpServlet {
         e.printStackTrace();
         String message = "There was a problem logging you in";
         response.sendRedirect("index.jsp?error="+message);
+        return;
     }
         
         
