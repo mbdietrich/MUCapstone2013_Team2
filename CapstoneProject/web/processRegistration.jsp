@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : processRegistration
     Created on : Aug 19, 2013, 2:44:20 PM
     Author     : luke
@@ -8,6 +8,7 @@
 <%@ page import = "javax.sql.*" %>
 <%@ page import = "java.util.Properties" %>
 <%@ page import = "java.io.FileInputStream" %>
+<%@ page import = "capstone.server.GameManager" %>
 
 <%
     String userName = request.getParameter("userName");
@@ -23,7 +24,7 @@
         String dbpassword = prop.getProperty("password").toString();
         String dbdriver = prop.getProperty("driver").toString();
         
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName(dbdriver);
         java.sql.Connection con = DriverManager.getConnection(dbhost, dbusername, dbpassword);
         Statement st = con.createStatement();
     
@@ -31,14 +32,14 @@
         if(rs.next()) {
             if(rs.getString(1).equals(userName)) {
                 String message = "This username already exists";
-                response.sendRedirect("register.jsp?error="+message);
+                response.sendRedirect("accountManagement.jsp?error="+message);
             } else {
                 String message = "A player has already registered with this email address";
-                response.sendRedirect("register.jsp?error="+message);
+                response.sendRedirect("accountManagement.jsp?error="+message);
             }
         } else {
             st.executeUpdate("INSERT into players (user, name, password, email) VALUES ('"+userName+"','"+name+"','"+password+"','"+email+"')");
-            session.setAttribute("user", name);
+            GameManager.newPlayer(request.getSession(), userName);
             response.sendRedirect("lobby.jsp");
         }
         st.close();
@@ -47,7 +48,7 @@
     catch (Exception e) {
         e.printStackTrace();
         String message = "Error: Registration could not be completed";
-        response.sendRedirect("register.jsp?error="+message);
+        response.sendRedirect("accountManagement.jsp?error="+message);
     }
  
 %>
