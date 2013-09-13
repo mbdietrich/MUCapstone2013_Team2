@@ -13,11 +13,13 @@
 
 <%
     String oldUserName = request.getParameter("oldUserName");
+    oldUserName = oldUserName.substring(0, oldUserName.length()-1);
     String oldEmail = request.getParameter("oldEmail");
+    oldEmail = oldEmail.substring(0, oldEmail.length()-1);
     String userName = request.getParameter("userName");
-    String name = request.getParameter("oldName");
-    String email = request.getParameter("oldEmail");
-    String password = request.getParameter("oldPassword");
+    String name = request.getParameter("name");
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
 
     
     try {
@@ -32,25 +34,26 @@
         java.sql.Connection con = DriverManager.getConnection(dbhost, dbusername, dbpassword);
         Statement st = con.createStatement();
         
-        if (!oldUserName.equals(userName+"/")) {
+        if (!oldUserName.equals(userName)) {
             ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
             if(rs.next()) {
                 String message = "This username already exists";
                 response.sendRedirect("accountManagement.jsp?error="+message);
+                st.close();
                 return;
             }
-        } else if (!oldEmail.equals(email+"/")) {
+        } else if (!oldEmail.equals(email)) {
             ResultSet rs = st.executeQuery("SELECT * FROM players WHERE email ='"+email+"'");
             if(rs.next()) {
                 String message = "A player has already registered with this email";
                 response.sendRedirect("accountManagement.jsp?error="+message);
+                st.close();
                 return;
             }
         }
         st.executeUpdate("UPDATE players SET user='"+userName+"', name='"+name+"', email='"+email+"', password='"+password+"' WHERE user='"+oldUserName+"'");
         GameManager.newPlayer(request.getSession(), userName);
         response.sendRedirect("lobby.jsp");
-        
         st.close();
     }
     catch (Exception e) {

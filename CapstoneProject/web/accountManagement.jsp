@@ -131,7 +131,7 @@
                         <tr>
                             <input name="oldUserName" type="hidden" value=<%=userName%>/>
                             <input name="oldEmail" type="hidden" value=<%=email%>/>
-                            <td colspan="2"><input type="submit" name="submit" class="fade" /></td>
+                            <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                         </tr>
                     </table>
                     </div>
@@ -180,7 +180,7 @@
                             <td colspan ="2"><%=error%></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><input type="submit" name="submit" class="fade" /></td>
+                            <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                         </tr>
                     </table>
                     </div>
