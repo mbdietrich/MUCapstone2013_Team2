@@ -6,8 +6,6 @@
 
 <%@ page import = "java.sql.*" %>
 <%@ page import = "javax.sql.*" %>
-<%@ page import = "java.util.Properties" %>
-<%@ page import = "java.io.FileInputStream" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -111,7 +109,7 @@
         <body>
         <h1>Profile</h1>
         <div id="content">
-            <a href="lobby.jsp" align="center">Return to Lobby</a>
+            <a href="lobby.jsp" align="center">Lobby</a>
                 <form name="manager" onSubmit="return validate1();" action="updateDetails.jsp" method="POST">
                     <div id="wrapper" style="width:100%; text-align:center">
                     <br><br><br><br><br><br>
@@ -134,9 +132,6 @@
                         <tr>
                             <td>New password:</td>
                             <td><input id="newPassword" name="newPassword" type="password" size="20" placeholder="new password" /></td>
-                        </tr>
-                        <tr>
-                            <td>Confirm password:</td>
                             <td><input id="confirmpassword" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
                         </tr>
                         <tr>
@@ -169,6 +164,7 @@
         String userNameValue = "placeholder='username'";
         String nameValue = "placeholder='name'";
         String emailValue = "placeholder='email'";
+        String fbid = "";
         if(request.getParameter("userName") != null) {
             userNameValue = "value='"+request.getParameter("userName")+"'";
         }
@@ -177,6 +173,9 @@
         }
         if(request.getParameter("email") != null) {
             emailValue = "value='"+request.getParameter("email")+"'";
+        }
+        if(request.getParameter("fbid") != null) {
+            fbid = request.getParameter("fbid");
         }
         %>
         <body>
@@ -213,6 +212,7 @@
                             <td colspan ="2"><%=exceptionError%></td>
                         </tr>
                         <tr>
+                            <input name="fbid" type="hidden" value=<%=fbid%>/>
                             <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                         </tr>
                     </table>

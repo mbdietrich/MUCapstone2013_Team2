@@ -6,8 +6,6 @@
 
 <%@ page import = "java.sql.*" %>
 <%@ page import = "javax.sql.*" %>
-<%@ page import = "java.util.Properties" %>
-<%@ page import = "java.io.FileInputStream" %>
 <%@ page import = "capstone.server.GameManager" %>
 
 <%
@@ -15,6 +13,8 @@
     String name = request.getParameter("name");
     String email = request.getParameter("email");
     String password = request.getParameter("password");
+    String fbid = request.getParameter("fbid");
+    fbid = fbid.substring(0, fbid.length()-1);
     
     try {
         Class.forName("com.mysql.jdbc.Driver");
@@ -31,7 +31,7 @@
                 response.sendRedirect("accountManagement.jsp?error="+message+"&name="+name+"&userName="+userName);
             }
         } else {
-            st.executeUpdate("INSERT into players (user, name, password, email) VALUES ('"+userName+"','"+name+"','"+password+"','"+email+"')");
+            st.executeUpdate("INSERT into players (user, name, password, email, fbid) VALUES ('"+userName+"','"+name+"','"+password+"','"+email+"','"+fbid+"')");
             GameManager.newPlayer(request.getSession(), userName);
             response.sendRedirect("lobby.jsp");
         }

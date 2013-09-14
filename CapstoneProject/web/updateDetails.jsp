@@ -6,8 +6,6 @@
 
 <%@ page import = "java.sql.*" %>
 <%@ page import = "javax.sql.*" %>
-<%@ page import = "java.util.Properties" %>
-<%@ page import = "java.io.FileInputStream" %>
 <%@ page import = "capstone.server.GameManager" %>
 
 
