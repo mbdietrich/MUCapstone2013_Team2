@@ -22,8 +22,6 @@
     if(newPassword.equals("")) {
         newPassword = password;
     }
-
-    
     try {
         Class.forName("com.mysql.jdbc.Driver");
         java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql-CapstoneG2.jelastic.servint.net/tictactoedb?useUnicode=yes&characterEncoding=UTF-8", "admin", "capstone2");
@@ -64,5 +62,4 @@
         String message = "exception";
         response.sendRedirect("accountManagement.jsp?error="+message);
     }
- 
 %>
