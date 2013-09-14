@@ -96,13 +96,11 @@
             Statement st = con.createStatement();
         
             ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
-            String name = "";
             String email = "";
             String fbid = "";
             if (rs.next()) {
-                name = rs.getString(2);
-                email = rs.getString(4);
-                fbid = rs.getString(5);
+                email = rs.getString(3);
+                fbid = rs.getString(4);
             }
        
             st.close();
@@ -186,10 +184,6 @@
                             <td><%=userNameError%></td>
                         </tr>
                         <tr>
-                            <td>Name:</td>
-                            <td><input id="name" name="name" type="text" size="20" value=<%=name%> /></td>
-                        </tr>
-                        <tr>
                             <td>Email:</td>
                             <td><input id="email" name="email" type="text" size="20" value=<%=email%> /></td>
                             <td><%=emailError%></td>
@@ -243,14 +237,10 @@
         }
     } else {
         String userNameValue = "placeholder='username'";
-        String nameValue = "placeholder='name'";
         String emailValue = "placeholder='email'";
         String fbid = "";
         if(request.getParameter("userName") != null) {
             userNameValue = "value='"+request.getParameter("userName")+"'";
-        }
-        if(request.getParameter("name") != null) {
-            nameValue = "value='"+request.getParameter("name")+"'";
         }
         if(request.getParameter("email") != null) {
             emailValue = "value='"+request.getParameter("email")+"'";
@@ -270,10 +260,6 @@
                             <td>User name:</td>
                             <td><input id="userName" name="userName" type="text" size="20" <%=userNameValue%> /></td>
                             <td><%=userNameError%></td>
-                        </tr>
-                        <tr>
-                            <td>Name:</td>
-                            <td><input id="name" name="name" type="text" size="20" <%=nameValue%> /></td>
                         </tr>
                         <tr>
                             <td>Email:</td>

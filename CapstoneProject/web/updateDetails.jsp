@@ -15,7 +15,6 @@
     String oldEmail = request.getParameter("oldEmail");
     oldEmail = oldEmail.substring(0, oldEmail.length()-1);
     String userName = request.getParameter("userName");
-    String name = request.getParameter("name");
     String email = request.getParameter("email");
     String password = request.getParameter("password");
     String newPassword = request.getParameter("newPassword");
@@ -28,7 +27,7 @@
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user='"+oldUserName+"'");
         if(rs.next()) {
-            if(!rs.getString(3).equals(password)) {
+            if(!rs.getString(2).equals(password)) {
                 String message = "password";
                 response.sendRedirect("accountManagement.jsp?error="+message);
                 st.close();
@@ -52,7 +51,7 @@
                 return;
             }
         }
-        st.executeUpdate("UPDATE players SET user='"+userName+"', name='"+name+"', email='"+email+"', password='"+newPassword+"' WHERE user='"+oldUserName+"'");
+        st.executeUpdate("UPDATE players SET user='"+userName+"', email='"+email+"', password='"+newPassword+"' WHERE user='"+oldUserName+"'");
         GameManager.newPlayer(request.getSession(), userName);
         response.sendRedirect("accountManagement.jsp");
         st.close();

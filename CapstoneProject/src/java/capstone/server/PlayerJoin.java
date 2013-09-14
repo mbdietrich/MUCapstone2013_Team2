@@ -31,7 +31,7 @@ public class PlayerJoin extends HttpServlet {
         
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
         if(rs.next()) {
-            if(rs.getString(3).equals(password)) {
+            if(rs.getString(2).equals(password)) {
                 GameManager.newPlayer(request.getSession(), userName);
             } else {
                 String message = "User name or password don't match";

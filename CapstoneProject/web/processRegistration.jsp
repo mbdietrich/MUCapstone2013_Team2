@@ -10,7 +10,6 @@
 
 <%
     String userName = request.getParameter("userName");
-    String name = request.getParameter("name");
     String email = request.getParameter("email");
     String password = request.getParameter("password");
     String fbid = request.getParameter("fbid");
@@ -25,13 +24,13 @@
         if(rs.next()) {
             if(rs.getString(1).equals(userName)) {
                 String message = "userName";
-                response.sendRedirect("accountManagement.jsp?error="+message+"&name="+name+"&email="+email);
+                response.sendRedirect("accountManagement.jsp?error="+message+"&email="+email);
             } else {
                 String message = "email";
-                response.sendRedirect("accountManagement.jsp?error="+message+"&name="+name+"&userName="+userName);
+                response.sendRedirect("accountManagement.jsp?error="+message+"&userName="+userName);
             }
         } else {
-            st.executeUpdate("INSERT into players (user, name, password, email, fbid) VALUES ('"+userName+"','"+name+"','"+password+"','"+email+"','"+fbid+"')");
+            st.executeUpdate("INSERT into players (user, password, email, fbid) VALUES ('"+userName+"','"+password+"','"+email+"','"+fbid+"')");
             GameManager.newPlayer(request.getSession(), userName);
             response.sendRedirect("lobby.jsp");
         }

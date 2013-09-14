@@ -11,7 +11,6 @@
 <%
     String id = request.getParameter("fbid");
     String userName = request.getParameter("fbname");
-    String name = request.getParameter("fbname");
     String email = request.getParameter("fbemail");
     
     try {
@@ -21,11 +20,11 @@
     
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE fbid ='"+id+"'");
         if(rs.next()) {
-            userName = rs.getString(2);
+            userName = rs.getString(1);
             GameManager.newPlayer(request.getSession(), userName);
             response.sendRedirect("lobby.jsp");
         } else {
-            response.sendRedirect("accountManagement.jsp?userName="+userName+"&name="+name+"&email="+email+"&fbid="+id);        
+            response.sendRedirect("accountManagement.jsp?userName="+userName+"&email="+email+"&fbid="+id);        
         }
         st.close();
 
