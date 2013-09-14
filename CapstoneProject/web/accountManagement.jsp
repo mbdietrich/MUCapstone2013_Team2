@@ -72,9 +72,23 @@
         </script>
     </head>
     <%
+    String exceptionError = "";
+    String userNameError = "";
+    String emailError = "";
+    String passwordError = "";
     String error = request.getParameter("error");
     if(error==null || error=="null") {
         error="";
+    } else {
+        if(error.equals("userName")) {
+            userNameError = "<font color='red'>Username already in use</font>";
+        } else if (error.equals("email")) {
+            emailError = "<font color='red'>A player has already registered this email</font>";
+        } else if (error.equals("password")) {
+            passwordError = "<font color='red'>Incorrect password</font>";
+        } else if (error.equals("exception")) {
+            exceptionError = "<font color='red'>An error occurred. Please try again.</font>";
+        }
     }
     String userName = (String)session.getAttribute("user");
     if(userName != null) {
@@ -97,6 +111,7 @@
         <body>
         <h1>Profile</h1>
         <div id="content">
+            <a href="lobby.jsp" align="center">Return to Lobby</a>
                 <form name="manager" onSubmit="return validate1();" action="updateDetails.jsp" method="POST">
                     <div id="wrapper" style="width:100%; text-align:center">
                     <br><br><br><br><br><br>
@@ -105,6 +120,7 @@
                         <tr>
                             <td>User name:</td>
                             <td><input id="userName" name="userName" type="text" size="20" value=<%=userName%> /></td>
+                            <td><%=userNameError%></td>
                         </tr>
                         <tr>
                             <td>Name:</td>
@@ -113,6 +129,7 @@
                         <tr>
                             <td>Email:</td>
                             <td><input id="email" name="email" type="text" size="20" value=<%=email%> /></td>
+                            <td><%=emailError%></td>
                         </tr>
                         <tr>
                             <td>New password:</td>
@@ -123,11 +140,12 @@
                             <td><input id="confirmpassword" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
                         </tr>
                         <tr>
-                            <td colspan ="2"><%=error%></td>
-                        </tr>
-                        <tr>
                             <td>Current password</td>
                             <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
+                            <td><%=passwordError%></td>
+                        </tr>
+                        <tr>
+                            <td colspan ="2"><%=exceptionError%></td>
                         </tr>
                         <tr>
                             <input name="oldUserName" type="hidden" value=<%=userName%>/>
@@ -148,6 +166,18 @@
         }
         
     } else {
+        String userNameValue = "placeholder='username'";
+        String nameValue = "placeholder='name'";
+        String emailValue = "placeholder='email'";
+        if(request.getParameter("userName") != null) {
+            userNameValue = "value='"+request.getParameter("userName")+"'";
+        }
+        if(request.getParameter("name") != null) {
+            nameValue = "value='"+request.getParameter("name")+"'";
+        }
+        if(request.getParameter("email") != null) {
+            emailValue = "value='"+request.getParameter("email")+"'";
+        }
         %>
         <body>
             <h1>Create Account</h1>
@@ -159,15 +189,17 @@
                         
                         <tr>
                             <td>User name:</td>
-                            <td><input id="userName" name="userName" type="text" size="20" placeholder="username" /></td>
+                            <td><input id="userName" name="userName" type="text" size="20" <%=userNameValue%> /></td>
+                            <td><%=userNameError%></td>
                         </tr>
                         <tr>
                             <td>Name:</td>
-                            <td><input id="name" name="name" type="text" size="20" placeholder="name" /></td>
+                            <td><input id="name" name="name" type="text" size="20" <%=nameValue%> /></td>
                         </tr>
                         <tr>
                             <td>Email:</td>
-                            <td><input id="email" name="email" type="text" size="20" placeholder="email" /></td>
+                            <td><input id="email" name="email" type="text" size="20" <%=emailValue%> /></td>
+                            <td><%=emailError%></td>
                         </tr>
                         <tr>
                             <td>Password:</td>
@@ -178,7 +210,7 @@
                             <td><input id="confirmpassword" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
                         </tr>
                         <tr>
-                            <td colspan ="2"><%=error%></td>
+                            <td colspan ="2"><%=exceptionError%></td>
                         </tr>
                         <tr>
                             <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>

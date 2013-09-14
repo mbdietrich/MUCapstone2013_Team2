@@ -33,7 +33,7 @@
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user='"+oldUserName+"'");
         if(rs.next()) {
             if(!rs.getString(3).equals(password)) {
-                String message = "Password is incorrect";
+                String message = "password";
                 response.sendRedirect("accountManagement.jsp?error="+message);
                 st.close();
                 return;
@@ -42,7 +42,7 @@
         if (!oldUserName.equals(userName)) {
             rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
             if(rs.next()) {
-                String message = "This username already exists";
+                String message = "userName";
                 response.sendRedirect("accountManagement.jsp?error="+message);
                 st.close();
                 return;
@@ -50,7 +50,7 @@
         } else if (!oldEmail.equals(email)) {
             rs = st.executeQuery("SELECT * FROM players WHERE email ='"+email+"'");
             if(rs.next()) {
-                String message = "A player has already registered with this email";
+                String message = "email";
                 response.sendRedirect("accountManagement.jsp?error="+message);
                 st.close();
                 return;
@@ -63,7 +63,7 @@
     }
     catch (Exception e) {
         e.printStackTrace();
-        String message = "Error: Update could not be completed";
+        String message = "exception";
         response.sendRedirect("accountManagement.jsp?error="+message);
     }
  

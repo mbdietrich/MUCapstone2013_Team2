@@ -24,11 +24,11 @@
         ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"' OR email ='"+email+"'");
         if(rs.next()) {
             if(rs.getString(1).equals(userName)) {
-                String message = "This username already exists";
-                response.sendRedirect("accountManagement.jsp?error="+message);
+                String message = "userName";
+                response.sendRedirect("accountManagement.jsp?error="+message+"&name="+name+"&email="+email);
             } else {
-                String message = "A player has already registered with this email address";
-                response.sendRedirect("accountManagement.jsp?error="+message);
+                String message = "email";
+                response.sendRedirect("accountManagement.jsp?error="+message+"&name="+name+"&userName="+userName);
             }
         } else {
             st.executeUpdate("INSERT into players (user, name, password, email) VALUES ('"+userName+"','"+name+"','"+password+"','"+email+"')");
@@ -40,7 +40,7 @@
     }
     catch (Exception e) {
         e.printStackTrace();
-        String message = "Error: Registration could not be completed";
+        String message = "exception";
         response.sendRedirect("accountManagement.jsp?error="+message);
     }
  
