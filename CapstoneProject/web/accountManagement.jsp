@@ -14,7 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Account Management</title>
+        <title>Profile Management</title>
         
         <script>
             function trim(s)
@@ -56,9 +56,15 @@
             }
             function validate1()
             {
-                if(trim(document.manager.confirmPassword.value)!== trim(document.manager.password.value))
+                if(trim(document.manager.confirmPassword.value)!== trim(document.manager.newPassword.value))
                     {
                         alert("Passwords do not match");
+                        document.manager.password.focus();
+                        return false;
+                    }
+                else if(trim(document.manager.password.value)==="")
+                    {
+                        alert("Please enter your current password.");
                         document.manager.password.focus();
                         return false;
                     }
@@ -80,18 +86,16 @@
             ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
             String name = "";
             String email = "";
-            String password = "";
             if (rs.next()) {
                 name = rs.getString(2);
                 email = rs.getString(4);
-                password = rs.getString(3);
             }
        
             st.close();
             
             %>
         <body>
-        <h1>Account Management</h1>
+        <h1>Profile</h1>
         <div id="content">
                 <form name="manager" onSubmit="return validate1();" action="updateDetails.jsp" method="POST">
                     <div id="wrapper" style="width:100%; text-align:center">
@@ -111,8 +115,8 @@
                             <td><input id="email" name="email" type="text" size="20" value=<%=email%> /></td>
                         </tr>
                         <tr>
-                            <td>Change password:</td>
-                            <td><input id="password" name="password" type="password" size="20" value=<%=password%> /></td>
+                            <td>New password:</td>
+                            <td><input id="newPassword" name="newPassword" type="password" size="20" placeholder="new password" /></td>
                         </tr>
                         <tr>
                             <td>Confirm password:</td>
@@ -122,9 +126,13 @@
                             <td colspan ="2"><%=error%></td>
                         </tr>
                         <tr>
+                            <td>Current password</td>
+                            <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
+                        </tr>
+                        <tr>
                             <input name="oldUserName" type="hidden" value=<%=userName%>/>
                             <input name="oldEmail" type="hidden" value=<%=email%>/>
-                            <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
+                            <td colspan="2"><input type="submit" name="submit" value="Update Details" class="fade" /></td>
                         </tr>
                     </table>
                     </div>

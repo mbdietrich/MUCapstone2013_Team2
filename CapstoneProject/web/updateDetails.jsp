@@ -20,15 +20,27 @@
     String name = request.getParameter("name");
     String email = request.getParameter("email");
     String password = request.getParameter("password");
+    String newPassword = request.getParameter("newPassword");
+    if(newPassword.equals("")) {
+        newPassword = password;
+    }
 
     
     try {
         Class.forName("com.mysql.jdbc.Driver");
         java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql-CapstoneG2.jelastic.servint.net/tictactoedb?useUnicode=yes&characterEncoding=UTF-8", "admin", "capstone2");
         Statement st = con.createStatement();
-        
+        ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user='"+oldUserName+"'");
+        if(rs.next()) {
+            if(!rs.getString(3).equals(password)) {
+                String message = "Password is incorrect";
+                response.sendRedirect("accountManagement.jsp?error="+message);
+                st.close();
+                return;
+                }
+            }
         if (!oldUserName.equals(userName)) {
-            ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
+            rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
             if(rs.next()) {
                 String message = "This username already exists";
                 response.sendRedirect("accountManagement.jsp?error="+message);
@@ -36,7 +48,7 @@
                 return;
             }
         } else if (!oldEmail.equals(email)) {
-            ResultSet rs = st.executeQuery("SELECT * FROM players WHERE email ='"+email+"'");
+            rs = st.executeQuery("SELECT * FROM players WHERE email ='"+email+"'");
             if(rs.next()) {
                 String message = "A player has already registered with this email";
                 response.sendRedirect("accountManagement.jsp?error="+message);
@@ -44,9 +56,9 @@
                 return;
             }
         }
-        st.executeUpdate("UPDATE players SET user='"+userName+"', name='"+name+"', email='"+email+"', password='"+password+"' WHERE user='"+oldUserName+"'");
+        st.executeUpdate("UPDATE players SET user='"+userName+"', name='"+name+"', email='"+email+"', password='"+newPassword+"' WHERE user='"+oldUserName+"'");
         GameManager.newPlayer(request.getSession(), userName);
-        response.sendRedirect("lobby.jsp");
+        response.sendRedirect("accountManagement.jsp");
         st.close();
     }
     catch (Exception e) {

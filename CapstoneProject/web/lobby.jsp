@@ -59,7 +59,7 @@
                     </td>
                 </tr>
                 <td>
-                    <a href="accountManagement.jsp" align="center">Account Management</a>
+                    <a href="accountManagement.jsp" align="center">Profile</a>
                 </td>
             </table>
         </div>
