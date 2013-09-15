@@ -209,6 +209,7 @@
                         <tr>
                             <input name="oldUserName" type="hidden" value=<%=userName%>/>
                             <input name="oldEmail" type="hidden" value=<%=email%>/>
+                            <input name="link" type="hidden" value="no"/>
                             <td colspan="2"><input type="submit" name="submit" value="Update Details" class="fade" /></td>
                         </tr>
                     </table>
@@ -232,7 +233,7 @@
         }
         %>
         <body>
-            <h1>Create Account</h1>
+            <h1>Create Profile</h1>
             <div id="content">
                 <form name="manager" onSubmit="return validate();" action="processRegistration.jsp" method="POST">
                     <div id="wrapper" style="width:100%; text-align:center">

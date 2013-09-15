@@ -113,4 +113,36 @@ public class databaseAccess {
             return true;
         }
     }
+    
+    public static Map getPlayerDetailsByFBID(String id) {
+        Map details = new HashMap();
+        try {
+            Statement st = createConnection();
+            ResultSet rs = st.executeQuery("SELECT * FROM players WHERE fbid ='"+Encryption.encrypt(id)+"'");
+            if(rs.next()) {
+                details.put("userName", Encryption.decrypt(rs.getString(1)));
+                details.put("password", Encryption.decrypt(rs.getString(2)));
+                details.put("email", Encryption.decrypt(rs.getString(3)));
+                details.put("fbid", Encryption.decrypt(rs.getString(4)));
+            }
+            st.close();
+            return details;
+	}
+	catch (Exception e) {
+            e.printStackTrace();
+            return details;
+	}
+    }
+    
+    public static boolean addValue(String player, String field, String value) {
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("UPDATE players SET '"+field+"'='"+Encryption.encrypt(value)+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
