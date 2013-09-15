@@ -23,7 +23,7 @@
         details = new HashMap();
         details.put("userName", userName);
         details.put("email", email);
-        details.put("password", email);
+        details.put("password", password);
         details.put("fbid", fbid);
         if(databaseAccess.addPlayer(details)) {
             GameManager.newPlayer(request.getSession(), userName);
