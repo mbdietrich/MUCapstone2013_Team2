@@ -4,9 +4,12 @@
     Author     : luke
 --%>
 
+<%@ page import= "capstone.server.databaseAccess" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "javax.sql.*" %>
 <%@ page import = "capstone.server.GameManager" %>
+<%@ page import = "java.util.Map" %>
+<%@ page import = "java.util.HashMap" %>
 
 <%
     String userName = request.getParameter("userName");
@@ -15,32 +18,27 @@
     String fbid = request.getParameter("fbid");
     fbid = fbid.substring(0, fbid.length()-1);
     
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql-CapstoneG2.jelastic.servint.net/tictactoedb?useUnicode=yes&characterEncoding=UTF-8", "admin", "capstone2");
-        Statement st = con.createStatement();
-    
-        ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"' OR email ='"+email+"'");
-        if(rs.next()) {
-            if(rs.getString(1).equals(userName)) {
-                String message = "userName";
-                response.sendRedirect("accountManagement.jsp?error="+message+"&email="+email);
-            } else {
-                String message = "email";
-                response.sendRedirect("accountManagement.jsp?error="+message+"&userName="+userName);
-            }
-        } else {
-            st.executeUpdate("INSERT into players (user, password, email, fbid) VALUES ('"+userName+"','"+password+"','"+email+"','"+fbid+"')");
+    Map details = databaseAccess.getPlayerDetails(userName);
+    if(details.isEmpty()) {
+        details = new HashMap();
+        details.put("userName", userName);
+        details.put("email", email);
+        details.put("password", email);
+        details.put("fbid", fbid);
+        if(databaseAccess.addPlayer(details)) {
             GameManager.newPlayer(request.getSession(), userName);
             response.sendRedirect("lobby.jsp");
+        } else {
+            String message = "exception";
+            response.sendRedirect("accountManagement.jsp?error="+message);
         }
-        st.close();
-
+    } else {
+        if(details.get("userName").equals(userName)) {
+            String message = "userName";
+            response.sendRedirect("accountManagement.jsp?error="+message+"&email="+email);
+        } else if(details.get("email").equals(email)) {
+            String message = "email";
+            response.sendRedirect("accountManagement.jsp?error="+message+"&userName="+userName);
+        }
     }
-    catch (Exception e) {
-        e.printStackTrace();
-        String message = "exception";
-        response.sendRedirect("accountManagement.jsp?error="+message);
-    }
- 
 %>

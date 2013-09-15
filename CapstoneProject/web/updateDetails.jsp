@@ -4,16 +4,16 @@
     Author     : luke
 --%>
 
+<%@page import="capstone.server.databaseAccess"%>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "javax.sql.*" %>
 <%@ page import = "capstone.server.GameManager" %>
-
+<%@ page import = "java.util.Map" %>
+<%@ page import = "java.util.HashMap" %>
 
 <%
     String oldUserName = request.getParameter("oldUserName");
     oldUserName = oldUserName.substring(0, oldUserName.length()-1);
-    String oldEmail = request.getParameter("oldEmail");
-    oldEmail = oldEmail.substring(0, oldEmail.length()-1);
     String userName = request.getParameter("userName");
     String email = request.getParameter("email");
     String password = request.getParameter("password");
@@ -21,44 +21,39 @@
     if(newPassword.equals("")) {
         newPassword = password;
     }
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql-CapstoneG2.jelastic.servint.net/tictactoedb?useUnicode=yes&characterEncoding=UTF-8", "admin", "capstone2");
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user='"+oldUserName+"'");
-        if(rs.next()) {
-            if(!rs.getString(2).equals(password)) {
-                String message = "password";
-                response.sendRedirect("accountManagement.jsp?error="+message);
-                st.close();
-                return;
-                }
-            }
-        if (!oldUserName.equals(userName)) {
-            rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
-            if(rs.next()) {
+    
+    Map currentDetails = databaseAccess.getPlayerDetails(oldUserName);
+    if(!currentDetails.get("password").equals(password)) {
+        String message = "password";
+        response.sendRedirect("accountManagement.jsp?error="+message);
+        return;
+    } else {
+        if(!oldUserName.equals(userName)) {
+            if(databaseAccess.playerExists(userName)) {
                 String message = "userName";
                 response.sendRedirect("accountManagement.jsp?error="+message);
-                st.close();
-                return;
-            }
-        } else if (!oldEmail.equals(email)) {
-            rs = st.executeQuery("SELECT * FROM players WHERE email ='"+email+"'");
-            if(rs.next()) {
-                String message = "email";
-                response.sendRedirect("accountManagement.jsp?error="+message);
-                st.close();
                 return;
             }
         }
-        st.executeUpdate("UPDATE players SET user='"+userName+"', email='"+email+"', password='"+newPassword+"' WHERE user='"+oldUserName+"'");
-        GameManager.newPlayer(request.getSession(), userName);
-        response.sendRedirect("accountManagement.jsp");
-        st.close();
-    }
-    catch (Exception e) {
-        e.printStackTrace();
-        String message = "exception";
-        response.sendRedirect("accountManagement.jsp?error="+message);
+        if(!currentDetails.get("email").equals(email)) {
+            if(databaseAccess.emailExists(email)) {
+                String message = "email";
+                response.sendRedirect("accountManagement.jsp?error="+message);
+                return;
+            }
+        }
+        Map details = new HashMap();
+        details.put("oldUserName", oldUserName);
+        details.put("userName", userName);
+        details.put("email", email);
+        details.put("password", password);
+        
+        if(databaseAccess.updatePlayerDetails(details)) {
+            GameManager.newPlayer(request.getSession(), userName);
+            response.sendRedirect("accountManagement.jsp");
+        } else {
+            String message = "exception";
+            response.sendRedirect("accountManagement.jsp?error="+message);
+        }
     }
 %>

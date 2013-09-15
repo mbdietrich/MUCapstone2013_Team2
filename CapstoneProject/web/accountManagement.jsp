@@ -6,6 +6,8 @@
 
 <%@ page import = "java.sql.*" %>
 <%@ page import = "javax.sql.*" %>
+<%@page import="capstone.server.databaseAccess"%>
+<%@ page import = "java.util.Map" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,12 +27,6 @@
                     {
                         alert("Please enter a user name.");
                         document.manager.userName.focus();
-                        return false;
-                    }
-                else if(trim(document.manager.name.value)==="")
-                    {
-                        alert("Please enter your name");
-                        document.manager.name.focus();
                         return false;
                     }
                 else if(trim(document.manager.email.value)==="")
@@ -79,9 +75,9 @@
         error="";
     } else {
         if(error.equals("userName")) {
-            userNameError = "<font color='red'>Username already in use</font>";
+            userNameError = "<font color='red'>The requested username is not available</font>";
         } else if (error.equals("email")) {
-            emailError = "<font color='red'>A player has already registered this email</font>";
+            emailError = "<font color='red'>A player has already registered with this email</font>";
         } else if (error.equals("password")) {
             passwordError = "<font color='red'>Incorrect password</font>";
         } else if (error.equals("exception")) {
@@ -90,21 +86,13 @@
     }
     String userName = (String)session.getAttribute("user");
     if(userName != null) {
-        try { 
-            Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://mysql-CapstoneG2.jelastic.servint.net/tictactoedb?useUnicode=yes&characterEncoding=UTF-8", "admin", "capstone2");
-            Statement st = con.createStatement();
-        
-            ResultSet rs = st.executeQuery("SELECT * FROM players WHERE user ='"+userName+"'");
-            String email = "";
-            String fbid = "";
-            if (rs.next()) {
-                email = rs.getString(3);
-                fbid = rs.getString(4);
-            }
-       
-            st.close();
-            
+        Map details = databaseAccess.getPlayerDetails(userName);
+        String email = "";
+        String fbid = "";
+        if(!details.isEmpty()) {
+            email = details.get("email").toString();
+            fbid = details.get("fbid").toString();
+        }
             %>
         <body>
             <script>
@@ -229,12 +217,6 @@
         </div>
     </body>
     <%
-    }
-    catch (Exception e) {
-        e.printStackTrace();
-        String message = "There was a problem logging you in";
-        response.sendRedirect("index.jsp?error="+message);
-        }
     } else {
         String userNameValue = "placeholder='username'";
         String emailValue = "placeholder='email'";
