@@ -155,7 +155,7 @@
                                 </tr>
                                 <tr>
                                     <input name="link" type="hidden" value="yes"/>
-                                    <input name="fbid" type="hidden" value=<%=id%>/>
+                                    <input name="fbid" type="hidden" value="<%=id%>"/>
                                     <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                                 </tr>
                                 </table>

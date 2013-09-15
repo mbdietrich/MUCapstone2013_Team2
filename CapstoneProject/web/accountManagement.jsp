@@ -168,12 +168,12 @@
                     <table align="center">
                         <tr>
                             <td>User name:</td>
-                            <td><input id="userName" name="userName" type="text" size="20" value=<%=userName%> /></td>
+                            <td><input id="userName" name="userName" type="text" size="20" value="<%=userName%>" /></td>
                             <td><%=userNameError%></td>
                         </tr>
                         <tr>
                             <td>Email:</td>
-                            <td><input id="email" name="email" type="text" size="20" value=<%=email%> /></td>
+                            <td><input id="email" name="email" type="text" size="20" value="<%=email%>" /></td>
                             <td><%=emailError%></td>
                         </tr>
                         <tr id="fb">
@@ -207,8 +207,8 @@
                             <td colspan ="2"><%=exceptionError%></td>
                         </tr>
                         <tr>
-                            <input name="oldUserName" type="hidden" value=<%=userName%>/>
-                            <input name="oldEmail" type="hidden" value=<%=email%>/>
+                            <input name="oldUserName" type="hidden" value="<%=userName%>"/>
+                            <input name="oldEmail" type="hidden" value="<%=email%>"/>
                             <input name="link" type="hidden" value="no"/>
                             <td colspan="2"><input type="submit" name="submit" value="Update Details" class="fade" /></td>
                         </tr>
@@ -261,7 +261,7 @@
                             <td colspan ="2"><%=exceptionError%></td>
                         </tr>
                         <tr>
-                            <input name="fbid" type="hidden" value=<%=fbid%>/>
+                            <input name="fbid" type="hidden" value="<%=fbid%>"/>
                             <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                         </tr>
                     </table>
