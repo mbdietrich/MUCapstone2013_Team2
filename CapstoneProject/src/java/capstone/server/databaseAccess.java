@@ -225,26 +225,56 @@ public class databaseAccess {
         }
     }
     
-    public static boolean acceptFriend(String player, String friend) {
+    public static boolean acceptFriend(String player, String friend) {        
+        //get player details
         Map playerDetails = getPlayerDetails(player);
         String friendRequests = (String)playerDetails.get("friendRequests");
         String friends = (String)playerDetails.get("friends");
+        String playerID = (String)playerDetails.get("id");
+        playerID = ":" + playerID + ",";
+        //get friend details
         Map friendDetails = getPlayerDetails(friend);
         String friendID = (String)friendDetails.get("id");
+        String friendFriendRequests = (String)friendDetails.get("friendRequests");
         friendID = ":" + friendID + ",";
+        String friendFriends = (String)friendDetails.get("friends");
+        
         if(!friendRequests.contains(friendID)) {
             // problem - no request for this friend exists
             return false;
         }
         friends = friends + friendID;
+        friendFriends = friendFriends + playerID;
         
+        //add friend to player's friends and remove from requests
         try {
             Statement st = createConnection();
             st.executeUpdate("UPDATE players SET friends='"+friends+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            //remove friend from player's requests
             String newRequestList = friendRequests.replace(friendID, "");
             try {
                 st.executeUpdate("UPDATE players SET friendRequests='"+newRequestList+"' WHERE user='"+Encryption.encrypt(player)+"'");
-                return true;
+                //add player to friend's friends
+                try {
+                    st.executeUpdate("UPDATE players SET friends='"+friendFriends+"' WHERE user='"+Encryption.encrypt(friend)+"'");
+                    //if friend has a request from player, remove it
+                    if(friendFriendRequests.contains(playerID)) {
+                        String newFriendFriendRequestList = friendFriendRequests.replace(playerID, "");
+                        try {
+                            st.executeUpdate("UPDATE players SET friendRequests='"+newFriendFriendRequestList+"' WHERE user='"+Encryption.encrypt(friend)+"'");
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                            //if all the rest has worked, we'll still return true at this stage
+                            return true;
+                        }
+                    }
+                    return true;
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -285,5 +315,45 @@ public class databaseAccess {
         friends.clear();
         friends.addAll(set);
         return friends;
+    }
+    
+    public static boolean declineRequest(String player, String friend) {
+        Map details = getPlayerDetails(player);
+        String requests = (String)details.get("friendRequests");
+        Map friendDetails = getPlayerDetails(friend);
+        String id = (String)friendDetails.get("id");
+        id = ":" + id + ",";
+        if(!requests.contains(id)) {
+            //problem - no request exists for this player
+            return false;
+        }
+        String newRequests = requests.replace(id, "");
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("UPDATE players SET friendRequests='"+newRequests+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static boolean areFriends(String player1, String player2) {
+        Map player1Details = getPlayerDetails(player1);
+        Map player2Details = getPlayerDetails(player2);
+        String player1ID = (String)player1Details.get("id");
+        player1ID = ":" + player1ID + ",";
+        String player2Friends = (String)player2Details.get("friends");
+        if(player2Friends.contains(player1ID)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static boolean removeFriend(String player, String friend) {
+        //remove from both players!!
+        return false;
     }
 }

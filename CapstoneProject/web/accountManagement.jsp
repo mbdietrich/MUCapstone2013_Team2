@@ -67,6 +67,33 @@
                         return false;
                     }
             }
+            function validateAdd()
+            {
+                if(trim(document.manager.friendAdd.value)==="")
+                    {
+                        alert("Please enter a username.");
+                        document.manager.friendAdd.focus();
+                        return false;
+                    }
+            }
+            function validateRequests()
+            {
+                if(trim(document.manager.friendRequestsField.value)==="")
+                    {
+                        alert("Please select a request.");
+                        document.manager.friendRequestsField.focus();
+                        return false;
+                    }
+            }
+            function validateFriends()
+            {
+                if(trim(document.manager.friendsField.value)==="")
+                    {
+                        alert("Please select a friend.");
+                        document.manager.friendsField.focus();
+                        return false;
+                    }
+            }
         </script>
     </head>
     <%
@@ -114,7 +141,6 @@
             friendCode = friendCode + "<option value ='"+name+"'>"+name+"</option>";
         }
         
-        
         //get friend requests
         String requestCode = "";
         List<String> friendRequests = databaseAccess.getFriendRequests(userName);
@@ -122,9 +148,7 @@
         while(iteratorRequests.hasNext()) {
             String name = iteratorRequests.next();
             requestCode = requestCode + "<option value ='"+name+"'>"+name+"</option>";
-        }
-        String testCode = friendRequests.get(0);
-        
+        }        
         
             %>
         <body>
@@ -195,7 +219,7 @@
             <a href="lobby.jsp" align="center">Lobby</a>
             <br>
             <div id="content">
-                    <div id="playerinfo" style="width:50%; text-align:center; float:left">
+                    <div id="playerinfo" style="width:50%; text-align:left; float:left">
                     <h2>My Details</h2>
                     <br><br>
                     <form name="manager" onSubmit="return validate1();" action="updateDetails.jsp" method="POST">
@@ -224,7 +248,7 @@
                             </td>
                         </tr>
                         <tr id="fbmsg">
-                            <td colspan="2">The current logged in Facebook account is not linked to this player</td>
+                            <td colspan="3"><font color='red'>The current logged in Facebook account is not linked to this player</font></td>
                         </tr>
                         <tr>
                             <td>New password:</td>
@@ -250,9 +274,9 @@
                 </form>
                             
                             
-                <div id="friends" style="width:50%; text-align:center; float:left">
+                <div id="friends" style="width:50%; text-align:left; float:left">
                   
-                    <form id="myfriends" name="friends" onSubmit="" action="" method="POST">
+                    <form id="myfriends" name="friends" onSubmit="return validateFriends();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
                                 <td><h2>My Friends</h2></td>
@@ -264,11 +288,13 @@
                                 </td>
                             </tr>
                             <tr>
+                                <input name="player" type="hidden" value="<%=userName%>"/>
+                                <input name="form" type="hidden" value="friends"/>
                                 <td colspan="2"><input type="submit" name="submit" value="Delete Friend" class="fade" /></td>
                             </tr>
                     </form>
-                    <br><br>
-                    <form id="myrequests" name="friendRequests" onSubmit="" action="" method="POST">
+                    <br>
+                    <form id="myrequests" name="friendRequests" onSubmit="return validateRequests();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
                                 <td><h2>Friend Requests</h2></td>
@@ -280,24 +306,30 @@
                                 </td>
                             </tr>
                             <tr>
+                                <input name="player" type="hidden" value="<%=userName%>"/>
+                                <input name="form" type="hidden" value="requests"/>
                                 <td colspan="2"><input type="submit" name="submit" value="Accept Request" class="fade" /></td>
                             </tr>
+                            <tr>
+                                <td colspan="2"><input type="submit" name="submit" value="Decline Request" class="fade" /></td>
+                            </tr>
                     </form>
-                    <br><br><br>
-                    <form name="addFriend" action="addFriend.jsp" method="POST">
+                    <br><br><br><br>
+                    <form name="addFriend" onSubmit="return validateAdd();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
                                 <td><h2>Add Friend</h2></td>
                             </tr>
                             <tr>
                                 <td>Friend's username:</td>
-                                <td><input type="text" id="friend" name="friend" placeholder="friend"</td>
+                                <td><input type="text" id="friendAdd" name="friend" placeholder="friend"</td>
                             </tr>
                             <tr>
                                 <td colspan ="2"><%=requestmessage%></td>
                             </tr>
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
+                                <input name="form" type="hidden" value="add"/>
                                 <td colspan="2"><input type="submit" name="submit" value="Send Request" class="fade" /></td>
                             </tr>
                     </form>
