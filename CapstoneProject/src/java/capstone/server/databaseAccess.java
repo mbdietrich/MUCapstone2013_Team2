@@ -9,6 +9,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashSet;
+
 
 /**
  *
@@ -52,7 +56,22 @@ public class databaseAccess {
                 details.put("userName", Encryption.decrypt(rs.getString(1)));
                 details.put("password", Encryption.decrypt(rs.getString(2)));
                 details.put("email", Encryption.decrypt(rs.getString(3)));
-                details.put("fbid", Encryption.decrypt(rs.getString(4)));
+                if(Encryption.decrypt(rs.getString(4)).equals("0")) {
+                    details.put("fbid", "");
+                } else {
+                    details.put("fbid", Encryption.decrypt(rs.getString(4)));
+                }
+                details.put("id", rs.getString(5));
+                if(rs.getString(6).equals("0")) {
+                    details.put("friends", "");
+                } else {
+                    details.put("friends", rs.getString(6));
+                }
+                if(rs.getString(7).equals("0")) {
+                    details.put("friendRequests", "");
+                } else {
+                    details.put("friendRequests", rs.getString(7));
+                }
             }
             st.close();
             return details;
@@ -123,7 +142,11 @@ public class databaseAccess {
                 details.put("userName", Encryption.decrypt(rs.getString(1)));
                 details.put("password", Encryption.decrypt(rs.getString(2)));
                 details.put("email", Encryption.decrypt(rs.getString(3)));
-                details.put("fbid", Encryption.decrypt(rs.getString(4)));
+                if(Encryption.decrypt(rs.getString(4))=="0") {
+                    details.put("fbid", "");
+                } else {
+                    details.put("fbid", Encryption.decrypt(rs.getString(4)));
+                }
             }
             st.close();
             return details;
@@ -144,5 +167,123 @@ public class databaseAccess {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public static List<String> getFriends(String player) {
+        List<String> friends = new ArrayList<String>();
+        String names = "";
+        Map details = getPlayerDetails(player);
+        names = (String)details.get("friends");
+        if(names.contains(",")) {
+            String[] namesArray = names.split(",");
+            for(int x=0;x<namesArray.length;x++) {
+                String friend = namesArray[x].substring(1);
+                try {
+                    Statement st = createConnection();
+                    ResultSet rs = st.executeQuery("SELECT * FROM players WHERE playerID ='"+friend+"'");
+                    if(rs.next()) {
+                        friends.add(Encryption.decrypt(rs.getString(1)));
+                    }
+                    st.close();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    return friends;
+                }
+            }
+        }
+        //remove any duplicates
+        HashSet set = new HashSet(friends);
+        friends.clear();
+        friends.addAll(set);
+        return friends;
+    }
+    
+    public static boolean addFriend(String player, String friend) {
+        String friendRequests = "";
+        Map friendDetails = getPlayerDetails(friend);
+        if(friendDetails.isEmpty()) {
+            //friend does not exist
+            return false;
+        }
+        friendRequests = (String)friendDetails.get("friendRequests");
+        Map playerDetails = getPlayerDetails(player);
+        if(playerDetails.isEmpty()) {
+            //there was a problem
+            return false;
+        }
+        String playerID = (String)playerDetails.get("id");
+        friendRequests = friendRequests + ":" + playerID + ",";
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("UPDATE players SET friendRequests='"+friendRequests+"' WHERE user='"+Encryption.encrypt(friend)+"'");
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static boolean acceptFriend(String player, String friend) {
+        Map playerDetails = getPlayerDetails(player);
+        String friendRequests = (String)playerDetails.get("friendRequests");
+        String friends = (String)playerDetails.get("friends");
+        Map friendDetails = getPlayerDetails(friend);
+        String friendID = (String)friendDetails.get("id");
+        friendID = ":" + friendID + ",";
+        if(!friendRequests.contains(friendID)) {
+            // problem - no request for this friend exists
+            return false;
+        }
+        friends = friends + friendID;
+        
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("UPDATE players SET friends='"+friends+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            String newRequestList = friendRequests.replace(friendID, "");
+            try {
+                st.executeUpdate("UPDATE players SET friendRequests='"+newRequestList+"' WHERE user='"+Encryption.encrypt(player)+"'");
+                return true;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static List<String> getFriendRequests(String player) {
+        List<String> friends = new ArrayList<String>();
+        String names = "";
+        Map details = getPlayerDetails(player);
+        names = (String)details.get("friendRequests");
+        if(names.contains(",")) {
+            String[] namesArray = names.split(",");
+            for(int x=0;x<namesArray.length;x++) {
+                String friend = namesArray[x].substring(1);
+                try {
+                    Statement st = createConnection();
+                    ResultSet rs = st.executeQuery("SELECT * FROM players WHERE playerID ='"+friend+"'");
+                    if(rs.next()) {
+                        friends.add(Encryption.decrypt(rs.getString(1)));
+                    }
+                    st.close();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    return friends;
+                }
+            }
+        }
+        //remove any duplicates
+        HashSet set = new HashSet(friends);
+        friends.clear();
+        friends.addAll(set);
+        return friends;
     }
 }
