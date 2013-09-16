@@ -65,6 +65,15 @@ public class FriendManager extends HttpServlet {
                     this.getServletContext().getRequestDispatcher("/accountManagement.jsp?requestmessage="+message).forward(request, response);
                 }
             }
+        } else if (request.getParameter("form").equals("friends")) {
+            String player = request.getParameter("player");
+            String friend = request.getParameter("friendsField");
+            if(databaseAccess.removeFriend(player, friend)) {
+                this.getServletContext().getRequestDispatcher("/accountManagement.jsp").forward(request, response);
+            } else {
+                String message = "Error: Please try again";
+                this.getServletContext().getRequestDispatcher("/accountManagement.jsp?requestmessage="+message).forward(request, response);
+            }
         }
     }
 

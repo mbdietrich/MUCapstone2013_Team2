@@ -353,7 +353,29 @@ public class databaseAccess {
     }
     
     public static boolean removeFriend(String player, String friend) {
-        //remove from both players!!
-        return false;
+        //get player details
+        Map playerDetails = getPlayerDetails(player);
+        String playerID = (String)playerDetails.get("id");
+        playerID = ":" + playerID + ",";
+        String playerFriends = (String)playerDetails.get("friends");
+        //Get friend details
+        Map friendDetails = getPlayerDetails(friend);
+        String friendID = (String)friendDetails.get("id");
+        friendID = ":" + friendID + ",";
+        String friendFriends = (String)friendDetails.get("friends");
+        
+        String newPlayerFriends = playerFriends.replace(friendID, "");
+        String newFriendFriends = friendFriends.replace(playerID, "");
+        
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("UPDATE players SET friends='"+newPlayerFriends+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            st.executeUpdate("UPDATE players SET friends='"+newFriendFriends+"' WHERE user='"+Encryption.encrypt(friend)+"'");
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
