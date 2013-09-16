@@ -1,7 +1,7 @@
 <%--
     Document   : fblogin
     Created on : Sep 14, 2013, 4:01:20 PM
-    Author     : lowkeylukey
+    Author     : luke
 --%>
 
 <%@ page import = "java.sql.*" %>
@@ -100,7 +100,7 @@
                 <div id="new account">
                     <h2 align="center">Link to new account</h2>
                         <div id="content">
-                            <form name="manager" onSubmit="return validate();" action="processRegistration.jsp" method="POST">
+                            <form name="manager" onSubmit="return validate();" action="profile" method="POST">
                                 <div id="wrapper" style="width:100%; text-align:center">
                                 <br>
                                 <table align="center">
@@ -127,6 +127,7 @@
                                 </tr>
                                 <tr>
                                     <input name="fbid" type="hidden" value=<%=id%>/>
+                                    <input name="form" type="hidden" value="register"/>
                                     <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                                 </tr>
                                 </table>
@@ -138,7 +139,7 @@
                 <div id="link account">
                     <h2 align="center">Link to existing account</h2>
                         <div id="content">
-                            <form name="manager" onSubmit="return validate2();" action="updateDetails.jsp" method="POST">
+                            <form name="manager" onSubmit="return validate2();" action="profile" method="POST">
                                 <div id="wrapper" style="width:100%; text-align:center">
                                 <br>
                                 <table align="center">
@@ -156,6 +157,7 @@
                                 <tr>
                                     <input name="link" type="hidden" value="yes"/>
                                     <input name="fbid" type="hidden" value="<%=id%>"/>
+                                    <input name="form" type="hidden" value="update"/>
                                     <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                                 </tr>
                                 </table>

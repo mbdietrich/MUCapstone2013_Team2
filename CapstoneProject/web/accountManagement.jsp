@@ -222,7 +222,7 @@
                     <div id="playerinfo" style="width:50%; text-align:left; float:left">
                     <h2>My Details</h2>
                     <br><br>
-                    <form name="manager" onSubmit="return validate1();" action="updateDetails.jsp" method="POST">
+                    <form name="manager" onSubmit="return validate1();" action="profile" method="POST">
                     <table align="center">
                         <tr>
                             <td>User name:</td>
@@ -267,6 +267,7 @@
                             <input name="oldUserName" type="hidden" value="<%=userName%>"/>
                             <input name="oldEmail" type="hidden" value="<%=email%>"/>
                             <input name="link" type="hidden" value="no"/>
+                            <input name="form" type="hidden" value="update"/>
                             <td colspan="2"><input type="submit" name="submit" value="Update Details" class="fade" /></td>
                         </tr>
                     </table>
@@ -356,7 +357,7 @@
         <body>
             <h1>Create Profile</h1>
             <div id="content">
-                <form name="manager" onSubmit="return validate();" action="processRegistration.jsp" method="POST">
+                <form name="manager" onSubmit="return validate();" action="profile" method="POST">
                     <div id="wrapper" style="width:100%; text-align:center">
                     <br><br><br><br><br><br>
                     <table align="center">
@@ -383,6 +384,7 @@
                         </tr>
                         <tr>
                             <input name="fbid" type="hidden" value="void"/>
+                            <input name="form" type="hidden" value="register"/>
                             <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                         </tr>
                     </table>
