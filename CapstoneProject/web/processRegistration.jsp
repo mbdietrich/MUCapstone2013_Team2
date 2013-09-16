@@ -16,7 +16,11 @@
     String email = request.getParameter("email");
     String password = request.getParameter("password");
     String fbid = request.getParameter("fbid");
-    fbid = fbid.substring(0, fbid.length()-1);
+    if(fbid.equals("void")) {
+        fbid="";
+    } else {
+        fbid = fbid.substring(0, fbid.length()-1);
+    }
     
     Map details = databaseAccess.getPlayerDetails(userName);
     if(details.isEmpty()) {

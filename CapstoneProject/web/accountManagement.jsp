@@ -8,6 +8,10 @@
 <%@ page import = "javax.sql.*" %>
 <%@page import="capstone.server.databaseAccess"%>
 <%@ page import = "java.util.Map" %>
+<%@ page import = "java.util.List" %>
+<%@ page import = "java.util.Iterator" %>
+
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -66,11 +70,16 @@
         </script>
     </head>
     <%
+    // error handling
     String exceptionError = "";
     String userNameError = "";
     String emailError = "";
     String passwordError = "";
     String error = request.getParameter("error");
+    String requestmessage = request.getParameter("requestmessage");
+    if(requestmessage == null || requestmessage=="null") {
+        requestmessage="";
+    }
     if(error==null || error=="null") {
         error="";
     } else {
@@ -84,6 +93,8 @@
             exceptionError = "<font color='red'>An error occurred. Please try again.</font>";
         }
     }
+    
+    // if user logged in, display profile information
     String userName = (String)session.getAttribute("user");
     if(userName != null) {
         Map details = databaseAccess.getPlayerDetails(userName);
@@ -93,10 +104,32 @@
             email = details.get("email").toString();
             fbid = details.get("fbid").toString();
         }
+        
+        //get friends
+        String friendCode = "";
+        List<String> friends = databaseAccess.getFriends(userName);
+        Iterator<String> iterator = friends.iterator();
+        while(iterator.hasNext()) {
+            String name = iterator.next();
+            friendCode = friendCode + "<option value ='"+name+"'>"+name+"</option>";
+        }
+        
+        
+        //get friend requests
+        String requestCode = "";
+        List<String> friendRequests = databaseAccess.getFriendRequests(userName);
+        Iterator<String> iteratorRequests = friendRequests.iterator();
+        while(iteratorRequests.hasNext()) {
+            String name = iteratorRequests.next();
+            requestCode = requestCode + "<option value ='"+name+"'>"+name+"</option>";
+        }
+        String testCode = friendRequests.get(0);
+        
+        
             %>
         <body>
             <script>
-            // Additional JS functions here
+            // Facebook
             window.fbAsyncInit = function() {
             FB.init({
                 appId      : '689318734429599', // App ID
@@ -159,12 +192,13 @@
                 });
             }
             </script>
-            <h1>Profile</h1>
+            <a href="lobby.jsp" align="center">Lobby</a>
+            <br>
             <div id="content">
-                <a href="lobby.jsp" align="center">Lobby</a>
+                    <div id="playerinfo" style="width:50%; text-align:center; float:left">
+                    <h2>My Details</h2>
+                    <br><br>
                     <form name="manager" onSubmit="return validate1();" action="updateDetails.jsp" method="POST">
-                    <div id="wrapper" style="width:100%; text-align:center">
-                    <br><br><br><br><br><br>
                     <table align="center">
                         <tr>
                             <td>User name:</td>
@@ -190,7 +224,6 @@
                             </td>
                         </tr>
                         <tr id="fbmsg">
-                            <td>Link Facebook:</td>
                             <td colspan="2">The current logged in Facebook account is not linked to this player</td>
                         </tr>
                         <tr>
@@ -215,9 +248,65 @@
                     </table>
                     </div>
                 </form>
+                            
+                            
+                <div id="friends" style="width:50%; text-align:center; float:left">
+                  
+                    <form id="myfriends" name="friends" onSubmit="" action="" method="POST">
+                        <table align="center">
+                            <tr>
+                                <td><h2>My Friends</h2></td>
+                            </tr>
+                            <tr>
+                                <td><select name="friendsField" multiple="no" style="width:300px">
+                                        <%=friendCode%>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><input type="submit" name="submit" value="Delete Friend" class="fade" /></td>
+                            </tr>
+                    </form>
+                    <br><br>
+                    <form id="myrequests" name="friendRequests" onSubmit="" action="" method="POST">
+                        <table align="center">
+                            <tr>
+                                <td><h2>Friend Requests</h2></td>
+                            </tr>
+                            <tr>
+                                <td><select name="friendRequestsField" multiple="no" style="width:300px">
+                                        <%=requestCode%>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><input type="submit" name="submit" value="Accept Request" class="fade" /></td>
+                            </tr>
+                    </form>
+                    <br><br><br>
+                    <form name="addFriend" action="addFriend.jsp" method="POST">
+                        <table align="center">
+                            <tr>
+                                <td><h2>Add Friend</h2></td>
+                            </tr>
+                            <tr>
+                                <td>Friend's username:</td>
+                                <td><input type="text" id="friend" name="friend" placeholder="friend"</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2"><%=requestmessage%></td>
+                            </tr>
+                            <tr>
+                                <input name="player" type="hidden" value="<%=userName%>"/>
+                                <td colspan="2"><input type="submit" name="submit" value="Send Request" class="fade" /></td>
+                            </tr>
+                    </form>
+                    
+                </div>
         </div>
     </body>
     <%
+    // if user not logged in, present registration page
     } else {
         String userNameValue = "placeholder='username'";
         String emailValue = "placeholder='email'";
@@ -261,7 +350,7 @@
                             <td colspan ="2"><%=exceptionError%></td>
                         </tr>
                         <tr>
-                            <input name="fbid" type="hidden" value="<%=fbid%>"/>
+                            <input name="fbid" type="hidden" value="void"/>
                             <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                         </tr>
                     </table>
