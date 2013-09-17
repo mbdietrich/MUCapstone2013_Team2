@@ -129,7 +129,6 @@ public class GameManager {
         gameIDs.remove(game.SessionID);
         openGames.remove(game.SessionID);
         }
-        states.get(session).clear();
     }
     
     //Return the oldest state. If a newer state is available, remove that state.
