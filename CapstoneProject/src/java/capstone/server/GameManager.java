@@ -124,10 +124,12 @@ public class GameManager {
     
     public static void leave(HttpSession session){
         GameSession game = gameSessions.get(session);
+        if(game!=null){
         game.Leave(players.get(session));
-        states.get(session).clear();
         gameIDs.remove(game.SessionID);
         openGames.remove(game.SessionID);
+        }
+        states.get(session).clear();
     }
     
     //Return the oldest state. If a newer state is available, remove that state.
