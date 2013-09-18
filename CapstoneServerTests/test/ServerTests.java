@@ -85,14 +85,7 @@ public class ServerTests {
         HttpClient client = new DefaultHttpClient();
         
         //Log in
-        HttpPost postlogin = new HttpPost(URL+"login");
-        List<NameValuePair> loginpairs = new ArrayList<NameValuePair>(2);
-        loginpairs.add(new BasicNameValuePair("userName", userName));
-        loginpairs.add(new BasicNameValuePair("password", password));
-        postlogin.setEntity(new UrlEncodedFormEntity(loginpairs));
-        HttpResponse loginresp = client.execute(postlogin);       
-        postlogin.releaseConnection();
-        
+        login(client);
         
         //Create a game       
         HttpPost post = new HttpPost(URL+"create");
@@ -118,22 +111,8 @@ public class ServerTests {
     @Test
     public void testLeave() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
-        
-        //Log in
-        HttpPost postlogin = new HttpPost(URL+"login");
-        List<NameValuePair> loginpairs = new ArrayList<NameValuePair>(2);
-        loginpairs.add(new BasicNameValuePair("userName", userName));
-        loginpairs.add(new BasicNameValuePair("password", password));
-        postlogin.setEntity(new UrlEncodedFormEntity(loginpairs));
-        HttpResponse loginresp = client.execute(postlogin);       
-        postlogin.releaseConnection();
-        //Create a game       
-        HttpPost postcreate = new HttpPost(URL+"create");
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-        nameValuePairs.add(new BasicNameValuePair("type", "any")); 
-        postcreate.setEntity(new UrlEncodedFormEntity(nameValuePairs));  
-        HttpResponse createresp = client.execute(postcreate);
-        postcreate.releaseConnection();
+        login(client);              // Log in     
+        createGame(client);         //Create a game    
         
         // Leave the game
         HttpPost postleave = new HttpPost(URL+"leave");
@@ -145,15 +124,7 @@ public class ServerTests {
     @Test
     public void testGetList() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
-        
-        //Log in
-        HttpPost postlogin = new HttpPost(URL+"login");
-        List<NameValuePair> loginpairs = new ArrayList<NameValuePair>(2);
-        loginpairs.add(new BasicNameValuePair("userName", userName));
-        loginpairs.add(new BasicNameValuePair("password", password));
-        postlogin.setEntity(new UrlEncodedFormEntity(loginpairs));
-        HttpResponse loginresp = client.execute(postlogin);       
-        postlogin.releaseConnection();
+        login(client);              // Log in  
         
         //Get a list of available games
         HttpGet getjoin = new HttpGet(URL+"join");
@@ -171,22 +142,8 @@ public class ServerTests {
 //     @Test
 //    public void testMove() throws ClientProtocolException, IOException{
 //        HttpClient client = new DefaultHttpClient();
-//        
-//        //Log in
-//        HttpPost postlogin = new HttpPost(URL+"login");
-//        List<NameValuePair> loginpairs = new ArrayList<NameValuePair>(2);
-//        loginpairs.add(new BasicNameValuePair("userName", userName));
-//        loginpairs.add(new BasicNameValuePair("password", password));
-//        postlogin.setEntity(new UrlEncodedFormEntity(loginpairs));
-//        HttpResponse loginresp = client.execute(postlogin);       
-//        postlogin.releaseConnection();
-//        //Create a game       
-//        HttpPost postcreate = new HttpPost(URL+"create");
-//        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-//        nameValuePairs.add(new BasicNameValuePair("type", "any")); 
-//        postcreate.setEntity(new UrlEncodedFormEntity(nameValuePairs));  
-//        HttpResponse postresp = client.execute(postcreate);
-//        postcreate.releaseConnection();
+//        login(client);              // Log in     
+//        createGame(client);         //Create a game   
 //        
 //        //Make a Move
 //        HttpPost postmove = new HttpPost(URL+"move");
@@ -203,4 +160,23 @@ public class ServerTests {
 //        
 //        assertEquals(moveresp.getStatusLine().getStatusCode(), 200);
 //    }
+
+    public void login(HttpClient client) throws UnsupportedEncodingException, IOException{
+        HttpPost postlogin = new HttpPost(URL+"login");
+        List<NameValuePair> loginpairs = new ArrayList<NameValuePair>(2);
+        loginpairs.add(new BasicNameValuePair("userName", userName));
+        loginpairs.add(new BasicNameValuePair("password", password));
+        postlogin.setEntity(new UrlEncodedFormEntity(loginpairs));
+        HttpResponse loginresp = client.execute(postlogin);       
+        postlogin.releaseConnection();
+    }
+
+    public void createGame(HttpClient client) throws UnsupportedEncodingException, IOException{
+        HttpPost postcreate = new HttpPost(URL+"create");
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair("type", "any")); 
+        postcreate.setEntity(new UrlEncodedFormEntity(nameValuePairs));  
+        HttpResponse postresp = client.execute(postcreate);
+        postcreate.releaseConnection();        
+    }
 }
