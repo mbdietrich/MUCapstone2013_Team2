@@ -142,6 +142,30 @@ public class ServerTests {
         assertEquals(leaveresp.getStatusLine().getStatusCode(), 200);
 }
     
+    @Test
+    public void testGetList() throws ClientProtocolException, IOException{
+        HttpClient client = new DefaultHttpClient();
+        
+        //Log in
+        HttpPost postlogin = new HttpPost(URL+"login");
+        List<NameValuePair> loginpairs = new ArrayList<NameValuePair>(2);
+        loginpairs.add(new BasicNameValuePair("userName", userName));
+        loginpairs.add(new BasicNameValuePair("password", password));
+        postlogin.setEntity(new UrlEncodedFormEntity(loginpairs));
+        HttpResponse loginresp = client.execute(postlogin);       
+        postlogin.releaseConnection();
+        
+        //Get a list of available games
+        HttpGet getjoin = new HttpGet(URL+"join");
+        HttpResponse joinresp = client.execute(getjoin);
+        
+        //Print the list
+        String responsebody = EntityUtils.toString(joinresp.getEntity());
+        System.out.print(responsebody);
+        
+        assertEquals(joinresp.getStatusLine().getStatusCode(), 200);
+}
+    
     
     // testState is needed for this
 //     @Test
