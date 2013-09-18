@@ -112,7 +112,71 @@ public class ServerTests {
             flag = true;
         }
         
-        assertEquals(flag, true);
+        assertTrue(flag);
     }
     
+    @Test
+    public void testLeave() throws ClientProtocolException, IOException{
+        HttpClient client = new DefaultHttpClient();
+        
+        //Log in
+        HttpPost postlogin = new HttpPost(URL+"login");
+        List<NameValuePair> loginpairs = new ArrayList<NameValuePair>(2);
+        loginpairs.add(new BasicNameValuePair("userName", userName));
+        loginpairs.add(new BasicNameValuePair("password", password));
+        postlogin.setEntity(new UrlEncodedFormEntity(loginpairs));
+        HttpResponse loginresp = client.execute(postlogin);       
+        postlogin.releaseConnection();
+        //Create a game       
+        HttpPost postcreate = new HttpPost(URL+"create");
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair("type", "any")); 
+        postcreate.setEntity(new UrlEncodedFormEntity(nameValuePairs));  
+        HttpResponse createresp = client.execute(postcreate);
+        postcreate.releaseConnection();
+        
+        // Leave the game
+        HttpPost postleave = new HttpPost(URL+"leave");
+        HttpResponse leaveresp = client.execute(postleave);
+        
+        assertEquals(leaveresp.getStatusLine().getStatusCode(), 200);
+}
+    
+    
+    // testState is needed for this
+//     @Test
+//    public void testMove() throws ClientProtocolException, IOException{
+//        HttpClient client = new DefaultHttpClient();
+//        
+//        //Log in
+//        HttpPost postlogin = new HttpPost(URL+"login");
+//        List<NameValuePair> loginpairs = new ArrayList<NameValuePair>(2);
+//        loginpairs.add(new BasicNameValuePair("userName", userName));
+//        loginpairs.add(new BasicNameValuePair("password", password));
+//        postlogin.setEntity(new UrlEncodedFormEntity(loginpairs));
+//        HttpResponse loginresp = client.execute(postlogin);       
+//        postlogin.releaseConnection();
+//        //Create a game       
+//        HttpPost postcreate = new HttpPost(URL+"create");
+//        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+//        nameValuePairs.add(new BasicNameValuePair("type", "any")); 
+//        postcreate.setEntity(new UrlEncodedFormEntity(nameValuePairs));  
+//        HttpResponse postresp = client.execute(postcreate);
+//        postcreate.releaseConnection();
+//        
+//        //Make a Move
+//        HttpPost postmove = new HttpPost(URL+"move");
+//        
+//        List<NameValuePair> movepairs = new ArrayList<NameValuePair>(2);
+//        loginpairs.add(new BasicNameValuePair("a", "1"));
+//        loginpairs.add(new BasicNameValuePair("b", "1"));
+//        loginpairs.add(new BasicNameValuePair("x", "1"));
+//        loginpairs.add(new BasicNameValuePair("y", "1")); 
+//        
+//        postlogin.setEntity(new UrlEncodedFormEntity(nameValuePairs));  
+//        
+//        HttpResponse moveresp = client.execute(postmove);
+//        
+//        assertEquals(moveresp.getStatusLine().getStatusCode(), 200);
+//    }
 }
