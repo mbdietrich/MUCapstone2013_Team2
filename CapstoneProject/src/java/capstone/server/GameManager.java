@@ -68,6 +68,14 @@ public class GameManager {
         }
     }
     
+    public static String getPublicGames(){
+        StringBuilder builder = new StringBuilder();
+        for(Entry<String, String> entry: openGames.entrySet()){
+            
+            builder = builder.append(entry.getValue()).append("\n");
+        }
+        return builder.toString();
+    }
     public static String getOpenGames(){
         StringBuilder builder = new StringBuilder();
         builder=builder.append("{\"games:\"");

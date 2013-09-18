@@ -6,8 +6,8 @@
     lobby.jsp is where the player is sent before a game starts, but after logging in.
 --%>
 <%
-    String userName = (String)session.getAttribute("user");
-    if(userName == null) {
+    String userName = (String) session.getAttribute("user");
+    if (userName == null) {
         response.sendRedirect("index.jsp");
     }
 %>
@@ -20,19 +20,41 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/style2.css">
         <title>Lobby Page</title>
-        
+
         <script>
             var singlePlayer = function() {
-                $.post("create", {type: "solo", botname: "DefaultBot"}, function(e){document.location.href="game.jsp";});
-                
+                $.post("create", {type: "solo", botname: "DefaultBot"}, function(e) {
+                    document.location.href = "game.jsp";
+                });
+
             }
             var multiPlayer = function() {
-                $.post("create", {type: "any"}, function(e){document.location.href="game.jsp";});
-                
+                $.post("create", {type: "any"}, function(e) {
+                    document.location.href = "game.jsp";
+                });
+
             }
             var openGame = function() {
                 $.post("create", {type: "open"}, onGameCreate);
             }
+            
+    
+             var loadGames = function() {
+                $.get(
+                        "GetPublicGames", 
+                        function(data) {
+                            //alert(data.toString());
+                            // set as content in div with id conversations
+                            $("#gameList").html(data);
+                        }
+                );
+            }
+            $().ready( function() {
+                // load conversation after page is loaded
+                loadGames();
+            });
+
+            
 
             var onGameCreate = function(data) {
                 //TODO update lobby.jsp if the player has created a game
@@ -40,7 +62,7 @@
         </script>
     </head>
     <body>
-        
+
 
         <div id="content">
 
@@ -62,5 +84,12 @@
                     <a href="accountManagement.jsp" align="center">Profile</a>
                 </td>
             </table>
+            <table border="0" align="left">
+                <tr><td><div id="gameList"></div></td></tr>
+            </table>
+            <b>Open Games <button onclick="loadGames()">refresh</button></b>  <br>
+            <!-- load conversation when button is pressed loaded -->
+            <input></input><button>Join</button>
+                             
         </div>
 </html>
