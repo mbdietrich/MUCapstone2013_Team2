@@ -153,12 +153,10 @@ BlockingQueue<String>>();
         }
         else{
         BlockingQueue<String> messages = states.get(session);
-        try {
-            return messages.take();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+        if(messages.size()>1){
+            return messages.poll();
         }
+        else return messages.peek();
         }
     }
     
