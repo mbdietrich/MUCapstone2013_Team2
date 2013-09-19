@@ -113,7 +113,7 @@ public class ServerTests {
     public void testLeave() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
         login(client);              // Log in     
-        createGame(client);         //Create a game    
+        createGame(client, "any");         //Create a game    
         
         // Leave the game
         HttpPost postleave = new HttpPost(URL+"leave");
@@ -126,6 +126,7 @@ public class ServerTests {
     public void testGetList() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
         login(client);              // Log in  
+        createGame(client, "solo");
         
         //Get a list of available games
         HttpGet getjoin = new HttpGet(URL+"join");
@@ -133,16 +134,12 @@ public class ServerTests {
         
         //Print the list
         String responsebody = EntityUtils.toString(joinresp.getEntity());
-        
+        //String[][] games = new JSONDeserializer<String[][]>().deserialize(responsebody);
         System.out.print(responsebody);
-        String[][] games = new JSONDeserializer<String[][]>().deserialize(responsebody);
         
-        
-        assertEquals(joinresp.getStatusLine().getStatusCode(), 200);
+        assertTrue(responsebody.contains("ApacheTest"));
 }
     
-    
-    // testState is needed for this
 //     @Test
 //    public void testMove() throws ClientProtocolException, IOException{
 //        HttpClient client = new DefaultHttpClient();
@@ -175,10 +172,10 @@ public class ServerTests {
         postlogin.releaseConnection();
     }
 
-    public void createGame(HttpClient client) throws UnsupportedEncodingException, IOException{
+    public void createGame(HttpClient client, String type) throws UnsupportedEncodingException, IOException{
         HttpPost postcreate = new HttpPost(URL+"create");
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-        nameValuePairs.add(new BasicNameValuePair("type", "any")); 
+        nameValuePairs.add(new BasicNameValuePair("type", type));  
         postcreate.setEntity(new UrlEncodedFormEntity(nameValuePairs));  
         HttpResponse postresp = client.execute(postcreate);
         postcreate.releaseConnection();        
