@@ -188,8 +188,9 @@ BlockingQueue<String>>();
                 player.setActive(false);
                 game.move(player, coords);
                 
-                String nextState=JSONBuilder.buildJSON(game, player);
+                
                 for(HttpSession s: watchers.get(game)){
+                String nextState=JSONBuilder.buildJSON(game, players.get(s));
                 states.get(s).offer(nextState);
                 }
             }
