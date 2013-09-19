@@ -100,7 +100,7 @@
                 <div id="new account">
                     <h2 align="center">Link to new account</h2>
                         <div id="content">
-                            <form name="manager" onSubmit="return validate();" action="profile" method="POST">
+                            <form name="manager" onSubmit="return validate();" action="facebook" method="POST">
                                 <div id="wrapper" style="width:100%; text-align:center">
                                 <br>
                                 <table align="center">
@@ -126,7 +126,7 @@
                                     <td colspan ="2"><%=exceptionError%></td>
                                 </tr>
                                 <tr>
-                                    <input name="fbid" type="hidden" value=<%=id%>/>
+                                    <input name="fbid" type="hidden" value="<%=id%>"/>
                                     <input name="form" type="hidden" value="register"/>
                                     <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                                 </tr>
@@ -139,23 +139,22 @@
                 <div id="link account">
                     <h2 align="center">Link to existing account</h2>
                         <div id="content">
-                            <form name="manager" onSubmit="return validate2();" action="profile" method="POST">
+                            <form name="manager" onSubmit="return validate2();" action="facebook" method="POST">
                                 <div id="wrapper" style="width:100%; text-align:center">
                                 <br>
                                 <table align="center">
                                 <tr>
                                     <td>User name:</td>
-                                    <td><input id="oldUserName" name="oldUserName" type="text" size="20" placeholder="username" /></td>
+                                    <td><input id="userName" name="userName" type="text" size="20" placeholder="username" /></td>
                                 </tr>
                                 <tr>
                                     <td>Password:</td>
-                                    <td><input id="password2" name="password2" type="password" size="20" placeholder="password" /></td>
+                                    <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
                                 </tr>
                                 <tr>
                                     <td colspan ="2"><%=exceptionError1%></td>
                                 </tr>
                                 <tr>
-                                    <input name="link" type="hidden" value="yes"/>
                                     <input name="fbid" type="hidden" value="<%=id%>"/>
                                     <input name="form" type="hidden" value="update"/>
                                     <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>

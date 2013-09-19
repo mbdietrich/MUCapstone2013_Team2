@@ -128,8 +128,8 @@
         String email = "";
         String fbid = "";
         if(!details.isEmpty()) {
-            email = details.get("email").toString();
-            fbid = details.get("fbid").toString();
+            email = (String)details.get("email");
+            fbid = (String)details.get("fbid");
         }
         
         //get friends
@@ -152,6 +152,8 @@
         
             %>
         <body>
+            <div id="fb-root"></div>
+            
             <script>
             // Facebook
             window.fbAsyncInit = function() {
@@ -207,7 +209,7 @@
             function checkAgainstDB() {
                 FB.api('/me', function(response) {
                     id = response.id;
-                    dbid = <%=fbid%>
+                    dbid = <%=fbid%>;
                     if(id != dbid) {
                         document.getElementById("fb").style.display="none";
                     } else {
@@ -216,6 +218,7 @@
                 });
             }
             </script>
+            
             <a href="lobby.jsp" align="center">Lobby</a>
             <br>
             <div id="content">
@@ -235,7 +238,7 @@
                             <td><%=emailError%></td>
                         </tr>
                         <tr id="fb">
-                            <td>Link Facebook:</td>
+                            <td>Facebook:</td>
                             <td colspan="2">
                                 <!--
                                 Below we include the Login Button social plugin. This button uses the JavaScript SDK to
@@ -266,7 +269,6 @@
                         <tr>
                             <input name="oldUserName" type="hidden" value="<%=userName%>"/>
                             <input name="oldEmail" type="hidden" value="<%=email%>"/>
-                            <input name="link" type="hidden" value="no"/>
                             <input name="form" type="hidden" value="update"/>
                             <td colspan="2"><input type="submit" name="submit" value="Update Details" class="fade" /></td>
                         </tr>
@@ -383,7 +385,6 @@
                             <td colspan ="2"><%=exceptionError%></td>
                         </tr>
                         <tr>
-                            <input name="fbid" type="hidden" value="void"/>
                             <input name="form" type="hidden" value="register"/>
                             <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                         </tr>
