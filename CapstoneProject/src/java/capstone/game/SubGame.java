@@ -55,8 +55,9 @@ public class SubGame {
 	}
 
 	public void setBoard(int[][] board) {
-		//TODO: check if board is valid
 		this.board = board;
+                int value = GameRules.checkStatusBoard(board);
+                this.status = value;
 	}
 
 	public int getStatus() {
