@@ -135,6 +135,9 @@ BlockingQueue<String>>();
         GameSession game = gameSessions.get(session);
         if(game!=null){
         game.Leave(players.get(session));
+        for(HttpSession s: watchers.get(game)){
+                states.get(s).offer(JSONBuilder.buildJSON(game, players.get(s)));
+        }
         gameIDs.remove(game.SessionID);
         openGames.remove(game.SessionID);
         states.get(session).clear();
