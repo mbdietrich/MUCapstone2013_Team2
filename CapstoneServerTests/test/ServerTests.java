@@ -140,27 +140,27 @@ public class ServerTests {
         assertTrue(responsebody.contains("ApacheTest"));
 }
     
-//     @Test
-//    public void testMove() throws ClientProtocolException, IOException{
-//        HttpClient client = new DefaultHttpClient();
-//        login(client);              // Log in     
-//        createGame(client);         //Create a game   
-//        
-//        //Make a Move
-//        HttpPost postmove = new HttpPost(URL+"move");
-//        
-//        List<NameValuePair> movepairs = new ArrayList<NameValuePair>(2);
-//        loginpairs.add(new BasicNameValuePair("a", "1"));
-//        loginpairs.add(new BasicNameValuePair("b", "1"));
-//        loginpairs.add(new BasicNameValuePair("x", "1"));
-//        loginpairs.add(new BasicNameValuePair("y", "1")); 
-//        
-//        postlogin.setEntity(new UrlEncodedFormEntity(nameValuePairs));  
-//        
-//        HttpResponse moveresp = client.execute(postmove);
-//        
-//        assertEquals(moveresp.getStatusLine().getStatusCode(), 200);
-//    }
+     @Test
+    public void testMove() throws ClientProtocolException, IOException{
+        HttpClient client = new DefaultHttpClient();
+        login(client);              // Log in     
+        createGame(client, "solo");         //Create a game   
+        
+        //Make a Move
+        HttpPost postmove = new HttpPost(URL+"move");
+        
+        List<NameValuePair> movepairs = new ArrayList<NameValuePair>(4);
+        movepairs.add(new BasicNameValuePair("a", "1"));
+        movepairs.add(new BasicNameValuePair("b", "1"));
+        movepairs.add(new BasicNameValuePair("x", "1"));
+        movepairs.add(new BasicNameValuePair("y", "1")); 
+        
+        postmove.setEntity(new UrlEncodedFormEntity(movepairs));  
+        
+        HttpResponse moveresp = client.execute(postmove);
+        
+        assertEquals(moveresp.getStatusLine().getStatusCode(), 200);
+    }
 
     public void login(HttpClient client) throws UnsupportedEncodingException, IOException{
         HttpPost postlogin = new HttpPost(URL+"login");
