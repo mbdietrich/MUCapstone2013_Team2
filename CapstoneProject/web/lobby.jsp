@@ -35,9 +35,9 @@
 
             }
             var joinPublicGame = function() {
-                var pubName = document.getElementById("publicInput").value();
+                var pubName = document.getElementById("publicInput").value;
                 $.post("create", {type: "public" , player: pubName}, function(e) {
-                    document.location.href = "games.jsp";
+                    document.location.href = "game.jsp";
                 });
             }
             var openGame = function() {
@@ -75,8 +75,10 @@
             <table>
                 <tr>
                     <td rowspan="2"><h3> Welcome <%= session.getAttribute("user")%></h3></td>
-                    <td> <input type="image" src="images/single.png" alt="Play against a bot" onclick="singlePlayer();" /></td>
-                    <td> <input type="image" src="images/multi.png" alt="Play against a person" onclick="multiPlayer();"/></td>
+                    <td> <input type="image" src="images/single.png" alt="Play against a bot" 
+onclick="singlePlayer();" /></td>
+                    <td> <input type="image" src="images/multi.png" alt="Play against a person" 
+onclick="multiPlayer();"/></td>
                 </tr>
                 <tr>
 

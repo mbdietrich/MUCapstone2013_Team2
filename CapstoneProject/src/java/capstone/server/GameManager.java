@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Max
+ * @author Max, Jesse, Ryan
  */
 public class GameManager {
     
@@ -28,7 +28,8 @@ public class GameManager {
     static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
     static Map<GameSession, List<HttpSession>> watchers = new ConcurrentHashMap<GameSession, List<HttpSession>>();
     static Map<String, GameSession> gameIDs = new ConcurrentHashMap<String, GameSession>();
-    static Map<HttpSession, BlockingQueue<String>> states = new ConcurrentHashMap<HttpSession, BlockingQueue<String>>();
+    static Map<HttpSession, BlockingQueue<String>> states = new ConcurrentHashMap<HttpSession, 
+BlockingQueue<String>>();
     
     static Map<String, String> openGames = new ConcurrentHashMap<String,String>();
     
@@ -71,7 +72,6 @@ public class GameManager {
     public static String getPublicGames(){
         StringBuilder builder = new StringBuilder();
         for(Entry<String, String> entry: openGames.entrySet()){
-            
             builder = builder.append(entry.getValue()).append("\n");
         }
         return builder.toString();
@@ -87,7 +87,8 @@ public class GameManager {
             else{
                 first=false;
             }
-            builder=builder.append("[\"").append(entry.getKey()).append("\",\"").append(entry.getValue()).append("\"]");
+            builder=builder.append("[\"").append(entry.getKey()).append("\",\"").append(entry.getValue()).append
+("\"]");
         }
         return builder.append("}").toString();
     }
@@ -154,6 +155,17 @@ public class GameManager {
             return null;
         }
         }
+    }
+    
+    public static String getGameID(String playerName){
+        if (openGames.containsValue(playerName)){
+            for(Entry<String, String> entry: openGames.entrySet()){    
+                if (entry.getValue().equals(playerName)){
+                return entry.getKey();
+                }
+            }
+        }
+        return null;
     }
     
     public static RemotePlayer getPlayer(HttpSession session){

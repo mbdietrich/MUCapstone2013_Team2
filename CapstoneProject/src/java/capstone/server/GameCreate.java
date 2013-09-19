@@ -12,23 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Max
+ * @author Max, jesse, Ryan
  * 
  * Create a new game for a player to join
  */
 public class GameCreate extends HttpServlet{
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, 
+IOException {
         response.setContentType("text");
         response.setCharacterEncoding("UTF-8");
         
         if (request.getParameter("type").equals("public"))
         {
             String playerName = request.getParameter("player");
-            GameManager.joinGame(request.getSession(), playerName);
+            String gameID = GameManager.getGameID(playerName);
+            GameManager.joinGame(request.getSession(), gameID);
             response.getWriter().write("joined");
         }
-        if(request.getParameter("type").equals("any")){
+        else if(request.getParameter("type").equals("any")){
             if(GameManager.openGames.isEmpty()){
                 GameManager.newGame(request.getSession());
                 response.getWriter().write("created");
