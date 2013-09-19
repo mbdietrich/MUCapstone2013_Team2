@@ -6,18 +6,18 @@ package capstone.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
  * @author lowkeylukey
  */
-public class ProfileManager extends HttpServlet {
+public class FacebookManager extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -31,55 +31,28 @@ public class ProfileManager extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("form").equals("update")) {
-            //update player details
-            String oldUserName = request.getParameter("oldUserName");
+            //add facebook id to existing account
+            String userName = request.getParameter("userName");
+            String password = request.getParameter("password");
+            String fbid = request.getParameter("fbid");
+            if(userName.equals(databaseAccess.checkLoginCredentials(userName, password))) {
+                if(databaseAccess.addFBID(userName, fbid)) {
+                    GameManager.newPlayer(request.getSession(), userName);
+                    this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
+                } else {
+                    String message = "exception1";
+                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message).forward(request, response);
+                }
+            } else {
+                String message = "login";
+                this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message).forward(request, response);
+            }
+        } else {
+            //create new account linked to facebook id
             String userName = request.getParameter("userName");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            String newPassword = request.getParameter("newPassword");
-            if(newPassword.equals("")) {
-                newPassword = password;
-            }
-    
-            Map currentDetails = databaseAccess.getPlayerDetails(oldUserName);
-            if(!currentDetails.get("password").equals(password)) {
-                String message = "password";
-                this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
-                return;
-            } else {
-                if(!oldUserName.equals(userName)) {
-                    if(databaseAccess.playerExists(userName)) {
-                        String message = "userName";
-                        this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
-                        return;
-                    }
-                }
-            if(!currentDetails.get("email").equals(email)) {
-                if(databaseAccess.emailExists(email)) {
-                    String message = "email";
-                    this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
-                    return;
-                }
-            }
-            Map details = new HashMap();
-            details.put("oldUserName", oldUserName);
-            details.put("userName", userName);
-            details.put("email", email);
-            details.put("password", newPassword);
-        
-            if(databaseAccess.updatePlayerDetails(details)) {
-                GameManager.newPlayer(request.getSession(), userName);
-                this.getServletContext().getRequestDispatcher("/accountManagement.jsp").forward(request, response);
-            } else {
-                String message = "exception";
-                this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
-                }
-            }
-        } else if(request.getParameter("form").equals("register")) {
-            //register a new player
-            String userName = request.getParameter("userName");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
+            String fbid = request.getParameter("fbid");
     
             Map details = databaseAccess.getPlayerDetails(userName);
             if(details.isEmpty()) {
@@ -87,23 +60,24 @@ public class ProfileManager extends HttpServlet {
                 details.put("userName", userName);
                 details.put("email", email);
                 details.put("password", password);
-                details.put("fbid", "0");
+                details.put("fbid", fbid);
                 if(databaseAccess.addPlayer(details)) {
                     GameManager.newPlayer(request.getSession(), userName);
                     this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
                 } else {
                     String message = "exception";
-                    this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message).forward(request, response);
                 }
             } else {
                 if(details.get("userName").equals(userName)) {
                     String message = "userName";
-                    this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message).forward(request, response);
                 } else if(details.get("email").equals(email)) {
                     String message = "email";
-                    this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogn.jsp?error="+message).forward(request, response);
                 }
             }
+            
         }
     }
 

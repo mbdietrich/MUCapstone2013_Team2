@@ -157,10 +157,25 @@ public class databaseAccess {
 	}
     }
     
+    /*
+    * seems to be a problem with this function...
     public static boolean addValue(String player, String field, String value) {
         try {
             Statement st = createConnection();
             st.executeUpdate("UPDATE players SET '"+field+"'='"+Encryption.encrypt(value)+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    */
+    
+    public static boolean addFBID(String player, String id) {
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("UPDATE players SET fbid='"+Encryption.encrypt(id)+"' WHERE user='"+Encryption.encrypt(player)+"'");
             return true;
         }
         catch (Exception e) {
