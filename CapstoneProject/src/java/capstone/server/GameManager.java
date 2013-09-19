@@ -137,6 +137,8 @@ BlockingQueue<String>>();
         game.Leave(players.get(session));
         gameIDs.remove(game.SessionID);
         openGames.remove(game.SessionID);
+        states.get(session).clear();
+        watchers.remove(game);
         }
     }
     
