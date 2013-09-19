@@ -22,8 +22,14 @@ public class GameCreate extends HttpServlet{
         response.setContentType("text");
         response.setCharacterEncoding("UTF-8");
         
+        if (request.getParameter("type").equals("public"))
+        {
+            String playerName = request.getParameter("player");
+            GameManager.joinGame(request.getSession(), playerName);
+            response.getWriter().write("joined");
+        }
         if(request.getParameter("type").equals("any")){
-            if(GameManager.openGames.size()==0){
+            if(GameManager.openGames.isEmpty()){
                 GameManager.newGame(request.getSession());
                 response.getWriter().write("created");
             }

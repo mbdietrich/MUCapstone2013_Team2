@@ -34,6 +34,12 @@
                 });
 
             }
+            var joinPublicGame = function() {
+                var pubName = document.getElementById("publicInput").value();
+                $.post("create", {type: "public" , player: pubName}, function(e) {
+                    document.location.href = "games.jsp";
+                });
+            }
             var openGame = function() {
                 $.post("create", {type: "open"}, onGameCreate);
             }
@@ -89,7 +95,7 @@
             </table>
             <b>Open Games <button onclick="loadGames()">refresh</button></b>  <br>
             <!-- load conversation when button is pressed loaded -->
-            <input></input><button>Join</button>
+            <input type="text" id="publicInput"></input><button onclick="joinPublicGame();">Join</button>
                              
         </div>
 </html>
