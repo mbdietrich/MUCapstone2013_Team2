@@ -32,7 +32,7 @@ Description: Post the coordinates of the next move; (a,b) is the outer location,
 Returns: nothing
 
 /leave
-Request Type: POST
+Request Type: POST or GET
 Parameters: none
 Description: Leave the current game session.
 Returns: nothing

@@ -22,6 +22,12 @@ public class Leave extends HttpServlet {
         GameManager.leave(request.getSession());
         this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
     }
+    
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        GameManager.leave(request.getSession());
+        this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
+    }
 
         
     @Override
