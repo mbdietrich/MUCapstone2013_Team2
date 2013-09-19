@@ -155,7 +155,7 @@
         <div id="nav">
             <table>
                 <tr>
-                    <td><a href="/CapstoneProject/lobby.jsp"><img src="images/home.png" alt="home"/></a></td>
+                    <td><a href="/CapstoneProject/leave.jsp"><img src="images/home.png" alt="home"/></a></td>
                 </tr>
                 <tr>
                     <td>
