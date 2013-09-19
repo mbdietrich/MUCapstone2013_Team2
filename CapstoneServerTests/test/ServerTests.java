@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 
+import flexjson.JSONDeserializer;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -132,7 +133,10 @@ public class ServerTests {
         
         //Print the list
         String responsebody = EntityUtils.toString(joinresp.getEntity());
+        
         System.out.print(responsebody);
+        String[][] games = new JSONDeserializer<String[][]>().deserialize(responsebody);
+        
         
         assertEquals(joinresp.getStatusLine().getStatusCode(), 200);
 }
