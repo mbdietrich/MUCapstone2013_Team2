@@ -10,6 +10,8 @@ public class GameSession {
 	private Player player1, player2, currentPlayer, gameWinner;
 
         public final String SessionID = UUID.randomUUID().toString();
+        
+        private boolean isOpen = true;
 
         /**
          * gets the current GameState.
@@ -43,13 +45,14 @@ public class GameSession {
                 }
                 else if(player2==null){
                     player2=player;
+                    isOpen=false;
                     currentPlayer.notify(this);
                 }
                 else throw new IllegalGameException("Player "+player.toString()+" tried to join a full game.");
 	}
         
         public boolean isOpen(){
-            return player1==null||player2==null;
+            return isOpen;
         }
 	
         //Called by the players to register a move
