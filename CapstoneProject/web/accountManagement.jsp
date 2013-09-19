@@ -17,6 +17,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <div id="sessionname"><%= (String) session.getAttribute("user")%></div>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Profile Management</title>
         
@@ -27,70 +28,79 @@
             }
             function validate()
             {
-                if(trim(document.manager.userName.value)==="")
+                if(trim(document.body.manager.userName.value)==="")
                     {
                         alert("Please enter a user name.");
-                        document.manager.userName.focus();
+                        document.body.manager.userName.focus();
                         return false;
                     }
-                else if(trim(document.manager.email.value)==="")
+                else if(trim(document.body.manager.email.value)==="")
                     {
                         alert("Please enter your email address");
-                        document.manager.email.focus();
+                        document.body.manager.email.focus();
                         return false;
                     }
-                else if(trim(document.manager.password.value)==="")
+                else if(trim(document.body.manager.password.value)==="")
                     {
                         alert("Please enter a password");
-                        document.manager.password.focus();
+                        document.body.manager.password.focus();
                         return false;
                     }
-                else if(trim(document.manager.confirmPassword.value)!== trim(document.manager.password.value))
+                else if(trim(document.body.manager.confirmPassword.value)!== trim(document.body.manager.password.value))
                     {
                         alert("Passwords do not match");
-                        document.manager.password.focus();
+                        document.body.manager.password.focus();
                         return false;
                     }
             }
             function validate1()
             {
-                if(trim(document.manager.confirmPassword.value)!== trim(document.manager.newPassword.value))
+                if(trim(document.body.manager.confirmPassword.value)!== trim(document.body.manager.newPassword.value))
                     {
                         alert("Passwords do not match");
-                        document.manager.password.focus();
+                        document.body.manager.password.focus();
                         return false;
                     }
-                else if(trim(document.manager.password.value)==="")
+                else if(trim(document.body.manager.password.value)==="")
                     {
                         alert("Please enter your current password.");
-                        document.manager.password.focus();
+                        document.body.manager.password.focus();
                         return false;
                     }
             }
             function validateAdd()
             {
-                if(trim(document.manager.friendAdd.value)==="")
+                if(trim(document.getElementById("friendAdd").value)==="")
                     {
                         alert("Please enter a username.");
-                        document.manager.friendAdd.focus();
+                        document.body.manager.friendAdd.focus();
+                        return false;
+                    }
+                    
+               myName = trim(document.getElementById("sessionname").innerHTML);
+               
+               if(trim(document.getElementById("friendAdd").value)===myName)
+                    {
+                        alert("Cannot add yourself as a friend.");
+                        document.body.manager.friendAdd.focus();
                         return false;
                     }
             }
             function validateRequests()
             {
-                if(trim(document.manager.friendRequestsField.value)==="")
+                if(trim(document.body.manager.friendRequestsField.value)==="")
                     {
                         alert("Please select a request.");
-                        document.manager.friendRequestsField.focus();
+                        document.body.manager.friendRequestsField.focus();
                         return false;
                     }
             }
             function validateFriends()
             {
-                if(trim(document.manager.friendsField.value)==="")
+                if(trim(document.body.manager.friendsField.value)==="")
                     {
                         alert("Please select a friend.");
-                        document.manager.friendsField.focus();
+                        document.body.manager.friendsField.focus();
                         return false;
                     }
             }
