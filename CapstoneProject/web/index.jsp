@@ -20,14 +20,14 @@
                 {
                     
                     makeAlert("Please enter a Username");
-                    elem2 = document.getElementById("usrdiv");
+                    elem2 = document.getElementById("userName");
                     elem2.firstElementChild.focus();
                     return false;
                 }
                 else if (trim(document.login.password.value) === "")
                 {
                     makeAlert("Please enter a password");
-                    elem2 = document.getElementById("pwdiv");
+                    elem2 = document.getElementById("password");
                     elem2.firstElementChild.focus();
                     return false;
                 }
@@ -136,12 +136,9 @@
 
                             <td>
                                 <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
-                                    <div class="form-group" id="usrdiv">
-                                    <input type="userName" class="form-control" id="userName" placeholder="Username"/>
-                                    </div>
-                                    <div class="form-group" id="pwdiv">
-                                    <input type="password" class="form-control" id="password" placeholder="Password"/><br>
-                                    </div>
+                                    <input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/>
+                                    <br>
+                                    <input name="password" type="password" class="form-control" id="password" placeholder="Password"/><br>
                                     <button type="submit" class="btn btn-default">Log In</button><br>
                                 </form>
                             </td></tr>
