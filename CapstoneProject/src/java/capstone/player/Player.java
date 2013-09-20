@@ -18,4 +18,5 @@ public interface Player {
     //notify the player that they are ready to make the next move
     public void notify(GameSession current);
     
+    
 }

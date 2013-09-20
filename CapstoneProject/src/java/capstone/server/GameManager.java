@@ -7,6 +7,8 @@ package capstone.server;
 import capstone.game.*;
 import capstone.player.GameBot;
 import capstone.player.Player;
+import capstone.server.jmx.ServerInspector;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,11 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
+import javax.management.ObjectName;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -24,17 +31,32 @@ import javax.servlet.http.HttpSession;
  */
 public class GameManager {
     
-    static Map<HttpSession, RemotePlayer> players = new ConcurrentHashMap<HttpSession, RemotePlayer>();
-    static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
-    static Map<GameSession, List<HttpSession>> watchers = new ConcurrentHashMap<GameSession, List<HttpSession>>();
-    static Map<String, GameSession> gameIDs = new ConcurrentHashMap<String, GameSession>();
-    static Map<HttpSession, BlockingQueue<String>> states = new ConcurrentHashMap<HttpSession, 
+    public static Map<HttpSession, RemotePlayer> players = new ConcurrentHashMap<HttpSession, RemotePlayer>();
+    public static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
+    public static Map<GameSession, List<HttpSession>> watchers = new ConcurrentHashMap<GameSession, List<HttpSession>>();
+    public static Map<String, GameSession> gameIDs = new ConcurrentHashMap<String, GameSession>();
+    public static Map<HttpSession, BlockingQueue<String>> states = new ConcurrentHashMap<HttpSession, 
 BlockingQueue<String>>();
     
-    static Map<String, String> openGames = new ConcurrentHashMap<String,String>();
+    public static Map<String, String> openGames = new ConcurrentHashMap<String,String>();
     
     //For now, only one bot - DefaultBot
     private static final Player DEFAULT_BOT = new GameBot();
+    
+    static{
+        try {
+            ManagementFactory.getPlatformMBeanServer().registerMBean(new ServerInspector(), new ObjectName("GameManager"));
+        } catch (MalformedObjectNameException ex) {
+            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
+        } catch (InstanceAlreadyExistsException ex) {
+            
+        } catch (MBeanRegistrationException ex) {
+            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
+        } catch (NotCompliantMBeanException ex) {
+            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
+        }
+    }
+    
     
     //Add a player to an existing game
     public static void joinGame(HttpSession session, String gameID){

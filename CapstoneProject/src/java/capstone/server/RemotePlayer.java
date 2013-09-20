@@ -52,6 +52,10 @@ public class RemotePlayer implements Player {
         }
         return false;
     }
-
+    
+    public String toString(){
+    return name;
+}
+            
     
 }
