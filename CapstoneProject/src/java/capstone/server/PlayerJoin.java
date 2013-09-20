@@ -16,10 +16,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PlayerJoin extends HttpServlet {
 
+    private static final boolean LOCAL_TEST = false;
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
+        
+        if(!LOCAL_TEST){
   
         String dbResponse = databaseAccess.checkLoginCredentials(userName, password);
         if(dbResponse.equals("loginError")) {
@@ -30,6 +34,13 @@ public class PlayerJoin extends HttpServlet {
         response.sendRedirect("index.jsp?error="+message);
         } else {
             GameManager.newPlayer(request.getSession(), dbResponse);
+            // forward player to game lobby
+            this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
+        }
+        }
+        //If LOCAL_TEST, skip db auth
+        else{
+            GameManager.newPlayer(request.getSession(), userName+"_LOCALTEST");
             // forward player to game lobby
             this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
         }
