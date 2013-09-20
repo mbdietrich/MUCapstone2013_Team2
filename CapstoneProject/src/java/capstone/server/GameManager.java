@@ -66,6 +66,7 @@ BlockingQueue<String>>();
     public static void BotJoin(HttpSession session){
         try {
             gameSessions.get(session).Join(DEFAULT_BOT);
+            openGames.remove(gameSessions.get(session).SessionID);
         } catch (IllegalGameException ex) {
             Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, "Error adding bot to game", ex);
         }
