@@ -43,19 +43,19 @@ BlockingQueue<String>>();
     //For now, only one bot - DefaultBot
     private static final Player DEFAULT_BOT = new GameBot();
     
-    static{
-        try {
-            ManagementFactory.getPlatformMBeanServer().registerMBean(new ServerInspector(), new ObjectName("GameManager"));
-        } catch (MalformedObjectNameException ex) {
-            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
-        } catch (InstanceAlreadyExistsException ex) {
-            
-        } catch (MBeanRegistrationException ex) {
-            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
-        } catch (NotCompliantMBeanException ex) {
-            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
-        }
-    }
+//    static{
+//        try {
+//            ManagementFactory.getPlatformMBeanServer().registerMBean(new ServerInspector(), new ObjectName("GameManager"));
+//        } catch (MalformedObjectNameException ex) {
+//            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
+//        } catch (InstanceAlreadyExistsException ex) {
+//            
+//        } catch (MBeanRegistrationException ex) {
+//            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
+//        } catch (NotCompliantMBeanException ex) {
+//            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
+//        }
+//    }
     
     
     //Add a player to an existing game
@@ -160,10 +160,11 @@ BlockingQueue<String>>();
         GameSession game = gameSessions.remove(session);
         if(game!=null){
         game.Leave(players.get(session));
+        if(watchers.get(game)!=null){
         for(HttpSession s: watchers.get(game)){
-            if(!s.equals(session)){
-                states.get(s).offer(JSONBuilder.buildJSON(game, players.get(s)));
-            }
+            String nextState=JSONBuilder.buildJSON(game, players.get(s));
+            states.get(s).offer(nextState);
+        }
         }
         gameIDs.remove(game.SessionID);
         openGames.remove(game.SessionID);

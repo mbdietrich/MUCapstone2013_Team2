@@ -47,7 +47,7 @@
                 var data;
                 var state = jQuery.parseJSON(evt.data);
                 if (state) { // only update if the string is not empty
-                    console.log("data received: " + state);
+                    console.log("data received: " + state.PlayerNumber+", "+state.isTurn+", "+state.Status+", "+state.Board);
                     
                     if(state.open){
                         document.getElementById("gameframe").style.display = 'none';
@@ -98,11 +98,13 @@
             };
             
             
+                source = new EventSource("state");
+                source.onmessage = onState;
+            
+            
             window.onload = function() {
                 
                 
-                var source = new EventSource("state");
-                source.onmessage = onState;        
                 
                 var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;
                 buttonFrame = document.getElementById('gameframe');
