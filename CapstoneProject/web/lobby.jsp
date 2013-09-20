@@ -73,7 +73,7 @@
 
         <ul class="nav nav-tabs">
             <li class="active"><a href="#">Home</a></li>
-            <li><a class="disabled" href="#">Lobby</a></li>
+            <li class="disabled"><a href="#">Lobby</a></li>
             <li><a href="accountManagement.jsp">Profile</a></li>
             
             <li class="align-right"><a href="logout.jsp">Log Out</a></li>

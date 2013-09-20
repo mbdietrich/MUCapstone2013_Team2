@@ -135,7 +135,7 @@ BlockingQueue<String>>();
     }
     
     public static void leave(HttpSession session){
-        GameSession game = gameSessions.get(session);
+        GameSession game = gameSessions.remove(session);
         if(game!=null){
         game.Leave(players.get(session));
         for(HttpSession s: watchers.get(game)){
