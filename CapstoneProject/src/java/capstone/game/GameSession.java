@@ -87,6 +87,15 @@ public class GameSession {
                     if (!GameRules.isDone(currentgame)) {
                         currentPlayer.notify(this);
                     }
+                    else{
+                        int win=GameRules.findWinner(currentgame);
+                        if(win==1){
+                            gameWinner=player1;
+                        }
+                        else if(win==2){
+                            gameWinner=player2;
+                        }
+                    }
                 }
                 else{
                 	this.Leave(currentPlayer);

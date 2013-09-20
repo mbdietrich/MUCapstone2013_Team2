@@ -67,7 +67,7 @@ public class JSONBuilder {
     public static String buildGameWon(GameSession game){
         StringBuilder builder = new StringBuilder();
         GameState state = game.getCurrentGame();
-        Boolean result = GameRules.isDone(state);
+        Boolean result = game.isOpen();
         result.toString();
         
         builder = builder.append("\"isGameFinished\":\"").append(result).append("\"");
