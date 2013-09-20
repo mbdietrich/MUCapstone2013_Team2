@@ -39,6 +39,8 @@ BlockingQueue<String>>();
     //Add a player to an existing game
     public static void joinGame(HttpSession session, String gameID){
         try {
+            leave(session);
+            
             session.getServletContext().log("Player joining game session (ID "+gameID+")");
             RemotePlayer player = players.get(session);
             GameSession game = gameIDs.get(gameID);
