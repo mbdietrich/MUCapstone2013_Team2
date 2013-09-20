@@ -222,8 +222,7 @@
                     dbid = <%=fbid%>;
                     if(id != dbid) {
                         document.getElementById("fb").style.display="none";
-                    } else {
-                        document.getElementById("fbmsg").style.display="none";
+                        document.getElementById("fbmsg").style.display="inline";
                     }
                 });
             }
@@ -248,8 +247,8 @@
                             <td><%=emailError%></td>
                         </tr>
                         <tr id="fb">
-                            <td>Facebook:</td>
-                            <td colspan="2">
+                            <td id="fb">Facebook:</td>
+                            <td id="fb" colspan="2">
                                 <!--
                                 Below we include the Login Button social plugin. This button uses the JavaScript SDK to
                                 present a graphical Login button that triggers the FB.login() function when clicked.
@@ -260,8 +259,8 @@
                                 <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
                             </td>
                         </tr>
-                        <tr id="fbmsg">
-                            <td colspan="3"><font color='red'>The current logged in Facebook account is not linked to this player</font></td>
+                        <tr id="fbmsg" style="diplay:none">
+                            <td id="fbmsg" colspan="3" style="display:none"><font color='red'>The current logged in Facebook account is not linked to this player</font></td>
                         </tr>
                         <tr>
                             <td>New password:</td>

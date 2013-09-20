@@ -41,11 +41,11 @@ public class FacebookManager extends HttpServlet {
                     this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
                 } else {
                     String message = "exception1";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid).forward(request, response);
                 }
             } else {
                 String message = "login";
-                this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message).forward(request, response);
+                this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid).forward(request, response);
             }
         } else {
             //create new account linked to facebook id
@@ -66,15 +66,15 @@ public class FacebookManager extends HttpServlet {
                     this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
                 } else {
                     String message = "exception";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email).forward(request, response);
                 }
             } else {
                 if(details.get("userName").equals(userName)) {
                     String message = "userName";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email).forward(request, response);
                 } else if(details.get("email").equals(email)) {
                     String message = "email";
-                    this.getServletContext().getRequestDispatcher("/fblogn.jsp?error="+message).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogn.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email).forward(request, response);
                 }
             }
             

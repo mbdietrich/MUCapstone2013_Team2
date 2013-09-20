@@ -13,7 +13,13 @@
 <%
     String id = request.getParameter("fbid");
     String userName = request.getParameter("fbname");
+    if(userName == null || userName == "null") {
+        userName = "";
+    }
     String email = request.getParameter("fbemail");
+    if(email == null || email == "null") {
+        email = "";
+    }
     
     Map details = databaseAccess.getPlayerDetailsByFBID(id);
     if(!details.isEmpty()) {
