@@ -37,6 +37,13 @@ public class FriendManager extends HttpServlet {
                 this.getServletContext().getRequestDispatcher("/accountManagement.jsp?requestmessage="+message).forward(request, response);
                 return;
             }
+            //check to see if friend exists
+            if(!databaseAccess.playerExists(friend))
+            {
+                String message = "Player " + friend + " does not exist.";
+                this.getServletContext().getRequestDispatcher("/accountManagement.jsp?requestnessage="+message).forward(request, response);
+                return;
+            }
             if(databaseAccess.addFriend(player, friend)) {
                 String message = "Friend request sent";
                 this.getServletContext().getRequestDispatcher("/accountManagement.jsp?requestmessage="+message).forward(request, response);
