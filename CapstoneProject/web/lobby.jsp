@@ -36,8 +36,7 @@
                 });
 
             }
-            var joinPublicGame = function() {
-                var pubName = document.getElementById("publicInput").value;
+            var joinPublicGame = function(pubName) {
                 $.post("create", {type: "public", player: pubName}, function(e) {
                     document.location.href = "game.jsp";
                 });
@@ -47,20 +46,25 @@
             }
 
 
+            var refresh = function(data) {
+                            
+                            players = data.toString().split("\n");
+                            players.pop();
+                            newLines = "";
+                            
+                            for(i=0;i<players.length; i++){
+                                newLines = newLines+"<tr><td>"+players[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame('+players[i]+'");>Join</button></td></tr>';
+                            }
+                            
+                            document.getElementById("gameList").innerHTML=newLines;
+                        }
+
             var loadGames = function() {
                 $.get(
                         "GetPublicGames",
-                        function(data) {
-                            //alert(data.toString());
-                            // set as content in div with id conversations
-                            $("#gameList").html(data);
-                        }
+                        function(data){refresh(data);}
                 );
             }
-            $().ready(function() {
-                // load conversation after page is loaded
-                loadGames();
-            });
 
             window.onload = loadGames;
 
@@ -78,15 +82,15 @@
             
             <li class="align-right"><a href="logout.jsp">Log Out</a></li>
         </ul>
-        
-        
-        <table border="0" align="left">
-                <tr><td><div id="gameList"></div></td></tr>
+        <br><br>
+        <div class="col-md-3 col-md-offset-3">
+            <button type="button" class="btn btn-info" onclick="loadGames()">refresh</button>
+            <table class="table table-hover" id="gameList">
+            ...
             </table>
-            <b>Open Games <button onclick="loadGames()">refresh</button></b>  <br>
-            <!-- load conversation when button is pressed loaded -->
-            <input type="text" id="publicInput"></input><button onclick="joinPublicGame();">Join</button>
             
+        </div>
+        
             <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
