@@ -24,7 +24,7 @@
     Map details = databaseAccess.getPlayerDetailsByFBID(id);
     if(!details.isEmpty()) {
         GameManager.newPlayer(request.getSession(), details.get("userName").toString());
-        response.sendRedirect("lobby.jsp");
+        response.sendRedirect("home.jsp");
         return;
     } else {
         String exceptionError = "";

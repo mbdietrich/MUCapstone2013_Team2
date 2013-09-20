@@ -34,15 +34,15 @@ public class PlayerJoin extends HttpServlet {
         response.sendRedirect("index.jsp?error="+message);
         } else {
             GameManager.newPlayer(request.getSession(), dbResponse);
-            // forward player to game lobby
-            this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
+            // forward player to the main page
+            this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
         }
         }
         //If LOCAL_TEST, skip db auth
         else{
             GameManager.newPlayer(request.getSession(), userName+"_LOCALTEST");
-            // forward player to game lobby
-            this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
+            // forward player to the main page
+            this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
         }
     }
 

@@ -228,7 +228,7 @@
             }
             </script>
             
-            <a href="lobby.jsp" align="center">Lobby</a>
+            <a href="home.jsp" align="center">Back</a>
             <br>
             <div id="content">
                     <div id="playerinfo" style="width:50%; text-align:left; float:left">

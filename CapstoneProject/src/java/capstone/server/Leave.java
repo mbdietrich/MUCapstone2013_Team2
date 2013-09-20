@@ -20,7 +20,7 @@ public class Leave extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GameManager.leave(request.getSession());
-        this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
     }
     
     @Override
@@ -29,7 +29,7 @@ public class Leave extends HttpServlet {
             GameManager.leave(request.getSession());
         }
         finally{
-            this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
         }
     }
 

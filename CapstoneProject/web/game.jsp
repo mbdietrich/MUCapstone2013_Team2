@@ -91,7 +91,7 @@
                     }
                     if (state.Status === "1" | state.Status === "2"){
                         window.alert("Player " + state.Status + " Wins");
-                        window.location.href="/CapstoneProject/lobby.jsp";
+                        window.location.href="/CapstoneProject/home.jsp";
                     }
                     }
                 }
