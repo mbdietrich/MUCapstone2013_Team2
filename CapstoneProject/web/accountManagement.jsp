@@ -17,7 +17,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <div id="sessionname"><%= (String) session.getAttribute("user")%></div>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <!--<div id="sessionname"><%= (String) session.getAttribute("user")%></div>-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Profile Management</title>
         
@@ -228,27 +229,43 @@
             }
             </script>
             
-            <a href="home.jsp" align="center">Back</a>
-            <br>
-            <div id="content">
+            <ul class="nav nav-tabs">
+                <li ><a href="lobby.jsp">Home</a></li>
+                <li class="disabled"><a href="#">Lobby</a></li>
+                <li class="active"><a href="accountManagement.jsp">Profile</a></li>
+                <li class="align-right"><a href="logout.jsp">Log Out</a></li>
+            </ul>
+           
                     <div id="playerinfo" style="width:50%; text-align:left; float:left">
-                    <h2>My Details</h2>
-                    <br><br>
+
                     <form name="manager" onSubmit="return validate1();" action="profile" method="POST">
                     <table align="center">
                         <tr>
-                            <td>User name:</td>
-                            <td><input id="userName" name="userName" type="text" size="20" value="<%=userName%>" /></td>
+                            <td><h3>My Details</h3></td>
+                        </tr>
+                        <tr>
+                            <td>Username:</td>
+                        </tr>
+                        <tr>
+                            <td><input id="userName" class="form-control"  name="userName" type="text" size="20" value="<%=userName%>" /></td>
+                        </tr>
+                        <tr>
                             <td><%=userNameError%></td>
                         </tr>
                         <tr>
                             <td>Email:</td>
-                            <td><input id="email" name="email" type="text" size="20" value="<%=email%>" /></td>
+                        </tr>
+                        <tr>
+                            <td><input id="email" class="form-control"  name="email" type="text" size="20" value="<%=email%>" /></td>
+                        </tr>
+                        <tr>
                             <td><%=emailError%></td>
                         </tr>
                         <tr id="fb">
-                            <td id="fb">Facebook:</td>
-                            <td id="fb" colspan="2">
+                            <td>Facebook:</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
                                 <!--
                                 Below we include the Login Button social plugin. This button uses the JavaScript SDK to
                                 present a graphical Login button that triggers the FB.login() function when clicked.
@@ -263,14 +280,16 @@
                             <td id="fbmsg" colspan="3" style="display:none"><font color='red'>The current logged in Facebook account is not linked to this player</font></td>
                         </tr>
                         <tr>
-                            <td>New password:</td>
-                            <td><input id="newPassword" name="newPassword" type="password" size="20" placeholder="new password" /></td>
-                            <td><input id="confirmpassword" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
+                            <td>Password:</td>
                         </tr>
                         <tr>
-                            <td>Current password</td>
-                            <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
-                            <td><%=passwordError%></td>
+                            <td><input id="password" class="form-control"  name="password" type="password" size="20" placeholder="current password" /></td>
+                        </tr>
+                        <tr>
+                            <td><input id="newPassword" class="form-control"  name="newPassword" type="password" size="20" placeholder="new password" /></td>
+                        </tr>
+                        <tr>
+                            <td><input id="confirmpassword" class="form-control"  name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
                         </tr>
                         <tr>
                             <td colspan ="2"><%=exceptionError%></td>
@@ -279,22 +298,23 @@
                             <input name="oldUserName" type="hidden" value="<%=userName%>"/>
                             <input name="oldEmail" type="hidden" value="<%=email%>"/>
                             <input name="form" type="hidden" value="update"/>
-                            <td colspan="2"><input type="submit" name="submit" value="Update Details" class="fade" /></td>
+                            <br><td><button type="submit" class="btn btn-info">Update</button></td>
                         </tr>
                     </table>
-                    </div>
                 </form>
-                            
-                            
+                    </div>
+<!----------------------------------------------------------------------------------------------------------------------------->
+
+
                 <div id="friends" style="width:50%; text-align:left; float:left">
                   
                     <form id="myfriends" name="friends" onSubmit="return validateFriends();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
-                                <td><h2>My Friends</h2></td>
+                                <td><h3>My Friends</h2></td>
                             </tr>
                             <tr>
-                                <td><select name="friendsField" multiple="no" style="width:300px">
+                                <td><select class="input-sm" name="friendsField" multiple="no" style="width:300px">
                                         <%=friendCode%>
                                     </select>
                                 </td>
@@ -302,17 +322,19 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="friends"/>
-                                <td colspan="2"><input type="submit" name="submit" value="Delete Friend" class="fade" /></td>
+                                <br><td><button type="submit" class="btn btn-info" value="Delete Friend">Delete Friend</button></td>
+                                <!--<td colspan="2"><input type="submit" name="submit" value="Delete Friend" class="fade" /></td>-->
                             </tr>
+                        </table>
                     </form>
-                    <br>
+                                
                     <form id="myrequests" name="friendRequests" onSubmit="return validateRequests();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
-                                <td><h2>Friend Requests</h2></td>
+                                <td><h3>Friend Requests</h2></td>
                             </tr>
                             <tr>
-                                <td><select name="friendRequestsField" multiple="no" style="width:300px">
+                                <td><select class="input-sm" name="friendRequestsField" multiple="no" style="width:300px">
                                         <%=requestCode%>
                                     </select>
                                 </td>
@@ -320,34 +342,45 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="requests"/>
-                                <td colspan="2"><input type="submit" name="submit" value="Accept Request" class="fade" /></td>
+                                <br><td><button type="submit" class="btn btn-info" value="Accept Request">Accept Request</button>    
+                                <!--<td colspan="2"><input type="submit" name="submit" value="Accept Request" class="fade" /></td>-->
+                                <button type="submit" class="btn btn-info" value="Decline Request">Decline Request</button></td>
+                                <!--<td colspan="2"><input type="submit" name="submit" value="Decline Request" class="fade" /></td>-->
                             </tr>
-                            <tr>
-                                <td colspan="2"><input type="submit" name="submit" value="Decline Request" class="fade" /></td>
-                            </tr>
+                        </table>
                     </form>
-                    <br><br><br><br>
+
                     <form name="addFriend" onSubmit="return validateAdd();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
-                                <td><h2>Add Friend</h2></td>
+                                <td><h3>New Friend</h2></td>
                             </tr>
                             <tr>
-                                <td>Friend's username:</td>
-                                <td><input type="text" id="friendAdd" name="friend" placeholder="friend"</td>
+                                <td>
+                                    <div class="input-group">
+
+                                        <input type="text" class="form-control" id="friendAdd" name="friend" placeholder="friend's username"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-info" type="submit">add</button>
+                                                <input name="player" type="hidden" value="<%=userName%>"/>
+                                                <input name="form" type="hidden" value="add"/>
+                                            </span>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan ="2"><%=requestmessage%></td>
                             </tr>
                             <tr>
-                                <input name="player" type="hidden" value="<%=userName%>"/>
-                                <input name="form" type="hidden" value="add"/>
-                                <td colspan="2"><input type="submit" name="submit" value="Send Request" class="fade" /></td>
+
+                                <!--<br><td><button type="submit" class="btn btn-default">Send Request</button></td>-->
+                                <!--<td colspan="2"><input type="submit" name="submit" value="Send Request" class="fade" /></td>-->
                             </tr>
+                        </table>
                     </form>
                     
                 </div>
-        </div>
+
     </body>
     <%
     // if user not logged in, present registration page
@@ -366,8 +399,9 @@
         }
         %>
         <body>
-            <h1>Create Profile</h1>
+            
             <div id="content">
+                <h3>Create Profile</h3>
                 <form name="manager" onSubmit="return validate();" action="profile" method="POST">
                     <div id="wrapper" style="width:100%; text-align:center">
                     <br><br><br><br><br><br>
@@ -401,6 +435,9 @@
                     </div>
                 </form>
         </div>
+                        <script type="text/javascript" src="jquery-1.8.3.js"></script>
+                        <!-- Include all compiled plugins (below), or include individual files as needed -->
+                        <script src="bootstrap/js/bootstrap.min.js"></script>
         </body>
         <%
     }
