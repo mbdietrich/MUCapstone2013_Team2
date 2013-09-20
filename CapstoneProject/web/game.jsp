@@ -97,10 +97,13 @@
                 }
             };
             
-            var source = new EventSource("state");
-            source.addEventListener('move', onState, false);
             
             window.onload = function() {
+                
+                
+                var source = new EventSource("state");
+                source.onmessage = onState;        
+                
                 var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;
                 buttonFrame = document.getElementById('gameframe');
 

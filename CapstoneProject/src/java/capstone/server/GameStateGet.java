@@ -24,7 +24,6 @@ public class GameStateGet extends HttpServlet{
         String state=GameManager.getGame(request.getSession());
         
         PrintWriter out = response.getWriter();
-        out.append("event: move\n");
         out.append("retry: 50\n");
         out.append("data:");
         out.append(state);
