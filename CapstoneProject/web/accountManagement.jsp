@@ -230,10 +230,11 @@
             </script>
             
             <ul class="nav nav-tabs">
-                <li ><a href="lobby.jsp">Home</a></li>
-                <li class="disabled"><a href="#">Lobby</a></li>
-                <li class="active"><a href="accountManagement.jsp">Profile</a></li>
-                <li class="align-right"><a href="logout.jsp">Log Out</a></li>
+                <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                <li class="active"><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
+                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
            
                     <div id="playerinfo" style="width:50%; text-align:left; float:left">
@@ -322,7 +323,7 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="friends"/>
-                                <br><td><button type="submit" class="btn btn-info" value="Delete Friend">Delete Friend</button></td>
+                                <br><td><button type="submit" class="btn btn-info" value="Delete Friend"><span class="glyphicon glyphicon-remove"></span></button></td>
                                 <!--<td colspan="2"><input type="submit" name="submit" value="Delete Friend" class="fade" /></td>-->
                             </tr>
                         </table>
@@ -342,9 +343,9 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="requests"/>
-                                <br><td><button type="submit" class="btn btn-info" value="Accept Request">Accept Request</button>    
+                                <br><td><button type="submit" class="btn btn-info" value="Accept Request"><span class="glyphicon glyphicon-ok"></span></button>    
                                 <!--<td colspan="2"><input type="submit" name="submit" value="Accept Request" class="fade" /></td>-->
-                                <button type="submit" class="btn btn-info" value="Decline Request">Decline Request</button></td>
+                                <button type="submit" class="btn btn-info" value="Decline Request"><span class="glyphicon glyphicon-remove"></span></button></td>
                                 <!--<td colspan="2"><input type="submit" name="submit" value="Decline Request" class="fade" /></td>-->
                             </tr>
                         </table>
@@ -361,7 +362,7 @@
 
                                         <input type="text" class="form-control" id="friendAdd" name="friend" placeholder="friend's username"/>
                                             <span class="input-group-btn">
-                                                <button class="btn btn-info" type="submit">add</button>
+                                                <button class="btn btn-info" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
                                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                                 <input name="form" type="hidden" value="add"/>
                                             </span>
@@ -401,35 +402,39 @@
         <body>
             
             <div id="content">
-                <h3>Create Profile</h3>
+                
                 <form name="manager" onSubmit="return validate();" action="profile" method="POST">
                     <div id="wrapper" style="width:100%; text-align:center">
                     <br><br><br><br><br><br>
                     <table align="center">
+                        <tr><td><img src="images/icon.png" alt="login"/></td></tr>
                         <tr>
-                            <td>User name:</td>
-                            <td><input id="userName" name="userName" type="text" size="20" <%=userNameValue%> /></td>
+                            <td><h3>Create Profile</h3></td>
+                        </tr>
+                        <tr>
+                            <td><input id="userName" class="form-control" name="userName" type="text" size="20" <%=userNameValue%> /></td>
+                        </tr>
+                        <tr>
                             <td><%=userNameError%></td>
                         </tr>
                         <tr>
-                            <td>Email:</td>
-                            <td><input id="email" name="email" type="text" size="20" <%=emailValue%> /></td>
+                            <td><input id="email" class="form-control" name="email" type="text" size="20" <%=emailValue%> /></td>
+                        </tr>
+                        <tr>
                             <td><%=emailError%></td>
                         </tr>
                         <tr>
-                            <td>Password:</td>
-                            <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
+                            <td><input id="password" class="form-control" name="password" type="password" size="20" placeholder="password" /></td>
                         </tr>
                         <tr>
-                            <td>Confirm password:</td>
-                            <td><input id="confirmpassword" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
+                            <td><input id="confirmpassword" class="form-control" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
                         </tr>
                         <tr>
-                            <td colspan ="2"><%=exceptionError%></td>
+                            <td><%=exceptionError%></td>
                         </tr>
                         <tr>
                             <input name="form" type="hidden" value="register"/>
-                            <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
+                            <td><input type="submit" name="submit" value="Save" class="btn btn-info" /></td>
                         </tr>
                     </table>
                     </div>

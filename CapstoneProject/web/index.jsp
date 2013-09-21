@@ -139,14 +139,14 @@
                                     <input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/>
                                     <br>
                                     <input name="password" type="password" class="form-control" id="password" placeholder="Password"/><br>
-                                    <button type="submit" class="btn btn-default">Log In</button><br>
+                                    <button type="submit" class="btn btn-info">Log In</button><br>
                                 </form>
                             </td></tr>
                         <tr>
                             <td id="alert"><%=error%></td>
                         </tr>
                         <tr>
-                            <td><a href="accountManagement.jsp" class="btn btn-default" align="center">Register</a></td>
+                            <td><a href="accountManagement.jsp" class="btn btn-info" align="center">Register</a></td>
                         </tr>
                         <tr>
                             <td colspan ="4">

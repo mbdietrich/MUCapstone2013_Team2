@@ -30,6 +30,7 @@
         </style>
         <title>TIC TAC TOE</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
 
@@ -142,35 +143,14 @@
 
     </head>
     <body onunload="$.post('leave');">
-        <h2>Game</h2>
-        <table>
-            <tr>
-                <td>Logged in as</td>
-                <td> <%= session.getAttribute("user")%></td>
-            </tr>
-        </table>
+        <ul class="nav nav-tabs">
+                <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li ><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li class="active"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
+                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
+        </ul>
 
-        <p/>
-
-        <hr/>
         <table id="gameframe"></table>   
-
-        <hr/>
-        
-        <div id="nav">
-            <table>
-                <tr>
-                    <td><a href="/CapstoneProject/leave"><img src="images/home.png" alt="home"/></a></td>
-                </tr>
-                <tr>
-                    <td>
-                        <form name="logout" action="logout.jsp" method="POST">
-                            <input type="image" src="images/logout.png" alt="logout" class="fade" />
-                        </form>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
     </body>
 </html>

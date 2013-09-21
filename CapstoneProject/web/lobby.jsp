@@ -76,15 +76,15 @@
     <body>
         
         <ul class="nav nav-tabs">
-            <li><a href="home.jsp">Home</a></li>
-            <li class="active"><a href="#">Lobby</a></li>
-            <li><a href="accountManagement.jsp">Profile</a></li>
-            
-            <li class="align-right"><a href="logout.jsp">Log Out</a></li>
+                <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li class="active"><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
+                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
         </ul>
         <br><br>
         <div class="col-md-3 col-md-offset-3">
-            <button type="button" class="btn btn-info" onclick="loadGames()">refresh</button>
+            <button type="button" class="btn btn-info" onclick="loadGames()"><span class="glyphicon glyphicon-refresh"></span></button>
             <table class="table table-hover" id="gameList">
             ...
             </table>

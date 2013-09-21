@@ -72,11 +72,11 @@
 
 
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="lobby.jsp">Lobby</a></li>
-            <li><a href="accountManagement.jsp">Profile</a></li>
-            
-            <li class="align-right"><a href="logout.jsp">Log Out</a></li>
+                <li class="active"><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li ><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
+                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
         </ul>
 
         <div id="content">
