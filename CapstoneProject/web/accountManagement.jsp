@@ -269,7 +269,31 @@
                         <tr>
                             <td><%=emailError%></td>
                         </tr>
-                        <tr id="fb">
+                        <tr>
+                            <td>Password:</td>
+                        </tr>
+                        <tr>
+                            <td><input id="password" class="form-control"  name="password" type="password" size="20" placeholder="current password" /></td>
+                        </tr>
+                        <tr>
+                            <td><input id="newPassword" class="form-control"  name="newPassword" type="password" size="20" placeholder="new password" /></td>
+                        </tr>
+                        <tr>
+                            <td><input id="confirmpassword" class="form-control"  name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan ="2"><%=exceptionError%></td>
+                        </tr>
+                        <tr>
+                            <input name="oldUserName" type="hidden" value="<%=userName%>"/>
+                            <input name="oldEmail" type="hidden" value="<%=email%>"/>
+                            <input name="form" type="hidden" value="update"/>
+                            <br><td><button type="submit" class="btn btn-info">Update</button></td>
+                        </tr>
+                    </table>
+                </form>
+                            <table align="center">
+                            <tr id="fb">
                             <td>Facebook:</td>
                         </tr>
                         <tr>
@@ -297,29 +321,7 @@
                         <tr id="fbmsg" style="diplay:none">
                             <td id="fbmsg" colspan="3" style="display:none"><font color='red'>Another player is logged into Facebook on this computer</font></td>
                         </tr>
-                        <tr>
-                            <td>Password:</td>
-                        </tr>
-                        <tr>
-                            <td><input id="password" class="form-control"  name="password" type="password" size="20" placeholder="current password" /></td>
-                        </tr>
-                        <tr>
-                            <td><input id="newPassword" class="form-control"  name="newPassword" type="password" size="20" placeholder="new password" /></td>
-                        </tr>
-                        <tr>
-                            <td><input id="confirmpassword" class="form-control"  name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
-                        </tr>
-                        <tr>
-                            <td colspan ="2"><%=exceptionError%></td>
-                        </tr>
-                        <tr>
-                            <input name="oldUserName" type="hidden" value="<%=userName%>"/>
-                            <input name="oldEmail" type="hidden" value="<%=email%>"/>
-                            <input name="form" type="hidden" value="update"/>
-                            <br><td><button type="submit" class="btn btn-info">Update</button></td>
-                        </tr>
-                    </table>
-                </form>
+                            </table>
                     </div>
 <!----------------------------------------------------------------------------------------------------------------------------->
 

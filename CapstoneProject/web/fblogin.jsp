@@ -21,9 +21,9 @@
         email = "";
     }
     String referer = request.getParameter("referer");
-    String userNamePlaceholder = "username";
-    if(referer == "link") {
-        userNamePlaceholder = userName;
+    String userNamePlaceholder = "placeholder='username'";
+    if(referer.equals("link")) {
+        userNamePlaceholder = "value='"+userName+"'";
     }
     
     Map details = databaseAccess.getPlayerDetailsByFBID(id);
@@ -162,7 +162,7 @@
                                 <table align="center">
                                 <tr>
                                     <td>User name:</td>
-                                    <td><input id="userName" name="userName" type="text" size="20" placeholder="<%=userNamePlaceholder%>" /></td>
+                                    <td><input id="userName" name="userName" type="text" size="20" <%=userNamePlaceholder%> /></td>
                                 </tr>
                                 <tr>
                                     <td>Password:</td>
