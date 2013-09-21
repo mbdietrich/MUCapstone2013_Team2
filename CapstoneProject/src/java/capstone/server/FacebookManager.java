@@ -30,22 +30,32 @@ public class FacebookManager extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("form").equals("update")) {
+        if(request.getParameter("form").equals("delink")) {
+            String userName = request.getParameter("userName");
+            if(databaseAccess.removeFBID(userName)) {
+                this.getServletContext().getRequestDispatcher("/accountManagement.jsp").forward(request, response);
+            } else {
+                String message = "delinkerror";
+                this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
+            }
+            
+        } else if(request.getParameter("form").equals("update")) {
             //add facebook id to existing account
             String userName = request.getParameter("userName");
             String password = request.getParameter("password");
             String fbid = request.getParameter("fbid");
+            String referer = request.getParameter("referer");
             if(userName.equals(databaseAccess.checkLoginCredentials(userName, password))) {
                 if(databaseAccess.addFBID(userName, fbid)) {
                     GameManager.newPlayer(request.getSession(), userName);
                     this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
                 } else {
                     String message = "exception1";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&referer="+referer).forward(request, response);
                 }
             } else {
                 String message = "login";
-                this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid).forward(request, response);
+                this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&referer="+referer).forward(request, response);
             }
         } else {
             //create new account linked to facebook id
@@ -66,15 +76,15 @@ public class FacebookManager extends HttpServlet {
                     this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
                 } else {
                     String message = "exception";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email+"&referer=both").forward(request, response);
                 }
             } else {
                 if(details.get("userName").equals(userName)) {
                     String message = "userName";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email+"&referer=both").forward(request, response);
                 } else if(details.get("email").equals(email)) {
                     String message = "email";
-                    this.getServletContext().getRequestDispatcher("/fblogn.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/fblogn.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email+"&referer=both").forward(request, response);
                 }
             }
             

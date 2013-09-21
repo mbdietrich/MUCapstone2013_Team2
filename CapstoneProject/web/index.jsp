@@ -119,7 +119,10 @@
                     id = response.id;
                     name = response.name;
                     email = response.email;
-                    window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email;
+                    var check = confirm("Log in with Facebook?")
+                    if(check==true) {
+                        window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
+                    }
                 });
             }
         </script>
@@ -157,7 +160,7 @@
                                 Learn more about options for the login button plugin:
                                 /docs/reference/plugins/login/ -->
 
-                        <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+                        <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email"></fb:login-button>
                         </td>
                         </tr>
             </div>

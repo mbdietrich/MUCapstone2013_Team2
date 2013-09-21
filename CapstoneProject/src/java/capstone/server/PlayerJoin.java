@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PlayerJoin extends HttpServlet {
 
-    private static final boolean LOCAL_TEST = true;
+    private static final boolean LOCAL_TEST = false;
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
