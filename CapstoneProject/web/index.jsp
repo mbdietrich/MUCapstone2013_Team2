@@ -119,7 +119,10 @@
                     id = response.id;
                     name = response.name;
                     email = response.email;
-                    window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
+                    var check = confirm("Log in with Facebook?")
+                    if(check==true) {
+                        window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
+                    }
                 });
             }
         </script>
