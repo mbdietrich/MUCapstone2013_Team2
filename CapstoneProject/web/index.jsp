@@ -119,7 +119,7 @@
                     id = response.id;
                     name = response.name;
                     email = response.email;
-                    window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email;
+                    window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
                 });
             }
         </script>

@@ -113,6 +113,7 @@
     String userNameError = "";
     String emailError = "";
     String passwordError = "";
+    String delinkError = "";
     String error = request.getParameter("error");
     String requestmessage = request.getParameter("requestmessage");
     if(requestmessage == null || requestmessage=="null") {
@@ -129,6 +130,8 @@
             passwordError = "<font color='red'>Incorrect password</font>";
         } else if (error.equals("exception")) {
             exceptionError = "<font color='red'>An error occurred. Please try again.</font>";
+        } else if (error.equals("delinkerror")) {
+            delinkError = "<font color='red'>Error: try again</font>";
         }
     }
     
@@ -221,9 +224,14 @@
                 FB.api('/me', function(response) {
                     id = response.id;
                     dbid = "<%=fbid%>";
-                    if(id != dbid) {
-                        document.getElementById("fb").style.display="none";
+                    name = "<%=userName%>";
+                    // if player not linked to facebook, link
+                    if(dbid === "") {
+                        window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&referer=link";
+                    }else if(id != dbid) {
                         document.getElementById("fbmsg").style.display="inline";
+                    } else {
+                        document.getElementById("fbdelink").style.display="inline";
                     }
                 });
             }
@@ -273,11 +281,21 @@
                                 Learn more about options for the login button plugin:
                                 /docs/reference/plugins/login/ -->
 
-                                <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+                                <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true"></fb:login-button>
                             </td>
                         </tr>
+                        <tr>
+                            <td id="fbdelink" style="display:none">
+                                <form name="delinkfb" action="facebook" method="POST">
+                                    <input name="userName" type="hidden" value="<%=userName%>"/>
+                                    <input name="form" type="hidden" value="delink"/>
+                                    <button type="submit" class="btn btn-info">Delink Facebook Account</button>
+                                </form>
+                            </td>
+                            <td colspan="2"><%=delinkError%></td>
+                        </tr>
                         <tr id="fbmsg" style="diplay:none">
-                            <td id="fbmsg" colspan="3" style="display:none"><font color='red'>The current logged in Facebook account is not linked to this player</font></td>
+                            <td id="fbmsg" colspan="3" style="display:none"><font color='red'>Another player is logged into Facebook on this computer</font></td>
                         </tr>
                         <tr>
                             <td>Password:</td>
