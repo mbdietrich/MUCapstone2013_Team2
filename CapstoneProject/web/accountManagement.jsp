@@ -220,7 +220,7 @@
             function checkAgainstDB() {
                 FB.api('/me', function(response) {
                     id = response.id;
-                    dbid = <%=fbid%>;
+                    dbid = "<%=fbid%>";
                     if(id != dbid) {
                         document.getElementById("fb").style.display="none";
                         document.getElementById("fbmsg").style.display="inline";
