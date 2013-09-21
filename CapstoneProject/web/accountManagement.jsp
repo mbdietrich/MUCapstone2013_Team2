@@ -227,7 +227,10 @@
                     name = "<%=userName%>";
                     // if player not linked to facebook, link
                     if(dbid === "") {
-                        window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&referer=link";
+                        var check = confirm("Link "+response.name+"'s Facebook account?");
+                        if(check==true) {
+                            window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&referer=link";
+                        }
                     }else if(id != dbid) {
                         document.getElementById("fbmsg").style.display="inline";
                     } else {
