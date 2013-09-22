@@ -121,8 +121,7 @@ BlockingQueue<String>>();
             else{
                 first=false;
             }
-            builder=builder.append("[\"").append(entry.getKey()).append("\",\"").append(entry.getValue()).append
-("\"]");
+            builder=builder.append("[\"").append(entry.getValue()).append("\"]");
         }
         return builder.append("}").toString();
     }
