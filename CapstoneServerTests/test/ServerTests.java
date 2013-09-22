@@ -80,7 +80,6 @@ public class ServerTests {
         assertEquals(resp.getStatusLine().getStatusCode(), 200);
     }
   
-    
     @Test
     public void testCreate() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
@@ -109,7 +108,29 @@ public class ServerTests {
         assertTrue(flag);
     }
     
-    @Test
+     @Test
+    public void testState() throws ClientProtocolException, IOException{
+        HttpClient client = new DefaultHttpClient();
+        login(client);              //Log in
+        createGame(client,"solo");  //Create solo game
+        
+        HttpGet getstate = new HttpGet(URL+"state");
+        HttpResponse stateresp = client.execute(getstate);
+        
+        String responsebody = EntityUtils.toString(stateresp.getEntity());
+        
+        //Find the JSON section of the response
+        int startJSON = responsebody.indexOf("{");
+        int stopJSON = responsebody.indexOf("}"); 
+        String JSONstate = responsebody.substring(startJSON, stopJSON+1);
+        
+        HashMap state = (HashMap) new JSONDeserializer().deserialize(JSONstate);
+
+        //TODO: Better pass condition?
+        assertEquals(stateresp.getStatusLine().getStatusCode(), 200);
+    }
+	
+	@Test
     public void testLeave() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
         login(client);              // Log in     
