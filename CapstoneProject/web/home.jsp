@@ -49,6 +49,12 @@
                     document.location.href = "game.jsp";
                 });
             }
+            var joinPrivateGame = function() {
+                var privName = document.getElementById("publicInput").value;
+                $.post("create", {type: "private", player: privName}, function(e) {
+                    document.location.href = "game.jsp";
+                });
+            }
             var openGame = function() {
                 $.post("create", {type: "open"}, onGameCreate);
             }
