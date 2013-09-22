@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -147,7 +148,7 @@ public class ServerTests {
     public void testGetList() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
         login(client);              // Log in  
-        createGame(client, "solo");
+        createGame(client, "any");
         
         //Get a list of available games
         HttpGet getjoin = new HttpGet(URL+"join");
