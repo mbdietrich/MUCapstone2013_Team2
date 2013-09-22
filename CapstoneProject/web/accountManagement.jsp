@@ -243,11 +243,11 @@
             </script>
             
             <ul class="nav nav-tabs">
-                <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
-                <li class="active"><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
-                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
-                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li rel="tooltip" title="Home"><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li rel="tooltip" title="Lobby"><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                <li class="active" rel="tooltip" title="Profile"><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li class="disabled" rel="tooltip" title="Jabberwocky"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
+                <li class="align-right" rel="tooltip" title="Log out"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
            
                     <div id="playerinfo" style="width:50%; text-align:left; float:left">

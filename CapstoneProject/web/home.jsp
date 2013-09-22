@@ -73,11 +73,11 @@
 
 
         <ul class="nav nav-tabs">
-                <li class="active"><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li ><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
-                <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
-                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
-                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li rel="tooltip" title="Home" class="active"><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li rel="tooltip" title="Lobby"><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                <li rel="tooltip" title="Profile"><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li rel="tooltip" title="Jabberwocky" class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
+                <li rel="tooltip" title="Log out" class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
         </ul>
 
         <div id="content">
