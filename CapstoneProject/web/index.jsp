@@ -9,6 +9,7 @@
 <html>
     <head><!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <link href="css/style.css" rel="stylesheet" media="screen">
         <script>
             function trim(s)

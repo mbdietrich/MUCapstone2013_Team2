@@ -18,6 +18,7 @@
 <html>
     <head>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <link href="css/style.css" rel="stylesheet" media="screen">
         <!--<div id="sessionname"><%= (String) session.getAttribute("user")%></div>-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

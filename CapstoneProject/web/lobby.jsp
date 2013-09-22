@@ -19,7 +19,7 @@
     <head>
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="css/style.css" rel="stylesheet" media="screen">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
