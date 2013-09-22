@@ -51,7 +51,7 @@
                             newLines = "<tr><th>Open Games</th><td></td><tr>"
                             
                             for(i=0;i<data.length; i++){
-                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame('+data[i]+'");>Join</button></td></tr>';
+                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame(\''+data[i]+'\');">Join</button></td></tr>';
                             }
                             
                             document.getElementById("gameList").innerHTML=newLines;
