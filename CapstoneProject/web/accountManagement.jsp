@@ -368,8 +368,8 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="requests"/>
-                                <br><td class="padBottom"><button type="submit" class="btn btn-info" value="Accept Request"><span class="glyphicon glyphicon-ok"></span></button>    
-                                <button type="submit" class="btn btn-info" value="Decline Request"><span class="glyphicon glyphicon-remove"></span></button></td>
+                                <br><td class="padBottom"><button type="submit" name="submit" class="btn btn-info" value="Accept Request"><span class="glyphicon glyphicon-ok"></span></button>    
+                                <button type="submit" name="submit" class="btn btn-info" value="Decline Request"><span class="glyphicon glyphicon-remove"></span></button></td>
                             </tr>
                         </table>
                     </form>
