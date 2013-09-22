@@ -9,6 +9,7 @@
 <html>
     <head><!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/style.css" rel="stylesheet" media="screen">
         <script>
             function trim(s)
             {
@@ -133,23 +134,25 @@
             <div id="wrapper" style="width:100%; text-align:center">
                 <br><br><br><br><br><br>
                 <table align="center">
-                        <tr><td><img src="images/icon.png" alt="login"/></td></tr>
-                        <tr><td><h2>tic tac toe</h2></td></tr>
-                        <tr>
-
-                            <td>
+                        <tr><td class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
+                        <tr><td class="padBottom heading">tic tac toe</td></tr>
+                        
+                            <tr>
+                                <td>
                                 <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
-                                    <input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/>
-                                    <br>
-                                    <input name="password" type="password" class="form-control" id="password" placeholder="Password"/><br>
-                                    <button type="submit" class="btn btn-info">Log In</button><br>
-                                </form>
+                                <input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/><br>
+                                <input name="password" type="password" class="form-control" id="password" placeholder="Password"/><br>
+                                <button type="submit" class="btn btn-info">Log In</button>
+                                 </form>
+                                </td>
+                            </tr>    
+                      
                             </td></tr>
                         <tr>
                             <td id="alert"><%=error%></td>
                         </tr>
                         <tr>
-                            <td><a href="accountManagement.jsp" class="btn btn-info" align="center">Register</a></td>
+                            <td><i>or <a href="accountManagement.jsp" align="center">Register</a></i></td>
                         </tr>
                         <tr>
                             <td colspan ="4">

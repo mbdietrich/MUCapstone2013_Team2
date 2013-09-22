@@ -38,3 +38,19 @@ table {
     background: linear-gradient(bottom, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
 }
+
+input[type="text"], input[type="password"], td {
+    text-align: center;
+}
+
+body {
+    font-family: 'Century Gothic';
+}
+
+.heading {
+    text-transform: uppercase;
+}
+
+.padBottom {
+    padding-bottom: 25px;
+}

@@ -18,6 +18,7 @@
 <html>
     <head>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/style.css" rel="stylesheet" media="screen">
         <!--<div id="sessionname"><%= (String) session.getAttribute("user")%></div>-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Profile Management</title>
@@ -430,9 +431,9 @@
                     <div id="wrapper" style="width:100%; text-align:center">
                     <br><br><br><br><br><br>
                     <table align="center">
-                        <tr><td><img src="images/icon.png" alt="login"/></td></tr>
+                        <tr><td class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
                         <tr>
-                            <td><h3>Create Profile</h3></td>
+                            <td class="padBottom heading">Create Profile</td>
                         </tr>
                         <tr>
                             <td><input id="userName" class="form-control" name="userName" type="text" size="20" <%=userNameValue%> /></td>
@@ -450,7 +451,7 @@
                             <td><input id="password" class="form-control" name="password" type="password" size="20" placeholder="password" /></td>
                         </tr>
                         <tr>
-                            <td><input id="confirmpassword" class="form-control" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
+                            <td class="padBottom"><input id="confirmpassword" class="form-control" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
                         </tr>
                         <tr>
                             <td><%=exceptionError%></td>
