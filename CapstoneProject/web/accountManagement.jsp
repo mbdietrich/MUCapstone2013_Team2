@@ -255,7 +255,7 @@
                     <form name="manager" onSubmit="return validate1();" action="profile" method="POST">
                     <table align="center">
                         <tr>
-                            <td><h3>My Details</h3></td>
+                            <td class="padBottom heading">My Details</td>
                         </tr>
                         <tr>
                             <td>Username:</td>
@@ -288,7 +288,7 @@
                             <td><input id="confirmpassword" class="form-control"  name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
                         </tr>
                         <tr>
-                            <td colspan ="2"><%=exceptionError%></td>
+                            <td class="padBottom"><%=exceptionError%></td>
                         </tr>
                         <tr>
                             <input name="oldUserName" type="hidden" value="<%=userName%>"/>
@@ -337,7 +337,7 @@
                     <form id="myfriends" name="friends" onSubmit="return validateFriends();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
-                                <td><h3>My Friends</h2></td>
+                                <td class="padBottom heading">My Friends</td>
                             </tr>
                             <tr>
                                 <td><select class="input-sm" name="friendsField" multiple="no" style="width:300px">
@@ -357,7 +357,7 @@
                     <form id="myrequests" name="friendRequests" onSubmit="return validateRequests();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
-                                <td><h3>Friend Requests</h2></td>
+                                <td class="padBottom heading">Friend Requests</td>
                             </tr>
                             <tr>
                                 <td><select class="input-sm" name="friendRequestsField" multiple="no" style="width:300px">
@@ -368,10 +368,8 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="requests"/>
-                                <br><td><button type="submit" class="btn btn-info" value="Accept Request"><span class="glyphicon glyphicon-ok"></span></button>    
-                                <!--<td colspan="2"><input type="submit" name="submit" value="Accept Request" class="fade" /></td>-->
+                                <br><td class="padBottom"><button type="submit" class="btn btn-info" value="Accept Request"><span class="glyphicon glyphicon-ok"></span></button>    
                                 <button type="submit" class="btn btn-info" value="Decline Request"><span class="glyphicon glyphicon-remove"></span></button></td>
-                                <!--<td colspan="2"><input type="submit" name="submit" value="Decline Request" class="fade" /></td>-->
                             </tr>
                         </table>
                     </form>
@@ -379,7 +377,7 @@
                     <form name="addFriend" onSubmit="return validateAdd();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
-                                <td><h3>New Friend</h2></td>
+                                <td class="padBottom heading">New Friend</td>
                             </tr>
                             <tr>
                                 <td>

@@ -84,7 +84,7 @@
 
             <div class="jumbotron">
                 <div class="container">
-                    <h2>Welcome <%= session.getAttribute("user")%>!</h1>
+                    <h2>Welcome <%= session.getAttribute("user")%>!</h2>
                 </div>
             </div><br><br>
             <div class="row">
