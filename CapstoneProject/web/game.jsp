@@ -20,14 +20,17 @@
         
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/style.css" rel="stylesheet" media="screen">
+        <link rel="shortcut icon" href="images/ttt_icon.ico" />
         
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" chrome="1">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <title>TTT - Game On!</title>
         
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
-
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        
         <script>
             
             var makeMove = function(a, b, x, y){
@@ -61,8 +64,8 @@
                             for(x = 0;x<3;x++){
                                 for(y = 0;y<3;y++){
                                     button=document.getElementById(a+'-'+b+'-'+x+'-'+y);
-                                    buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).getElementsByTagName('span')[0];
-                                    value=state.Board[subgame][buttonNum]
+                                    buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).firstElementChild;
+                                    value=state.Board[subgame][buttonNum];
                                     if(value==1){
                                         button.className = "btn btn-default";
                                         buttonTrans.className = "glyphicon glyphicon-remove";
@@ -90,10 +93,17 @@
                             subgame++;
                         }
                     }
-                    if (state.Status === "1" | state.Status === "2"){
-                        window.alert("Player " + state.Status + " Wins");
+                    if (state.Status === "1"){
+                        window.alert("YOU WIN!");
+                        window.location.href="/CapstoneProject/home.jsp";
+                    }else if (state.Status === "2"){
+                        window.alert("SORRY, YOU LOSE.");
                         window.location.href="/CapstoneProject/home.jsp";
                     }
+                    //if (state.Status === "1" | state.Status === "2"){
+                     //   window.alert("Player " + state.Status + " Wins");
+                     //   window.location.href="/CapstoneProject/home.jsp";
+                    //}
                     }
                 }
             };
@@ -131,8 +141,6 @@
                                 newButton.x=i;
                                 newButton.y=j;
                                 
-                                
-                                
                                 newButton.appendChild(buttonTrans);
                                 newButton.onclick = function() {
                                     makeMove(this.a,this.b,this.x,this.y);
@@ -155,11 +163,7 @@
                 <li class="active"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
                 <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
         </ul>
-        <table align="center">
-            <tr>
-                <td class="padBottom"><%= session.getAttribute("user")%> vs <%= session.getAttribute("PlayerNumber") %></td>
-            </tr>
-        </table>
+        <div class="padBottom heading"><%= session.getAttribute("user")%> vs Opponent</div>
         <table id="gameframe" align="center"></table>   
     </body>
 </html>

@@ -10,6 +10,8 @@
     <head><!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/style.css" rel="stylesheet" media="screen">
+        <link rel="shortcut icon" href="images/ttt_icon.ico" />
+        
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         
         <title>Tic Tac Toe</title>
