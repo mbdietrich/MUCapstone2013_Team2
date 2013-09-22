@@ -17,21 +17,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style type="text/css">
-            div.game{
-                width:50px;
-                height:50px;
-                background:slategrey;
-                font-size:50;
-                margin:5px;
-                border:#black 1px solid;
-            }
-        </style>
-        <title>TIC TAC TOE</title>
+        
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/style.css" rel="stylesheet" media="screen">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" chrome="1">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+        
+        <title>TTT - Game On!</title>
+        
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
 
         <script>
@@ -68,15 +62,22 @@
                             for(x = 0;x<3;x++){
                                 for(y = 0;y<3;y++){
                                     button=document.getElementById(a+'-'+b+'-'+x+'-'+y);
+                                    buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).getElementsByTagName('span')[0];
                                     value=state.Board[subgame][buttonNum]
                                     if(value==1){
-                                        button.value="X";
+                                        button.className = "btn btn-default";
+                                        buttonTrans.className = "glyphicon glyphicon-remove";
+                                        //button.value = "X";
                                     }
                                     else if(value==2){
-                                        button.value="O";
+                                        button.className = "btn btn-default";
+                                        buttonTrans.className = "glyphicon glyphicon-ban-circle";
+                                        //button.value = "O";
                                     }
                                     else{
-                                        button.value="  ";
+                                        button.className = "btn btn-info";
+                                        buttonTrans.className = "glyphicon glyphicon-minus";
+                                        //button.value = "  ";
                                     }
                                     if(state.isTurn==="true"){
                                         button.disabled===true;
@@ -103,7 +104,7 @@
                 source.onmessage = onState;
             
             
-            window.onload = function() {
+                window.onload = function() {
                 
                 
                 
@@ -121,14 +122,19 @@
                             newSubRow=subTable.insertRow();
                             for (j = 2; j >= 0; j--) {
                                 
-                                newButton = document.createElement('input');
+                                buttonTrans = document.createElement('span');
+                                newButton = document.createElement('button');
                                 newButton.type = 'button';
-                                
+                                newButton.className = 'btn btn-default';
                                 newButton.id=a+'-'+b+'-'+i+'-'+j;
                                 newButton.a=a;
                                 newButton.b=b;
                                 newButton.x=i;
                                 newButton.y=j;
+                                
+                                
+                                
+                                newButton.appendChild(buttonTrans);
                                 newButton.onclick = function() {
                                     makeMove(this.a,this.b,this.x,this.y);
                                 };
@@ -143,14 +149,18 @@
 
     </head>
     <body onunload="$.post('leave');">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-justified padBottom">
                 <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
                 <li ><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
                 <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
                 <li class="active"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
                 <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
         </ul>
-
-        <table id="gameframe"></table>   
+        <table align="center">
+            <tr>
+                <td class="padBottom"><%= session.getAttribute("user")%> vs <%= session.getAttribute("PlayerNumber") %></td>
+            </tr>
+        </table>
+        <table id="gameframe" align="center"></table>   
     </body>
 </html>

@@ -17,12 +17,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Bootstrap -->
+
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <script type="text/javascript" src="jquery-1.8.3.js"></script>
+        <link href="css/style.css" rel="stylesheet" media="screen">
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        
+        <script type="text/javascript" src="jquery-1.8.3.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        
+        <title>TTT - Lobby</title>
+        
         <script>
             var singlePlayer = function() {
                 $.post("create", {type: "solo", botname: "DefaultBot"}, function(e) {
@@ -75,7 +81,7 @@
     </head>
     <body>
         
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-justified padBottom">
                 <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
                 <li class="active"><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
                 <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
@@ -90,7 +96,5 @@
             </table>
             
         </div>
-        
-            <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>

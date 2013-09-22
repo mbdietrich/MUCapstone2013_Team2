@@ -20,7 +20,6 @@ table {
     text-align:center; 
     margin:auto;
     background-color: white;
-    box-shadow: 10px 10px 5px #888888;
 }
 #gameframe td {
     padding: 0px;
@@ -28,16 +27,7 @@ table {
     width: 50px;   
 }
 
-#gameframe td td {
-    background: rgba(242,246,248,1);
-    background: -moz-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(242,246,248,1)), color-stop(51%, rgba(181,198,208,1)), color-stop(100%, rgba(224,239,249,1)));
-    background: -webkit-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    background: -o-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    background: -ms-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    background: linear-gradient(bottom, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
-}
+
 
 input[type="text"], input[type="password"], td {
     text-align: center;
@@ -45,12 +35,18 @@ input[type="text"], input[type="password"], td {
 
 body {
     font-family: 'Century Gothic';
+    text-align: center;
 }
 
-.heading {
+.heading, .heading1 {
     text-transform: uppercase;
+}
+
+heading1 {
+    font-stretch: ultra-expanded;
 }
 
 .padBottom {
     padding-bottom: 25px;
 }
+
