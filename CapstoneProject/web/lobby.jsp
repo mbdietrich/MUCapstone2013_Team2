@@ -48,21 +48,19 @@
 
             var refresh = function(data) {
                             
-                            players = data.toString().split("\n");
-                            players.pop();
-                            newLines = "";
+                            newLines = "<tr><th>Open Games</th><td></td><tr>"
                             
-                            for(i=0;i<players.length; i++){
-                                newLines = newLines+"<tr><td>"+players[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame('+players[i]+'");>Join</button></td></tr>';
+                            for(i=0;i<data.length; i++){
+                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame('+data[i]+'");>Join</button></td></tr>';
                             }
                             
                             document.getElementById("gameList").innerHTML=newLines;
                         }
 
             var loadGames = function() {
-                $.get(
+                $.getJSON(
                         "GetPublicGames",
-                        function(data){refresh(data);}
+                        function(data){refresh(data.games);}
                 );
             }
 
@@ -86,7 +84,7 @@
         <div class="col-md-3 col-md-offset-3">
             <button type="button" class="btn btn-info" onclick="loadGames()"><span class="glyphicon glyphicon-refresh"></span></button>
             <table class="table table-hover" id="gameList">
-            ...
+                
             </table>
             
         </div>

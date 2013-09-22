@@ -48,7 +48,6 @@
                 var data;
                 var state = jQuery.parseJSON(evt.data);
                 if (state) { // only update if the string is not empty
-                    console.log("data received: " + state.PlayerNumber+", "+state.isTurn+", "+state.Status+", "+state.Board);
                     
                     if(state.open){
                         document.getElementById("gameframe").style.display = 'none';

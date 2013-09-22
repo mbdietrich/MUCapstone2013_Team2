@@ -28,32 +28,31 @@ public class GetPublicGames extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("text/event-stream");
-        response.setCharacterEncoding ("UTF-8");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         String publicGames = GameManager.getPublicGames();
-        
-        
-       PrintWriter out = response.getWriter();
-       out.append(publicGames);
+
+        PrintWriter out = response.getWriter();
+        out.append(publicGames);
         //out.append("retry: 1000\n");
        /*
-        out.append("event: games\n");
-        out.append("data:");
+         out.append("event: games\n");
+         out.append("data:");
         
-        // json encode messages
-        out.append('[');
-        boolean first = true;
-        for (Message message:messages) {
-            if (first) first=false;
-            else out.append(',');
-            out.append(message.toJSON());
-        }
-        out.append(']');
+         // json encode messages
+         out.append('[');
+         boolean first = true;
+         for (Message message:messages) {
+         if (first) first=false;
+         else out.append(',');
+         out.append(message.toJSON());
+         }
+         out.append(']');
         
-        out.append("\n\n");*/
+         out.append("\n\n");*/
         response.flushBuffer();
     }
 
