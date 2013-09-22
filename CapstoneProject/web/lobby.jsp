@@ -55,20 +55,28 @@
 
             var refresh = function(data) {
                             
-                            newLines = "<tr><th>Open Games</th><td></td><tr>"
-                            
-                            for(i=0;i<data.length; i++){
+                            newLines = "";
+
+                            /*
+                            //use for testing
+                            for(i=0;i<10; i++){
                                 newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame(\''+data[i]+'\');">Join</button></td></tr>';
+                            }*/
+        
+                            for(i=0;i<data.length; i++){
+                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-info" onclick="joinPublicGame(\''+data[i]+'\');"><span class="glyphicon glyphicon-play"></span></button></td></tr>';
                             }
                             
                             document.getElementById("gameList").innerHTML=newLines;
                         }
 
             var loadGames = function() {
+                
                 $.getJSON(
                         "GetPublicGames",
                         function(data){refresh(data.games);}
                 );
+                    
             }
 
             window.onload = loadGames;
@@ -80,20 +88,17 @@
     </head>
     <body>
         
-        <ul class="nav nav-justified padBottom">
+        <ul class="nav nav-tabs nav-justified padBottom">
                 <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
                 <li class="active"><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
                 <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
                 <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
                 <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
         </ul>
-        <br><br>
-        <div class="col-md-3 col-md-offset-3">
-            <button type="button" class="btn btn-info" onclick="loadGames()"><span class="glyphicon glyphicon-refresh"></span></button>
-            <table class="table table-hover" id="gameList">
-                
-            </table>
-            
+
+        <div class="heading padBottom">Open Games   <button type="button" class="btn btn-xs" onclick="loadGames()"><span class="glyphicon glyphicon-refresh"></span></button></div>
+        <div>
+            <table class="table table-hover" id="gameList"></table> 
         </div>
     </body>
 </html>

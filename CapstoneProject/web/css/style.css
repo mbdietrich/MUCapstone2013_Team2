@@ -10,8 +10,13 @@ root {
     display: block;
 }
 
-table {
+table, th, td{
     margin: auto;
+    text-align: center;
+}
+
+.subTable {
+    border: 1px solid #ddd !important;
 }
 
 #gameframe {
@@ -50,3 +55,10 @@ heading1 {
     padding-bottom: 25px;
 }
 
+.padBottom2 {
+    padding-bottom: 150px;
+}
+
+.gameList {
+    width: 70%;
+}

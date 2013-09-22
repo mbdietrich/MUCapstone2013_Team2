@@ -137,15 +137,11 @@
             }
         </script>
 
-        <div id="Session"></div>
-        <div  id="content">
-            <div id="wrapper" style="width:100%; text-align:center">
-                <br><br><br><br><br><br>
+            <div id="Session" class="padBottom2"></div>
                 <table align="center">
                         <tr><td class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
                         <tr><td class="padBottom heading">tic tac toe</td></tr>
-                        
-                            <tr>
+                        <tr>
                                 <td>
                                 <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
                                 <input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/><br>
@@ -153,9 +149,8 @@
                                 <button type="submit button" class="btn btn-info" data-loading-text="Loading...">Log In</button>
                                  </form>
                                 </td>
-                            </tr>    
-                      
-                            </td></tr>
+                        </tr>    
+
                         <tr>
                             <td id="alert"><%=error%></td>
                         </tr>
@@ -174,8 +169,6 @@
                         <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email"></fb:login-button>
                         </td>
                         </tr>
-            </div>
-        </form>
-    </div>
-</body>
+                </table>
+        </body>
 </html>

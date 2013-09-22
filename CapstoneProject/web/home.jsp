@@ -77,7 +77,7 @@
         </script>
     </head>
     <body>
-        <ul class="nav nav-justified padBottom">
+        <ul class="nav nav-tabs nav-justified padBottom">
                 <li class="active"><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
                 <li ><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
                 <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>

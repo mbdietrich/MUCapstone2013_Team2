@@ -126,6 +126,7 @@
                     for (b = 2; b >= 0; b--) {
                         newCell = newRow.insertCell();
                         subTable=document.createElement('table');
+                        subTable.className = 'subTable';
                         newCell.appendChild(subTable);
                         for (i = 2; i >= 0; i--) {
                             newSubRow=subTable.insertRow();
@@ -156,7 +157,7 @@
 
     </head>
     <body onunload="$.post('leave');">
-        <ul class="nav nav-justified padBottom">
+        <ul class="nav nav-tabs nav-justified padBottom">
                 <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
                 <li ><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
                 <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
