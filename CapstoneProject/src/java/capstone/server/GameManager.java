@@ -39,6 +39,7 @@ public class GameManager {
 BlockingQueue<String>>();
     
     public static Map<String, String> openGames = new ConcurrentHashMap<String,String>();
+    public static List<String> privateGames = new ArrayList<String>();
     
     //For now, only one bot - DefaultBot
     private static final Player DEFAULT_BOT = new GameBot();
@@ -98,7 +99,7 @@ BlockingQueue<String>>();
         StringBuilder builder = new StringBuilder("{\"games\":[");
         boolean first = true;
         for(Entry<String, String> entry: openGames.entrySet()){
-            if(!first){
+            if(!first && privateGames.indexOf(entry.getKey()) == -1){
                 builder=builder.append(", ");
             }
             else{
@@ -110,6 +111,21 @@ BlockingQueue<String>>();
         return builder.append("]}").toString();
     }
     
+    public static String getPrivateGames(){
+                StringBuilder builder = new StringBuilder("{\"games\":[");
+        boolean first = true;
+        for(Entry<String, String> entry: openGames.entrySet()){
+            if(!first && privateGames.indexOf(entry.getKey()) != -1){
+                builder=builder.append(", ");
+            }
+            else{
+                first = false;
+            }
+            builder = builder.append('"').append(entry.getValue()).append('"');
+        }
+        
+        return builder.append("]}").toString();
+    }
     public static String getOpenGames(){
         StringBuilder builder = new StringBuilder();
         builder=builder.append("{\"games\":");
