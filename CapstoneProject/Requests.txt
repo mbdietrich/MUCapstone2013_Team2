@@ -33,7 +33,7 @@ Returns: nothing
 
 /leave
 Request Type: POST or GET
-Parameters: none
+Parameters: (optional) URL to redirect to
 Description: Leave the current game session.
 Returns: nothing
 
