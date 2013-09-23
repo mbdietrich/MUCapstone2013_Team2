@@ -93,11 +93,13 @@
                             subgame++;
                         }
                     }
-                    if (state.Status === "1"){
+                    if (state.Status === state.PlayerNumber){
                         window.alert("YOU WIN!");
+                        $.post('leave');
                         window.location.href="/CapstoneProject/home.jsp";
-                    }else if (state.Status === "2"){
+                    }else if (state.Status === "2" || state.Status === "1"){
                         window.alert("SORRY, YOU LOSE.");
+                        $.post('leave');
                         window.location.href="/CapstoneProject/home.jsp";
                     }
                     //if (state.Status === "1" | state.Status === "2"){
@@ -111,10 +113,12 @@
             
                 source = new EventSource("state");
                 source.onmessage = onState;
-            
-            
-                window.onload = function() {
                 
+                $(window).unload(function () {
+                    $.post('leave');
+                });
+                
+                window.onload = function() {
                 
                 
                 var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;
@@ -158,9 +162,9 @@
     </head>
     <body onunload="$.post('leave');">
         <ul class="nav nav-tabs nav-justified padBottom">
-                <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li ><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
-                <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li><a onclick =" $.post('leave', {redirect:'/home.jsp'});" href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li ><a onclick =" $.post('leave', {redirect:'/lobby.jsp'});" href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                <li><a onclick =" $.post('leave', {redirect:'/accountManagement.jsp'});" href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
                 <li class="active"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
                 <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
         </ul>

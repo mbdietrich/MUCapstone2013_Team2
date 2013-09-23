@@ -12,28 +12,31 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Max
- * Servlet for leaving a game
+ * @author Max Servlet for leaving a game
  */
 public class Leave extends HttpServlet {
-    
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GameManager.leave(request.getSession());
-        this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
-    }
-    
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
-            GameManager.leave(request.getSession());
+        GameManager.leave(request.getSession());
         }
         finally{
+        if (request.getParameter("redirect") != null) {
+            this.getServletContext().getRequestDispatcher(request.getParameter("redirect")).forward(request, response);
+        }
+        }
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            GameManager.leave(request.getSession());
+        } finally {
             this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
         }
     }
 
-        
     @Override
     public String getServletInfo() {
         return "Lets player leave the game";
