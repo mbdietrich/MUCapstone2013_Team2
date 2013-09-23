@@ -49,7 +49,7 @@
                     if(state.open){
                         document.getElementById("gameframe").style.display = 'none';
                     }
-                    else{
+                    else if(!state.waiting){
                     document.getElementById("gameframe").style.display = '';
                     //TODO parse state in
                     //variables:

@@ -189,10 +189,10 @@ BlockingQueue<String>>();
         }
         else{
         BlockingQueue<String> messages = states.get(session);
-        if(messages.size()>1){
+        if(messages.size()>0){
             return messages.poll();
         }
-        else return messages.peek();
+        else return "{\"waiting\": \"true\"}";
         }
     }
     
