@@ -10,32 +10,13 @@ root {
     display: block;
 }
 
-body {
-    font-weight: normal;
-    font-size: 10px;
-    color: #000000;
-    text-align: center;
-    font-family: 'Century Gothic';
-    line-height: 1;
-    background: rgba(255,255,255,1);
-    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
-    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-    background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-    background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-    background: linear-gradient(right, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
-}
-
-body h2 {
-    line-height: 1em;
-    color: #000000;
-    font-weight: bold;
-    font-size: 35px;
-}
-
-table {
+table, th, td{
     margin: auto;
+    text-align: center;
+}
+
+.subTable {
+    border: 1px solid #ddd !important;
 }
 
 #gameframe {
@@ -44,7 +25,6 @@ table {
     text-align:center; 
     margin:auto;
     background-color: white;
-    box-shadow: 10px 10px 5px #888888;
 }
 #gameframe td {
     padding: 0px;
@@ -52,17 +32,33 @@ table {
     width: 50px;   
 }
 
-#gameframe td td {
-    background: rgba(242,246,248,1);
-    background: -moz-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(242,246,248,1)), color-stop(51%, rgba(181,198,208,1)), color-stop(100%, rgba(224,239,249,1)));
-    background: -webkit-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    background: -o-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    background: -ms-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    background: linear-gradient(bottom, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
+
+
+input[type="text"], input[type="password"], td {
+    text-align: center;
 }
 
-#nav {
-    padding-top: 50px;
+body {
+    font-family: 'Century Gothic';
+    text-align: center;
+}
+
+.heading, .heading1 {
+    text-transform: uppercase;
+}
+
+heading1 {
+    font-stretch: ultra-expanded;
+}
+
+.padBottom {
+    padding-bottom: 25px;
+}
+
+.padBottom2 {
+    padding-bottom: 150px;
+}
+
+.gameList {
+    width: 70%;
 }

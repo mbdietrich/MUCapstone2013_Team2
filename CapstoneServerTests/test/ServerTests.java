@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -80,7 +81,6 @@ public class ServerTests {
         assertEquals(resp.getStatusLine().getStatusCode(), 200);
     }
   
-    
     @Test
     public void testCreate() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
@@ -109,7 +109,29 @@ public class ServerTests {
         assertTrue(flag);
     }
     
-    @Test
+     @Test
+    public void testState() throws ClientProtocolException, IOException{
+        HttpClient client = new DefaultHttpClient();
+        login(client);              //Log in
+        createGame(client,"solo");  //Create solo game
+        
+        HttpGet getstate = new HttpGet(URL+"state");
+        HttpResponse stateresp = client.execute(getstate);
+        
+        String responsebody = EntityUtils.toString(stateresp.getEntity());
+        
+        //Find the JSON section of the response
+        int startJSON = responsebody.indexOf("{");
+        int stopJSON = responsebody.indexOf("}"); 
+        String JSONstate = responsebody.substring(startJSON, stopJSON+1);
+        
+        HashMap state = (HashMap) new JSONDeserializer().deserialize(JSONstate);
+
+        //TODO: Better pass condition?
+        assertEquals(stateresp.getStatusLine().getStatusCode(), 200);
+    }
+	
+	@Test
     public void testLeave() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
         login(client);              // Log in     
@@ -126,7 +148,7 @@ public class ServerTests {
     public void testGetList() throws ClientProtocolException, IOException{
         HttpClient client = new DefaultHttpClient();
         login(client);              // Log in  
-        createGame(client, "solo");
+        createGame(client, "any");
         
         //Get a list of available games
         HttpGet getjoin = new HttpGet(URL+"join");

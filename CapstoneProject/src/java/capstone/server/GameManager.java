@@ -43,19 +43,19 @@ BlockingQueue<String>>();
     //For now, only one bot - DefaultBot
     private static final Player DEFAULT_BOT = new GameBot();
     
-    static{
-        try {
-            ManagementFactory.getPlatformMBeanServer().registerMBean(new ServerInspector(), new ObjectName("GameManager"));
-        } catch (MalformedObjectNameException ex) {
-            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
-        } catch (InstanceAlreadyExistsException ex) {
-            
-        } catch (MBeanRegistrationException ex) {
-            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
-        } catch (NotCompliantMBeanException ex) {
-            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
-        }
-    }
+//    static{
+//        try {
+//            ManagementFactory.getPlatformMBeanServer().registerMBean(new ServerInspector(), new ObjectName("GameManager"));
+//        } catch (MalformedObjectNameException ex) {
+//            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
+//        } catch (InstanceAlreadyExistsException ex) {
+//            
+//        } catch (MBeanRegistrationException ex) {
+//            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
+//        } catch (NotCompliantMBeanException ex) {
+//            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, null, ex);
+//        }
+//    }
     
     
     //Add a player to an existing game
@@ -95,25 +95,33 @@ BlockingQueue<String>>();
     }
     
     public static String getPublicGames(){
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder("{\"games\":[");
+        boolean first = true;
         for(Entry<String, String> entry: openGames.entrySet()){
-            builder = builder.append(entry.getValue()).append("\n");
+            if(!first){
+                builder=builder.append(", ");
+            }
+            else{
+                first = false;
+            }
+            builder = builder.append('"').append(entry.getValue()).append('"');
         }
-        return builder.toString();
+        
+        return builder.append("]}").toString();
     }
+    
     public static String getOpenGames(){
         StringBuilder builder = new StringBuilder();
-        builder=builder.append("{\"games:\"");
+        builder=builder.append("{\"games\":");
         boolean first=true;
-        for(Entry<String, String> entry: openGames.entrySet()){
+        for(String value: openGames.values()){
             if(!first){
                 builder=builder.append(",");
             }
             else{
                 first=false;
             }
-            builder=builder.append("[\"").append(entry.getKey()).append("\",\"").append(entry.getValue()).append
-("\"]");
+            builder=builder.append("[\"").append(value).append("\"]");
         }
         return builder.append("}").toString();
     }
@@ -160,10 +168,11 @@ BlockingQueue<String>>();
         GameSession game = gameSessions.remove(session);
         if(game!=null){
         game.Leave(players.get(session));
+        if(watchers.get(game)!=null){
         for(HttpSession s: watchers.get(game)){
-            if(!s.equals(session)){
-                states.get(s).offer(JSONBuilder.buildJSON(game, players.get(s)));
-            }
+            String nextState=JSONBuilder.buildJSON(game, players.get(s));
+            states.get(s).offer(nextState);
+        }
         }
         gameIDs.remove(game.SessionID);
         openGames.remove(game.SessionID);

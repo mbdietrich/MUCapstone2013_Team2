@@ -56,9 +56,16 @@ public class JSONBuilder {
     
     public static String buildGameStatus(GameSession game, RemotePlayer target){
     	StringBuilder builder = new StringBuilder();
+        
+    	String winner = null;
     	
-    	String winner = Integer.toString(game.getCurrentGame().getWinner());
-    	
+        if(game.getGameWinner()!=null){
+            winner=Integer.toString(game.getPlayerNumber(game.getGameWinner()));
+        }
+        else{
+            winner = Integer.toString(game.getCurrentGame().getWinner());
+        }
+        
 		builder = builder.append("\"Status\":\"").append(winner).append("\"");
 		
 		return builder.toString();

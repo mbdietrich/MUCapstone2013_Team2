@@ -9,6 +9,16 @@
 <html>
     <head><!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/style.css" rel="stylesheet" media="screen">
+        <link rel="shortcut icon" href="images/ttt_icon.ico" />
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        
+        <title>Tic Tac Toe</title>
+        
+        <script type="text/javascript" src="jquery-1.8.3.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
         <script>
             function trim(s)
             {
@@ -119,34 +129,33 @@
                     id = response.id;
                     name = response.name;
                     email = response.email;
-                    window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email;
+                    var check = confirm("Log in with Facebook?")
+                    if(check==true) {
+                        window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
+                    }
                 });
             }
         </script>
 
-        <!--<h3>Login !!!!</h3>-->
-        <div id="Session"></div>
-        <div  id="content">
-            <div id="wrapper" style="width:100%; text-align:center">
-                <br><br><br><br><br><br>
+            <div id="Session" class="padBottom2"></div>
                 <table align="center">
-                        <tr><td><img src="images/icon.png" alt="login"/></td></tr>
-                        <tr><td><h2>tic tac toe</h2></td></tr>
+                        <tr><td class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
+                        <tr><td class="padBottom heading">tic tac toe</td></tr>
                         <tr>
-
-                            <td>
+                                <td>
                                 <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
-                                    <input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/>
-                                    <br>
-                                    <input name="password" type="password" class="form-control" id="password" placeholder="Password"/><br>
-                                    <button type="submit" class="btn btn-default">Log In</button><br>
-                                </form>
-                            </td></tr>
+                                <input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/><br>
+                                <input name="password" type="password" class="form-control" id="password" placeholder="Password"/><br>
+                                <button type="submit button" class="btn btn-info" data-loading-text="Loading...">Log In</button>
+                                 </form>
+                                </td>
+                        </tr>    
+
                         <tr>
                             <td id="alert"><%=error%></td>
                         </tr>
                         <tr>
-                            <td><a href="accountManagement.jsp" class="btn btn-default" align="center">Register</a></td>
+                            <td><i>or <a href="accountManagement.jsp" align="center">Register</a></i></td>
                         </tr>
                         <tr>
                             <td colspan ="4">
@@ -157,16 +166,9 @@
                                 Learn more about options for the login button plugin:
                                 /docs/reference/plugins/login/ -->
 
-                        <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+                        <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email"></fb:login-button>
                         </td>
                         </tr>
-            </div>
-        </form>
-    </div>
-
-
-    <script type="text/javascript" src="jquery-1.8.3.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-</body>
+                </table>
+        </body>
 </html>

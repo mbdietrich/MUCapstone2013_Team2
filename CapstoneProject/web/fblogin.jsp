@@ -20,11 +20,16 @@
     if(email == null || email == "null") {
         email = "";
     }
+    String referer = request.getParameter("referer");
+    String userNamePlaceholder = "placeholder='username'";
+    if(referer.equals("link")) {
+        userNamePlaceholder = "value='"+userName+"'";
+    }
     
     Map details = databaseAccess.getPlayerDetailsByFBID(id);
     if(!details.isEmpty()) {
         GameManager.newPlayer(request.getSession(), details.get("userName").toString());
-        response.sendRedirect("lobby.jsp");
+        response.sendRedirect("home.jsp");
         return;
     } else {
         String exceptionError = "";
@@ -100,9 +105,15 @@
                                 return false;
                             }
                     }
+                    function referer() {
+                        var referer = "<%=referer%>";
+                        if(referer === "link") {
+                            document.getElementById("new account").style.display="none";
+                        }
+                    }
                 </script>
             </head>
-            <body>
+            <body onload="referer();">
                 <div id="new account">
                     <h2 align="center">Link to new account</h2>
                         <div id="content">
@@ -151,7 +162,7 @@
                                 <table align="center">
                                 <tr>
                                     <td>User name:</td>
-                                    <td><input id="userName" name="userName" type="text" size="20" placeholder="username" /></td>
+                                    <td><input id="userName" name="userName" type="text" size="20" <%=userNamePlaceholder%> /></td>
                                 </tr>
                                 <tr>
                                     <td>Password:</td>
@@ -163,6 +174,7 @@
                                 <tr>
                                     <input name="fbid" type="hidden" value="<%=id%>"/>
                                     <input name="form" type="hidden" value="update"/>
+                                    <input name="referer" type="hidden" value="<%=referer%>"/>
                                     <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                                 </tr>
                                 </table>

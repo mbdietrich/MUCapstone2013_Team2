@@ -184,6 +184,18 @@ public class databaseAccess {
         }
     }
     
+    public static boolean removeFBID(String player) {
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("UPDATE players SET fbid='0' WHERE user='"+Encryption.encrypt(player)+"'");
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     public static List<String> getFriends(String player) {
         List<String> friends = new ArrayList<String>();
         String names = "";

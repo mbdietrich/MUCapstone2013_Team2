@@ -1,11 +1,10 @@
 <%-- 
     Document   : lobby
-    Created on : 20/09/2013, 7:45:02 PM
-    Author     : Max
+    Created on : 30/07/2013, 1:12:16 PM
+    Author     : Max, Jesse
 
-    For advanced game settings, send the player here.
+    lobby.jsp is where the player is sent before a game starts, but after logging in.
 --%>
-
 <%
     String userName = (String) session.getAttribute("user");
     if (userName == null) {
@@ -16,19 +15,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-
+    <head><!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/style.css" rel="stylesheet" media="screen">
         <link rel="shortcut icon" href="images/ttt_icon.ico" />
         
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        
+        <title>TTT - Home</title>
         
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="bootstrap/js/bootstrap.min.js"></script>
-        
-        <title>TTT - Lobby</title>
         
         <script>
             var singlePlayer = function() {
@@ -43,7 +43,8 @@
                 });
 
             }
-            var joinPublicGame = function(pubName) {
+            var joinPublicGame = function() {
+                var pubName = document.getElementById("publicInput").value;
                 $.post("create", {type: "public", player: pubName}, function(e) {
                     document.location.href = "game.jsp";
                 });
@@ -53,33 +54,22 @@
             }
 
 
-            var refresh = function(data) {
-                            
-                            newLines = "";
-
-                            /*
-                            //use for testing
-                            for(i=0;i<10; i++){
-                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame(\''+data[i]+'\');">Join</button></td></tr>';
-                            }*/
-        
-                            for(i=0;i<data.length; i++){
-                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-info" onclick="joinPublicGame(\''+data[i]+'\');"><span class="glyphicon glyphicon-play"></span></button></td></tr>';
-                            }
-                            
-                            document.getElementById("gameList").innerHTML=newLines;
-                        }
-
             var loadGames = function() {
-                
-                $.getJSON(
+                $.get(
                         "GetPublicGames",
-                        function(data){refresh(data.games);}
+                        function(data) {
+                            //alert(data.toString());
+                            // set as content in div with id conversations
+                            $("#gameList").html(data);
+                        }
                 );
-                    
             }
+            $().ready(function() {
+                // load conversation after page is loaded
+                loadGames();
+            });
 
-            window.onload = loadGames;
+
 
             var onGameCreate = function(data) {
                 //TODO update lobby.jsp if the player has created a game
@@ -87,18 +77,24 @@
         </script>
     </head>
     <body>
-        
         <ul class="nav nav-tabs nav-justified padBottom">
-                <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li class="active"><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                <li class="active"><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li ><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
                 <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
                 <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
                 <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
         </ul>
 
-        <div class="heading padBottom">Open Games   <button type="button" class="btn btn-xs" onclick="loadGames()"><span class="glyphicon glyphicon-refresh"></span></button></div>
-        <div>
-            <table class="table table-hover" id="gameList"></table> 
-        </div>
+            <div class="jumbotron">
+                <div class="container">
+                    <div class="heading1">Welcome <%= session.getAttribute("user")%>!</div>
+
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-info" onclick="singlePlayer();">Play against a bot</button>
+                        <button type="button" class="btn btn-info" onclick="multiPlayer();">Play against a user</button>
+                    </div>
+
+                </div>
+            </div> 
     </body>
 </html>

@@ -17,9 +17,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <div id="sessionname"><%= (String) session.getAttribute("user")%></div>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/style.css" rel="stylesheet" media="screen">
+        <link rel="shortcut icon" href="images/ttt_icon.ico" />
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Profile Management</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        
+        <title>TTT - Profile</title>
         
         <script>
             function trim(s)
@@ -112,6 +117,7 @@
     String userNameError = "";
     String emailError = "";
     String passwordError = "";
+    String delinkError = "";
     String error = request.getParameter("error");
     String requestmessage = request.getParameter("requestmessage");
     if(requestmessage == null || requestmessage=="null") {
@@ -128,6 +134,8 @@
             passwordError = "<font color='red'>Incorrect password</font>";
         } else if (error.equals("exception")) {
             exceptionError = "<font color='red'>An error occurred. Please try again.</font>";
+        } else if (error.equals("delinkerror")) {
+            delinkError = "<font color='red'>Error: try again</font>";
         }
     }
     
@@ -219,82 +227,123 @@
             function checkAgainstDB() {
                 FB.api('/me', function(response) {
                     id = response.id;
-                    dbid = <%=fbid%>;
-                    if(id != dbid) {
-                        document.getElementById("fb").style.display="none";
+                    dbid = "<%=fbid%>";
+                    name = "<%=userName%>";
+                    // if player not linked to facebook, link
+                    if(dbid === "") {
+                        var check = confirm("Link "+response.name+"'s Facebook account?");
+                        if(check==true) {
+                            window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&referer=link";
+                        }
+                    }else if(id != dbid) {
                         document.getElementById("fbmsg").style.display="inline";
+                    } else {
+                        document.getElementById("fbdelink").style.display="inline";
                     }
                 });
             }
             </script>
             
-            <a href="lobby.jsp" align="center">Lobby</a>
-            <br>
-            <div id="content">
+            <ul class="nav nav-tabs nav-justified padBottom">
+                <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                <li class="active"><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
+                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
+            </ul>
+           
                     <div id="playerinfo" style="width:50%; text-align:left; float:left">
-                    <h2>My Details</h2>
-                    <br><br>
-                    <form name="manager" onSubmit="return validate1();" action="profile" method="POST">
-                    <table align="center">
-                        <tr>
-                            <td>User name:</td>
-                            <td><input id="userName" name="userName" type="text" size="20" value="<%=userName%>" /></td>
-                            <td><%=userNameError%></td>
-                        </tr>
-                        <tr>
-                            <td>Email:</td>
-                            <td><input id="email" name="email" type="text" size="20" value="<%=email%>" /></td>
-                            <td><%=emailError%></td>
-                        </tr>
-                        <tr id="fb">
-                            <td id="fb">Facebook:</td>
-                            <td id="fb" colspan="2">
-                                <!--
-                                Below we include the Login Button social plugin. This button uses the JavaScript SDK to
-                                present a graphical Login button that triggers the FB.login() function when clicked.
 
-                                Learn more about options for the login button plugin:
-                                /docs/reference/plugins/login/ -->
+                        <form name="manager" onSubmit="return validate1();" action="profile" method="POST">
+                            <table align="center">
+                                <tr>
+                                    <td class="padBottom heading">My Details</td>
+                                </tr>
+                                <tr>
+                                    <td>Username:</td>
+                                </tr>
+                                <tr>
+                                    <td><input id="userName" class="form-control"  name="userName" type="text" size="20" value="<%=userName%>" /></td>
+                                </tr>
+                                <tr>
+                                    <td><%=userNameError%></td>
+                                </tr>
+                                <tr>
+                                    <td>Email:</td>
+                                </tr>
+                                <tr>
+                                    <td><input id="email" class="form-control"  name="email" type="text" size="20" value="<%=email%>" /></td>
+                                </tr>
+                                <tr>
+                                    <td><%=emailError%></td>
+                                </tr>
+                                <tr>
+                                    <td>Password:</td>
+                                </tr>
+                                <tr>
+                                    <td><input id="password" class="form-control"  name="password" type="password" size="20" placeholder="current password" /></td>
+                                </tr>
+                                <tr>
+                                    <td><input id="newPassword" class="form-control"  name="newPassword" type="password" size="20" placeholder="new password" /></td>
+                                </tr>
+                                <tr>
+                                    <td><input id="confirmpassword" class="form-control"  name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="padBottom"><%=exceptionError%></td>
+                                </tr>
+                                <tr>
+                                    <input name="oldUserName" type="hidden" value="<%=userName%>"/>
+                                    <input name="oldEmail" type="hidden" value="<%=email%>"/>
+                                    <input name="form" type="hidden" value="update"/>
+                                    <br><td><button type="submit" class="btn btn-info">Update</button></td>
+                                </tr>
+                            </table>
+                        </form>
+                                    
+                        <table align="center">
+                            <tr id="fb">
+                                <td>Facebook:</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <!--
+                                    Below we include the Login Button social plugin. This button uses the JavaScript SDK to
+                                    present a graphical Login button that triggers the FB.login() function when clicked.
 
-                                <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+                                    Learn more about options for the login button plugin:
+                                    /docs/reference/plugins/login/ -->
+
+                                   <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email" ></fb:login-button>
+                               </td>
+                           </tr>
+                           <tr>
+                            <td id="fbdelink" style="display:none">
+                            <form name="delinkfb" action="facebook" method="POST">
+                                <input name="userName" type="hidden" value="<%=userName%>"/>
+                                <input name="form" type="hidden" value="delink"/>
+                                <button type="submit" class="btn btn-info">Delink Facebook Account</button>
+                            </form>
                             </td>
-                        </tr>
-                        <tr id="fbmsg" style="diplay:none">
-                            <td id="fbmsg" colspan="3" style="display:none"><font color='red'>The current logged in Facebook account is not linked to this player</font></td>
-                        </tr>
-                        <tr>
-                            <td>New password:</td>
-                            <td><input id="newPassword" name="newPassword" type="password" size="20" placeholder="new password" /></td>
-                            <td><input id="confirmpassword" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
-                        </tr>
-                        <tr>
-                            <td>Current password</td>
-                            <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
-                            <td><%=passwordError%></td>
-                        </tr>
-                        <tr>
-                            <td colspan ="2"><%=exceptionError%></td>
-                        </tr>
-                        <tr>
-                            <input name="oldUserName" type="hidden" value="<%=userName%>"/>
-                            <input name="oldEmail" type="hidden" value="<%=email%>"/>
-                            <input name="form" type="hidden" value="update"/>
-                            <td colspan="2"><input type="submit" name="submit" value="Update Details" class="fade" /></td>
-                        </tr>
-                    </table>
+                            <td><%=delinkError%></td>
+                          </tr>
+                          <tr id="fbmsg" style="diplay:none">
+                            <td id="fbmsg" colspan="3" style="display:none"><font color='red'>Another player is logged into Facebook on this computer</font></td>
+                          </tr>
+                        </table>
                     </div>
-                </form>
-                            
-                            
+<!----------------------------------------------------------------------------------------------------------------------------->
+
+
                 <div id="friends" style="width:50%; text-align:left; float:left">
                   
                     <form id="myfriends" name="friends" onSubmit="return validateFriends();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
-                                <td><h2>My Friends</h2></td>
+                                <td class="padBottom heading">My Friends</td>
                             </tr>
                             <tr>
-                                <td><select name="friendsField" multiple="no" style="width:300px">
+                                <td><select class="input-sm" name="friendsField" multiple="no" style="width:300px">
                                         <%=friendCode%>
                                     </select>
                                 </td>
@@ -302,17 +351,19 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="friends"/>
-                                <td colspan="2"><input type="submit" name="submit" value="Delete Friend" class="fade" /></td>
+                                <br><td><button type="submit" class="btn btn-info" value="Delete Friend"><span class="glyphicon glyphicon-remove"></span></button></td>
+                                <!--<td colspan="2"><input type="submit" name="submit" value="Delete Friend" class="fade" /></td>-->
                             </tr>
+                        </table>
                     </form>
-                    <br>
+                                
                     <form id="myrequests" name="friendRequests" onSubmit="return validateRequests();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
-                                <td><h2>Friend Requests</h2></td>
+                                <td class="padBottom heading">Friend Requests</td>
                             </tr>
                             <tr>
-                                <td><select name="friendRequestsField" multiple="no" style="width:300px">
+                                <td><select class="input-sm" name="friendRequestsField" multiple="no" style="width:300px">
                                         <%=requestCode%>
                                     </select>
                                 </td>
@@ -320,34 +371,43 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="requests"/>
-                                <td colspan="2"><input type="submit" name="submit" value="Accept Request" class="fade" /></td>
+                                <br><td class="padBottom"><button type="submit" name="submit" class="btn btn-info" value="Accept Request"><span class="glyphicon glyphicon-ok"></span></button>    
+                                <button type="submit" name="submit" class="btn btn-info" value="Decline Request"><span class="glyphicon glyphicon-remove"></span></button></td>
                             </tr>
-                            <tr>
-                                <td colspan="2"><input type="submit" name="submit" value="Decline Request" class="fade" /></td>
-                            </tr>
+                        </table>
                     </form>
-                    <br><br><br><br>
+
                     <form name="addFriend" onSubmit="return validateAdd();" action="FriendManager" method="POST">
                         <table align="center">
                             <tr>
-                                <td><h2>Add Friend</h2></td>
+                                <td class="padBottom heading">New Friend</td>
                             </tr>
                             <tr>
-                                <td>Friend's username:</td>
-                                <td><input type="text" id="friendAdd" name="friend" placeholder="friend"</td>
+                                <td>
+                                    <div class="input-group">
+
+                                        <input type="text" class="form-control" id="friendAdd" name="friend" placeholder="friend's username"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-info" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
+                                                <input name="player" type="hidden" value="<%=userName%>"/>
+                                                <input name="form" type="hidden" value="add"/>
+                                            </span>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan ="2"><%=requestmessage%></td>
                             </tr>
                             <tr>
-                                <input name="player" type="hidden" value="<%=userName%>"/>
-                                <input name="form" type="hidden" value="add"/>
-                                <td colspan="2"><input type="submit" name="submit" value="Send Request" class="fade" /></td>
+
+                                <!--<br><td><button type="submit" class="btn btn-default">Send Request</button></td>-->
+                                <!--<td colspan="2"><input type="submit" name="submit" value="Send Request" class="fade" /></td>-->
                             </tr>
+                        </table>
                     </form>
                     
                 </div>
-        </div>
+
     </body>
     <%
     // if user not logged in, present registration page
@@ -366,41 +426,52 @@
         }
         %>
         <body>
-            <h1>Create Profile</h1>
+            
             <div id="content">
+                
                 <form name="manager" onSubmit="return validate();" action="profile" method="POST">
                     <div id="wrapper" style="width:100%; text-align:center">
                     <br><br><br><br><br><br>
                     <table align="center">
+                        <tr><td class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
                         <tr>
-                            <td>User name:</td>
-                            <td><input id="userName" name="userName" type="text" size="20" <%=userNameValue%> /></td>
+                            <td class="padBottom heading">Create Profile</td>
+                        </tr>
+                        <tr>
+                            <td><input id="userName" class="form-control" name="userName" type="text" size="20" <%=userNameValue%> /></td>
+                        </tr>
+                        <tr>
                             <td><%=userNameError%></td>
                         </tr>
                         <tr>
-                            <td>Email:</td>
-                            <td><input id="email" name="email" type="text" size="20" <%=emailValue%> /></td>
+                            <td><input id="email" class="form-control" name="email" type="text" size="20" <%=emailValue%> /></td>
+                        </tr>
+                        <tr>
                             <td><%=emailError%></td>
                         </tr>
                         <tr>
-                            <td>Password:</td>
-                            <td><input id="password" name="password" type="password" size="20" placeholder="password" /></td>
+                            <td><input id="password" class="form-control" name="password" type="password" size="20" placeholder="password" /></td>
                         </tr>
                         <tr>
-                            <td>Confirm password:</td>
-                            <td><input id="confirmpassword" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
+                            <td class="padBottom"><input id="confirmpassword" class="form-control" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
                         </tr>
                         <tr>
-                            <td colspan ="2"><%=exceptionError%></td>
+                            <td><%=exceptionError%></td>
                         </tr>
                         <tr>
                             <input name="form" type="hidden" value="register"/>
-                            <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
+                            <td><input type="submit" name="submit" value="Save" class="btn btn-info" /></td>
+                        </tr>
+                        <tr>
+                            <td><i>or <a href="index.jsp" align="center">Log In</a></i></td>
                         </tr>
                     </table>
                     </div>
                 </form>
         </div>
+                        <script type="text/javascript" src="jquery-1.8.3.js"></script>
+                        <!-- Include all compiled plugins (below), or include individual files as needed -->
+                        <script src="bootstrap/js/bootstrap.min.js"></script>
         </body>
         <%
     }
