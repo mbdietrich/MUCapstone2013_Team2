@@ -31,17 +31,17 @@ public class FriendManager extends HttpServlet {
         if(request.getParameter("form").equals("add")) {
             String player = request.getParameter("player");
             String friend = request.getParameter("friend");
-            //check to see if already friends
-            if(databaseAccess.areFriends(player, friend)) {
-                String message = "You are already friends";
-                this.getServletContext().getRequestDispatcher("/accountManagement.jsp?requestmessage="+message).forward(request, response);
-                return;
-            }
             //check to see if friend exists
             if(!databaseAccess.playerExists(friend))
             {
                 String message = "Player " + friend + " does not exist.";
                 this.getServletContext().getRequestDispatcher("/accountManagement.jsp?requestnessage="+message).forward(request, response);
+                return;
+            }
+            //check to see if already friends
+            if(databaseAccess.areFriends(player, friend)) {
+                String message = "You are already friends";
+                this.getServletContext().getRequestDispatcher("/accountManagement.jsp?requestmessage="+message).forward(request, response);
                 return;
             }
             if(databaseAccess.addFriend(player, friend)) {
