@@ -70,7 +70,6 @@
                         }
 
             var loadGames = function() {
-                
                 $.getJSON(
                         "GetPublicGames",
                         function(data){refresh(data.games);}

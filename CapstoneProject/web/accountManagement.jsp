@@ -273,6 +273,8 @@
             }
             </script>
             
+<!-------------------------------------DETAILS PANEL-------------------------------------------------------->
+            
             <div id="playerinfo" style="width:50%; text-align:left; float:left">
                             <table>
                                 <tr>
@@ -284,20 +286,20 @@
                                             <div class="panel-body">
                                                 <form name="manager" onSubmit="return validate1();" action="profile" method="POST">
                                                     <div class="formPadding">
-                                                        <div>Username:</div>
-                                                        <div><input id="userName" class="form-control"  name="userName" type="text" size="20" value="<%=userName%>" /></div>
+                                                        <div class="formPadding">Username:</div>
+                                                        <div class="formPadding"><input id="userName" class="form-control"  name="userName" type="text" size="20" value="<%=userName%>" /></div>
                                                         <div class="alert-danger"><%=userNameError%></div>
                                                     </div>
                                                     <div class="formPadding">
-                                                        <div>Email:</div>
-                                                        <div><input id="email" class="form-control"  name="email" type="text" size="20" value="<%=email%>" /></div>
+                                                        <div class="formPadding">Email:</div>
+                                                        <div class="formPadding"><input id="email" class="form-control"  name="email" type="text" size="20" value="<%=email%>" /></div>
                                                         <div class="alert-danger"><%=emailError%></div>
                                                     </div>
                                                     <div class="formPadding">
-                                                        <div>Password:</div>
-                                                        <div><input id="password" class="form-control"  name="password" type="password" size="20" placeholder="current password" /></div>
-                                                        <div><input id="newPassword" class="form-control"  name="newPassword" type="password" size="20" placeholder="new password" /></div>
-                                                        <div><input id="confirmpassword" class="form-control"  name="confirmPassword" type="password" size="20" placeholder="confirm password" /></div>
+                                                        <div class="formPadding">Password:</div>
+                                                        <div class="formPadding"><input id="password" class="form-control"  name="password" type="password" size="20" placeholder="current password" /></div>
+                                                        <div class="formPadding"><input id="newPassword" class="form-control"  name="newPassword" type="password" size="20" placeholder="new password" /></div>
+                                                        <div class="formPadding"><input id="confirmpassword" class="form-control"  name="confirmPassword" type="password" size="20" placeholder="confirm password" /></div>
                                                         <div class="alert-danger"><%=exceptionError%></div>
                                                     </div>
                                                     
@@ -312,13 +314,13 @@
                                 </tr>
                             </table>
                         
-                                   
+<!---------------------------------------FACEBOOK PANEL---------------------------------------------------------------->                                   
                         <table>
                             <tr>
                                 <td>
                                     <div class="panel panel-default">
                                         <div class="panel-body"> 
-                                        <div id="fb">Facebook:</div> 
+                                        <div id="fb" class="heading2">Facebook:</div> 
                                             <div>Click below to link <br>your Facebook account.</div>
 
                                                     <!--
@@ -354,7 +356,7 @@
                         </table>
                           
                     </div>
-<!----------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------FRIEND LIST PANEL---------------------------------------------------------------------------->
 
 
                 <div id="friends" style="width:50%; text-align:left; float:left">
@@ -365,7 +367,7 @@
                                 <td class="padBottom heading">My Friends</td>
                             </tr>
                             <tr>
-                                <td><select class="input-sm" name="friendsField" multiple="no" style="width: 300px">
+                                <td><select class="input-sm" name="friendsField" multiple="no" style="width: 250px">
                                         <%=friendCode%>
                                     </select>
                                 </td>
@@ -385,7 +387,7 @@
                                 <td class="padBottom heading">Friend Requests</td>
                             </tr>
                             <tr>
-                                <td><select class="input-sm" name="friendRequestsField" multiple="no" style="width: 300px">
+                                <td><select class="input-sm" name="friendRequestsField" multiple="no" style="width: 250px">
                                         <%=requestCode%>
                                     </select>
                                 </td>
