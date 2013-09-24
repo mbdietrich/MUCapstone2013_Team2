@@ -32,12 +32,13 @@ table, th, td{
     width: 50px;   
 }
 
-#gameList, #friendsField, #friendRequestsField {
+#gameList {
     width: 300px;
+    height: 300px;
 }
 
-#gameList {
-    height: 500px;
+#myfriends, #myrequests {
+    height: 150px;
 }
 
 input[type="text"], input[type="password"], option, td {
@@ -46,6 +47,7 @@ input[type="text"], input[type="password"], option, td {
 
 body {
     font-family: 'Century Gothic';
+    font-size: 12px;
     text-align: center;
 }
 
@@ -53,6 +55,9 @@ body {
     text-transform: uppercase;
 }
 
+.heading {
+    font-weight: bold;
+}
 heading1 {
     font-stretch: ultra-expanded;
 }
@@ -69,6 +74,11 @@ heading1 {
 
 .padBottom2 {
     padding-bottom: 150px;
+}
+
+.formPadding {
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 .gameList {

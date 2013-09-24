@@ -189,15 +189,16 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="home.jsp">Home</a></li>
-                        <li class="dropdown active">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Games <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle = "tooltip" title="Create new games, and view open games.">Games <b class="caret"></b></a>
+                            <ul class="dropdown-menu active">
                                 <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
                                 <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
                                 <li><a href="lobby.jsp">Open Games</a></li>
                             </ul>
                         </li>
-                        <li><a href="accountManagement.jsp">Profile</a></li>
+                        <li><a href="accountManagement.jsp" data-toggle="tooltip" title="Update your profile and find friends.">Profile</a></li>
+                        
                     </ul>
                     <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%> | <a href="logout.jsp">Log out</a></p>                    
                 </div>

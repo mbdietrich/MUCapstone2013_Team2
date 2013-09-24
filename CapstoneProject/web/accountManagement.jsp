@@ -127,15 +127,15 @@
         error="";
     } else {
         if(error.equals("userName")) {
-            userNameError = "<font color='red'>The requested username is not available</font>";
+            userNameError = "The requested username is not available";
         } else if (error.equals("email")) {
-            emailError = "<font color='red'>A player has already registered with this email</font>";
+            emailError = "A player has already registered with this email";
         } else if (error.equals("password")) {
-            passwordError = "<font color='red'>Incorrect password</font>";
+            passwordError = "Incorrect password";
         } else if (error.equals("exception")) {
-            exceptionError = "<font color='red'>An error occurred. Please try again.</font>";
+            exceptionError = "An error occurred. Please try again.";
         } else if (error.equals("delinkerror")) {
-            delinkError = "<font color='red'>Error: try again</font>";
+            delinkError = ">Error: try again.";
         }
     }
     
@@ -185,14 +185,15 @@
                     <ul class="nav navbar-nav">
                         <li><a href="home.jsp">Home</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Games <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle = "tooltip" title="Create new games, and view open games.">Games <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
                                 <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
                                 <li><a href="lobby.jsp">Open Games</a></li>
                             </ul>
                         </li>
-                        <li class="active"><a href="accountManagement.jsp">Profile</a></li>
+                        <li class="active"><a href="accountManagement.jsp" data-toggle="tooltip" title="Update your profile and find friends.">Profile</a></li>
+                        
                     </ul>
                     <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%> | <a href="logout.jsp">Log out</a></p>                    
                 </div>
@@ -275,7 +276,7 @@
             <div id="playerinfo" style="width:50%; text-align:left; float:left">
 
                         <form name="manager" onSubmit="return validate1();" action="profile" method="POST">
-                            <table align="center">
+                            <table>
                                 <tr>
                                     <td class="padBottom heading">My Details</td>
                                 </tr>
@@ -316,14 +317,17 @@
                                     <input name="oldUserName" type="hidden" value="<%=userName%>"/>
                                     <input name="oldEmail" type="hidden" value="<%=email%>"/>
                                     <input name="form" type="hidden" value="update"/>
-                                    <br><td><button type="submit" class="btn btn-info">Update</button></td>
+                                    <br><td class="padBottom"><button type="submit" class="btn btn-xs">Update</button></td>
                                 </tr>
                             </table>
                         </form>
                                     
                         <table align="center">
                             <tr id="fb">
-                                <td>Facebook:</td>
+                                <td class="padBottom heading">Facebook:</td>
+                            </tr>
+                            <tr>
+                                <td>Click below to link <br>your Facebook account.</td>
                             </tr>
                             <tr>
                                 <td colspan="2">
@@ -334,7 +338,7 @@
                                     Learn more about options for the login button plugin:
                                     /docs/reference/plugins/login/ -->
 
-                                   <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email" ></fb:login-button>
+                                   <fb:login-button show-faces="false" width="200" max-rows="1" autologoutlink="true" scope="email" ></fb:login-button>
                                </td>
                            </tr>
                            <tr>
@@ -342,7 +346,7 @@
                             <form name="delinkfb" action="facebook" method="POST">
                                 <input name="userName" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="delink"/>
-                                <button type="submit" class="btn btn-info">Delink Facebook Account</button>
+                                <button type="submit" class="btn btn-xs">Delink Facebook Account</button>
                             </form>
                             </td>
                             <td><%=delinkError%></td>
@@ -363,7 +367,7 @@
                                 <td class="padBottom heading">My Friends</td>
                             </tr>
                             <tr>
-                                <td><select class="input-sm" name="friendsField" multiple="no">
+                                <td><select class="input-sm" name="friendsField" multiple="no" style="width: 300px">
                                         <%=friendCode%>
                                     </select>
                                 </td>
@@ -371,7 +375,7 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="friends"/>
-                                <br><td><button type="submit" class="btn btn-info" value="Delete Friend"><span class="glyphicon glyphicon-remove"></span></button></td>
+                                <br><td><button type="submit" class="btn btn-xs" value="Delete Friend">unfriend</button></td>
                                 <!--<td colspan="2"><input type="submit" name="submit" value="Delete Friend" class="fade" /></td>-->
                             </tr>
                         </table>
@@ -383,7 +387,7 @@
                                 <td class="padBottom heading">Friend Requests</td>
                             </tr>
                             <tr>
-                                <td><select class="input-sm" name="friendRequestsField" multiple="no">
+                                <td><select class="input-sm" name="friendRequestsField" multiple="no" style="width: 300px">
                                         <%=requestCode%>
                                     </select>
                                 </td>
@@ -391,8 +395,8 @@
                             <tr>
                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                 <input name="form" type="hidden" value="requests"/>
-                                <br><td class="padBottom"><button type="submit" name="submit" class="btn btn-info" value="Accept Request"><span class="glyphicon glyphicon-ok"></span></button>    
-                                <button type="submit" name="submit" class="btn btn-info" value="Decline Request"><span class="glyphicon glyphicon-remove"></span></button></td>
+                                <br><td class="padBottom"><button type="submit" name="submit" class="btn btn-xs" value="Accept Request">accept</button>    
+                                <button type="submit" name="submit" class="btn btn-xs" value="Decline Request">decline</button></td>
                             </tr>
                         </table>
                     </form>
@@ -408,7 +412,7 @@
 
                                         <input type="text" class="form-control" id="friendAdd" name="friend" placeholder="friend's username"/>
                                             <span class="input-group-btn">
-                                                <button class="btn btn-info" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
+                                                <button class="btn " type="submit"><span class="glyphicon glyphicon-plus"></span></button>
                                                 <input name="player" type="hidden" value="<%=userName%>"/>
                                                 <input name="form" type="hidden" value="add"/>
                                             </span>
@@ -420,7 +424,7 @@
                             </tr>
                             <tr>
 
-                                <!--<br><td><button type="submit" class="btn btn-default">Send Request</button></td>-->
+                                <!--<br><td><button type="submit" class="btn btn-xs">Send Request</button></td>-->
                                 <!--<td colspan="2"><input type="submit" name="submit" value="Send Request" class="fade" /></td>-->
                             </tr>
                         </table>
@@ -447,48 +451,37 @@
         %>
         <body>
             
-            <div id="content">
+            <div class="padBottom2"></div>
                 
-                <form name="manager" onSubmit="return validate();" action="profile" method="POST">
-                    <div id="wrapper" style="width:100%; text-align:center">
-                    <br><br><br><br><br><br>
                     <table align="center">
                         <tr><td class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
                         <tr>
                             <td class="padBottom heading">Create Profile</td>
-                        </tr>
+                        </tr>                 
                         <tr>
-                            <td><input id="userName" class="form-control" name="userName" type="text" size="20" <%=userNameValue%> /></td>
-                        </tr>
-                        <tr>
-                            <td><%=userNameError%></td>
-                        </tr>
-                        <tr>
-                            <td><input id="email" class="form-control" name="email" type="text" size="20" <%=emailValue%> /></td>
-                        </tr>
-                        <tr>
-                            <td><%=emailError%></td>
-                        </tr>
-                        <tr>
-                            <td><input id="password" class="form-control" name="password" type="password" size="20" placeholder="password" /></td>
-                        </tr>
-                        <tr>
-                            <td class="padBottom"><input id="confirmpassword" class="form-control" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
-                        </tr>
-                        <tr>
-                            <td><%=exceptionError%></td>
-                        </tr>
-                        <tr>
-                            <input name="form" type="hidden" value="register"/>
-                            <td><input type="submit" name="submit" value="Save" class="btn btn-info" /></td>
+                            <td>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <form name="manager" onSubmit="return validate();" action="profile" method="POST">
+                                            <div class="formPadding"><input id="userName" class="form-control formPadding" name="userName" type="text" size="20" <%=userNameValue%> /></div>
+                                            <div class="alert-danger"><%=userNameError%></div>
+                                            <div class="formPadding"><input id="email" class="form-control formPadding" name="email" type="text" size="20" <%=emailValue%> /></div>
+                                            <div class="alert-danger"><%=emailError%></div>
+                                            <div class="formPadding"><input id="password" class="form-control formPadding" name="password" type="password" size="20" placeholder="password" /></div>
+                                            <div class="formPadding"><input id="confirmpassword" class="form-control" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></div>
+                                            <div class="alert-danger"><%=exceptionError%></div>
+                                            <div><input name="form" type="hidden" value="register"/></div>
+                                            <div><input type="submit" name="submit" value="Save" class="btn btn-xs" /></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td><i>or <a href="index.jsp" align="center">Log In</a></i></td>
                         </tr>
                     </table>
-                    </div>
-                </form>
-        </div>
+                
                         <script type="text/javascript" src="jquery-1.8.3.js"></script>
                         <!-- Include all compiled plugins (below), or include individual files as needed -->
                         <script src="bootstrap/js/bootstrap.min.js"></script>

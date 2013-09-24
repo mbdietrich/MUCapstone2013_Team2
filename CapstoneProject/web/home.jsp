@@ -92,14 +92,14 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="home.jsp">Home</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Games <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle = "tooltip" title="Create new games, and view open games.">Games <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
                                 <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
                                 <li><a href="lobby.jsp">Open Games</a></li>
                             </ul>
                         </li>
-                        <li><a href="accountManagement.jsp">Profile</a></li>
+                        <li><a href="accountManagement.jsp" data-toggle="tooltip" title="Update your profile and find friends.">Profile</a></li>
                         
                     </ul>
                     <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%> | <a href="logout.jsp">Log out</a></p>                    
@@ -110,11 +110,7 @@
                 <div class="container">
                     <div class="heading1">Welcome <%= session.getAttribute("user")%>!</div>
 
-                    <div class="btn-group-vertical">
-                        <button type="button" class="btn btn-info" onclick="singlePlayer();">Play against a bot</button>
-                        <button type="button" class="btn btn-info" onclick="multiPlayer();">Play against a user</button>
-                    </div>
-
+                        <button type="button" class="btn btn-xs" onclick="singlePlayer();">Quick Game</button>
                 </div>
             </div> 
     </body>
