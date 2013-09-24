@@ -274,87 +274,85 @@
             </script>
             
             <div id="playerinfo" style="width:50%; text-align:left; float:left">
-
-                        <form name="manager" onSubmit="return validate1();" action="profile" method="POST">
                             <table>
                                 <tr>
                                     <td class="padBottom heading">My Details</td>
                                 </tr>
                                 <tr>
-                                    <td>Username:</td>
-                                </tr>
-                                <tr>
-                                    <td><input id="userName" class="form-control"  name="userName" type="text" size="20" value="<%=userName%>" /></td>
-                                </tr>
-                                <tr>
-                                    <td><%=userNameError%></td>
-                                </tr>
-                                <tr>
-                                    <td>Email:</td>
-                                </tr>
-                                <tr>
-                                    <td><input id="email" class="form-control"  name="email" type="text" size="20" value="<%=email%>" /></td>
-                                </tr>
-                                <tr>
-                                    <td><%=emailError%></td>
-                                </tr>
-                                <tr>
-                                    <td>Password:</td>
-                                </tr>
-                                <tr>
-                                    <td><input id="password" class="form-control"  name="password" type="password" size="20" placeholder="current password" /></td>
-                                </tr>
-                                <tr>
-                                    <td><input id="newPassword" class="form-control"  name="newPassword" type="password" size="20" placeholder="new password" /></td>
-                                </tr>
-                                <tr>
-                                    <td><input id="confirmpassword" class="form-control"  name="confirmPassword" type="password" size="20" placeholder="confirm password" /></td>
-                                </tr>
-                                <tr>
-                                    <td class="padBottom"><%=exceptionError%></td>
-                                </tr>
-                                <tr>
-                                    <input name="oldUserName" type="hidden" value="<%=userName%>"/>
-                                    <input name="oldEmail" type="hidden" value="<%=email%>"/>
-                                    <input name="form" type="hidden" value="update"/>
-                                    <br><td class="padBottom"><button type="submit" class="btn btn-xs">Update</button></td>
+                                    <td>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <form name="manager" onSubmit="return validate1();" action="profile" method="POST">
+                                                    <div class="formPadding">
+                                                        <div>Username:</div>
+                                                        <div><input id="userName" class="form-control"  name="userName" type="text" size="20" value="<%=userName%>" /></div>
+                                                        <div class="alert-danger"><%=userNameError%></div>
+                                                    </div>
+                                                    <div class="formPadding">
+                                                        <div>Email:</div>
+                                                        <div><input id="email" class="form-control"  name="email" type="text" size="20" value="<%=email%>" /></div>
+                                                        <div class="alert-danger"><%=emailError%></div>
+                                                    </div>
+                                                    <div class="formPadding">
+                                                        <div>Password:</div>
+                                                        <div><input id="password" class="form-control"  name="password" type="password" size="20" placeholder="current password" /></div>
+                                                        <div><input id="newPassword" class="form-control"  name="newPassword" type="password" size="20" placeholder="new password" /></div>
+                                                        <div><input id="confirmpassword" class="form-control"  name="confirmPassword" type="password" size="20" placeholder="confirm password" /></div>
+                                                        <div class="alert-danger"><%=exceptionError%></div>
+                                                    </div>
+                                                    
+                                                    <div><input name="oldUserName" type="hidden" value="<%=userName%>"/></div>
+                                                    <div><input name="oldEmail" type="hidden" value="<%=email%>"/></div>
+                                                    <div><input name="form" type="hidden" value="update"/></div>
+                                                    <div><button type="submit" class="btn btn-xs">Update</button></div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             </table>
-                        </form>
-                                    
-                        <table align="center">
-                            <tr id="fb">
-                                <td class="padBottom heading">Facebook:</td>
-                            </tr>
+                        
+                                   
+                        <table>
                             <tr>
-                                <td>Click below to link <br>your Facebook account.</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <!--
-                                    Below we include the Login Button social plugin. This button uses the JavaScript SDK to
-                                    present a graphical Login button that triggers the FB.login() function when clicked.
+                                <td>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body"> 
+                                        <div id="fb">Facebook:</div> 
+                                            <div>Click below to link <br>your Facebook account.</div>
 
-                                    Learn more about options for the login button plugin:
-                                    /docs/reference/plugins/login/ -->
+                                                    <!--
+                                                    Below we include the Login Button social plugin. This button uses the JavaScript SDK to
+                                                    present a graphical Login button that triggers the FB.login() function when clicked.
 
-                                   <fb:login-button show-faces="false" width="200" max-rows="1" autologoutlink="true" scope="email" ></fb:login-button>
+                                                    Learn more about options for the login button plugin:
+                                                    /docs/reference/plugins/login/ -->
+
+                                           <div><fb:login-button show-faces="false" width="200" max-rows="1" autologoutlink="true" scope="email" ></fb:login-button></div>
+                                       </div>
+                                   </div>
                                </td>
                            </tr>
-                           <tr>
-                            <td id="fbdelink" style="display:none">
-                            <form name="delinkfb" action="facebook" method="POST">
-                                <input name="userName" type="hidden" value="<%=userName%>"/>
-                                <input name="form" type="hidden" value="delink"/>
-                                <button type="submit" class="btn btn-xs">Delink Facebook Account</button>
-                            </form>
-                            </td>
-                            <td><%=delinkError%></td>
-                          </tr>
-                          <tr id="fbmsg" style="diplay:none">
-                            <td id="fbmsg" colspan="3" style="display:none"><font color='red'>Another player is logged into Facebook on this computer</font></td>
-                          </tr>
+                            <tr>
+                                <td>
+                                    <div> 
+                                    <div id="fbdelink" style="display:none">
+                                        <form name="delinkfb" action="facebook" method="POST">
+                                        <input name="userName" type="hidden" value="<%=userName%>"/>
+                                        <input name="form" type="hidden" value="delink"/>
+                                        <button type="submit" class="btn btn-xs">Delink Facebook Account</button>
+                                        </form>
+                                    </div>
+                                    <div><%=delinkError%></div>
+                                    </div>
+                                    <div id="fbmsg" style="diplay:none">
+                                    <div class="alert-danger" id="fbmsg" colspan="3" style="display:none">Another player is <br>logged into Facebook<br> on this computer.</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
                         </table>
+                          
                     </div>
 <!----------------------------------------------------------------------------------------------------------------------------->
 
@@ -423,9 +421,6 @@
                                 <td colspan ="2"><%=requestmessage%></td>
                             </tr>
                             <tr>
-
-                                <!--<br><td><button type="submit" class="btn btn-xs">Send Request</button></td>-->
-                                <!--<td colspan="2"><input type="submit" name="submit" value="Send Request" class="fade" /></td>-->
                             </tr>
                         </table>
                     </form>

@@ -109,8 +109,7 @@
             <div class="jumbotron">
                 <div class="container">
                     <div class="heading1">Welcome <%= session.getAttribute("user")%>!</div>
-
-                        <button type="button" class="btn btn-xs" onclick="singlePlayer();">Quick Game</button>
+                        <button type="button" class="btn btn-xs btn-default" onclick="singlePlayer();">Quick Game</button>
                 </div>
             </div> 
     </body>
