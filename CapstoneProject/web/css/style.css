@@ -32,9 +32,15 @@ table, th, td{
     width: 50px;   
 }
 
+#gameList, #friendsField, #friendRequestsField {
+    width: 300px;
+}
 
+#gameList {
+    height: 500px;
+}
 
-input[type="text"], input[type="password"], td {
+input[type="text"], input[type="password"], option, td {
     text-align: center;
 }
 
@@ -49,6 +55,12 @@ body {
 
 heading1 {
     font-stretch: ultra-expanded;
+}
+
+.alert-warning, .alert-danger, .alert-info, .alert-success {
+
+    font-style: italic;
+    font-size: 10px;
 }
 
 .padBottom {

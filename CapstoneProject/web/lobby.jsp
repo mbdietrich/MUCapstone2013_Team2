@@ -56,21 +56,17 @@
             var refresh = function(data) {
                             
                             newLines = "";
-
-                            /*
-                            //use for testing
-                            for(i=0;i<10; i++){
-                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame(\''+data[i]+'\');">Join</button></td></tr>';
-                            }*/
                             
                             if(data.length === 0){
-                                newLines = "<tr><td id='errorMsg'>Sorry, there are no open games available.</td></tr>";
+                                newLines = "<option class='alert-info'>Sorry, there are no open games available.</option>";
                             }else{
                                 for(i=0;i<data.length; i++){
-                                    newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-info" onclick="joinPublicGame(\''+data[i]+'\');"><span class="glyphicon glyphicon-play"></span></button></td></tr>';
-                                }
+                                    newLines = newLines+'<option id="' + data[i]+ '">' + data[i] + "</option>";
+                               }
+                                document.getElementById("joinButton").innerHTML= '<br><button type="button" class="btn" onclick="requestJoinPublicGame();">Join</button>';
                             }
                             document.getElementById("gameList").innerHTML=newLines;
+                            
                         }
 
             var loadGames = function() {
@@ -87,6 +83,13 @@
             var onGameCreate = function(data) {
                 //TODO update lobby.jsp if the player has created a game
             }
+            
+            function requestJoinPublicGame() {
+                var s = document.getElementById("gameList");
+                var id = s[s.selectedIndex].id;
+                joinPublicGame(id);
+            }
+            
         </script>
     </head>
     <body>
@@ -127,9 +130,11 @@
                 </div>
             </nav>
         
-        <div class="heading padBottom">Join an open game from the list below: <button type="button" class="btn btn-xs" onclick="loadGames()"><span class="glyphicon glyphicon-refresh"></span></button></div>
+        <div class="heading padBottom">Select a game to join: <br><br><button type="button" class="btn btn-xs" onclick="loadGames()">Click to refresh list.</button></div>
         <div>
-            <table class="table table-hover" id="gameList"></table> 
+            <select class="input-sm" multiple="no" id="gameList"></select> 
+            <div id="joinButton"></div>
         </div>
+        
     </body>
 </html>

@@ -363,7 +363,7 @@
                                 <td class="padBottom heading">My Friends</td>
                             </tr>
                             <tr>
-                                <td><select class="input-sm" name="friendsField" multiple="no" style="width:300px">
+                                <td><select class="input-sm" name="friendsField" multiple="no">
                                         <%=friendCode%>
                                     </select>
                                 </td>
@@ -383,7 +383,7 @@
                                 <td class="padBottom heading">Friend Requests</td>
                             </tr>
                             <tr>
-                                <td><select class="input-sm" name="friendRequestsField" multiple="no" style="width:300px">
+                                <td><select class="input-sm" name="friendRequestsField" multiple="no">
                                         <%=requestCode%>
                                     </select>
                                 </td>

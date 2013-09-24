@@ -146,14 +146,11 @@
                                 <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
                                 <input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/><br>
                                 <input name="password" type="password" class="form-control" id="password" placeholder="Password"/><br>
-                                <button type="submit button" class="btn btn-info" data-loading-text="Loading...">Log In</button>
+                                <div class="alert-danger"><%=error%></div><br>
+                                <button type="submit button" class="btn btn-info">Log In</button>
                                  </form>
                                 </td>
                         </tr>    
-
-                        <tr>
-                            <td id="alert"><%=error%></td>
-                        </tr>
                         <tr>
                             <td><i>or <a href="accountManagement.jsp" align="center">Register</a></i></td>
                         </tr>
