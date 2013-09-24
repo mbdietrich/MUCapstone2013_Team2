@@ -7,8 +7,6 @@ package capstone.server;
 import capstone.game.*;
 import capstone.player.GameBot;
 import capstone.player.Player;
-import capstone.server.jmx.ServerInspector;
-import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +16,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.MBeanRegistrationException;
-import javax.management.MalformedObjectNameException;
-import javax.management.NotCompliantMBeanException;
-import javax.management.ObjectName;
 import javax.servlet.http.HttpSession;
 
 /**
