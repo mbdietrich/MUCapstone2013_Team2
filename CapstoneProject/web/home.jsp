@@ -77,13 +77,34 @@
         </script>
     </head>
     <body>
-        <ul class="nav nav-tabs nav-justified padBottom">
-                <li class="active"><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li ><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
-                <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
-                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
-                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
-        </ul>
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="home.jsp">tic tac toe</a>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="home.jsp">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Games <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
+                                <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
+                                <li><a href="lobby.jsp">Open Games</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="accountManagement.jsp">Profile</a></li>
+                        
+                    </ul>
+                    <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%> | <a href="logout.jsp">Log out</a></p>                    
+                </div>
+            </nav>
 
             <div class="jumbotron">
                 <div class="container">

@@ -62,11 +62,14 @@
                             for(i=0;i<10; i++){
                                 newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame(\''+data[i]+'\');">Join</button></td></tr>';
                             }*/
-        
-                            for(i=0;i<data.length; i++){
-                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-info" onclick="joinPublicGame(\''+data[i]+'\');"><span class="glyphicon glyphicon-play"></span></button></td></tr>';
-                            }
                             
+                            if(data.length === 0){
+                                newLines = "<tr><td id='errorMsg'>Sorry, there are no open games available.</td></tr>";
+                            }else{
+                                for(i=0;i<data.length; i++){
+                                    newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-info" onclick="joinPublicGame(\''+data[i]+'\');"><span class="glyphicon glyphicon-play"></span></button></td></tr>';
+                                }
+                            }
                             document.getElementById("gameList").innerHTML=newLines;
                         }
 
@@ -87,16 +90,44 @@
         </script>
     </head>
     <body>
-        
-        <ul class="nav nav-tabs nav-justified padBottom">
-                <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li class="active"><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
-                <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
-                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
-                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
+        <!--
+        <ul class="nav nav-tabs">
+                <li><a href="home.jsp">Home</span></a></li>
+                <li class="active"><a href="lobby.jsp">Open Games</a></li>
+                <li><a href="accountManagement.jsp">Profile</a></li>
+                <li class="disabled"><a href="#">Game</a></li>
+                <p class="navbar-text pull-right">Signed in as <a href="accountManagement.jsp"><%= session.getAttribute("user")%></a> | <a href="logout.jsp">Logout</a></p>
         </ul>
+        -->
+        <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="home.jsp">tic tac toe</a>
+                </div>
 
-        <div class="heading padBottom">Open Games   <button type="button" class="btn btn-xs" onclick="loadGames()"><span class="glyphicon glyphicon-refresh"></span></button></div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="home.jsp">Home</a></li>
+                        <li class="dropdown active">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Games <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
+                                <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
+                                <li><a href="lobby.jsp">Open Games</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="accountManagement.jsp">Profile</a></li>
+                    </ul>
+                    <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%> | <a href="logout.jsp">Log out</a></p>                    
+                </div>
+            </nav>
+        
+        <div class="heading padBottom">Join an open game from the list below: <button type="button" class="btn btn-xs" onclick="loadGames()"><span class="glyphicon glyphicon-refresh"></span></button></div>
         <div>
             <table class="table table-hover" id="gameList"></table> 
         </div>
