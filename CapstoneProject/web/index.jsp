@@ -138,21 +138,24 @@
         </script>
 
             <div id="Session" class="padBottom2"></div>
-                <table align="center">
+                    
+                    <table align="center">
+                                
                         <tr><td class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
                         <tr><td class="padBottom heading">tic tac toe</td></tr>
                         <tr>
-                                <td>
-                                <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
-                                <input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/><br>
-                                <input name="password" type="password" class="form-control" id="password" placeholder="Password"/><br>
-                                <button type="submit button" class="btn btn-info" data-loading-text="Loading...">Log In</button>
-                                 </form>
-                                </td>
-                        </tr>    
-
-                        <tr>
-                            <td id="alert"><%=error%></td>
+                            <td>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
+                                            <div class="formPadding"><input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/></div>
+                                            <div class="formPadding"><input name="password" type="password" class="form-control" id="password" placeholder="Password"/></div>
+                                            <div class="alert-danger"><%=error%></div>
+                                            <div><button type="submit button" class="btn btn-xs" data-loading-text="Logging you in...">Log In</button></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td> 
                         </tr>
                         <tr>
                             <td><i>or <a href="accountManagement.jsp" align="center">Register</a></i></td>
@@ -170,5 +173,6 @@
                         </td>
                         </tr>
                 </table>
+                                
         </body>
 </html>

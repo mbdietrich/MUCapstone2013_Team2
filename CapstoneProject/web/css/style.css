@@ -32,14 +32,22 @@ table, th, td{
     width: 50px;   
 }
 
+#gameList {
+    width: 300px;
+    height: 300px;
+}
 
+#myfriends, #myrequests {
+    height: 150px;
+}
 
-input[type="text"], input[type="password"], td {
+input[type="text"], input[type="password"], option, td {
     text-align: center;
 }
 
 body {
     font-family: 'Century Gothic';
+    font-size: 12px;
     text-align: center;
 }
 
@@ -47,8 +55,17 @@ body {
     text-transform: uppercase;
 }
 
+.heading, .heading2 {
+    font-weight: bold;
+}
 heading1 {
     font-stretch: ultra-expanded;
+}
+
+.alert-warning, .alert-danger, .alert-info, .alert-success {
+
+    font-style: italic;
+    font-size: 10px;
 }
 
 .padBottom {
@@ -57,6 +74,11 @@ heading1 {
 
 .padBottom2 {
     padding-bottom: 150px;
+}
+
+.formPadding {
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 .gameList {

@@ -14,10 +14,12 @@ import javax.servlet.http.HttpSessionListener;
  */
 public class SessionCleanupService implements HttpSessionListener {
 
+    @Override
     public void sessionCreated(HttpSessionEvent se) {
         //nothing to do here
     }
 
+    @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         HttpSession session = se.getSession();
         GameManager.disconnect(session);

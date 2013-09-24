@@ -4,7 +4,6 @@
  */
 package capstone.server;
 
-import capstone.game.GameRules;
 import capstone.game.GameSession;
 import capstone.game.GameState;
 

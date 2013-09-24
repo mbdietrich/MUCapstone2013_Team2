@@ -22,6 +22,7 @@ public abstract class Bot implements Player {
     
     public abstract Coordinates next(GameState prev, int player);
     
+    @Override
     public boolean equals(Object o){
         if(o!=null){
             if(o instanceof Bot){

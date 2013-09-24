@@ -25,6 +25,9 @@ public class Leave extends HttpServlet {
         if (request.getParameter("redirect") != null) {
             this.getServletContext().getRequestDispatcher(request.getParameter("redirect")).forward(request, response);
         }
+        else{
+            this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
+        }
         }
     }
 

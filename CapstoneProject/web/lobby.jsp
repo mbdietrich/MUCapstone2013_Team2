@@ -62,22 +62,20 @@
             var refresh = function(data) {
                             
                             newLines = "";
-
-                            /*
-                            //use for testing
-                            for(i=0;i<10; i++){
-                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-primary" onclick="joinPublicGame(\''+data[i]+'\');">Join</button></td></tr>';
-                            }*/
-        
-                            for(i=0;i<data.length; i++){
-                                newLines = newLines+"<tr><td>"+data[i]+'</td><td><button type="button" class="btn btn-info" onclick="joinPublicGame(\''+data[i]+'\');"><span class="glyphicon glyphicon-play"></span></button></td></tr>';
-                            }
                             
+                            if(data.length === 0){
+                                newLines = "<option class='alert-info'>Sorry, there are no open games available.</option>";
+                            }else{
+                                for(i=0;i<data.length; i++){
+                                    newLines = newLines+'<option id="' + data[i]+ '">' + data[i] + "</option>";
+                               }
+                                document.getElementById("joinButton").innerHTML= '<br><button type="button" class="btn" onclick="requestJoinPublicGame();">Join</button>';
+                            }
                             document.getElementById("gameList").innerHTML=newLines;
+                            
                         }
 
             var loadGames = function() {
-                
                 $.getJSON(
                         "GetPublicGames",
                         function(data){refresh(data.games);}
@@ -90,21 +88,59 @@
             var onGameCreate = function(data) {
                 //TODO update lobby.jsp if the player has created a game
             }
+            
+            function requestJoinPublicGame() {
+                var s = document.getElementById("gameList");
+                var id = s[s.selectedIndex].id;
+                joinPublicGame(id);
+            }
+            
         </script>
     </head>
     <body>
-        
-        <ul class="nav nav-tabs nav-justified padBottom">
-                <li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li class="active"><a href="lobby.jsp"><span class="glyphicon glyphicon-th-list"></span></a></li>
-                <li><a href="accountManagement.jsp"><span class="glyphicon glyphicon-user"></span></a></li>
-                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-time"></span></a></li>
-                <li class="align-right"><a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
+        <!--
+        <ul class="nav nav-tabs">
+                <li><a href="home.jsp">Home</span></a></li>
+                <li class="active"><a href="lobby.jsp">Open Games</a></li>
+                <li><a href="accountManagement.jsp">Profile</a></li>
+                <li class="disabled"><a href="#">Game</a></li>
+                <p class="navbar-text pull-right">Signed in as <a href="accountManagement.jsp"><%= session.getAttribute("user")%></a> | <a href="logout.jsp">Logout</a></p>
         </ul>
+        -->
+        <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="home.jsp">tic tac toe</a>
+                </div>
 
-        <div class="heading padBottom">Open Games   <button type="button" class="btn btn-xs" onclick="loadGames()"><span class="glyphicon glyphicon-refresh"></span></button></div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="home.jsp">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle = "tooltip" title="Create new games, and view open games.">Games <b class="caret"></b></a>
+                            <ul class="dropdown-menu active">
+                                <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
+                                <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
+                                <li><a href="lobby.jsp">Open Games</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="accountManagement.jsp" data-toggle="tooltip" title="Update your profile and find friends.">Profile</a></li>
+                        
+                    </ul>
+                    <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%> | <a href="logout.jsp">Log out</a></p>                    
+                </div>
+            </nav>
+        
+        <div class="heading padBottom">Select a game to join: <br><br><button type="button" class="btn btn-xs" onclick="loadGames()">Click to refresh list.</button></div>
         <div>
-            <table class="table table-hover" id="gameList"></table> 
+            <select class="input-sm" multiple="no" id="gameList"></select> 
+            <div id="joinButton"></div>
         </div>
+        
     </body>
 </html>
