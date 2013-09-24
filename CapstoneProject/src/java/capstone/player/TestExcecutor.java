@@ -8,6 +8,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Test;
 
@@ -44,12 +50,35 @@ public class TestExcecutor {
             initialize();
         }
         
-        GameBotTest test = new GameBotTest();
+        final GameBotTest test = new GameBotTest();
         
         setup.invoke(test, bot);
+        ExecutorService executor = new ThreadPoolExecutor(1, 4, 2, TimeUnit.MINUTES, new ArrayBlockingQueue<Runnable>(10));
         
-        for(Method m: tests){
+        for(final Method m: tests){
             //TODO run tests safely
+            Callable call = new Callable<String>(){
+                
+                @Override
+                public String call(){
+                    try{
+                        m.invoke(test);
+                        return "OK";
+                    }
+                    catch(AssertionError e){
+                        return e.getMessage();
+                    }
+                    catch(Throwable e){
+                        return "Test "+m.getName()+" threw "+e.getClass().getSimpleName()+" at line "+e.getStackTrace()[0].getLineNumber();
+                    }
+                }
+            };
+            
+            FutureTask<String> future = new FutureTask<String>(call);
+            executor.execute(future);
+            
+            String message="";
+            //TODO run test and timeout measures
         }
         
         teardown.invoke(test);
