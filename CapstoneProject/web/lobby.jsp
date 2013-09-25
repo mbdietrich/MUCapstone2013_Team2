@@ -98,15 +98,6 @@
         </script>
     </head>
     <body>
-        <!--
-        <ul class="nav nav-tabs">
-                <li><a href="home.jsp">Home</span></a></li>
-                <li class="active"><a href="lobby.jsp">Open Games</a></li>
-                <li><a href="accountManagement.jsp">Profile</a></li>
-                <li class="disabled"><a href="#">Game</a></li>
-                <p class="navbar-text pull-right">Signed in as <a href="accountManagement.jsp"><%= session.getAttribute("user")%></a> | <a href="logout.jsp">Logout</a></p>
-        </ul>
-        -->
         <nav class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -132,7 +123,7 @@
                         <li><a href="accountManagement.jsp" data-toggle="tooltip" title="Update your profile and find friends.">Profile</a></li>
                         
                     </ul>
-                    <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%> | <a href="logout.jsp">Log out</a></p>                    
+                    <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></p>                    
                 </div>
             </nav>
         

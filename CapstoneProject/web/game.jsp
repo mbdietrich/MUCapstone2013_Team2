@@ -61,10 +61,14 @@
                 if (state) { // only update if the string is not empty
                     
                     if(state.open){
+                        document.getElementById("isTurnAlert").style.display = 'none';
                         document.getElementById("gameframe").style.display = 'none';
+                        document.getElementById("openWait").style.display = '';
                     }
                     else if(!state.waiting){
+                    document.getElementById("openWait").style.display = 'none';
                     document.getElementById("gameframe").style.display = '';
+
                     //TODO parse state in
                     //variables:
                     //state.PlayerNumber
@@ -81,25 +85,27 @@
                                     buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).firstElementChild;
                                     value=state.Board[subgame][buttonNum];
                                     if(value==1){
-                                        button.className = "btn btn-default";
-                                        buttonTrans.className = "glyphicon glyphicon-remove";
-                                        //button.value = "X";
+                                        buttonTrans.src = 'images/ex.png';
+                                        buttonTrans.className ="gameButton";
                                     }
                                     else if(value==2){
-                                        button.className = "btn btn-default";
-                                        buttonTrans.className = "glyphicon glyphicon-ban-circle";
-                                        //button.value = "O";
+                                        buttonTrans.src = 'images/oh.png';
+                                        buttonTrans.className = "gameButton";
                                     }
                                     else{
-                                        button.className = "btn btn-info";
-                                        buttonTrans.className = "glyphicon glyphicon-minus";
-                                        //button.value = "  ";
+                                        buttonTrans.src = 'images/blank.png';
                                     }
                                     if(state.isTurn==="true"){
                                         button.disabled===true;
+                                        document.getElementById("isTurnAlert").innerHTML = "YOUR TURN";
+                                        document.getElementById("isTurnAlert").style.display = '';
+                                        document.getElementById("isTurnAlert").className = 'alert alert-info';
                                     }
                                     else{
-                                        button.disabled.false;
+                                        button.disabled===false;
+                                        document.getElementById("isTurnAlert").innerHTML = "Waiting..";
+                                        document.getElementById("isTurnAlert").style.display = '';
+                                        document.getElementById("isTurnAlert").className = 'alert alert-warning';
                                     }
                                     buttonNum++;
                                 }
@@ -108,13 +114,19 @@
                         }
                     }
                     if (state.Status === state.PlayerNumber){
-                        window.alert("YOU WIN!");
-                        $.post('leave');
-                        window.location.href="/CapstoneProject/home.jsp";
+                        //window.alert("YOU WIN!");
+                        document.getElementById("isTurnAlert").innerHTML = "YOU WIN!";
+                        document.getElementById("isTurnAlert").style.display = '';
+                        document.getElementById("isTurnAlert").className = 'alert alert-success';
+                        //$.post('leave');
+                        //window.location.href="/CapstoneProject/home.jsp";
                     }else if (state.Status === "2" || state.Status === "1"){
-                        window.alert("SORRY, YOU LOSE.");
-                        $.post('leave');
-                        window.location.href="/CapstoneProject/home.jsp";
+                        //window.alert("SORRY, YOU LOSE.");
+                        document.getElementById("isTurnAlert").innerHTML = "YOU LOSE.";
+                        document.getElementById("isTurnAlert").style.display = '';
+                        document.getElementById("isTurnAlert").className = 'alert alert-danger';
+                        //$.post('leave');
+                        //window.location.href="/CapstoneProject/home.jsp";
                     }
                     //if (state.Status === "1" | state.Status === "2"){
                      //   window.alert("Player " + state.Status + " Wins");
@@ -150,10 +162,18 @@
                             newSubRow=subTable.insertRow();
                             for (j = 2; j >= 0; j--) {
                                 
-                                buttonTrans = document.createElement('span');
-                                newButton = document.createElement('button');
-                                newButton.type = 'button';
-                                newButton.className = 'btn btn-default';
+                                //buttonTrans = document.createElement('span');
+                                //newButton = document.createElement('button');
+                                //newButton.type = 'button';
+                                //newButton.className = 'btn btn-default';
+                                
+                                buttonTrans = document.createElement('img');
+                                buttonTrans.className = 'fadeGameButton gameButton';
+                                buttonTrans.src = 'images/blank.png';
+                                newButton = document.createElement('a');
+                                //newButton.type = 'button';
+                                newButton.href = '#';         
+                                
                                 newButton.id=a+'-'+b+'-'+i+'-'+j;
                                 newButton.a=a;
                                 newButton.b=b;
@@ -200,11 +220,14 @@
                         <li><a href="accountManagement.jsp" data-toggle="tooltip" title="Update your profile and find friends.">Profile</a></li>
                         
                     </ul>
-                    <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%> | <a href="logout.jsp">Log out</a></p>                    
+                    <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></p>                     
                 </div>
             </nav>
             
         <div class="padBottom heading"><%= session.getAttribute("user")%> vs Opponent</div>
-        <table id="gameframe" align="center"></table>   
+        <div><p id="isTurnAlert" class="padBottom"></p></div>
+        <table id="gameframe"></table>
+        
+        <div id="openWait" class="padTop">Waiting for another player to join..</div>
     </body>
 </html>
