@@ -92,15 +92,6 @@
         </script>
     </head>
     <body>
-        <!--
-        <ul class="nav nav-tabs">
-                <li><a href="home.jsp">Home</span></a></li>
-                <li class="active"><a href="lobby.jsp">Open Games</a></li>
-                <li><a href="accountManagement.jsp">Profile</a></li>
-                <li class="disabled"><a href="#">Game</a></li>
-                <p class="navbar-text pull-right">Signed in as <a href="accountManagement.jsp"><%= session.getAttribute("user")%></a> | <a href="logout.jsp">Logout</a></p>
-        </ul>
-        -->
         <nav class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">

@@ -61,12 +61,14 @@
                 if (state) { // only update if the string is not empty
                     
                     if(state.open){
+                        document.getElementById("isTurnAlert").style.display = 'none';
                         document.getElementById("gameframe").style.display = 'none';
-                        document.getElementById("openWait").display = '';
+                        document.getElementById("openWait").style.display = '';
                     }
                     else if(!state.waiting){
+                    document.getElementById("openWait").style.display = 'none';
                     document.getElementById("gameframe").style.display = '';
-                    document.getElementById("openWait").display = 'none';
+
                     //TODO parse state in
                     //variables:
                     //state.PlayerNumber
@@ -84,20 +86,26 @@
                                     value=state.Board[subgame][buttonNum];
                                     if(value==1){
                                         buttonTrans.src = 'images/ex.png';
-                                        buttonTrans.className =" ";
+                                        buttonTrans.className ="gameButton";
                                     }
                                     else if(value==2){
                                         buttonTrans.src = 'images/oh.png';
-                                        buttonTrans.className = " ";
+                                        buttonTrans.className = "gameButton";
                                     }
                                     else{
                                         buttonTrans.src = 'images/blank.png';
                                     }
                                     if(state.isTurn==="true"){
                                         button.disabled===true;
+                                        document.getElementById("isTurnAlert").innerHTML = "YOUR TURN";
+                                        document.getElementById("isTurnAlert").style.display = '';
+                                        document.getElementById("isTurnAlert").className = 'alert alert-info';
                                     }
                                     else{
                                         button.disabled===false;
+                                        document.getElementById("isTurnAlert").innerHTML = "Waiting..";
+                                        document.getElementById("isTurnAlert").style.display = '';
+                                        document.getElementById("isTurnAlert").className = 'alert alert-info';
                                     }
                                     buttonNum++;
                                 }
@@ -106,11 +114,17 @@
                         }
                     }
                     if (state.Status === state.PlayerNumber){
-                        window.alert("YOU WIN!");
+                        //window.alert("YOU WIN!");
+                        document.getElementById("isTurnAlert").innerHTML = "YOU WIN!";
+                        document.getElementById("isTurnAlert").style.display = '';
+                        document.getElementById("isTurnAlert").className = 'alert alert-success';
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
                     }else if (state.Status === "2" || state.Status === "1"){
-                        window.alert("SORRY, YOU LOSE.");
+                        //window.alert("SORRY, YOU LOSE.");
+                        document.getElementById("isTurnAlert").innerHTML = "YOU LOSE.";
+                        document.getElementById("isTurnAlert").style.display = '';
+                        document.getElementById("isTurnAlert").className = 'alert alert-danger';
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
                     }
@@ -211,7 +225,7 @@
             </nav>
             
         <div class="padBottom heading"><%= session.getAttribute("user")%> vs Opponent</div>
-        
+        <div><p id="isTurnAlert" class="padBottom"></p></div>
         <table id="gameframe"></table>
         
         <div id="openWait" class="padTop">Waiting for another player to join..</div>

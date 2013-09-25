@@ -99,3 +99,9 @@ heading1 {
 .gameButton {
     padding: 5px 5px 5px 5px;
 }
+
+#isTurnAlert {
+    margin-left:auto;
+    margin-right:auto;
+    width: 100px;
+}
