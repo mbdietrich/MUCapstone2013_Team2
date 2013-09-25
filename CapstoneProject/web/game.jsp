@@ -105,7 +105,7 @@
                                         button.disabled===false;
                                         document.getElementById("isTurnAlert").innerHTML = "Waiting..";
                                         document.getElementById("isTurnAlert").style.display = '';
-                                        document.getElementById("isTurnAlert").className = 'alert alert-info';
+                                        document.getElementById("isTurnAlert").className = 'alert alert-warning';
                                     }
                                     buttonNum++;
                                 }
