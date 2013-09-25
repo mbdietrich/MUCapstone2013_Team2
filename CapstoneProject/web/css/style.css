@@ -63,7 +63,6 @@ heading1 {
 }
 
 .alert-warning, .alert-danger, .alert-info, .alert-success {
-
     font-style: italic;
     font-size: 10px;
 }
@@ -76,6 +75,10 @@ heading1 {
     padding-bottom: 150px;
 }
 
+.padTop {
+    padding-top: 150px;
+}
+
 .formPadding {
     padding-bottom: 5px;
     padding-top: 5px;
@@ -83,4 +86,16 @@ heading1 {
 
 .gameList {
     width: 70%;
+}
+
+.fadeGameButton {
+    opacity: 0.15;
+}
+
+.recentMove {
+    opacity: 1;
+}
+
+.gameButton {
+    padding: 5px 5px 5px 5px;
 }

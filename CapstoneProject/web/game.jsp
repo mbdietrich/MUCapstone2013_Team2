@@ -62,9 +62,11 @@
                     
                     if(state.open){
                         document.getElementById("gameframe").style.display = 'none';
+                        document.getElementById("openWait").display = '';
                     }
                     else if(!state.waiting){
                     document.getElementById("gameframe").style.display = '';
+                    document.getElementById("openWait").display = 'none';
                     //TODO parse state in
                     //variables:
                     //state.PlayerNumber
@@ -81,25 +83,21 @@
                                     buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).firstElementChild;
                                     value=state.Board[subgame][buttonNum];
                                     if(value==1){
-                                        button.className = "btn btn-default";
-                                        buttonTrans.className = "glyphicon glyphicon-remove";
-                                        //button.value = "X";
+                                        buttonTrans.src = 'images/ex.png';
+                                        buttonTrans.className =" ";
                                     }
                                     else if(value==2){
-                                        button.className = "btn btn-default";
-                                        buttonTrans.className = "glyphicon glyphicon-ban-circle";
-                                        //button.value = "O";
+                                        buttonTrans.src = 'images/oh.png';
+                                        buttonTrans.className = " ";
                                     }
                                     else{
-                                        button.className = "btn btn-info";
-                                        buttonTrans.className = "glyphicon glyphicon-minus";
-                                        //button.value = "  ";
+                                        buttonTrans.src = 'images/blank.png';
                                     }
                                     if(state.isTurn==="true"){
                                         button.disabled===true;
                                     }
                                     else{
-                                        button.disabled.false;
+                                        button.disabled===false;
                                     }
                                     buttonNum++;
                                 }
@@ -109,12 +107,12 @@
                     }
                     if (state.Status === state.PlayerNumber){
                         window.alert("YOU WIN!");
-                        $.post('leave');
-                        window.location.href="/CapstoneProject/home.jsp";
+                        //$.post('leave');
+                        //window.location.href="/CapstoneProject/home.jsp";
                     }else if (state.Status === "2" || state.Status === "1"){
                         window.alert("SORRY, YOU LOSE.");
-                        $.post('leave');
-                        window.location.href="/CapstoneProject/home.jsp";
+                        //$.post('leave');
+                        //window.location.href="/CapstoneProject/home.jsp";
                     }
                     //if (state.Status === "1" | state.Status === "2"){
                      //   window.alert("Player " + state.Status + " Wins");
@@ -150,10 +148,18 @@
                             newSubRow=subTable.insertRow();
                             for (j = 2; j >= 0; j--) {
                                 
-                                buttonTrans = document.createElement('span');
-                                newButton = document.createElement('button');
-                                newButton.type = 'button';
-                                newButton.className = 'btn btn-default';
+                                //buttonTrans = document.createElement('span');
+                                //newButton = document.createElement('button');
+                                //newButton.type = 'button';
+                                //newButton.className = 'btn btn-default';
+                                
+                                buttonTrans = document.createElement('img');
+                                buttonTrans.className = 'fadeGameButton gameButton';
+                                buttonTrans.src = 'images/blank.png';
+                                newButton = document.createElement('a');
+                                //newButton.type = 'button';
+                                newButton.href = '#';         
+                                
                                 newButton.id=a+'-'+b+'-'+i+'-'+j;
                                 newButton.a=a;
                                 newButton.b=b;
@@ -205,6 +211,9 @@
             </nav>
             
         <div class="padBottom heading"><%= session.getAttribute("user")%> vs Opponent</div>
-        <table id="gameframe" align="center"></table>   
+        
+        <table id="gameframe"></table>
+        
+        <div id="openWait" class="padTop">Waiting for another player to join..</div>
     </body>
 </html>
