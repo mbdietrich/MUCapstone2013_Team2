@@ -24,6 +24,10 @@
         <servlet-name>FacebookManager</servlet-name>
         <servlet-class>capstone.server.FacebookManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetPrivateGames</servlet-name>
+        <servlet-class>capstone.server.GetPrivateGames</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PlayerJoin</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -83,6 +87,10 @@
     <servlet-mapping>
         <servlet-name>FacebookManager</servlet-name>
         <url-pattern>/facebook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetPrivateGames</servlet-name>
+        <url-pattern>/GetPrivateGames</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

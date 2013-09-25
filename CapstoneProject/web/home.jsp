@@ -55,6 +55,11 @@
                     document.location.href = "game.jsp";
                 });
             }
+            var openPrivateGame = function(){
+                $.post("create", {type: "newprivate"}, function(e) {
+                    document.location.href= "game.jsp";
+                })
+            }         
             var openGame = function() {
                 $.post("create", {type: "open"}, onGameCreate);
             }
@@ -102,6 +107,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
                                 <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
+                                <li><a href="#" onclick="openPrivateGame();">Open a private game</a></li>
                                 <li><a href="lobby.jsp">Open Games</a></li>
                             </ul>
                         </li>

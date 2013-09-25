@@ -103,6 +103,33 @@ BlockingQueue<String>>();
         return builder.append("]}").toString();
     }
     
+    public static void addPrivateName(HttpSession session){
+        String username = session.getAttribute("user").toString();
+        privateGames.add(username);
+    }
+    
+    public static void removePrivateName(HttpSession session){
+        String username = session.getAttribute("user").toString();
+            if(privateGames.indexOf(username) != -1){
+                privateGames.remove(username);
+            }     
+    }
+    public static String getPrivateGames(HttpSession session){
+        StringBuilder builder = new StringBuilder("{\"games\":[");
+        boolean first = true;
+        for(Entry<String, String> entry: openGames.entrySet()){
+            if(!first && privateGames.indexOf(entry.getKey()) != -1){
+                builder=builder.append(", ");
+            }
+            else{
+                first = false;
+            }
+            builder = builder.append('"').append(entry.getValue()).append('"');
+        }
+        
+        return builder.append("]}").toString();
+    }
+    
     public static String getOpenGames(){
         StringBuilder builder = new StringBuilder();
         builder=builder.append("{\"games\":");
@@ -167,6 +194,7 @@ BlockingQueue<String>>();
             states.get(s).offer(nextState);
         }
         }
+        removePrivateName(session);
         gameIDs.remove(game.SessionID);
         openGames.remove(game.SessionID);
         states.get(session).clear();
