@@ -127,7 +127,7 @@
                             <ul class="dropdown-menu active">
                                 <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
                                 <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
-                                <li><a href="#" onclick="openPrivateGame();">Open a private game</a></li>
+                                <li><a href="#" onclick="openPrivateGame();">New Private Game</a></li>
                                 <li><a href="lobby.jsp">Open Games</a></li>
                             </ul>
                         </li>

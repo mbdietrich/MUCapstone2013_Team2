@@ -185,10 +185,11 @@
                     <ul class="nav navbar-nav">
                         <li><a href="home.jsp">Home</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle = "tooltip" title="Create new games, and view open games.">Games <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" title="Create new games, and view open games.">Games <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
                                 <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
+                                <li><a href="#" onclick="openPrivateGame();">New Private Game</a></li>
                                 <li><a href="lobby.jsp">Open Games</a></li>
                             </ul>
                         </li>
