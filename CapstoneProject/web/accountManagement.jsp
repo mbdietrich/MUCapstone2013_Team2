@@ -120,6 +120,8 @@
     String delinkError = "";
     String gLinkError = "";
     String gDelinkError = "";
+    String fbLinkError = "";
+    String fbDelinkError = "";
     String error = request.getParameter("error");
     String requestmessage = request.getParameter("requestmessage");
     if(requestmessage == null || requestmessage=="null") {
@@ -142,6 +144,10 @@
             gLinkError = "Error: try again";
         } else if (error.equals("gDelinkError")) {
             gDelinkError = "Error: try again";
+        } else if (error.equals("fblinkError")) {
+            fbLinkError = "Error: try again";
+        } else if (error.equals("fbDelinkErrir")) {
+            fbDelinkError = "Error: try again";
         }
     }
     
@@ -182,6 +188,16 @@
             gLink = (String)details.get("gLink");
             gName = (String)details.get("gName");
             googleLinked = "yes";
+        }
+        
+        //check if linked to facebook account
+        String fbLink = "";
+        String fbName = "";
+        String facebookLinked = "no";
+        if(!details.get("fbid").equals("")) {
+            fbLink = (String)details.get("fbLink");
+            fbName = (String)details.get("fbName");
+            facebookLinked = "yes";
         }
         
             %>
@@ -379,6 +395,20 @@
                             </table>
                         
 <!---------------------------------------FACEBOOK PANEL---------------------------------------------------------------->                                   
+                        <table id="facebookLinked">
+                            <tr>
+                                <td>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body"> 
+                                        <div id="fb" class="heading2">Facebook:</div> 
+                                           <div><a href="<%=fbLink%>" target="_blank"><%=fbName%>'s</a> profile is linked to this account.</div>
+                                           <div><a href="facebook?form=delink&userName=<%=userName%>  ">Remove link</a></div>
+                                           <div class="alert-danger"><%=fbDelinkError%></div>
+                                       </div>
+                                   </div>
+                               </td>
+                           </tr>
+                        </table>
                         <table>
                             <tr>
                                 <td>
@@ -425,7 +455,7 @@
                                 <td>
                                     <div class="panel panel-default">
                                         <div class="panel-body"> 
-                                        <div id="fb" class="heading2">Google+:</div> 
+                                        <div id="g" class="heading2">Google+:</div> 
                                            <div><a href="<%=gLink%>" target="_blank"><%=gName%>'s</a> profile is linked to this account.</div>
                                            <div><a href="google?form=delink&userName=<%=userName%>  ">Remove link</a></div>
                                            <div class="alert-danger"><%=gDelinkError%></div>

@@ -269,7 +269,7 @@ public class databaseAccess {
     public static boolean removeFBID(String player) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("UPDATE players SET fbid='0' WHERE user='"+Encryption.encrypt(player)+"'");
+            st.executeUpdate("UPDATE players SET fbid='0', fbName='0', fbLink='0' WHERE user='"+Encryption.encrypt(player)+"'");
             return true;
         }
         catch (Exception e) {
