@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author luke
  */
-public class FacebookManager extends HttpServlet {
+public class GoogleManager extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -31,7 +31,7 @@ public class FacebookManager extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("form").equals("delink")) {
             String userName = request.getParameter("userName");
-            if(databaseAccess.removeFBID(userName)) {
+            if(databaseAccess.removeGID(userName)) {
                 this.getServletContext().getRequestDispatcher("/accountManagement.jsp").forward(request, response);
             } else {
                 String message = "delinkerror";
@@ -39,29 +39,34 @@ public class FacebookManager extends HttpServlet {
             }
             
         } else if(request.getParameter("form").equals("update")) {
-            //add facebook id to existing account
+            //add google details to existing account
             String userName = request.getParameter("userName");
             String password = request.getParameter("password");
-            String fbid = request.getParameter("fbid");
+            String gid = request.getParameter("fbid");
             String referer = request.getParameter("referer");
+            String gName = request.getParameter("gName");
+            String link = request.getParameter("link");
+            String email = request.getParameter("email");
             if(userName.equals(databaseAccess.checkLoginCredentials(userName, password))) {
-                if(databaseAccess.addFBID(userName, fbid)) {
+                if(databaseAccess.addGID(userName, gid, gName, link)) {
                     GameManager.newPlayer(request.getSession(), userName);
                     this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
                 } else {
                     String message = "exception1";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&referer="+referer).forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/googleLogin.jsp?error="+message+"&gid="+gid+"&name="+userName+"&gemail="+email+"&gName="+gName+"&link="+link+"&referer="+referer).forward(request, response);
                 }
             } else {
                 String message = "login";
-                this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&referer="+referer).forward(request, response);
+                this.getServletContext().getRequestDispatcher("/googleLogin.jsp?error="+message+"&gid="+gid+"&name="+userName+"&gemail="+email+"&gName="+gName+"&link="+link+"&referer="+referer).forward(request, response);
             }
         } else {
-            //create new account linked to facebook id
+            //create new account linked to google id
             String userName = request.getParameter("userName");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            String fbid = request.getParameter("fbid");
+            String gid = request.getParameter("gid");
+            String gName = request.getParameter("gName");
+            String link = request.getParameter("link");
     
             Map details = databaseAccess.getPlayerDetails(userName);
             if(details.isEmpty()) {
@@ -69,21 +74,23 @@ public class FacebookManager extends HttpServlet {
                 details.put("userName", userName);
                 details.put("email", email);
                 details.put("password", password);
-                details.put("fbid", fbid);
+                details.put("gid", gid);
+                details.put("gName", gName);
+                details.put("gLink", link);
                 if(databaseAccess.addPlayer(details)) {
                     GameManager.newPlayer(request.getSession(), userName);
                     this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
                 } else {
                     String message = "exception";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email+"&referer=both").forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/googleLogin.jsp?error="+message+"&gid="+gid+"&name="+userName+"&gemail="+email+"&gName="+gName+"&link="+link+"&referer=both").forward(request, response);
                 }
             } else {
                 if(details.get("userName").equals(userName)) {
                     String message = "userName";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email+"&referer=both").forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/googleLogin.jsp?error="+message+"&gid="+gid+"&name="+userName+"&gemail="+email+"&gName="+gName+"&link="+link+"&referer=both").forward(request, response);
                 } else if(details.get("email").equals(email)) {
                     String message = "email";
-                    this.getServletContext().getRequestDispatcher("/fblogin.jsp?error="+message+"&fbid="+fbid+"&fbname="+userName+"&fbemail="+email+"&referer=both").forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/googleLogin.jsp?error="+message+"&gid="+gid+"&name="+userName+"&gemail="+email+"&gName="+gName+"&link="+link+"&referer=both").forward(request, response);
                 }
             }
             

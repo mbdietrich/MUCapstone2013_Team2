@@ -72,6 +72,21 @@ public class databaseAccess {
                 } else {
                     details.put("friendRequests", rs.getString(7));
                 }
+                if(Encryption.decrypt(rs.getString(8)).equals("0")) {
+                    details.put("gid", "");
+                } else {
+                    details.put("gid", Encryption.decrypt(rs.getString(8)));
+                }
+                if(Encryption.decrypt(rs.getString(9)).equals("0")) {
+                    details.put("gName", "");
+                } else {
+                    details.put("gName", Encryption.decrypt(rs.getString(9)));
+                }
+                if(Encryption.decrypt(rs.getString(10)).equals("0")) {
+                    details.put("gLink", "");
+                } else {
+                    details.put("gLink", Encryption.decrypt(rs.getString(10)));
+                }
             }
             st.close();
             return details;
@@ -85,7 +100,7 @@ public class databaseAccess {
     public static boolean addPlayer(Map details) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("INSERT into players (user, password, email, fbid) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"','"+Encryption.encrypt(details.get("fbid").toString())+"')");
+            st.executeUpdate("INSERT into players (user, password, email, fbid, gid, gName, gLink) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"','"+Encryption.encrypt(details.get("fbid").toString())+"','"+Encryption.encrypt(details.get("gid").toString())+"','"+Encryption.encrypt(details.get("gName").toString())+"','"+Encryption.encrypt(details.get("gLink").toString())+"'");
             st.close();
             return true;
 	}
@@ -157,6 +172,25 @@ public class databaseAccess {
 	}
     }
     
+    public static Map getPlayerDetailsByGID(String id) {
+        Map details = new HashMap();
+        try {
+            Statement st = createConnection();
+            ResultSet rs = st.executeQuery("SELECT * FROM players WHERE gid ='"+Encryption.encrypt(id)+"'");
+            if(rs.next()) {
+                details.put("userName", Encryption.decrypt(rs.getString(1)));
+                details.put("password", Encryption.decrypt(rs.getString(2)));
+                details.put("email", Encryption.decrypt(rs.getString(3)));
+            }
+            st.close();
+            return details;
+	}
+	catch (Exception e) {
+            e.printStackTrace();
+            return details;
+	}
+    }
+    
     /*
     * seems to be a problem with this function...
     public static boolean addValue(String player, String field, String value) {
@@ -184,10 +218,34 @@ public class databaseAccess {
         }
     }
     
+    public static boolean addGID(String player, String id, String profileName, String link) {
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("UPDATE players SET gid='"+Encryption.encrypt(id)+"', gName='"+Encryption.encrypt(profileName)+"', gLink='"+Encryption.encrypt(link)+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     public static boolean removeFBID(String player) {
         try {
             Statement st = createConnection();
             st.executeUpdate("UPDATE players SET fbid='0' WHERE user='"+Encryption.encrypt(player)+"'");
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static boolean removeGID(String player) {
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("UPDATE players SET gid='0', gName='0', gLink='0' WHERE user='"+Encryption.encrypt(player)+"'");
             return true;
         }
         catch (Exception e) {

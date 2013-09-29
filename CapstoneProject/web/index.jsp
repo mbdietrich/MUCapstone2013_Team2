@@ -165,12 +165,11 @@
             }
             
             function googleLogin(obj) {
-            alert("send to login");
             var id = obj['id'];
             var name = obj['name'];
             var email = obj['email'];
             var url = obj['link'];
-            console.log("id: " + id + "/name: " + name + "/email: " + email + "/url: " + url);
+            window.location = "googleLogin.jsp?gid=" + id + "&gName=" + name + "&name=" + name + "&gemail=" + email + "&link=" + url + "&referer=both";
             }
             
             function fb() {
