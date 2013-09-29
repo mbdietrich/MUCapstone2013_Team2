@@ -1,8 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String error = request.getParameter("error");
+    String ifError = "none";
     if (error == null || error == "null") {
         error = "";
+    } else {
+        ifError = "inline";
     }
 %>
 <!DOCTYPE html>
@@ -83,7 +86,9 @@
                         // login status of the person. In this case, we're handling the situation where they 
                         // have logged in to the app.
                         //testAPI();
-                        login();
+                        if(document.getElementById("fbLogin").style.display === "inline") {
+                            fb();
+                        }
                     } else if (response.status === 'not_authorized') {
                         // In this case, the person is logged into Facebook, but not into the app, so we call
                         // FB.login() to prompt them to do so. 
@@ -124,27 +129,144 @@
                     console.log('Good to see you, ' + response.name + '.');
                 });
             }
-            function login() {
+            function fblogin() {
                 FB.api('/me', function(response) {
-                    id = response.id;
-                    name = response.name;
-                    email = response.email;
-                    var check = confirm("Log in with Facebook?")
-                    if(check==true) {
+                    if(response.status === 'connected') {
+                        id = response.id;
+                        name = response.name;
+                        email = response.email;
                         window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
+                    } else {
+                        alert("You have not authorised Facebook");
                     }
+                    
                 });
             }
+            
+            function signinCallback(authResult) {
+                if (authResult['access_token']) {
+                    // Successfully authorized
+                    if (authResult['error'] == undefined) {
+                        gapi.auth.setToken(authResult); //store the returned token
+                        if (document.getElementById("gLogin").style.display === "inline") {
+                            gapi.client.load('oauth2', 'v2', function() {
+                                var request = gapi.client.oauth2.userinfo.get();
+                                request.execute(googleLogin);
+                            });
+                        }
+                    }
+                } else if (authResult['error']) {
+                    // There was an error.
+                    // Possible error codes:
+                    //   "access_denied" - User denied access to your app
+                    //   "immediate_failed" - Could not automatically log in the user
+                    // console.log('There was an error: ' + authResult['error']);
+                }
+            }
+            
+            function googleLogin(obj) {
+            alert("send to login");
+            var id = obj['id'];
+            var name = obj['name'];
+            var email = obj['email'];
+            var url = obj['link'];
+            console.log("id: " + id + "/name: " + name + "/email: " + email + "/url: " + url);
+            }
+            
+            function fb() {
+                document.getElementById("gLogin").style.display = "none";
+                document.getElementById("userLogin").style.display = "none";
+                FB.api('/me', function(response) {
+                    if(response.status === 'connected') {
+                        id = response.id;
+                        name = response.name;
+                        email = response.email;
+                        window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
+                    } else {
+                        if(document.getElementById("fbLogin").style.display === "none") {
+                            document.getElementById("fbLogin").style.display="inline";
+                        } else {
+                            document.getElementById("fbLogin").style.display="none";
+                        }
+                    }
+                    
+                });
+            }
+            
+            function google() {
+                document.getElementById("fbLogin").style.display = "none";
+                document.getElementById("userLogin").style.display = "none";
+                if(gapi.auth.getToken() != null) {
+                    gapi.client.load('oauth2', 'v2', function() {
+                        var request = gapi.client.oauth2.userinfo.get();
+                        request.execute(googleLogin);
+                    });
+                } else {
+                    if(document.getElementById("gLogin").style.display === "none") {
+                        document.getElementById("gLogin").style.display="inline";
+                    } else {
+                        document.getElementById("gLogin").style.display="none";
+                }
+                }
+            }
+            
+            function user() {
+                document.getElementById("gLogin").style.display = "none";
+                document.getElementById("fbLogin").style.display = "none";
+                if(document.getElementById("userLogin").style.display === "none") {
+                    document.getElementById("userLogin").style.display="inline";
+                } else {
+                    document.getElementById("userLogin").style.display="none";
+                }
+                
+            }
+
         </script>
 
             <div id="Session" class="padBottom2"></div>
                     
                     <table align="center">
                                 
-                        <tr><td class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
-                        <tr><td class="padBottom heading">tic tac toe</td></tr>
+                        <tr><td colspan="3" class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
+                        <tr><td colspan="3" class="padBottom heading">tic tac toe</td></tr>
                         <tr>
                             <td>
+                                <button type="button" onclick="fb();"class="btn btn-info" data-loading-text="Logging you in...">Log in with Facebook</button>
+                            </td>
+                            <td>
+                                <button type="button" onclick="google();"class="btn btn-info" data-loading-text="Logging you in...">Log in with Google+</button>
+                            </td>
+                            <td>
+                                <button type="button" onclick="user();"class="btn btn-info" data-loading-text="Logging you in...">Log in with username</button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td colspan="3" style="text-align: right"><i>Or <a href="accountManagement.jsp" align="center">create a username & password</a></i></td>
+                        </tr>
+                        <tr>
+                            <!-- facebook -->
+                            <td colspan="3" id="fbLogin" style="display:none">
+                                <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email"></fb:login-button>
+                            </td>
+                            
+                            <!-- google+ -->
+                            <td colspan="3" id="gLogin" style="display:none">
+                                <span id="signinButton">
+                                    <span
+                                        class="g-signin"
+                                        data-callback="signinCallback"
+                                        data-clientid="1062173662525.apps.googleusercontent.com"
+                                        data-scope="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+                                        data-cookiepolicy="single_host_origin"
+                                        data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                                        data-scope="https://www.googleapis.com/auth/plus.login">
+                                    </span>
+                                </span>
+                            </td>
+                            
+                            <!-- username/password -->
+                            <td colspan="3" id="userLogin" style="display:<%=ifError%>">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
@@ -155,24 +277,16 @@
                                         </form>
                                     </div>
                                 </div>
-                            </td> 
-                        </tr>
-                        <tr>
-                            <td><i>or <a href="accountManagement.jsp" align="center">Register</a></i></td>
-                        </tr>
-                        <tr>
-                            <td colspan ="4">
-                                <!--
-                                Below we include the Login Button social plugin. This button uses the JavaScript SDK to
-                                present a graphical Login button that triggers the FB.login() function when clicked.
-
-                                Learn more about options for the login button plugin:
-                                /docs/reference/plugins/login/ -->
-
-                        <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email"></fb:login-button>
-                        </td>
+                            </td>
                         </tr>
                 </table>
-                                
+            <script type="text/javascript">
+                (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/client:plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+      
         </body>
 </html>
