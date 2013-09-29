@@ -118,6 +118,8 @@
     String emailError = "";
     String passwordError = "";
     String delinkError = "";
+    String gLinkError = "";
+    String gDelinkError = "";
     String error = request.getParameter("error");
     String requestmessage = request.getParameter("requestmessage");
     if(requestmessage == null || requestmessage=="null") {
@@ -135,7 +137,11 @@
         } else if (error.equals("exception")) {
             exceptionError = "An error occurred. Please try again.";
         } else if (error.equals("delinkerror")) {
-            delinkError = ">Error: try again.";
+            delinkError = "Error: try again.";
+        } else if (error.equals("gLinkError")) {
+            gLinkError = "Error: try again";
+        } else if (error.equals("gDelinkError")) {
+            gDelinkError = "Error: try again";
         }
     }
     
@@ -422,6 +428,7 @@
                                         <div id="fb" class="heading2">Google+:</div> 
                                            <div><a href="<%=gLink%>" target="_blank"><%=gName%>'s</a> profile is linked to this account.</div>
                                            <div><a href="google?form=delink&userName=<%=userName%>  ">Remove link</a></div>
+                                           <div><%=gDelinkError%></div>
                                        </div>
                                    </div>
                                </td>
@@ -433,7 +440,7 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body"> 
                                         <div id="fb" class="heading2">Google+:</div>
-                                        <div><button type="button" onclick="google();"class="btn btn-info" data-loading-text="Logging you in...">Link Google+</button></div>
+                                        <div><button type="button" onclick="google();"class="btn btn-xs" data-loading-text="Logging you in...">Link Google+</button></div>
                                         <br>
                                            <div id="googleButton" style="display:none"><span id="signinButton">
                                     <span
@@ -446,6 +453,7 @@
                                         data-scope="https://www.googleapis.com/auth/plus.login">
                                     </span>
                                 </span></div>
+                                        <div><%=gLinkError%></div>
                                        </div>
                                    </div>
                                </td>

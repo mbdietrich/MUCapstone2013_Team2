@@ -34,7 +34,7 @@ public class GoogleManager extends HttpServlet {
             if(databaseAccess.removeGID(userName)) {
                 this.getServletContext().getRequestDispatcher("/accountManagement.jsp").forward(request, response);
             } else {
-                String message = "delinkerror";
+                String message = "gDelinkError";
                 this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
             }
         } else if (request.getParameter("form").equals("link")) {
