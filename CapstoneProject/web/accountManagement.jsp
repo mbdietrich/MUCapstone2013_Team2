@@ -428,7 +428,7 @@
                                         <div id="fb" class="heading2">Google+:</div> 
                                            <div><a href="<%=gLink%>" target="_blank"><%=gName%>'s</a> profile is linked to this account.</div>
                                            <div><a href="google?form=delink&userName=<%=userName%>  ">Remove link</a></div>
-                                           <div><%=gDelinkError%></div>
+                                           <div class="alert-danger"><%=gDelinkError%></div>
                                        </div>
                                    </div>
                                </td>
@@ -453,7 +453,7 @@
                                         data-scope="https://www.googleapis.com/auth/plus.login">
                                     </span>
                                 </span></div>
-                                        <div><%=gLinkError%></div>
+                                        <div class="alert-danger"><%=gLinkError%></div>
                                        </div>
                                    </div>
                                </td>

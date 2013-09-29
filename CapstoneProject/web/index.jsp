@@ -183,7 +183,7 @@
                         window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
                     } else {
                         if(document.getElementById("fbLogin").style.display === "none") {
-                            document.getElementById("fbLogin").style.display="inline";
+                            document.getElementById("fbLogin").style.display="table-cell";
                         } else {
                             document.getElementById("fbLogin").style.display="none";
                         }
@@ -202,7 +202,7 @@
                     });
                 } else {
                     if(document.getElementById("gLogin").style.display === "none") {
-                        document.getElementById("gLogin").style.display="inline";
+                        document.getElementById("gLogin").style.display="table-cell";
                     } else {
                         document.getElementById("gLogin").style.display="none";
                 }
@@ -213,7 +213,7 @@
                 document.getElementById("gLogin").style.display = "none";
                 document.getElementById("fbLogin").style.display = "none";
                 if(document.getElementById("userLogin").style.display === "none") {
-                    document.getElementById("userLogin").style.display="inline";
+                    document.getElementById("userLogin").style.display="table-cell";
                 } else {
                     document.getElementById("userLogin").style.display="none";
                 }
