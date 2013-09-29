@@ -129,19 +129,22 @@
                     console.log('Good to see you, ' + response.name + '.');
                 });
             }
+            /*
             function fblogin() {
                 FB.api('/me', function(response) {
                     if(response.status === 'connected') {
                         id = response.id;
                         name = response.name;
                         email = response.email;
-                        window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
+                        link = response.link;
+                        window.location = "fblogin.jsp?fbid=" + id + "&name=" + name + "&link=" + link + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
                     } else {
                         alert("You have not authorised Facebook");
                     }
                     
                 });
             }
+            */
             
             function signinCallback(authResult) {
                 if (authResult['access_token']) {
@@ -180,7 +183,8 @@
                         id = response.id;
                         name = response.name;
                         email = response.email;
-                        window.location = "fblogin.jsp?fbid=" + id + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
+                        link = response.link;
+                        window.location = "fblogin.jsp?fbid=" + id + "&name=" + name + "&link=" + link + "&fbName=" + name + "&fbemail=" + email + "&referer=both";
                     } else {
                         if(document.getElementById("fbLogin").style.display === "none") {
                             document.getElementById("fbLogin").style.display="table-cell";

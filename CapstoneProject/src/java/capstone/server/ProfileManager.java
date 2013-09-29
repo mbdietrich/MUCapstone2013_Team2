@@ -86,7 +86,6 @@ public class ProfileManager extends HttpServlet {
                 details.put("userName", userName);
                 details.put("email", email);
                 details.put("password", password);
-                details.put("fbid", "0");
                 if(databaseAccess.addPlayer(details)) {
                     GameManager.newPlayer(request.getSession(), userName);
                     this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);

@@ -55,7 +55,7 @@ public class GoogleManager extends HttpServlet {
             //add google details to existing account
             String userName = request.getParameter("userName");
             String password = request.getParameter("password");
-            String gid = request.getParameter("fbid");
+            String gid = request.getParameter("gid");
             String referer = request.getParameter("referer");
             String gName = request.getParameter("gName");
             String link = request.getParameter("link");
@@ -90,7 +90,7 @@ public class GoogleManager extends HttpServlet {
                 details.put("gid", gid);
                 details.put("gName", gName);
                 details.put("gLink", link);
-                if(databaseAccess.addPlayer(details)) {
+                if(databaseAccess.addGooglePlayer(details)) {
                     GameManager.newPlayer(request.getSession(), userName);
                     this.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
                 } else {

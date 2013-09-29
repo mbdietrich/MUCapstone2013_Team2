@@ -179,7 +179,7 @@
                                     <td colspan ="2"><%=exceptionError1%></td>
                                 </tr>
                                 <tr>
-                                    <input name="fbid" type="hidden" value="<%=id%>"/>
+                                    <input name="gid" type="hidden" value="<%=id%>"/>
                                     <input name="form" type="hidden" value="update"/>
                                     <input name="referer" type="hidden" value="<%=referer%>"/>
                                     <input name="gName" type="hidden" value="<%=gName%>"/>

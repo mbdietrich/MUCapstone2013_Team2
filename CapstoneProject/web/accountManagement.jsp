@@ -441,8 +441,7 @@
                                         <div class="panel-body"> 
                                         <div id="fb" class="heading2">Google+:</div>
                                         <div><button type="button" onclick="google();"class="btn btn-xs" data-loading-text="Logging you in...">Link Google+</button></div>
-                                        <br>
-                                           <div id="googleButton" style="display:none"><span id="signinButton">
+                                           <div id="googleButton" style="display:none"><span id="signinButton"><br>
                                     <span
                                         class="g-signin"
                                         data-callback="signinCallback"

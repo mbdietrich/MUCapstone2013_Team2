@@ -87,6 +87,16 @@ public class databaseAccess {
                 } else {
                     details.put("gLink", Encryption.decrypt(rs.getString(10)));
                 }
+                if(Encryption.decrypt(rs.getString(11)).equals("0")) {
+                    details.put("fbName", "");
+                } else {
+                    details.put("fbName", Encryption.decrypt(rs.getString(11)));
+                }
+                if(Encryption.decrypt(rs.getString(12)).equals("0")) {
+                    details.put("fbLink", "");
+                } else {
+                    details.put("fbLink", Encryption.decrypt(rs.getString(12)));
+                }
             }
             st.close();
             return details;
@@ -100,7 +110,33 @@ public class databaseAccess {
     public static boolean addPlayer(Map details) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("INSERT into players (user, password, email, fbid, gid, gName, gLink) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"','"+Encryption.encrypt(details.get("fbid").toString())+"','"+Encryption.encrypt(details.get("gid").toString())+"','"+Encryption.encrypt(details.get("gName").toString())+"','"+Encryption.encrypt(details.get("gLink").toString())+"'");
+            st.executeUpdate("INSERT into players (user, password, email) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"'");
+            st.close();
+            return true;
+	}
+	catch (Exception e) {
+            e.printStackTrace();
+            return false;
+	}
+    }
+    
+    public static boolean addGooglePlayer(Map details) {
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("INSERT into players (user, password, email, gid, gName, gLink) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"','"+Encryption.encrypt(details.get("gid").toString())+"','"+Encryption.encrypt(details.get("gName").toString())+"','"+Encryption.encrypt(details.get("gLink").toString())+"'");
+            st.close();
+            return true;
+	}
+	catch (Exception e) {
+            e.printStackTrace();
+            return false;
+	}
+    }
+    
+    public static boolean addFBPlayer(Map details) {
+        try {
+            Statement st = createConnection();
+            st.executeUpdate("INSERT into players (user, password, email, fbid, fName, fLink) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"','"+Encryption.encrypt(details.get("fbid").toString())+"','"+Encryption.encrypt(details.get("fName").toString())+"','"+Encryption.encrypt(details.get("fLink").toString())+"'");
             st.close();
             return true;
 	}
@@ -206,10 +242,10 @@ public class databaseAccess {
     }
     */
     
-    public static boolean addFBID(String player, String id) {
+    public static boolean addFBID(String player, String id, String profileName, String link) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("UPDATE players SET fbid='"+Encryption.encrypt(id)+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            st.executeUpdate("UPDATE players SET fbid='"+Encryption.encrypt(id)+"', fbName='"+Encryption.encrypt(profileName)+"', fbLink'"+Encryption.encrypt(link)+"' WHERE user='"+Encryption.encrypt(player)+"'");
             return true;
         }
         catch (Exception e) {

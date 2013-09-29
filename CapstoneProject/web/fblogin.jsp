@@ -12,7 +12,7 @@
 
 <%
     String id = request.getParameter("fbid");
-    String userName = request.getParameter("fbname");
+    String userName = request.getParameter("name");
     if(userName == null || userName == "null") {
         userName = "";
     }
@@ -25,6 +25,9 @@
     if(referer.equals("link")) {
         userNamePlaceholder = "value='"+userName+"'";
     }
+    
+    String link = request.getParameter("link");
+    String fbName = request.getParameter("fbName");
     
     Map details = databaseAccess.getPlayerDetailsByFBID(id);
     if(!details.isEmpty()) {
@@ -114,6 +117,7 @@
                 </script>
             </head>
             <body onload="referer();">
+                <h1>Link your Facebook profile to a new or existing game account</h1>
                 <div id="new account">
                     <h2 align="center">Link to new account</h2>
                         <div id="content">
@@ -145,6 +149,8 @@
                                 <tr>
                                     <input name="fbid" type="hidden" value="<%=id%>"/>
                                     <input name="form" type="hidden" value="register"/>
+                                    <input name="fbName" type="hidden" value="<%=fbName%>"/>
+                                    <input name="link" type="hidden" value="<%=link%>"/>
                                     <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                                 </tr>
                                 </table>
@@ -175,6 +181,9 @@
                                     <input name="fbid" type="hidden" value="<%=id%>"/>
                                     <input name="form" type="hidden" value="update"/>
                                     <input name="referer" type="hidden" value="<%=referer%>"/>
+                                    <input name="fbName" type="hidden" value="<%=fbName%>"/>
+                                    <input name="link" type="hidden" value="<%=link%>"/>
+                                    <input name="email" type="hidden" value="<%=email%>"/>
                                     <td colspan="2"><input type="submit" name="submit" value="Save" class="fade" /></td>
                                 </tr>
                                 </table>
