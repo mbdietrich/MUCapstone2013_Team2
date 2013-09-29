@@ -166,10 +166,67 @@
         while(iteratorRequests.hasNext()) {
             String name = iteratorRequests.next();
             requestCode = requestCode + "<option value ='"+name+"'>"+name+"</option>";
-        }        
+        }  
+        
+        //check if linked to google account
+        String gLink = "";
+        String gName = "";
+        String googleLinked = "no";
+        if(!details.get("gid").equals("")) {
+            gLink = (String)details.get("gLink");
+            gName = (String)details.get("gName");
+            googleLinked = "yes";
+        }
         
             %>
-        <body>
+        <script>
+        function social() {
+            var linked = "<%=googleLinked%>";  
+            if(linked === "yes") {
+                document.getElementById("googleNotLinked").style.display = "none";
+            } else {
+                document.getElementById("googleLinked").style.display = "none";
+            }
+         }
+         </script>
+        <body onload="social();">
+            <script>
+            function signinCallback(authResult) {
+                if (authResult['access_token']) {
+                    // Successfully authorized
+                    if (authResult['error'] == undefined) {
+                        gapi.auth.setToken(authResult); //store the returned token
+                        if (document.getElementById("googleButton").style.display !== "none") {
+                            gapi.client.load('oauth2', 'v2', function() {
+                                var request = gapi.client.oauth2.userinfo.get();
+                                request.execute(googleLogin);
+                            });
+                        }
+                    }
+                } else if (authResult['error']) {
+                    // There was an error.
+                    // Possible error codes:
+                    //   "access_denied" - User denied access to your app
+                    //   "immediate_failed" - Could not automatically log in the user
+                    // console.log('There was an error: ' + authResult['error']);
+                }
+            }
+            
+            function googleLogin(obj) {
+            var id = obj['id'];
+            var name = obj['name'];
+            var email = obj['email'];
+            var url = obj['link'];
+            window.location = "google?form=link&gid=" + id + "&gName=" + name + "&userName=" + "<%=userName%>" + "&gLink=" + url;
+            }
+            function google() {
+                if(document.getElementById("googleButton").style.display === "none") {
+                    document.getElementById("googleButton").style.display="inherit";
+                } else {
+                    document.getElementById("googleButton").style.display="none";
+                }
+            }
+            </script>
             <nav class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -322,7 +379,7 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body"> 
                                         <div id="fb" class="heading2">Facebook:</div> 
-                                            <div>Click below to link <br>your Facebook account.</div>
+                                            <div>Click below to link your Facebook account.</div>
 
                                                     <!--
                                                     Below we include the Login Button social plugin. This button uses the JavaScript SDK to
@@ -355,8 +412,47 @@
                             </tr>
                             
                         </table>
-                          
-                    </div>
+                                    
+<!---------------------------------------GOOGLE PANEL---------------------------------------------------------------->                                   
+                        <table id="googleLinked">
+                            <tr>
+                                <td>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body"> 
+                                        <div id="fb" class="heading2">Google+:</div> 
+                                           <div><a href="<%=gLink%>" target="_blank"><%=gName%>'s</a> profile is linked to this account.</div>
+                                           <div><a href="google?form=delink&userName=<%=userName%>  ">Remove link</a></div>
+                                       </div>
+                                   </div>
+                               </td>
+                           </tr>
+                        </table>
+                        <table id="googleNotLinked">
+                            <tr>
+                                <td>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body"> 
+                                        <div id="fb" class="heading2">Google+:</div>
+                                        <div><button type="button" onclick="google();"class="btn btn-info" data-loading-text="Logging you in...">Link Google+</button></div>
+                                        <br>
+                                           <div id="googleButton" style="display:none"><span id="signinButton">
+                                    <span
+                                        class="g-signin"
+                                        data-callback="signinCallback"
+                                        data-clientid="1062173662525.apps.googleusercontent.com"
+                                        data-scope="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+                                        data-cookiepolicy="single_host_origin"
+                                        data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                                        data-scope="https://www.googleapis.com/auth/plus.login">
+                                    </span>
+                                </span></div>
+                                       </div>
+                                   </div>
+                               </td>
+                           </tr>
+                        </table>
+            </div>
+
 <!------------------------------------FRIEND LIST PANEL---------------------------------------------------------------------------->
 
 
@@ -429,7 +525,13 @@
                     </form>
                     
                 </div>
-
+    <script type="text/javascript">
+                (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/client:plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+    </script>
     </body>
     <%
     // if user not logged in, present registration page
