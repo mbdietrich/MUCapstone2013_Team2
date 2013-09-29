@@ -203,11 +203,18 @@
             %>
         <script>
         function social() {
-            var linked = "<%=googleLinked%>";  
-            if(linked === "yes") {
+            var gLinked = "<%=googleLinked%>";  
+            if(gLinked === "yes") {
                 document.getElementById("googleNotLinked").style.display = "none";
             } else {
                 document.getElementById("googleLinked").style.display = "none";
+            }
+            
+            var fbLinked = "<%=facebookLinked%>";
+            if(fbLinked === "yes") {
+                document.getElementById("facebookNotLinked").style.display = "none";
+            } else {
+                document.getElementById("facebookLinked").style.display = "none";
             }
          }
          </script>
@@ -246,6 +253,13 @@
                     document.getElementById("googleButton").style.display="inherit";
                 } else {
                     document.getElementById("googleButton").style.display="none";
+                }
+            }
+            function facebook() {
+                if(document.getElementById("facebookButton").style.display === "none") {
+                    document.getElementById("facebookButton").style.display="inherit";
+                } else {
+                    document.getElementById("facebookButton").style.display="none";
                 }
             }
             </script>
@@ -302,7 +316,10 @@
                     // The response object is returned with a status field that lets the app know the current
                     // login status of the person. In this case, we're handling the situation where they 
                     // have logged in to the app.
-                    checkAgainstDB();
+                    if(document.getElementById("facebookButton").style.display !== "none") {
+                        facebookLogin();
+                    }
+                    //checkAgainstDB();
                 } else if (response.status === 'not_authorized') {
                     // In this case, the person is logged into Facebook, but not into the app, so we call
                     // FB.login() to prompt them to do so. 
@@ -332,7 +349,19 @@
                 js.src = "//connect.facebook.net/en_US/all.js";
                 ref.parentNode.insertBefore(js, ref);
             }(document));
-   
+            
+            function facebookLogin() {
+                FB.api('/me', function(response) {
+                    var id = response.id;
+                    var name = response.name;
+                    var url = response.link;
+                    window.location = "facebook?form=link&fbid=" + id + "&fbName=" + name + "&userName=" + "<%=userName%>" + "&fbLink=" + url;
+                });
+            }
+            
+            
+            
+            /*
             function checkAgainstDB() {
                 FB.api('/me', function(response) {
                     id = response.id;
@@ -351,6 +380,7 @@
                     }
                 });
             }
+            */
             </script>
             
 <!-------------------------------------DETAILS PANEL-------------------------------------------------------->
@@ -409,45 +439,20 @@
                                </td>
                            </tr>
                         </table>
-                        <table>
+                        <table id="facebookNotLinked">
                             <tr>
                                 <td>
                                     <div class="panel panel-default">
                                         <div class="panel-body"> 
-                                        <div id="fb" class="heading2">Facebook:</div> 
-                                            <div>Click below to link your Facebook account.</div>
-
-                                                    <!--
-                                                    Below we include the Login Button social plugin. This button uses the JavaScript SDK to
-                                                    present a graphical Login button that triggers the FB.login() function when clicked.
-
-                                                    Learn more about options for the login button plugin:
-                                                    /docs/reference/plugins/login/ -->
-
-                                           <div><fb:login-button show-faces="false" width="200" max-rows="1" autologoutlink="true" scope="email" ></fb:login-button></div>
+                                        <div id="fb" class="heading2">Facebook+:</div>
+                                        <div><button type="button" onclick="facebook();"class="btn btn-xs" data-loading-text="Logging you in...">Link Facebook</button></div>
+                                           <div id="facebookButton" style="display:none"><br><fb:login-button show-faces="false" width="200" max-rows="1" autologoutlink="true" scope="email" ></fb:login-button></div>
+                                        <div class="alert-danger"><%=fbLinkError%></div>
                                        </div>
                                    </div>
                                </td>
                            </tr>
-                            <tr>
-                                <td>
-                                    <div> 
-                                    <div id="fbdelink" style="display:none">
-                                        <form name="delinkfb" action="facebook" method="POST">
-                                        <input name="userName" type="hidden" value="<%=userName%>"/>
-                                        <input name="form" type="hidden" value="delink"/>
-                                        <button type="submit" class="btn btn-xs">Delink Facebook Account</button>
-                                        </form>
-                                    </div>
-                                    <div><%=delinkError%></div>
-                                    </div>
-                                    <div id="fbmsg" style="diplay:none">
-                                    <div class="alert-danger" id="fbmsg" colspan="3" style="display:none">Another player is <br>logged into Facebook<br> on this computer.</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                        </table>
+                        </table>               
                                     
 <!---------------------------------------GOOGLE PANEL---------------------------------------------------------------->                                   
                         <table id="googleLinked">
@@ -469,7 +474,7 @@
                                 <td>
                                     <div class="panel panel-default">
                                         <div class="panel-body"> 
-                                        <div id="fb" class="heading2">Google+:</div>
+                                        <div id="g" class="heading2">Google+:</div>
                                         <div><button type="button" onclick="google();"class="btn btn-xs" data-loading-text="Logging you in...">Link Google+</button></div>
                                            <div id="googleButton" style="display:none"><span id="signinButton"><br>
                                     <span
