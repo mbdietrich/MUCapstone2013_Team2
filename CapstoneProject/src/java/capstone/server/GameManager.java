@@ -118,6 +118,7 @@ BlockingQueue<String>>();
     }
     public static String getPrivateGames(HttpSession session){
         StringBuilder builder = new StringBuilder("{\"games\":[");
+        List<String> friends = databaseAccess.getFriends(session.getAttribute("user").toString());
         boolean first = true;
         for(Entry<String, String> entry: openGames.entrySet()){
             if(!first){
@@ -126,7 +127,7 @@ BlockingQueue<String>>();
             else{
                 first = false;
             }
-            if (privateGames.indexOf(entry.getValue()) != -1){
+            if (privateGames.indexOf(entry.getValue()) != -1 && friends.indexOf(entry.getValue()) != -1){
             builder = builder.append('"').append("PRIVATE " + entry.getValue()).append('"');
             }
         }
