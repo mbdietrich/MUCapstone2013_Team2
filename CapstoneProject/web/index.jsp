@@ -221,7 +221,7 @@
                 } else {
                     document.getElementById("userLogin").style.display="none";
                 }
-                
+                document.getElementById("userName").focus();
             }
 
         </script>
