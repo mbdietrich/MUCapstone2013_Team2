@@ -258,10 +258,17 @@ BlockingQueue<String>>();
     }
 
     public static void joinAnyGame(HttpSession session) {
-        synchronized(openGames){
+        synchronized(openGames){        
         String firstOpen = openGames.keySet().iterator().next();
+        String firstPlayer = openGames.values().iterator().next();
+        if (privateGames.indexOf(firstPlayer) == -1)
+        {
         joinGame(session, firstOpen);
         }
+        else{
+            GameManager.newGame(session);
+        }
+        }
     }
-    
 }
+    
