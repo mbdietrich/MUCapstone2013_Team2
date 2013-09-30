@@ -91,13 +91,15 @@ BlockingQueue<String>>();
         StringBuilder builder = new StringBuilder("{\"games\":[");
         boolean first = true;
         for(Entry<String, String> entry: openGames.entrySet()){
-            if(!first && privateGames.indexOf(entry.getKey()) == -1){
+            if(!first){
                 builder=builder.append(", ");
             }
             else{
                 first = false;
             }
+            if (privateGames.indexOf(entry.getValue()) == -1){
             builder = builder.append('"').append(entry.getValue()).append('"');
+            }
         }
         
         return builder.append("]}").toString();
@@ -118,13 +120,15 @@ BlockingQueue<String>>();
         StringBuilder builder = new StringBuilder("{\"games\":[");
         boolean first = true;
         for(Entry<String, String> entry: openGames.entrySet()){
-            if(!first && privateGames.indexOf(entry.getKey()) != -1){
+            if(!first){
                 builder=builder.append(", ");
             }
             else{
                 first = false;
             }
-            builder = builder.append('"').append(entry.getValue()).append('"');
+            if (privateGames.indexOf(entry.getValue()) != -1){
+            builder = builder.append('"').append("PRIVATE " + entry.getValue()).append('"');
+            }
         }
         
         return builder.append("]}").toString();

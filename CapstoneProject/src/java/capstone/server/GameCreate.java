@@ -41,7 +41,7 @@ public class GameCreate extends HttpServlet {
             response.getWriter().write("joined");
             GameManager.addPrivateName(request.getSession());
         }
-        if (request.getParameter("type").equals("any")) {
+        else if(request.getParameter("type").equals("any")) {
             if (GameManager.openGames.isEmpty()) {
                 GameManager.newGame(request.getSession());
                 response.getWriter().write("created");
