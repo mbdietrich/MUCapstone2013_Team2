@@ -72,14 +72,10 @@ public class GameBotTest {
         }
         assertTrue(flag);
     }
-
-    /**
-     * Test of getName method, of class GameBot.
-     */
+    
     @Test
-    public void testGetName() {
-        String expResult = "DefaultBot";
-        String result = instance.getName();
-        assertEquals(expResult, result);
+    public void testName(){
+        assertTrue(instance.getName()!=null);
+        assertTrue(!instance.getName().isEmpty());
     }
 }
