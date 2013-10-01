@@ -46,7 +46,11 @@
                 });
 
             }
-            
+            var leave = function(){
+                $.post('leave', function(e){
+                    document.location.href = "home.jsp";
+                });
+            }
             var makeMove = function(a, b, x, y){
                 $.post(
                         "move", 
@@ -230,5 +234,6 @@
         <table id="gameframe"></table>
         
         <div id="openWait" class="padTop">Waiting for another player to join..</div>
+        <button onclick="leave()">Leave</button>
     </body>
 </html>
