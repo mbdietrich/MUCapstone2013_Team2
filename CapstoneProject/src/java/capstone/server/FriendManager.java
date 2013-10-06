@@ -33,7 +33,7 @@ public class FriendManager extends HttpServlet {
             //check to see if friend exists
             if(!databaseAccess.playerExists(friend))
             {
-                String message = "Player " + friend + " does not exist";
+                String message = "There is no player with the user name" + friend;
                 this.getServletContext().getRequestDispatcher("/accountManagement.jsp?requestmessage="+message).forward(request, response);
                 return;
             }

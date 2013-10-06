@@ -69,7 +69,7 @@
             window.fbAsyncInit = function() {
                 FB.init({
                     appId: '689318734429599', // App ID
-                    channelUrl: '//http://capstoneg2.jelastic.servint.net/CapstoneProject/channel.html', // Channel File
+                    channelUrl: '//https://capstoneg2.jelastic.servint.net/CapstoneProject/channel.html', // Channel File
                     status: true, // check login status
                     cookie: true, // enable cookies to allow the server to access the session
                     xfbml: true  // parse XFBML
@@ -86,7 +86,7 @@
                         // login status of the person. In this case, we're handling the situation where they 
                         // have logged in to the app.
                         //testAPI();
-                        if(document.getElementById("fbLogin").style.display === "inline") {
+                        if(document.getElementById("fbLogin").style.display !== "none") {
                             fb();
                         }
                     } else if (response.status === 'not_authorized') {
@@ -121,6 +121,7 @@
                 js.src = "//connect.facebook.net/en_US/all.js";
                 ref.parentNode.insertBefore(js, ref);
             }(document));
+            
             // Here we run a very simple test of the Graph API after login is successful. 
             // This testAPI() function is only called in those cases. 
             function testAPI() {
@@ -129,29 +130,13 @@
                     console.log('Good to see you, ' + response.name + '.');
                 });
             }
-            /*
-            function fblogin() {
-                FB.api('/me', function(response) {
-                    if(response.status === 'connected') {
-                        id = response.id;
-                        name = response.name;
-                        email = response.email;
-                        link = response.link;
-                        window.location = "fblogin.jsp?fbid=" + id + "&name=" + name + "&link=" + link + "&fbname=" + name + "&fbemail=" + email + "&referer=both";
-                    } else {
-                        alert("You have not authorised Facebook");
-                    }
-                    
-                });
-            }
-            */
             
             function signinCallback(authResult) {
                 if (authResult['access_token']) {
                     // Successfully authorized
                     if (authResult['error'] == undefined) {
                         gapi.auth.setToken(authResult); //store the returned token
-                        if (document.getElementById("gLogin").style.display === "inline") {
+                        if (document.getElementById("gLogin").style.display === "table-cell") {
                             gapi.client.load('oauth2', 'v2', function() {
                                 var request = gapi.client.oauth2.userinfo.get();
                                 request.execute(googleLogin);
@@ -178,13 +163,15 @@
             function fb() {
                 document.getElementById("gLogin").style.display = "none";
                 document.getElementById("userLogin").style.display = "none";
-                FB.api('/me', function(response) {
+                FB.getLoginStatus(function(response) {
                     if(response.status === 'connected') {
-                        id = response.id;
-                        name = response.name;
-                        email = response.email;
-                        link = response.link;
-                        window.location = "fblogin.jsp?fbid=" + id + "&name=" + name + "&link=" + link + "&fbName=" + name + "&fbemail=" + email + "&referer=both";
+                        FB.api('/me', function(response) {
+                            id = response.id;
+                            name = response.name;
+                            email = response.email;
+                            link = response.link;
+                            window.location = "fblogin.jsp?fbid=" + id + "&name=" + name + "&link=" + link + "&fbName=" + name + "&fbemail=" + email + "&referer=both";
+                        });
                     } else {
                         if(document.getElementById("fbLogin").style.display === "none") {
                             document.getElementById("fbLogin").style.display="table-cell";
