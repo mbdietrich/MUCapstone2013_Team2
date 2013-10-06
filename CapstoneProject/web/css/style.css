@@ -92,6 +92,10 @@ heading1 {
     opacity: 0.15;
 }
 
+.fadeGameButton:hover {
+    opacity: 0.5;
+}
+
 .recentMove {
     opacity: 1;
 }
@@ -104,4 +108,15 @@ heading1 {
     margin-left:auto;
     margin-right:auto;
     width: 100px;
+}
+
+.buttonForm:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.buttonForm {
+    background-color: #d58512;
+    color: black;
 }
