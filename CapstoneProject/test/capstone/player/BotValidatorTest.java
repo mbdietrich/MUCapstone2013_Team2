@@ -6,7 +6,6 @@ package capstone.player;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import capstone.player.TestExcecutor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -42,4 +41,28 @@ public class BotValidatorTest {
         System.out.println(message);
         assertEquals(message, "Pass");
     }
+    
+    @Test(timeout=10000)
+    public void infiniteLoopTest() throws InvocationTargetException, IllegalAccessException{
+        Bot bot = new InfiniteLoopBot();
+        String message = TestExcecutor.testBot(bot);
+        System.out.println(message);
+        assertTrue(message.contains("timed out"));
+    } 
+    
+    @Test
+    public void testValidMove() throws InvocationTargetException, IllegalAccessException{
+        Bot bot = new InvalidMover();
+        String message = TestExcecutor.testBot(bot);
+        System.out.println(message);
+        assertNotSame("Pass", message);
+    } 
+    
+    @Test
+    public void testValidName() throws InvocationTargetException, IllegalAccessException{
+        Bot bot = new InvalidName();
+        String message = TestExcecutor.testBot(bot);
+        System.out.println(message);
+        assertTrue(message.endsWith("failed"));
+    } 
 }
