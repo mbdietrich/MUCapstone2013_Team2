@@ -163,6 +163,11 @@
             function fb() {
                 document.getElementById("gLogin").style.display = "none";
                 document.getElementById("userLogin").style.display = "none";
+                document.getElementById("gPanel").style.display = "none";
+                document.getElementById("userPanel").style.display = "none";
+                document.getElementById("fbPanel").style.display = "none";
+                document.getElementById("reg").style.display = "none";
+                document.getElementById("cancel").style.display = "table-row";
                 FB.getLoginStatus(function(response) {
                     if(response.status === 'connected') {
                         FB.api('/me', function(response) {
@@ -186,6 +191,11 @@
             function google() {
                 document.getElementById("fbLogin").style.display = "none";
                 document.getElementById("userLogin").style.display = "none";
+                document.getElementById("fbPanel").style.display = "none";
+                document.getElementById("userPanel").style.display = "none";
+                document.getElementById("gPanel").style.display = "none";
+                document.getElementById("reg").style.display = "none";
+                document.getElementById("cancel").style.display = "table-row";
                 if(gapi.auth.getToken() != null) {
                     gapi.client.load('oauth2', 'v2', function() {
                         var request = gapi.client.oauth2.userinfo.get();
@@ -203,12 +213,28 @@
             function user() {
                 document.getElementById("gLogin").style.display = "none";
                 document.getElementById("fbLogin").style.display = "none";
+                document.getElementById("gPanel").style.display = "none";
+                document.getElementById("fbPanel").style.display = "none";
+                document.getElementById("userPanel").style.display = "none";
+                document.getElementById("reg").style.display = "none";
+                document.getElementById("cancel").style.display = "table-row";
                 if(document.getElementById("userLogin").style.display === "none") {
                     document.getElementById("userLogin").style.display="table-cell";
                 } else {
                     document.getElementById("userLogin").style.display="none";
                 }
                 document.getElementById("userName").focus();
+            }
+            
+            function cancel(){
+                document.getElementById("gPanel").style.display = "table-row";
+                document.getElementById("fbPanel").style.display = "table-row";
+                document.getElementById("userPanel").style.display = "table-row";
+                document.getElementById("reg").style.display = "table-row";
+                document.getElementById("gLogin").style.display = "none";
+                document.getElementById("fbLogin").style.display = "none";
+                document.getElementById("userLogin").style.display = "none";
+                document.getElementById("cancel").style.display = "none";
             }
 
         </script>
@@ -219,27 +245,42 @@
                                 
                         <tr><td colspan="3" class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
                         <tr><td colspan="3" class="padBottom heading">tic tac toe</td></tr>
-                        <tr>
+                        <tr id="userPanel">
                             <td>
-                                <button type="button" onclick="fb();"class="btn btn-info" data-loading-text="Logging you in...">Log in with Facebook</button>
-                            </td>
-                            <td>
-                                <button type="button" onclick="google();"class="btn btn-info" data-loading-text="Logging you in...">Log in with Google+</button>
-                            </td>
-                            <td>
-                                <button type="button" onclick="user();"class="btn btn-info" data-loading-text="Logging you in...">Log in with username</button>
+                                <button type="button" onclick="user();"class="btn btn-default" data-loading-text="Logging you in...">Log in with username</button>
                             </td>
                         </tr>
-                        
                         <tr>
-                            <td colspan="3" style="text-align: right"><i>Or <a href="accountManagement.jsp" align="center">create a username & password</a></i></td>
+                            <td colspan="3" id="userLogin" style="display:<%=ifError%>">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
+                                            <div class="formPadding"><input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/></div>
+                                            <div class="formPadding"><input name="password" type="password" class="form-control" id="password" placeholder="Password"/></div>
+                                            <div class="alert-danger"><%=error%></div>
+                                            <div><button type="submit button" class="btn btn-xs" data-loading-text="Logging you in...">Log In</button></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="fbPanel">
+                            <td>
+                                <button type="button" onclick="fb();"class="btn btn-default" data-loading-text="Logging you in...">Log in with Facebook</button>
+                            </td>
                         </tr>
                         <tr>
                             <!-- facebook -->
                             <td colspan="3" id="fbLogin" style="display:none">
                                 <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email"></fb:login-button>
                             </td>
-                            
+                        </tr>
+                        <tr id="gPanel">
+                            <td>
+                                <button type="button" onclick="google();"class="btn btn-default" data-loading-text="Logging you in...">Log in with Google+</button>
+                            </td>
+                        </tr>
+                        <tr>
                             <!-- google+ -->
                             <td colspan="3" id="gLogin" style="display:none">
                                 <span id="signinButton">
@@ -254,19 +295,16 @@
                                     </span>
                                 </span>
                             </td>
-                            
-                            <!-- username/password -->
-                            <td colspan="3" id="userLogin" style="display:<%=ifError%>">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
-                                            <div class="formPadding"><input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/></div>
-                                            <div class="formPadding"><input name="password" type="password" class="form-control" id="password" placeholder="Password"/></div>
-                                            <div class="alert-danger"><%=error%></div>
-                                            <div><button type="submit button" class="btn btn-xs" data-loading-text="Logging you in...">Log In</button></div>
-                                        </form>
-                                    </div>
-                                </div>
+                        </tr>
+                        
+                        <tr id="reg">
+                            <td>
+                                <button type="button" onclick="window.location.href='accountManagement.jsp'" class="btn btn-default" data-loading-text="Loading..">Register</button>
+                            </td>
+                        </tr>
+                        <tr id="cancel" style="display:none">
+                            <td>
+                                <button type="button" onclick="cancel();" class="btn btn-xs">Back</button>
                             </td>
                         </tr>
                 </table>

@@ -96,6 +96,10 @@ heading1 {
     opacity: 0.5;
 }
 
+.lockGameButton:hover {
+    opacity: 0.3;
+}
+
 .recentMove {
     opacity: 1;
 }

@@ -230,10 +230,11 @@
             </nav>
             
         <div class="padBottom heading"><%= session.getAttribute("user")%> vs Opponent</div>
+        <button onclick="leave()">Leave</button>
         <div><p id="isTurnAlert" class="padBottom"></p></div>
         <table id="gameframe"></table>
         
         <div id="openWait" class="padTop">Waiting for another player to join..</div>
-        <button onclick="leave()">Leave</button>
+        
     </body>
 </html>
