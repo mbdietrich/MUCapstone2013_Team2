@@ -15,6 +15,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Test;
 
@@ -64,10 +67,16 @@ public class TestExcecutor {
                         try {
                             m.invoke(test);
                             return "OK";
-                        } catch (AssertionError e) {
-                            return "Fail";
-                        } catch (Throwable e) {
-                            return "Test " + m.getName() + " threw " + e.getClass().getSimpleName() + " at line " + e.getStackTrace()[0].getLineNumber();
+                        } catch (InvocationTargetException e) {
+                            if(!(e.getCause() instanceof AssertionError)){
+                                return "Test " + m.getName() + " threw " + e.getClass().getSimpleName() + " at line " + e.getStackTrace()[1].getLineNumber();
+                            }
+                            else{
+                                return "Fail";
+                            }
+                            
+                        }catch(Exception e){
+                            return "Error executing test "+m.getName();
                         }
                     }
                 };
@@ -76,12 +85,13 @@ public class TestExcecutor {
                 executor.execute(future);
 
                 try {
-                    Thread.sleep(2000);
-                    String s = future.get();
-                    if(s==null){
+                    String s;
+                    try {
+                        s = future.get(2, TimeUnit.SECONDS);
+                    } catch (TimeoutException ex) {
                         return "Test "+m.getName()+" timed out";
                     }
-                    else if(s.equals("Fail")){
+                    if(s.equals("Fail")){
                         return "Test "+m.getName()+" failed";
                     }
                     else if(s.equals("OK")){
