@@ -110,7 +110,7 @@ public class databaseAccess {
     public static boolean addPlayer(Map details) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("INSERT into players (user, password, email) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"'");
+            st.executeUpdate("INSERT into players (user, password, email) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"')");
             st.close();
             return true;
 	}
@@ -123,7 +123,7 @@ public class databaseAccess {
     public static boolean addGooglePlayer(Map details) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("INSERT into players (user, password, email, gid, gName, gLink) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"','"+Encryption.encrypt(details.get("gid").toString())+"','"+Encryption.encrypt(details.get("gName").toString())+"','"+Encryption.encrypt(details.get("gLink").toString())+"'");
+            st.executeUpdate("INSERT into players (user, password, email, gid, gName, gLink) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"','"+Encryption.encrypt(details.get("gid").toString())+"','"+Encryption.encrypt(details.get("gName").toString())+"','"+Encryption.encrypt(details.get("gLink").toString())+"')");
             st.close();
             return true;
 	}
@@ -136,7 +136,7 @@ public class databaseAccess {
     public static boolean addFBPlayer(Map details) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("INSERT into players (user, password, email, fbid, fName, fLink) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"','"+Encryption.encrypt(details.get("fbid").toString())+"','"+Encryption.encrypt(details.get("fName").toString())+"','"+Encryption.encrypt(details.get("fLink").toString())+"'");
+            st.executeUpdate("INSERT into players (user, password, email, fbid, fName, fLink) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"','"+Encryption.encrypt(details.get("fbid").toString())+"','"+Encryption.encrypt(details.get("fName").toString())+"','"+Encryption.encrypt(details.get("fLink").toString())+"')");
             st.close();
             return true;
 	}
