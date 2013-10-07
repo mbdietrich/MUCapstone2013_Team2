@@ -244,7 +244,6 @@
             function googleLogin(obj) {
             var id = obj['id'];
             var name = obj['name'];
-            var email = obj['email'];
             var url = obj['link'];
             window.location = "google?form=link&gid=" + id + "&gName=" + name + "&userName=" + "<%=userName%>" + "&gLink=" + url;
             }
@@ -257,6 +256,7 @@
             }
             function facebook() {
                 if(document.getElementById("facebookButton").style.display === "none") {
+                    facebookLogin();
                     document.getElementById("facebookButton").style.display="inherit";
                 } else {
                     document.getElementById("facebookButton").style.display="none";
@@ -351,16 +351,18 @@
             }(document));
             
             function facebookLogin() {
-                FB.api('/me', function(response) {
-                    var id = response.id;
-                    var name = response.name;
-                    var url = response.link;
-                    window.location = "facebook?form=link&fbid=" + id + "&fbName=" + name + "&userName=" + "<%=userName%>" + "&fbLink=" + url;
+                FB.getLoginStatus(function(response) {
+                    if(response === 'connected') {
+                        FB.api('/me', function(response) {
+                            var id = response.id;
+                            var name = response.name;
+                            var url = response.link;
+                            window.location = "facebook?form=link&fbid=" + id + "&fbName=" + name + "&userName=" + "<%=userName%>" + "&fbLink=" + url;
+                        });
+                    }
                 });
             }
-            
-            
-            
+    
             /*
             function checkAgainstDB() {
                 FB.api('/me', function(response) {
@@ -444,7 +446,7 @@
                                 <td>
                                     <div class="panel panel-default">
                                         <div class="panel-body"> 
-                                        <div id="fb" class="heading2">Facebook:</div>
+                                        <div id="fb" class="heading2">Facebook+:</div>
                                         <div><button type="button" onclick="facebook();"class="btn btn-xs" data-loading-text="Logging you in...">Link Facebook</button></div>
                                            <div id="facebookButton" style="display:none"><br><fb:login-button show-faces="false" width="200" max-rows="1" autologoutlink="true" scope="email" ></fb:login-button></div>
                                         <div class="alert-danger"><%=fbLinkError%></div>
