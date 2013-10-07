@@ -146,8 +146,12 @@
             gDelinkError = "Error: try again";
         } else if (error.equals("fblinkError")) {
             fbLinkError = "Error: try again";
-        } else if (error.equals("fbDelinkErrir")) {
+        } else if (error.equals("fbDelinkError")) {
             fbDelinkError = "Error: try again";
+        } else if (error.equals("fbExistsError")) {
+            fbLinkError = "Another player is logged into Facebook on this computer.";
+        } else if (error.equals("gExistsError")) {
+            gLinkError = "Another player is logged into Google on this computer.";
         }
     }
     

@@ -43,13 +43,17 @@ public class FacebookManager extends HttpServlet {
             String fbid = request.getParameter("fbid");
             String fbName = request.getParameter("fbName");
             String fbLink = request.getParameter("fbLink");
-            if(databaseAccess.addFBID(userName, fbid, fbName, fbLink)) {
-                this.getServletContext().getRequestDispatcher("/accountManagement.jsp").forward(request, response);
-            } else {
-                String message = "fbLinkError";
+            if(databaseAccess.fbidExists(fbid)) {
+                String message = "fbExistsError";
                 this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request,response);
+            } else {
+                if(databaseAccess.addFBID(userName, fbid, fbName, fbLink)) {
+                    this.getServletContext().getRequestDispatcher("/accountManagement.jsp").forward(request, response);
+                } else {
+                    String message = "fbLinkError";
+                    this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request,response);
+                }
             }
-            
         } else if(request.getParameter("form").equals("update")) {
             //add facebook id to existing account
             String userName = request.getParameter("userName");

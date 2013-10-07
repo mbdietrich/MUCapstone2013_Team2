@@ -275,6 +275,40 @@ public class databaseAccess {
         }
     }
     
+    public static boolean fbidExists(String id) {
+        try {
+            Statement st = createConnection();
+            ResultSet rs = st.executeQuery("SELECT * FROM players WHERE fbid ='"+Encryption.encrypt(id)+"'");
+            if(rs.next()) {
+                st.close();
+                return true;   
+            } else {
+                st.close();
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true;
+        }
+    }
+    
+    public static boolean gidExists(String id) {
+        try {
+            Statement st = createConnection();
+            ResultSet rs = st.executeQuery("SELECT * FROM players WHERE gid ='"+Encryption.encrypt(id)+"'");
+            if(rs.next()) {
+                st.close();
+                return true;   
+            } else {
+                st.close();
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true;
+        }
+    }
+    
     public static List<String> getFriends(String player) {
         List<String> friends = new ArrayList<String>();
         String names = "";

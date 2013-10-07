@@ -42,15 +42,17 @@ public class GoogleManager extends HttpServlet {
             String gid = request.getParameter("gid");
             String gName = request.getParameter("gName");
             String gLink = request.getParameter("gLink");
-            if(databaseAccess.addGID(userName, gid, gName, gLink)) {
-                this.getServletContext().getRequestDispatcher("/accountManagement.jsp").forward(request, response);
-            } else {
-                String message = "gLinkError";
+            if(databaseAccess.gidExists(gid)) {
+                String message = "gExistsError";
                 this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request,response);
+            } else {
+                if(databaseAccess.addGID(userName, gid, gName, gLink)) {
+                    this.getServletContext().getRequestDispatcher("/accountManagement.jsp").forward(request, response);
+                } else {
+                    String message = "gLinkError";
+                    this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request,response);
+                }
             }
-            
-            
-            
         } else if(request.getParameter("form").equals("update")) {
             //add google details to existing account
             String userName = request.getParameter("userName");
