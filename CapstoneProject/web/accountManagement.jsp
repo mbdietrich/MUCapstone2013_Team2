@@ -26,6 +26,8 @@
         
         <title>TTT - Profile</title>
         
+        <noscript><meta http-equiv="refresh" content="0;URL=noscript.jsp"/></noscript>
+        
         <script>
             function trim(s)
             {

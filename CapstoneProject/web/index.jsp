@@ -19,6 +19,8 @@
         
         <title>Tic Tac Toe</title>
         
+        <noscript><meta http-equiv="refresh" content="0;URL=noscript.jsp"/></noscript>
+        
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="bootstrap/js/bootstrap.min.js"></script>

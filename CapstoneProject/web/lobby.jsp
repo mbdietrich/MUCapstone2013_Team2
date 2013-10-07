@@ -30,6 +30,8 @@
         
         <title>TTT - Lobby</title>
         
+        <noscript><meta http-equiv="refresh" content="0;URL=noscript.jsp"/></noscript>
+        
         <script>
             var singlePlayer = function() {
                 $.post("create", {type: "solo", botname: "DefaultBot"}, function(e) {
