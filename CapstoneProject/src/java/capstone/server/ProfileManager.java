@@ -97,7 +97,7 @@ public class ProfileManager extends HttpServlet {
                 if(details.get("userName").equals(userName)) {
                     String message = "userName";
                     this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
-                } else if(details.get("email").equals(email)) {
+                } else if(databaseAccess.emailExists(email)) {
                     String message = "email";
                     this.getServletContext().getRequestDispatcher("/accountManagement.jsp?error="+message).forward(request, response);
                 }
