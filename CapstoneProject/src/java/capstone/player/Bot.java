@@ -53,7 +53,7 @@ public abstract class Bot implements Player {
                 
             Coordinates c = null;
             try{
-                c = future.get(2, TimeUnit.SECONDS);
+                c = future.get(1, TimeUnit.MINUTES);
                 if(c!=null&&GameRules.validMove(current.getCurrentGame(), c)){
                     current.move(this,c);
                 }
