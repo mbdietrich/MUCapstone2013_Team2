@@ -35,5 +35,8 @@ public class GameRecorder {
             players.get(gameID).putCoords(coords);
         }
     }
+    public static List<String> getGames(String player){
+        return gameIDs.get(player);
+    }
 }
 
