@@ -1,11 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String error = request.getParameter("error");
-    String ifError = "none";
     if (error == null || error == "null") {
         error = "";
-    } else {
-        ifError = "inline";
     }
 %>
 <!DOCTYPE html>
@@ -25,29 +22,6 @@
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script>
-            function trim(s)
-            {
-                return s.replace(/^s*/, "").replace(/s*$/, "");
-            }
-            function validate()
-            {
-                if (trim(document.login.userName.value) === "")
-                {
-                    
-                    makeAlert("Please enter a Username");
-                    elem2 = document.getElementById("userName");
-                    elem2.firstElementChild.focus();
-                    return false;
-                }
-                else if (trim(document.login.password.value) === "")
-                {
-                    makeAlert("Please enter a password");
-                    elem2 = document.getElementById("password");
-                    elem2.firstElementChild.focus();
-                    return false;
-                }
-            }
-            
             function makeAlert(message){
                 elem1 = document.getElementById('alert');
                     newel = document.createElement("div");
@@ -159,16 +133,13 @@
             var name = obj['name'];
             var email = obj['email'];
             var url = obj['link'];
-            window.location = "googleLogin.jsp?gid=" + id + "&gName=" + name + "&name=" + name + "&gemail=" + email + "&link=" + url + "&referer=both";
+            window.location = "SocialLogin?gid=" + id + "&name=" + name + "&email=" + email + "&fbid=0";
             }
             
             function fb() {
                 document.getElementById("gLogin").style.display = "none";
-                document.getElementById("userLogin").style.display = "none";
                 document.getElementById("gPanel").style.display = "none";
-                document.getElementById("userPanel").style.display = "none";
                 document.getElementById("fbPanel").style.display = "none";
-                document.getElementById("reg").style.display = "none";
                 document.getElementById("cancel").style.display = "table-row";
                 FB.getLoginStatus(function(response) {
                     if(response.status === 'connected') {
@@ -177,7 +148,7 @@
                             name = response.name;
                             email = response.email;
                             link = response.link;
-                            window.location = "fblogin.jsp?fbid=" + id + "&name=" + name + "&link=" + link + "&fbName=" + name + "&fbemail=" + email + "&referer=both";
+                            window.location = "SocialLogin?fbid=" + id + "&name=" + name + "&gid=0&email=" + email;
                         });
                     } else {
                         if(document.getElementById("fbLogin").style.display === "none") {
@@ -192,11 +163,8 @@
             
             function google() {
                 document.getElementById("fbLogin").style.display = "none";
-                document.getElementById("userLogin").style.display = "none";
                 document.getElementById("fbPanel").style.display = "none";
-                document.getElementById("userPanel").style.display = "none";
                 document.getElementById("gPanel").style.display = "none";
-                document.getElementById("reg").style.display = "none";
                 document.getElementById("cancel").style.display = "table-row";
                 if(gapi.auth.getToken() != null) {
                     gapi.client.load('oauth2', 'v2', function() {
@@ -212,30 +180,11 @@
                 }
             }
             
-            function user() {
-                document.getElementById("gLogin").style.display = "none";
-                document.getElementById("fbLogin").style.display = "none";
-                document.getElementById("gPanel").style.display = "none";
-                document.getElementById("fbPanel").style.display = "none";
-                document.getElementById("userPanel").style.display = "none";
-                document.getElementById("reg").style.display = "none";
-                document.getElementById("cancel").style.display = "table-row";
-                if(document.getElementById("userLogin").style.display === "none") {
-                    document.getElementById("userLogin").style.display="table-cell";
-                } else {
-                    document.getElementById("userLogin").style.display="none";
-                }
-                document.getElementById("userName").focus();
-            }
-            
             function cancel(){
                 document.getElementById("gPanel").style.display = "table-row";
                 document.getElementById("fbPanel").style.display = "table-row";
-                document.getElementById("userPanel").style.display = "table-row";
-                document.getElementById("reg").style.display = "table-row";
                 document.getElementById("gLogin").style.display = "none";
                 document.getElementById("fbLogin").style.display = "none";
-                document.getElementById("userLogin").style.display = "none";
                 document.getElementById("cancel").style.display = "none";
             }
 
@@ -247,25 +196,7 @@
                                 
                         <tr><td colspan="3" class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
                         <tr><td colspan="3" class="padBottom heading">tic tac toe</td></tr>
-                        <tr id="userPanel">
-                            <td>
-                                <button type="button" onclick="user();"class="btn btn-default" data-loading-text="Logging you in...">Log in with username</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" id="userLogin" style="display:<%=ifError%>">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <form role="form" name="login" onSubmit="return validate();" action="login" method="POST">
-                                            <div class="formPadding"><input name="userName" type="text" class="form-control" id="userName" placeholder="Username"/></div>
-                                            <div class="formPadding"><input name="password" type="password" class="form-control" id="password" placeholder="Password"/></div>
-                                            <div class="alert-danger"><%=error%></div>
-                                            <div><button type="submit button" class="btn btn-xs" data-loading-text="Logging you in...">Log In</button></div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                        
                         <tr id="fbPanel">
                             <td>
                                 <button type="button" onclick="fb();"class="btn btn-default" data-loading-text="Logging you in...">Log in with Facebook</button>
@@ -298,10 +229,9 @@
                                 </span>
                             </td>
                         </tr>
-                        
-                        <tr id="reg">
+                        <tr id="error">
                             <td>
-                                <button type="button" onclick="window.location.href='accountManagement.jsp'" class="btn btn-default" data-loading-text="Loading..">Register</button>
+                                <%=error%>
                             </td>
                         </tr>
                         <tr id="cancel" style="display:none">

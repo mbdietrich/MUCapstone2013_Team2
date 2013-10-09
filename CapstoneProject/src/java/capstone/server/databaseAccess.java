@@ -107,10 +107,74 @@ public class databaseAccess {
 	}
     }
     
+    public static Map getPlayerDetailsByEmail(String email) {
+        Map details = new HashMap();
+        try {
+            Statement st = createConnection();
+            ResultSet rs = st.executeQuery("SELECT * FROM players WHERE email ='"+Encryption.encrypt(email)+"'");
+            if(rs.next()) {
+                details.put("userName", Encryption.decrypt(rs.getString(1)));
+                details.put("password", Encryption.decrypt(rs.getString(2)));
+                details.put("email", Encryption.decrypt(rs.getString(3)));
+                if(Encryption.decrypt(rs.getString(4)).equals("0")) {
+                    details.put("fbid", "");
+                } else {
+                    details.put("fbid", Encryption.decrypt(rs.getString(4)));
+                }
+                details.put("id", rs.getString(5));
+                if(rs.getString(6).equals("0")) {
+                    details.put("friends", "");
+                } else {
+                    details.put("friends", rs.getString(6));
+                }
+                if(rs.getString(7).equals("0")) {
+                    details.put("friendRequests", "");
+                } else {
+                    details.put("friendRequests", rs.getString(7));
+                }
+                if(Encryption.decrypt(rs.getString(8)).equals("0")) {
+                    details.put("gid", "");
+                } else {
+                    details.put("gid", Encryption.decrypt(rs.getString(8)));
+                }
+                if(Encryption.decrypt(rs.getString(9)).equals("0")) {
+                    details.put("gName", "");
+                } else {
+                    details.put("gName", Encryption.decrypt(rs.getString(9)));
+                }
+                if(Encryption.decrypt(rs.getString(10)).equals("0")) {
+                    details.put("gLink", "");
+                } else {
+                    details.put("gLink", Encryption.decrypt(rs.getString(10)));
+                }
+                if(Encryption.decrypt(rs.getString(11)).equals("0")) {
+                    details.put("fbName", "");
+                } else {
+                    details.put("fbName", Encryption.decrypt(rs.getString(11)));
+                }
+                if(Encryption.decrypt(rs.getString(12)).equals("0")) {
+                    details.put("fbLink", "");
+                } else {
+                    details.put("fbLink", Encryption.decrypt(rs.getString(12)));
+                }
+            }
+            st.close();
+            return details;
+	}
+	catch (Exception e) {
+            e.printStackTrace();
+            return details;
+	}
+    }
+    
     public static boolean addPlayer(Map details) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("INSERT into players (user, password, email) VALUES ('"+Encryption.encrypt(details.get("userName").toString())+"','"+Encryption.encrypt(details.get("password").toString())+"','"+Encryption.encrypt(details.get("email").toString())+"')");
+            String user = (String)details.get("userName");
+            String email = (String)details.get("email");
+            String gid = (String)details.get("gid");
+            String fbid = (String)details.get("fbid");
+            st.executeUpdate("INSERT into players (user, email, gid, fbid) VALUES ('"+Encryption.encrypt(user)+"','"+Encryption.encrypt(email)+"','"+Encryption.encrypt(gid)+"','"+Encryption.encrypt(fbid)+"')");
             st.close();
             return true;
 	}
@@ -227,10 +291,10 @@ public class databaseAccess {
 	}
     }
     
-    public static boolean addFBID(String player, String id, String profileName, String link) {
+    public static boolean addFBID(String email, String id) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("UPDATE players SET fbid='"+Encryption.encrypt(id)+"', fbName='"+Encryption.encrypt(profileName)+"', fbLink='"+Encryption.encrypt(link)+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            st.executeUpdate("UPDATE players SET fbid='"+Encryption.encrypt(id)+"' WHERE email='"+Encryption.encrypt(email)+"'");
             return true;
         }
         catch (Exception e) {
@@ -239,10 +303,10 @@ public class databaseAccess {
         }
     }
     
-    public static boolean addGID(String player, String id, String profileName, String link) {
+    public static boolean addGID(String email, String id) {
         try {
             Statement st = createConnection();
-            st.executeUpdate("UPDATE players SET gid='"+Encryption.encrypt(id)+"', gName='"+Encryption.encrypt(profileName)+"', gLink='"+Encryption.encrypt(link)+"' WHERE user='"+Encryption.encrypt(player)+"'");
+            st.executeUpdate("UPDATE players SET gid='"+Encryption.encrypt(id)+"' WHERE email='"+Encryption.encrypt(email)+"'");
             return true;
         }
         catch (Exception e) {
