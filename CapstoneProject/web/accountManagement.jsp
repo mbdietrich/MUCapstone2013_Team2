@@ -159,7 +159,6 @@
     
     // if user logged in, display profile information
     String userName = (String)session.getAttribute("user");
-    if(userName != null) {
         Map details = databaseAccess.getPlayerDetails(userName);
         String email = "";
         String fbid = "";
@@ -583,60 +582,4 @@
                 })();
     </script>
     </body>
-    <%
-    // if user not logged in, present registration page
-    } else {
-        String userNameValue = "placeholder='username'";
-        String emailValue = "placeholder='email'";
-        String fbid = "";
-        if(request.getParameter("userName") != null) {
-            userNameValue = "value='"+request.getParameter("userName")+"'";
-        }
-        if(request.getParameter("email") != null) {
-            emailValue = "value='"+request.getParameter("email")+"'";
-        }
-        if(request.getParameter("fbid") != null) {
-            fbid = request.getParameter("fbid");
-        }
-        %>
-        <body>
-            
-            <div class="padBottom2"></div>
-                
-                    <table align="center">
-                        <tr><td class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
-                        <tr>
-                            <td class="padBottom heading">Create Profile</td>
-                        </tr>                 
-                        <tr>
-                            <td>
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <form name="manager" onSubmit="return validate();" action="profile" method="POST">
-                                            <div class="formPadding"><input id="userName" class="form-control formPadding" name="userName" type="text" size="20" <%=userNameValue%> /></div>
-                                            <div class="alert-danger"><%=userNameError%></div>
-                                            <div class="formPadding"><input id="email" class="form-control formPadding" name="email" type="text" size="20" <%=emailValue%> /></div>
-                                            <div class="alert-danger"><%=emailError%></div>
-                                            <div class="formPadding"><input id="password" class="form-control formPadding" name="password" type="password" size="20" placeholder="password" /></div>
-                                            <div class="formPadding"><input id="confirmpassword" class="form-control" name="confirmPassword" type="password" size="20" placeholder="confirm password" /></div>
-                                            <div class="alert-danger"><%=exceptionError%></div>
-                                            <div><input name="form" type="hidden" value="register"/></div>
-                                            <div><input type="submit" name="submit" value="Save" class="btn btn-xs" /></div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i>or <a href="index.jsp" align="center">Log In</a></i></td>
-                        </tr>
-                    </table>
-                
-                        <script type="text/javascript" src="jquery-1.8.3.js"></script>
-                        <!-- Include all compiled plugins (below), or include individual files as needed -->
-                        <script src="bootstrap/js/bootstrap.min.js"></script>
-        </body>
-        <%
-    }
-   %>
 </html>

@@ -32,6 +32,10 @@
         <servlet-name>GoogleManager</servlet-name>
         <servlet-class>capstone.server.GoogleManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SocialLogin</servlet-name>
+        <servlet-class>capstone.server.SocialLogin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PlayerJoin</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -99,6 +103,10 @@
     <servlet-mapping>
         <servlet-name>GoogleManager</servlet-name>
         <url-pattern>/google</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SocialLogin</servlet-name>
+        <url-pattern>/SocialLogin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

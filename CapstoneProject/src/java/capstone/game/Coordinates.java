@@ -66,4 +66,8 @@ public class Coordinates
     {
         return innerY;
     }
+    public String getAllCoords()
+    {
+        return Integer.toString(outerX) + Integer.toString(outerY) + Integer.toString(innerX) + Integer.toString(innerY);
+    }
 }
