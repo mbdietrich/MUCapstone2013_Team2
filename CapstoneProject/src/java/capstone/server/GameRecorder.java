@@ -43,5 +43,8 @@ public class GameRecorder {
             game.setPlayer2(player);
         }
     }
+    public static List<String> getGames(String player){
+        return gameIDs.get(player);
+    }
 }
 
