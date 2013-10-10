@@ -35,10 +35,11 @@ public class GameRecorder {
             players.get(gameID).putCoords(coords);
         }
         GameRecord game = players.get(gameID);
-        if (game.getPlayer1().equals("")){
+        if (game.getPlayer1().equals(""))
+        {
             game.setPlayer1(player);
         }
-        else
+        else if (!player.equals(game.getPlayer1()) && game.getPlayer2().equals(""))
         {
             game.setPlayer2(player);
         }
