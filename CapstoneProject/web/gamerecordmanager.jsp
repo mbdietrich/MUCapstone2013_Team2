@@ -25,6 +25,14 @@
         <noscript><meta http-equiv="refresh" content="0;URL=noscript.jsp"/></noscript>
 
         <script>
+            var loadGames = function() {
+                $.getJSON(
+                        "GetRecordedGames",
+                        function(data){refresh(data.games);}
+                )
+            }
+           
+            
             window.onload = function() {
 
 
