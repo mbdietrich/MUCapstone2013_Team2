@@ -5,7 +5,6 @@
 package capstone.player.bot;
 
 import capstone.player.Bot;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.CompilerException;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -21,10 +20,11 @@ public class BotCompiler {
 
     static JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
-    public static Bot Compile(String source, String id) throws CompilerException {
+    
+    public static Bot Compile(String source, String id) throws BotCompilationException {
         if (compiler
                 == null) {
-            throw new CompilerException("No compiler found");
+            throw new BotCompilationException("No compiler found");
         } else {
             DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
             JavaFileObject file = new JavaSourceFromString(id, source);
@@ -35,13 +35,20 @@ public class BotCompiler {
             boolean success = task.call();
             
             if(!success){
-                throw new CompilerException("There was an error compiling the code");
+                throw new BotCompilationException("There was an error compiling the code");
             }
             try {            
                 Bot bot = (Bot)Class.forName(id).newInstance();
                 
-                //TODO
-                return null;
+                //TODO validation
+                String msg = TestExcecutor.testBot(bot);
+                if(msg.equals("Pass")){
+                return bot;
+                }
+                else{
+                    throw new BotCompilationException(msg);
+                }
+                
                 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(BotCompiler.class.getName()).log(Level.SEVERE, null, ex);
