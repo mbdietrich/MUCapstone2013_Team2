@@ -40,6 +40,10 @@
         <servlet-name>PrivateGameMatch</servlet-name>
         <servlet-class>capstone.server.PrivateGameMatch</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GameRecordGet</servlet-name>
+        <servlet-class>capstone.server.GameRecordGet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PlayerJoin</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -115,6 +119,10 @@
     <servlet-mapping>
         <servlet-name>PrivateGameMatch</servlet-name>
         <url-pattern>/match</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameRecordGet</servlet-name>
+        <url-pattern>/GameRecordGet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

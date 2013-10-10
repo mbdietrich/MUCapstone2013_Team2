@@ -135,6 +135,24 @@ BlockingQueue<String>>();
         
         return builder.append("]}").toString();
     }
+    public static String getRecordedGames(HttpSession session){
+        StringBuilder builder = new StringBuilder("{\"games\":[");
+        String user = session.getAttribute("user").toString();
+        List games = GameRecorder.getGames(user);
+        boolean first = true;
+        for(Object entry: games){
+            if(!first){
+                builder=builder.append(", ");
+            }
+            else{
+                first = false;
+            }
+            builder = builder.append('"').append("Game ").append(entry.toString()).append('"');
+            
+        }
+        
+        return builder.append("]}").toString();
+    }
     
     public static String getOpenGames(){
         StringBuilder builder = new StringBuilder();

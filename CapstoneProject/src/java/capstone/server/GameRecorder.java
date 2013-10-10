@@ -44,7 +44,19 @@ public class GameRecorder {
         }
     }
     public static List<String> getGames(String player){
-        return gameIDs.get(player);
+        List<String> games = gameIDs.get(player);
+        List<String> gamePlayers = new ArrayList();
+        for (String e: games)
+        {
+            GameRecord temp = players.get(e);
+            String playerTemp = temp.getPlayer1() + " " + temp.getPlayer2();
+            gamePlayers.add(playerTemp);
+        }
+        return gamePlayers;
     }
+    public static List<String> getGameCoords (String gameID){
+        GameRecord record = players.get(gameID);
+        List temp = record.getCoords();
+        return temp;
 }
-
+}

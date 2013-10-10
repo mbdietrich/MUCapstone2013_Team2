@@ -18,6 +18,9 @@ public class GameRecord {
     public List gameList(){
         return coords;
     }
+    public List<String> getCoords(){
+        return coords;
+    }
     public void putCoords(String coord){
         coords.add(coord);
     }
