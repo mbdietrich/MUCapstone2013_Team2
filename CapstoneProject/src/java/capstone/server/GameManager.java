@@ -179,6 +179,7 @@ BlockingQueue<String>>();
         
         
         session.setAttribute("user", name);
+        session.setAttribute("gid", gid);
         players.put(session, new RemotePlayer(name));
         playerDetails.put(name, gid);
         BlockingQueue<String> messageQueue = new ArrayBlockingQueue<String>(10);
@@ -187,6 +188,7 @@ BlockingQueue<String>>();
     
     public static void disconnect (HttpSession session) {
         GameManager.leave(session);
+        playerDetails.remove(players.get(session).toString());
         players.remove(session);
         states.remove(session);
     }

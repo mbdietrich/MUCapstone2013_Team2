@@ -17,8 +17,9 @@
     Object[] playersKeys = onlinePlayers.values().toArray();
     String players = "";
     for(int i=0;i<playersKeys.length;i++) {
-        players = players + playersKeys[i];
-    }    
+        players = players + playersKeys[i] +" ";
+    }
+            
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -104,23 +105,28 @@
     document.getElementById('signinButton').setAttribute('style', 'display: none');
     gapi.client.load('plus', 'v1', function() {
         var request = gapi.client.plus.people.list({
-        'userId' : 'me',
-        'collection' : 'visible'
-    });
+            'userId' : 'me',
+            'collection' : 'visible'
+        });
     
-    request.execute(function(resp) {
-        var numItems = resp.items.length;
-        for (var i=0;i<numItems;i++) {
-            console.log(resp.items[i].displayName);
-            var onlinePlayers = "<%=players%>";
-            if(resp.items[i].id.indexOf(onlinePlayers) !== -1) {
-                addGoogleFriend(resp.items[i].displayName);
+        request.execute(function(resp) {
+            var numItems = resp.items.length;
+            var numberOfFriends = 0;
+            for (var i=0;i<numItems;i++) {
+                var onlinePlayers = "<%=players%>";
+                if(onlinePlayers.indexOf(resp.items[i].id) !== -1) {
+                    addGoogleFriend(resp.items[i].displayName);
+                    numberOfFriends = numberOfFriends + 1;
+                }
             }
-            //addGoogleFriend(resp.items[i].id);
-        }
-        
+            if(numberOfFriends === 0) {
+                alert("no friends");
+                document.getElementById("noFriends").style.display = "inline";
+            }
+        });
     });
-    });
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("googleFriends").style.display = "inline-table";
     
   } else if (authResult['error']) {
     // Update the app to reflect a signed out user
@@ -137,9 +143,46 @@ function addGoogleFriend(friend) {
     var y=x.insertCell(0);
     y.innerHTML=friend;
 }
-        </script>
+</script>
     </head>
-    <body>
+    <body onload="load();">
+    <script src="sonic.js"></script>
+    <script>
+        var loader = new Sonic({
+
+		width: 50,
+		height: 50,
+
+		stepsPerFrame: 1,
+		trailLength: 1,
+		pointDistance: .02,
+		fps: 30,
+
+		fillColor: '#05E2FF',
+
+		step: function(point, index) {
+			
+			this._.beginPath();
+			this._.moveTo(point.x, point.y);
+			this._.arc(point.x, point.y, index * 7, 0, Math.PI*2, false);
+			this._.closePath();
+			this._.fill();
+
+		},
+
+		path: [
+			['arc', 25, 25, 15, 0, 360]
+		]
+
+	});
+        
+        function load() {
+        loader.play();
+        document.getElementById("loading").appendChild(loader.canvas);
+        }
+                
+    </script>
+
             <nav class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -186,9 +229,11 @@ function addGoogleFriend(friend) {
 </span>
             </div> 
                 
-                    <table id="googleFriends" align="center">
-                        <tr><td colspan="3" class="padBottom heading">Online Friends</td></tr>
+                    <table id="googleFriends" align="center" style="display:none">
                     </table>
+                <div id="loading"></div>
+                <div id="noFriends" style="display:none" class="padBottom heading">None of your friends are currently online</div>
+                
                 <script type="text/javascript">
       (function() {
        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
