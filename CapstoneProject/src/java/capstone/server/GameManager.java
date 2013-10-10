@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 public class GameManager {
     
+    public static Map<String, String> playerDetails = new ConcurrentHashMap<String, String>();
     public static Map<HttpSession, RemotePlayer> players = new ConcurrentHashMap<HttpSession, RemotePlayer>();
     public static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
     public static Map<GameSession, List<HttpSession>> watchers = new ConcurrentHashMap<GameSession, List<HttpSession>>();
@@ -174,17 +175,20 @@ BlockingQueue<String>>();
         
     }
     
-    public static void newPlayer(HttpSession session, String name){
+    public static void newPlayer(HttpSession session, String name, String gid){
         
         
         session.setAttribute("user", name);
+        session.setAttribute("gid", gid);
         players.put(session, new RemotePlayer(name));
+        playerDetails.put(name, gid);
         BlockingQueue<String> messageQueue = new ArrayBlockingQueue<String>(10);
         states.put(session, messageQueue);
     }
     
     public static void disconnect (HttpSession session) {
         GameManager.leave(session);
+        playerDetails.remove(players.get(session).toString());
         players.remove(session);
         states.remove(session);
     }
@@ -233,6 +237,17 @@ BlockingQueue<String>>();
         return null;
     }
     
+    public static String getAnyGameID(GameSession game){
+    for(Entry<String,GameSession> entry: gameIDs.entrySet()){
+        if (entry.getValue().equals(game)){
+            return entry.getKey();
+    }
+    }
+    return null;
+    }
+    
+    
+    
     public static RemotePlayer getPlayer(HttpSession session){
         return players.get(session);
     }
@@ -247,7 +262,7 @@ BlockingQueue<String>>();
             if (GameRules.validMove(board, coords)){
                 player.setActive(false);
                 game.move(player, coords);
-                GameRecorder.record(game.toString(), session.getAttribute("user").toString(), coords.getAllCoords());
+                GameRecorder.record(getAnyGameID(game), session.getAttribute("user").toString(), coords.getAllCoords());
                 for(HttpSession s: watchers.get(game)){
                 String nextState=JSONBuilder.buildJSON(game, players.get(s));
                 states.get(s).offer(nextState);

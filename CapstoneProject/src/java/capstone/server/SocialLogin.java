@@ -28,7 +28,8 @@ public class SocialLogin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
-        GameManager.newPlayer(request.getSession(), name);
+        String gid = request.getParameter("gid");
+        GameManager.newPlayer(request.getSession(), name, gid);
         //forward player to the main page
         this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
     }
