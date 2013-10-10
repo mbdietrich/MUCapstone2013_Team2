@@ -1,15 +1,24 @@
 <%-- 
-    Document   : lobby
-    Created on : 30/07/2013, 1:12:16 PM
-    Author     : Max, Jesse
-
-    lobby.jsp is where the player is sent before a game starts, but after logging in.
+    Document   : privateGame
+    Created on : Oct 10, 2013, 11:25:47 AM
+    Author     : luke
 --%>
+<%@page import="capstone.server.GameManager"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Collection"%>
 <%
     String userName = (String) session.getAttribute("user");
     if (userName == null) {
         response.sendRedirect("index.jsp");
     }
+    
+    Map onlinePlayers = GameManager.playerDetails;
+    Object[] playersKeys = onlinePlayers.values().toArray();
+    String players = "";
+    for(int i=0;i<playersKeys.length;i++) {
+        players = players + playersKeys[i];
+    }    
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -58,11 +67,9 @@
                 });
             }
             var openPrivateGame = function(){
-                window.location = "privateGame.jsp";
-                /*
                 $.post("create", {type: "newprivate"}, function(e) {
                     document.location.href= "game.jsp";
-                })*/
+                })
             }         
             var openGame = function() {
                 $.post("create", {type: "open"}, onGameCreate);
@@ -89,6 +96,47 @@
             var onGameCreate = function(data) {
                 //TODO update lobby.jsp if the player has created a game
             }
+            
+            function signinCallback(authResult) {
+  if (authResult['access_token']) {
+    // Update the app to reflect a signed in user
+    // Hide the sign-in button now that the user is authorized, for example:
+    document.getElementById('signinButton').setAttribute('style', 'display: none');
+    gapi.client.load('plus', 'v1', function() {
+        var request = gapi.client.plus.people.list({
+        'userId' : 'me',
+        'collection' : 'visible'
+    });
+    
+    request.execute(function(resp) {
+        var numItems = resp.items.length;
+        for (var i=0;i<numItems;i++) {
+            console.log(resp.items[i].displayName);
+            var onlinePlayers = "<%=players%>";
+            if(resp.items[i].id.indexOf(onlinePlayers) !== -1) {
+                addGoogleFriend(resp.items[i].displayName);
+            }
+            //addGoogleFriend(resp.items[i].id);
+        }
+        
+    });
+    });
+    
+  } else if (authResult['error']) {
+    // Update the app to reflect a signed out user
+    // Possible error values:
+    //   "user_signed_out" - User is signed-out
+    //   "access_denied" - User denied access to your app
+    //   "immediate_failed" - Could not automatically log in the user
+    console.log('Sign-in state: ' + authResult['error']);
+  }
+}
+
+function addGoogleFriend(friend) {
+    var x=document.getElementById('googleFriends').insertRow(0);
+    var y=x.insertCell(0);
+    y.innerHTML=friend;
+}
         </script>
     </head>
     <body>
@@ -124,9 +172,29 @@
 
             <div class="jumbotron">
                 <div class="container">
-                    <div class="heading1">Welcome <%= session.getAttribute("user")%>!</div>
-                        <button type="button" class="btn btn-xs btn-default" onclick="singlePlayer();">Quick Game</button>
+                    <div class="heading1">Select a friend to play against!</div>
                 </div>
+                <span id="signinButton" style="display:none">
+  <span
+    class="g-signin"
+    data-callback="signinCallback"
+    data-clientid="1062173662525.apps.googleusercontent.com"
+    data-cookiepolicy="single_host_origin"
+    data-requestvisibleactions="http://schemas.google.com/AddActivity"
+    data-scope="https://www.googleapis.com/auth/plus.login">>
+  </span>
+</span>
             </div> 
+                
+                    <table id="googleFriends" align="center">
+                        <tr><td colspan="3" class="padBottom heading">Online Friends</td></tr>
+                    </table>
+                <script type="text/javascript">
+      (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+    </script>
     </body>
 </html>
