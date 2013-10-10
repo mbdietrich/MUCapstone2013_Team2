@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.player;
+package capstone.player.bot;
 
+import capstone.player.Bot;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.CompilerException;
 import java.net.URI;
 import java.util.Arrays;
