@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 public class GameManager {
     
+    public static Map<String, String> playerDetails = new ConcurrentHashMap<String, String>();
     public static Map<HttpSession, RemotePlayer> players = new ConcurrentHashMap<HttpSession, RemotePlayer>();
     public static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
     public static Map<GameSession, List<HttpSession>> watchers = new ConcurrentHashMap<GameSession, List<HttpSession>>();
@@ -174,11 +175,12 @@ BlockingQueue<String>>();
         
     }
     
-    public static void newPlayer(HttpSession session, String name){
+    public static void newPlayer(HttpSession session, String name, String gid){
         
         
         session.setAttribute("user", name);
         players.put(session, new RemotePlayer(name));
+        playerDetails.put(name, gid);
         BlockingQueue<String> messageQueue = new ArrayBlockingQueue<String>(10);
         states.put(session, messageQueue);
     }
