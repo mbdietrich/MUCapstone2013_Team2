@@ -25,7 +25,7 @@ public class GameRecorder {
         if (gameIDs.get(player).indexOf(gameID) == -1) {
             GameRecord game = new GameRecord();
             game.putCoords(coords);
-            if (!players.get(gameID).equals(game))
+            if (players.get(gameID) != game)
             {
                 players.put(gameID, game);
             }
@@ -34,6 +34,17 @@ public class GameRecorder {
         else {
             players.get(gameID).putCoords(coords);
         }
+        GameRecord game = players.get(gameID);
+        if (game.getPlayer1().equals("")){
+            game.setPlayer1(player);
+        }
+        else
+        {
+            game.setPlayer2(player);
+        }
+    }
+    public static List<String> getGames(String player){
+        return gameIDs.get(player);
     }
 }
 

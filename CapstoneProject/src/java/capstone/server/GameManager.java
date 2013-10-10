@@ -235,6 +235,17 @@ BlockingQueue<String>>();
         return null;
     }
     
+    public static String getAnyGameID(GameSession game){
+    for(Entry<String,GameSession> entry: gameIDs.entrySet()){
+        if (entry.getValue().equals(game)){
+            return entry.getKey();
+    }
+    }
+    return null;
+    }
+    
+    
+    
     public static RemotePlayer getPlayer(HttpSession session){
         return players.get(session);
     }
@@ -249,7 +260,7 @@ BlockingQueue<String>>();
             if (GameRules.validMove(board, coords)){
                 player.setActive(false);
                 game.move(player, coords);
-                GameRecorder.record(game.toString(), session.getAttribute("user").toString(), coords.getAllCoords());
+                GameRecorder.record(getAnyGameID(game), session.getAttribute("user").toString(), coords.getAllCoords());
                 for(HttpSession s: watchers.get(game)){
                 String nextState=JSONBuilder.buildJSON(game, players.get(s));
                 states.get(s).offer(nextState);
