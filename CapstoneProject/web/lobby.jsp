@@ -57,10 +57,13 @@
                 });
             }
             var openPrivateGame = function(){
+                window.location = "privateGame.jsp";
+                /*
                 var user = session.user;
                 $.post("create", {type: "newprivate"}, function(e) {
                     document.location.href= "game.jsp";
                 })
+                */
             }
             var openGame = function() {
                 $.post("create", {type: "open"}, onGameCreate);
