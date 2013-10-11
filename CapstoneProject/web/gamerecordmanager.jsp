@@ -27,11 +27,16 @@
         <script>
             var loadGames = function() {
                 $.getJSON(
-                        "GameRecordGet",
-                        function(data){refresh(data.games);}
+                        "GameRecordGet",{type: "games"},function(data){refresh(data.games);}
                 )
             }
-           
+           var loadCoords = function() {
+               var gameID = document.getElementById("gameList")
+
+                $.getJSON(
+                        "GameRecordGet",{type: "coords", gameid: ""},function(data){alert(data.games);}
+                )
+            }
             
             window.onload = function() {
 
@@ -137,5 +142,6 @@
                 <td><table id="gameframe"></table></td>
             </tr>
         </table>
+            <button onclick="loadCoords()">Load Coords</button>
     </body>
 </html>

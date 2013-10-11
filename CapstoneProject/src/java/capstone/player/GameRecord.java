@@ -11,15 +11,22 @@ import java.util.ArrayList;
  * @author Steve
  */
 public class GameRecord {
-    public List<String> coords = new ArrayList();
-    public String player1 = "";
-    public String player2 = "";
+    private List<String> coords = new ArrayList();
+    private String player1 = "";
+    private String player2 = "";
+    private String gameID = "";
 
     public List gameList(){
         return coords;
     }
     public List<String> getCoords(){
         return coords;
+    }
+    public String getGameID(){
+        return this.gameID;
+    }
+    public void setGameID(String gID){
+        this.gameID = gID;
     }
     public void putCoords(String coord){
         coords.add(coord);

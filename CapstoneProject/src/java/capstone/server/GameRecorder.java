@@ -37,6 +37,7 @@ public class GameRecorder {
         GameRecord game = players.get(gameID);
         if (game.getPlayer1().equals(""))
         {
+            game.setGameID(gameID);
             game.setPlayer1(player);
         }
         else if (!player.equals(game.getPlayer1()) && game.getPlayer2().equals(""))
@@ -50,7 +51,7 @@ public class GameRecorder {
         for (String e: games)
         {
             GameRecord temp = players.get(e);
-            String playerTemp = temp.getPlayer1() + " " + temp.getPlayer2();
+            String playerTemp = "[" +temp.getGameID()+ ", " + temp.getPlayer1() + ", " + temp.getPlayer2()+"]";
             gamePlayers.add(playerTemp);
         }
         return gamePlayers;
