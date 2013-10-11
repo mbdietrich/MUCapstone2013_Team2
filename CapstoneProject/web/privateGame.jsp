@@ -12,13 +12,6 @@
     if (userName == null) {
         response.sendRedirect("index.jsp");
     }
-    
-    Map onlinePlayers = GameManager.playerDetails;
-    Object[] playersKeys = onlinePlayers.values().toArray();
-    String players = "";
-    for(int i=0;i<playersKeys.length;i++) {
-        players = players + playersKeys[i] + " ";
-    }
             
 %>
 
