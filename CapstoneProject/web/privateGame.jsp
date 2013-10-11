@@ -17,7 +17,7 @@
     Object[] playersKeys = onlinePlayers.values().toArray();
     String players = "";
     for(int i=0;i<playersKeys.length;i++) {
-        players = players + playersKeys[i] +" ";
+        players = players + playersKeys[i] + " ";
     }
             
 %>
@@ -43,6 +43,17 @@
         <script src="bootstrap/js/bootstrap.min.js"></script>
         
         <script>
+            var source = new EventSource("GoogleFriends");
+            source.onmessage = function(event) {
+                console.log("on message");
+                if (event.data) { // only update if the string is not empty
+                    compareGoogleFriends(event.data);
+                }
+            };
+            
+            var googleFriends;
+            
+            
             var singlePlayer = function() {
                 $.post("create", {type: "solo", botname: "DefaultBot"}, function(e) {
                     document.location.href = "game.jsp";
@@ -110,19 +121,7 @@
         });
     
         request.execute(function(resp) {
-            var numItems = resp.items.length;
-            var numberOfFriends = 0;
-            for (var i=0;i<numItems;i++) {
-                var onlinePlayers = "<%=players%>";
-                if(onlinePlayers.indexOf(resp.items[i].id) !== -1) {
-                    addGoogleFriend(resp.items[i].displayName);
-                    numberOfFriends = numberOfFriends + 1;
-                }
-            }
-            if(numberOfFriends === 0) {
-                alert("no friends");
-                document.getElementById("noFriends").style.display = "inline";
-            }
+            googleFriends = resp;
         });
     });
     document.getElementById("loading").style.display = "none";
@@ -138,10 +137,33 @@
   }
 }
 
-function addGoogleFriend(friend) {
-    var x=document.getElementById('googleFriends').insertRow(0);
-    var y=x.insertCell(0);
-    y.innerHTML=friend;
+function compareGoogleFriends(online) {
+    //first, remove the table
+    var parent = document.getElementById("googleFriends");
+    while(parent.hasChildNodes()) {
+        parent.removeChild(parent.firstChild);
+    }
+
+    var friendsToDisplay = new Array();
+    var numItems = googleFriends.items.length;
+    var onlinePlayers = online;
+    for (var i=0;i<numItems;i++) {
+        if(onlinePlayers.indexOf(googleFriends.items[i].id) !== -1) {   //if the google friend is online
+            if(friendsToDisplay.indexOf(googleFriends.items[i].displayName) === -1) {    
+                friendsToDisplay.push(googleFriends.items[i].displayName);
+                var x=document.getElementById('googleFriends').insertRow(0);
+                var y=x.insertCell(0);
+                y.innerHTML=googleFriends.items[i].displayName;
+            }
+        }
+    }
+    if(friendsToDisplay.length === 0) {
+        document.getElementById("noFriends").style.display = "inline";
+        document.getElementById("googleFriends").style.display = "none";
+    } else {
+        document.getElementById("noFriends").style.display = "none";
+        document.getElementById("googleFriends").style.display = "inline-table";
+    }
 }
 </script>
     </head>
@@ -180,7 +202,6 @@ function addGoogleFriend(friend) {
         loader.play();
         document.getElementById("loading").appendChild(loader.canvas);
         }
-                
     </script>
 
             <nav class="navbar navbar-default" role="navigation">
