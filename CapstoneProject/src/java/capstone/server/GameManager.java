@@ -285,5 +285,15 @@ BlockingQueue<String>>();
         }
         }
     }
+    
+    public static String getOnlineGooglePlayers() {
+        Map onlinePlayers = GameManager.playerDetails;
+        Object[] playersKeys = onlinePlayers.values().toArray();
+        String players = "";
+        for(int i=0;i<playersKeys.length;i++) {
+            players = players + playersKeys[i] +" ";
+        }
+        return players;
+    }
 }
     
