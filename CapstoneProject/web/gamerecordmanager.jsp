@@ -27,7 +27,7 @@
         <script>
             var loadGames = function() {
                 $.getJSON(
-                        "GetRecordedGames",
+                        "GameRecordGet",
                         function(data){refresh(data.games);}
                 )
             }
@@ -129,7 +129,7 @@
         </nav>
         <table >
             <tr>
-                <td><div class="heading padBottom">Select a game to play: <br><br><button type="button" class="btn btn-xs" onclick="loadGames()">Click to refresh list.</button></div>
+                <td><div class="heading padBottom">Select a game to play: <br><br><button type="button" class="btn btn-xs" onclick="loadGames();">Click to refresh list.</button></div>
                     <div>
                         <select class="input-sm" multiple="no" id="gameList"></select> 
                         <div id="joinButton"></div>

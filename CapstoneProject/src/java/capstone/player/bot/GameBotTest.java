@@ -2,11 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.player;
+package capstone.player.bot;
 
 import capstone.game.Coordinates;
 import capstone.game.GameRules;
 import capstone.game.GameState;
+import capstone.player.Bot;
+import capstone.player.GameBot;
 import capstone.player.GameBot;
 import org.junit.After;
 import org.junit.AfterClass;
