@@ -161,35 +161,32 @@ function compareGoogleFriends(online) {
 </script>
     </head>
     <body onload="load();">
-        <nav class="navbar navbar-default" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="home.jsp">tic tac toe</a>
-                </div>
-
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="home.jsp">Home</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" title="Create new games, and view open games.">Games <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
-                                <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
-                                <li><a href="#" onclick="openPrivateGame();">New Private Game</a></li>
-                                <li><a href="lobby.jsp">Open Games</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="accountManagement.jsp" data-toggle="tooltip" title="Update your profile and find friends.">Profile</a></li>
-                        
-                    </ul>
-                    <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></p>                    
-                </div>
+        <div class="navBar1">
+            <div id="menuLeft">
+                <span><a href="home.jsp"><img src="images/menu_header.png" alt="title"/></a></span>
+                
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><img src="images/menu.png" id="menuIcon" alt="menu"/></a>
+                    
+                        <ul>
+                            <li><a href="#">Play +</a>
+                                <ul>
+                                    <li><a href="#" onclick="singlePlayer();">Bot</a></li>
+                                    <li><a href="#" onclick="multiPlayer();">User</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
+                            <li><a href="lobby.jsp">Public Games</a></li>
+                            <li><a href="gamerecordmanager.jsp">Played Games</a></li>
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="logout.jsp">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </nav>
+        </div>
     <script src="sonic.js"></script>
     <script>
         var loader = new Sonic({
