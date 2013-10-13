@@ -6,6 +6,10 @@ package capstone.player.bot;
 
 import capstone.player.Bot;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
@@ -19,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.tools.*;
 import javax.tools.JavaCompiler.CompilationTask;
+import org.objectweb.asm.ClassReader;
 
 /**
  *
@@ -80,7 +85,9 @@ public class BotCompiler {
                 
                 ClassLoader loader = new URLClassLoader(urls);
 
-                Class thisClass = loader.loadClass("id");
+                Class thisClass = loader.loadClass(id);
+                
+                securityCheck(thisClass, path);
 
                 Bot bot = (Bot)thisClass.newInstance();
                 
@@ -104,5 +111,37 @@ public class BotCompiler {
             }
 
         }
+    }
+    
+    private static void securityCheck(Class clazz, String path) throws BotCompilationException{
+        InputStream in = null;
+        try {
+            DependencyCollector  collector = new DependencyCollector();
+            File classFile = new File(path + clazz.getName().replace('.','/')+".class");
+            in = new FileInputStream(classFile);
+            new ClassReader(in).accept(collector, 0);
+            
+            for (String ref:collector.getReferenced()) {
+                if(ref.startsWith("java.util")||ref.startsWith("capstone")){
+                    continue;
+                }
+                if(ref.startsWith("java.lang")&&!ref.contains("System")){
+                    continue;
+                }
+                throw new BotCompilationException("Error: Access to classes outside of bot-specific classes, java.util and java.lang (except System) not permitted.");
+            }
+            
+        } catch (FileNotFoundException ex) {
+            throw new BotCompilationException("There was an error accessing the bytecode");
+        } catch (IOException ex) {
+            throw new BotCompilationException("There was an error accessing the bytecode");
+        } finally {
+            try {
+                in.close();
+            } catch (IOException ex) {
+                throw new BotCompilationException("There was an error accessing the bytecode");
+            }
+        }
+
     }
 }
