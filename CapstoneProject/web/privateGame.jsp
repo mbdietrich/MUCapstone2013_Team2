@@ -12,13 +12,6 @@
     if (userName == null) {
         response.sendRedirect("index.jsp");
     }
-    
-    Map onlinePlayers = GameManager.playerDetails;
-    Object[] playersKeys = onlinePlayers.values().toArray();
-    String players = "";
-    for(int i=0;i<playersKeys.length;i++) {
-        players = players + playersKeys[i] +" ";
-    }
             
 %>
 
@@ -43,6 +36,17 @@
         <script src="bootstrap/js/bootstrap.min.js"></script>
         
         <script>
+            var source = new EventSource("GoogleFriends");
+            source.onmessage = function(event) {
+                console.log("on message");
+                if (event.data) { // only update if the string is not empty
+                    compareGoogleFriends(event.data);
+                }
+            };
+            
+            var googleFriends;
+            
+            
             var singlePlayer = function() {
                 $.post("create", {type: "solo", botname: "DefaultBot"}, function(e) {
                     document.location.href = "game.jsp";
@@ -110,19 +114,7 @@
         });
     
         request.execute(function(resp) {
-            var numItems = resp.items.length;
-            var numberOfFriends = 0;
-            for (var i=0;i<numItems;i++) {
-                var onlinePlayers = "<%=players%>";
-                if(onlinePlayers.indexOf(resp.items[i].id) !== -1) {
-                    addGoogleFriend(resp.items[i].displayName);
-                    numberOfFriends = numberOfFriends + 1;
-                }
-            }
-            if(numberOfFriends === 0) {
-                alert("no friends");
-                document.getElementById("noFriends").style.display = "inline";
-            }
+            googleFriends = resp;
         });
     });
     document.getElementById("loading").style.display = "none";
@@ -138,14 +130,63 @@
   }
 }
 
-function addGoogleFriend(friend) {
-    var x=document.getElementById('googleFriends').insertRow(0);
-    var y=x.insertCell(0);
-    y.innerHTML=friend;
+function compareGoogleFriends(online) {
+    //first, remove the table
+    var parent = document.getElementById("googleFriends");
+    while(parent.hasChildNodes()) {
+        parent.removeChild(parent.firstChild);
+    }
+
+    var friendsToDisplay = new Array();
+    var numItems = googleFriends.items.length;
+    var onlinePlayers = online;
+    for (var i=0;i<numItems;i++) {
+        if(onlinePlayers.indexOf(googleFriends.items[i].id) !== -1) {   //if the google friend is online
+            if(friendsToDisplay.indexOf(googleFriends.items[i].displayName) === -1) {    
+                friendsToDisplay.push(googleFriends.items[i].displayName);
+                var x=document.getElementById('googleFriends').insertRow(0);
+                var y=x.insertCell(0);
+                y.innerHTML=googleFriends.items[i].displayName;
+            }
+        }
+    }
+    if(friendsToDisplay.length === 0) {
+        document.getElementById("noFriends").style.display = "inline";
+        document.getElementById("googleFriends").style.display = "none";
+    } else {
+        document.getElementById("noFriends").style.display = "none";
+        document.getElementById("googleFriends").style.display = "inline-table";
+    }
 }
 </script>
     </head>
     <body onload="load();">
+        <div class="navBar1">
+            <div id="menuLeft">
+                <span><a href="home.jsp"><img src="images/menu_header.png" alt="title"/></a></span>
+                
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><img src="images/menu.png" id="menuIcon" alt="menu"/></a>
+                    
+                        <ul>
+                            <li><a href="#">Play +</a>
+                                <ul>
+                                    <li><a href="#" onclick="singlePlayer();">Bot</a></li>
+                                    <li><a href="#" onclick="multiPlayer();">User</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
+                            <li><a href="lobby.jsp">Public Games</a></li>
+                            <li><a href="gamerecordmanager.jsp">Played Games</a></li>
+                            <li><a href="accountManagement.jsp">Profile</a></li>
+                            <li><a href="logout.jsp">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     <script src="sonic.js"></script>
     <script>
         var loader = new Sonic({
@@ -180,38 +221,9 @@ function addGoogleFriend(friend) {
         loader.play();
         document.getElementById("loading").appendChild(loader.canvas);
         }
-                
     </script>
 
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="home.jsp">tic tac toe</a>
-                </div>
-
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="home.jsp">Home</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" title="Create new games, and view open games.">Games <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" onclick="singlePlayer();">Play a bot</a></li>
-                                <li><a href="#" onclick="multiPlayer();">Play a user</a></li>
-                                <li><a href="#" onclick="openPrivateGame();">New Private Game</a></li>
-                                <li><a href="lobby.jsp">Open Games</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="accountManagement.jsp" data-toggle="tooltip" title="Update your profile and find friends.">Profile</a></li>
-                        
-                    </ul>
-                    <p class="navbar-text navbar-right">Hello, <%= session.getAttribute("user")%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></p>                    
-                </div>
-            </nav>
+            
 
             <div class="jumbotron">
                 <div class="container">

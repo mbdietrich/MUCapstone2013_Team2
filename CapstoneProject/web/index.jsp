@@ -194,9 +194,8 @@
                     
                     <table align="center">
                                 
-                        <tr><td colspan="3" class="padBottom"><img src="images/icon.png" alt="login"/></td></tr>
-                        <tr><td colspan="3" class="padBottom heading">tic tac toe</td></tr>
-                        
+                        <tr><td colspan="3" class="padBottom"><img src="images/login_icon.png" alt="login"/></td></tr>
+                      
                         <tr id="fbPanel">
                             <td>
                                 <button type="button" onclick="fb();"class="btn btn-default" data-loading-text="Logging you in...">Log in with Facebook</button>

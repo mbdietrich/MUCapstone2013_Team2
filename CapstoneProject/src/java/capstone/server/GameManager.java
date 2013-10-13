@@ -154,6 +154,22 @@ BlockingQueue<String>>();
         return builder.append("]}").toString();
     }
     
+    public static String getRecordedGameCoords(String gameID){
+        StringBuilder builder = new StringBuilder("{\"coords\":[");
+        List coords = GameRecorder.getGameCoords(gameID);
+        boolean first = true;
+        for(Object entry: coords){
+            if(!first){
+                builder=builder.append(", ");
+            }
+            else{
+                first = false;
+            }
+            builder = builder.append('"').append(entry.toString()).append('"');
+            
+        }
+        return builder.append("]}").toString();
+    }
     public static String getOpenGames(){
         StringBuilder builder = new StringBuilder();
         builder=builder.append("{\"games\":");
@@ -302,6 +318,16 @@ BlockingQueue<String>>();
             GameManager.newGame(session);
         }
         }
+    }
+    
+    public static String getOnlineGooglePlayers() {
+        Map onlinePlayers = GameManager.playerDetails;
+        Object[] playersKeys = onlinePlayers.values().toArray();
+        String players = "";
+        for(int i=0;i<playersKeys.length;i++) {
+            players = players + playersKeys[i] +" ";
+        }
+        return players;
     }
 }
     

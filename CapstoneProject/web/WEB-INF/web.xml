@@ -41,8 +41,8 @@
         <servlet-class>capstone.server.PrivateGameMatch</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GameRecordGet</servlet-name>
-        <servlet-class>capstone.server.GameRecordGet</servlet-class>
+        <servlet-name>GoogleFriends</servlet-name>
+        <servlet-class>capstone.server.GoogleFriends</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PlayerJoin</servlet-name>
@@ -121,8 +121,8 @@
         <url-pattern>/match</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GameRecordGet</servlet-name>
-        <url-pattern>/GameRecordGet</url-pattern>
+        <servlet-name>GoogleFriends</servlet-name>
+        <url-pattern>/GoogleFriends</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

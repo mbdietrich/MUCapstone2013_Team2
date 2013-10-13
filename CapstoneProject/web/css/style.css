@@ -20,16 +20,36 @@ table, th, td{
 }
 
 #gameframe {
-    height: 450px; 
-    width: 450px; 
+
     text-align:center; 
     margin:auto;
     background-color: white;
+    padding: 20px 0px 0px 0px;
 }
 #gameframe td {
     padding: 0px;
     height: 50px;
     width: 50px;   
+}
+/*GAME AREA*/
+#gameArea {
+    width: 100%;
+    min-width: 1200px;
+}
+
+.playerLabel {
+    padding: 20px; 
+}
+#team1 {
+    background: black;
+    color: white;
+   
+}
+
+#team2 {
+    background: black;
+    color: white;
+    
 }
 
 #gameList {
@@ -49,16 +69,20 @@ body {
     font-family: 'Century Gothic';
     font-size: 12px;
     text-align: center;
+    background: white;
+    min-width: 900px;
+    background: #ff9966;
 }
+
 
 .heading, .heading1 {
     text-transform: uppercase;
 }
 
-.heading, .heading2 {
-    font-weight: bold;
+h1, h2 {
+    font-family: 'Century Gothic';
 }
-heading1 {
+h1 {
     font-stretch: ultra-expanded;
 }
 
@@ -123,4 +147,95 @@ heading1 {
 .buttonForm {
     background-color: #d58512;
     color: black;
+}
+
+/* MENU */
+nav {
+    white-space: nowrap;
+}
+nav ul ul {
+	display: none;
+        
+}
+
+	nav ul li:hover > ul {
+		display: block;
+	}
+        
+nav ul {
+	
+	padding: 0 20px;
+	border-radius: 10px;  
+	list-style: none;
+	position: relative;
+	display: inline-table;
+        float: right;
+}
+	nav ul:after {
+		content: ""; clear: both; display: block;
+	}
+
+nav ul li {
+	float: left;
+}
+	nav ul li:hover {
+		background: black;
+		
+	}
+		nav ul li:hover a {
+			color: #ff9966;
+		}
+	
+	nav ul li a {
+		display: block; 
+                padding: 25px 40px;
+		color: black; 
+                text-decoration: none;
+	}
+        
+nav ul ul {
+	background: black; 
+        border-radius: 0px; 
+        padding: 0;
+	position: absolute; 
+        top: 100%;
+}
+	nav ul ul li {
+		float: none; 
+		border-top: 1px solid white;
+		position: relative;
+	}
+		nav ul ul li a {
+			padding: 15px 40px;
+			color: black;
+		}	
+			nav ul ul li a:hover {
+				background: black;
+			}
+                        
+nav ul ul ul {
+	position: absolute; right: 100%; top:0;
+}
+
+#menuIcon {
+    width: 40px;
+    height: 40px;
+}
+
+.navBar1 {
+    display: inline-table;
+    background: black;
+    width: 100%;
+}
+
+#menuLeft {
+    float: left;
+    display: block;
+    padding: 20px 0px 0px 20px;
+}
+
+
+
+.jumbotron {
+    background: #ff9966;
 }

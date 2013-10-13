@@ -19,14 +19,21 @@ import javax.servlet.http.HttpServletResponse;
 public class GameRecordGet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         response.setContentType("text");
         response.setCharacterEncoding("UTF-8");
+        
         PrintWriter out = response.getWriter();
         
-        String recordedGames = GameManager.getRecordedGames(request.getSession());
-        out.append(recordedGames);
-        response.flushBuffer();
+        if (request.getParameter("type").equals("games")) {
+            String recordedGames = GameManager.getRecordedGames(request.getSession());
+            out.append(recordedGames);
+            response.flushBuffer();
+        }
+        if (request.getParameter("type").equals("coords")) {
+            String coords = GameManager.getRecordedGameCoords(request.getParameter("gameID"));
+            out.append(coords);
+            response.flushBuffer();
+        }
     }
 }
