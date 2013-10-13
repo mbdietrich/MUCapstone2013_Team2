@@ -20,16 +20,36 @@ table, th, td{
 }
 
 #gameframe {
-    height: 450px; 
-    width: 450px; 
+
     text-align:center; 
     margin:auto;
     background-color: white;
+    padding: 20px 0px 0px 0px;
 }
 #gameframe td {
     padding: 0px;
     height: 50px;
     width: 50px;   
+}
+/*GAME AREA*/
+#gameArea {
+    width: 100%;
+    min-width: 1200px;
+}
+
+.playerLabel {
+    padding: 20px; 
+}
+#team1 {
+    background: black;
+    color: white;
+   
+}
+
+#team2 {
+    background: black;
+    color: white;
+    
 }
 
 #gameList {
@@ -53,6 +73,7 @@ body {
     min-width: 900px;
     background: #ff9966;
 }
+
 
 .heading, .heading1 {
     text-transform: uppercase;
@@ -129,7 +150,9 @@ h1 {
 }
 
 /* MENU */
-
+nav {
+    white-space: nowrap;
+}
 nav ul ul {
 	display: none;
         
@@ -211,19 +234,7 @@ nav ul ul ul {
     padding: 20px 0px 0px 20px;
 }
 
-.gameDiv {
-    padding: 20px;
-}
 
-#team1 {
-    background: black;
-    color: white;
-}
-
-#team2 {
-    background: black;
-    color: white;
-}
 
 .jumbotron {
     background: #ff9966;

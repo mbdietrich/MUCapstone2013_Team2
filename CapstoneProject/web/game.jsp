@@ -68,12 +68,12 @@
                     
                     if(state.open){
                         document.getElementById("isTurnAlert").style.display = 'none';
-                        document.getElementById("gameframe").style.display = 'none';
+                        document.getElementById("gameArea").style.display = 'none';
                         document.getElementById("openWait").style.display = '';
                     }
                     else if(!state.waiting){
                     document.getElementById("openWait").style.display = 'none';
-                    document.getElementById("gameframe").style.display = '';
+                    document.getElementById("gameArea").style.display = '';
 
                     //TODO parse state in
                     //variables:
@@ -230,23 +230,30 @@
             
         
         
-        <table>
+        <table id="gameArea">
             <tr>
                 <td>
-                    <div id="team1" class="gameDiv"><h1><%= session.getAttribute("user")%></h1></div>
+                    <div id="team1" class="playerLabel"><h1><%= session.getAttribute("user")%></h1></div>
                 </td>
                 <td>
-                    <div class="gameDiv"><table class="gameDiv" id="gameframe"></table></div>
+                    <div class="gameDiv"><table id="gameframe"></table></div>
                 </td>
                 <td>
-                    <div id="team2" class="gameDiv"><h1>Opponent</h1></div>
+                    <div id="team2" class="playerLabel"><h1>Opponent</h1></div>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button onclick="leave()" class="btn btn-xs">Leave</button>
+                    <div><p id="isTurnAlert" class="padBottom"></p></div>
+                </td>
+                <td></td>
             </tr>
         </table>
         
         
-        <div id="openWait" class="padTop">Waiting for another player to join..</div>
-        <!--<button onclick="leave()">Leave</button>
-        <div><p id="isTurnAlert" class="padBottom"></p></div>-->
+        <div id="openWait" class="padTop">Waiting for another player to join..<br><button onclick="leave()" class="btn btn-xs">Cancel</button></div>
+        
     </body>
 </html>
