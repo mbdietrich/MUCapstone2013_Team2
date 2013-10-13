@@ -124,7 +124,7 @@
             <div class="jumbotron">
                 <div class="container">
                     <div class="notices"><h2>Welcome <%= session.getAttribute("user")%>!</h2></div>
-                        <button type="button" class="btn btn-xs btn-default" onclick="singlePlayer();">Quick Game</button>
+                    <div class="buttons buttons1"><a href="#" onclick="singlePlayer();">Quick Game</a></div>
                 </div>
             </div> 
         

@@ -80,7 +80,7 @@ body {
     text-transform: uppercase;
 }
 
-h1, h2 {
+h1, h2, h3 {
     font-family: 'Century Gothic';
 }
 h1 {
@@ -161,10 +161,36 @@ h1 {
     padding: 10px; 
 }
 
+.buttons {
+    background: black;
+    color: white;
+    padding: 10px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttons:hover {
+    opacity: 0.8;
+}
+
+.buttons a {
+    text-decoration: none;
+    color: white;
+}
+
+.buttons1 {
+    width: 200px; 
+}
+
+.buttons2 {
+    width: 100px;
+}
+
 .buttonForm:hover {
     background-color: black;
     color: white;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .buttonForm {

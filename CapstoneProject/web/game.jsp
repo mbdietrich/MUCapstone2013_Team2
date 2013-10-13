@@ -248,7 +248,6 @@
             <tr>
                 <td></td>
                 <td>
-                    <div class="padTop2"><button onclick="leave()" class="btn btn-xs">Leave</button></div>
                     <div><p id="isTurnAlert" class="padBottom"></p></div>
                 </td>
                 <td></td>
