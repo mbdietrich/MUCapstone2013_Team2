@@ -118,11 +118,12 @@
                     </li>
                 </ul>
             </nav>
+            <div class="menuRight h3"><span>HOME</span></div>
         </div>
 
             <div class="jumbotron">
                 <div class="container">
-                    <div><h2>Welcome <%= session.getAttribute("user")%>!</h2></div>
+                    <div class="notices"><h2>Welcome <%= session.getAttribute("user")%>!</h2></div>
                         <button type="button" class="btn btn-xs btn-default" onclick="singlePlayer();">Quick Game</button>
                 </div>
             </div> 

@@ -293,6 +293,7 @@
                     </li>
                 </ul>
             </nav>
+                <div class="menuRight h3"><span>PROFILE</span></div>
             </div>
                 
             <div id="fb-root"></div>

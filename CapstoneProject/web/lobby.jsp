@@ -138,6 +138,7 @@
                     </li>
                 </ul>
             </nav>
+            <div class="menuRight h3"><span>PUBLIC GAMES</span></div>
         </div>
         
         <div class="heading padBottom">Select a game to join: <br><br><button type="button" class="btn btn-xs" onclick="loadGames()">Click to refresh list.</button></div>

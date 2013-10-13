@@ -186,6 +186,7 @@ function compareGoogleFriends(online) {
                     </li>
                 </ul>
             </nav>
+            <div class="menuRight h3"><span>PRIVATE GAME</span></div>
         </div>
     <script src="sonic.js"></script>
     <script>
@@ -227,7 +228,7 @@ function compareGoogleFriends(online) {
 
             <div class="jumbotron">
                 <div class="container">
-                    <div class="heading1">Select a friend to play against!</div>
+                    <div class="heading1 notices1">Select a friend to play against!</div>
                 </div>
                 <span id="signinButton" style="display:none">
   <span
@@ -244,7 +245,7 @@ function compareGoogleFriends(online) {
                     <table id="googleFriends" align="center" style="display:none">
                     </table>
                 <div id="loading"></div>
-                <div id="noFriends" style="display:none" class="padBottom heading">None of your friends are currently online</div>
+                <div id="noFriends" style="display:none" class="padBottom heading notices2">None of your friends are currently online</div>
                 
                 <script type="text/javascript">
       (function() {
