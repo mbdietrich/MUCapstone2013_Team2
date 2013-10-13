@@ -112,7 +112,7 @@
                             <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
                             <li><a href="lobby.jsp">Public Games</a></li>
                             <li><a href="gamerecordmanager.jsp">Played Games</a></li>
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="accountManagement.jsp">Profile</a></li>
                             <li><a href="logout.jsp">Logout</a></li>
                         </ul>
                     </li>
