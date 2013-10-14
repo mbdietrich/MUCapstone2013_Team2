@@ -12,6 +12,8 @@
     if (userName == null) {
         response.sendRedirect("index.jsp");
     }
+    
+    String gid = (String) session.getAttribute("gid");
             
 %>
 
@@ -135,7 +137,7 @@ function compareGoogleFriends(online) {
     while(parent.hasChildNodes()) {
         parent.removeChild(parent.firstChild);
     }
-
+    //then, rebuild the table
     var friendsToDisplay = new Array();
     var numItems = googleFriends.items.length;
     var onlinePlayers = online;
@@ -145,7 +147,11 @@ function compareGoogleFriends(online) {
                 friendsToDisplay.push(googleFriends.items[i].displayName);
                 var x=document.getElementById('googleFriends').insertRow(0);
                 var y=x.insertCell(0);
-                y.innerHTML=googleFriends.items[i].displayName;
+                var z=x.insertCell(1);
+                var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
+                y.innerHTML="<img src='"+imageURL+" height='40' width='40'>";
+                var gid = "<%=gid%>";
+                z.innerHTML="<a href='SendPrivateGameRequest?social=google&me="+gid+"&friend="+googleFriends.items[i].id+"'>"+googleFriends.items[i].displayName+"</a>";
             }
         }
     }
@@ -156,6 +162,11 @@ function compareGoogleFriends(online) {
         document.getElementById("noFriends").style.display = "none";
         document.getElementById("googleFriends").style.display = "inline-table";
     }
+}
+
+function getGoogleImageURL(url) {
+    var parts = url.split("?");
+    return parts[0];
 }
 </script>
     </head>
