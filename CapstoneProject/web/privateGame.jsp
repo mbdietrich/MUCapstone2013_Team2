@@ -27,7 +27,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         
-        <title>TTT - Home</title>
+        <title>TTT - Private Game</title>
         
         <noscript><meta http-equiv="refresh" content="0;URL=noscript.jsp"/></noscript>
         
@@ -38,7 +38,6 @@
         <script>
             var source = new EventSource("GoogleFriends");
             source.onmessage = function(event) {
-                console.log("on message");
                 if (event.data) { // only update if the string is not empty
                     compareGoogleFriends(event.data);
                 }

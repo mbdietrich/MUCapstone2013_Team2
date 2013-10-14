@@ -5,16 +5,22 @@
 package capstone.server;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 /**
  *
  * @author luke
  */
 public class SocialLogin extends HttpServlet {
+    
+    public static Map<String, String> playerDetails = new ConcurrentHashMap<String, String>();
 
     /**
      * Processes requests for both HTTP
@@ -29,9 +35,24 @@ public class SocialLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String gid = request.getParameter("gid");
-        GameManager.newPlayer(request.getSession(), name, gid);
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("gid", gid);
+        this.playerDetails.put(name, gid);
+        
+        GameManager.newPlayer(session, name);
         //forward player to the main page
         this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
+    }
+    
+    public static String getOnlineGooglePlayers() {
+        //Map onlinePlayers = this.playerDetails;
+        Object[] playersKeys = playerDetails.values().toArray();
+        String players = "";
+        for(int i=0;i<playersKeys.length;i++) {
+            players = players + playersKeys[i] +" ";
+        }
+        return players;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

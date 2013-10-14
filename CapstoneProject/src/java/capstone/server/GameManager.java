@@ -209,13 +209,9 @@ BlockingQueue<String>>();
         
     }
     
-    public static void newPlayer(HttpSession session, String name, String gid){
-        
-        
+    public static void newPlayer(HttpSession session, String name){
         session.setAttribute("user", name);
-        session.setAttribute("gid", gid);
         players.put(session, new RemotePlayer(name));
-        playerDetails.put(name, gid);
         BlockingQueue<String> messageQueue = new ArrayBlockingQueue<String>(10);
         states.put(session, messageQueue);
     }
@@ -320,14 +316,6 @@ BlockingQueue<String>>();
         }
     }
     
-    public static String getOnlineGooglePlayers() {
-        Map onlinePlayers = GameManager.playerDetails;
-        Object[] playersKeys = onlinePlayers.values().toArray();
-        String players = "";
-        for(int i=0;i<playersKeys.length;i++) {
-            players = players + playersKeys[i] +" ";
-        }
-        return players;
-    }
+    
 }
     
