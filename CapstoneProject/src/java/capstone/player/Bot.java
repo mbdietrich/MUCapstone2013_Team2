@@ -54,16 +54,18 @@ public abstract class Bot implements Player {
             Coordinates c = null;
             try{
                 c = future.get(1, TimeUnit.MINUTES);
-                if(c!=null&&GameRules.validMove(current.getCurrentGame(), c)){
-                    current.move(this,c);
-                }
-                else{
-                    current.Leave(this);                    
-                }
-            } catch (Throwable tr) {
+                current.move(this,c);
+                
+            } catch (InterruptedException ex) {
                 future.cancel(true);
                 current.Leave(this);
-            }
+            } catch (ExecutionException ex) {
+            future.cancel(true);
+                current.Leave(this);
+        } catch (TimeoutException ex) {
+            future.cancel(true);
+                current.Leave(this);
+        }
     }
 
     public abstract Coordinates next(GameState prev, int player);
