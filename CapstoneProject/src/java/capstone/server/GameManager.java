@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  */
 public class GameManager {
     
-    public static Map<String, String> playerDetails = new ConcurrentHashMap<String, String>();
+    //public static Map<String, String> playerDetails = new ConcurrentHashMap<String, String>();
     public static Map<HttpSession, RemotePlayer> players = new ConcurrentHashMap<HttpSession, RemotePlayer>();
     public static Map<HttpSession, GameSession> gameSessions = new ConcurrentHashMap<HttpSession, GameSession>();
     public static Map<GameSession, List<HttpSession>> watchers = new ConcurrentHashMap<GameSession, List<HttpSession>>();
@@ -148,7 +148,7 @@ BlockingQueue<String>>();
             else{
                 first = false;
             }
-            builder = builder.append('"').append("Game ").append(entry.toString()).append('"');
+            builder = builder.append(entry.toString());
             
         }
         
@@ -219,7 +219,7 @@ BlockingQueue<String>>();
     
     public static void disconnect (HttpSession session) {
         GameManager.leave(session);
-        playerDetails.remove(players.get(session).toString());
+        SocialLogin.playerDetails.remove(players.get(session).toString());
         players.remove(session);
         states.remove(session);
     }

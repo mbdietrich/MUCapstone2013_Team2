@@ -34,6 +34,15 @@
         <script type="text/javascript" src="jquery.layout-latest.min.js"></script>
         
         <script>
+            var source = new EventSource("GameInvites");
+            source.onmessage = function(event) {
+                if (event.data) {
+                    updateInviteMenu("yes"); //show that there are invites in the menu
+                } else {
+                    updateInviteMenu("no"); //if no request, hide menu
+                }
+            };
+            
             var singlePlayer = function() {
                 $.post("create", {type: "solo", botname: "DefaultBot"}, function(e) {
                     document.location.href = "game.jsp";
@@ -90,6 +99,14 @@
             var onGameCreate = function(data) {
                 //TODO update lobby.jsp if the player has created a game
             }
+            
+            function updateInviteMenu(update) {
+                if(update === "no") {
+                    document.getElementById("menuInvites").style.display="none";
+                } else {
+                    document.getElementById("menuInvites").style.display="inline";
+            }
+        }
         </script>
     </head>
     <body>
@@ -118,6 +135,7 @@
                 </ul>
             </nav>
             <div class="menuRight h3"><span>HOME</span></div>
+            <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
         </div>
 
             <div class="jumbotron">

@@ -31,7 +31,7 @@ public class GameRecordGet extends HttpServlet {
             response.flushBuffer();
         }
         if (request.getParameter("type").equals("coords")) {
-            String coords = GameManager.getRecordedGameCoords(request.getParameter("gameID"));
+            String coords = GameManager.getRecordedGameCoords(request.getParameter("gameid"));
             out.append(coords);
             response.flushBuffer();
         }

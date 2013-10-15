@@ -5,22 +5,21 @@
 package capstone.server;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 
 /**
  *
  * @author luke
  */
-public class SocialLogin extends HttpServlet {
+public class SendPrivateGameInvite extends HttpServlet {
     
-    public static Map<String, String> playerDetails = new ConcurrentHashMap<String, String>();
+    public static Map<String, String> invites = new ConcurrentHashMap<String, String>();
 
     /**
      * Processes requests for both HTTP
@@ -33,28 +32,21 @@ public class SocialLogin extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String gid = request.getParameter("gid");
-        String email = request.getParameter("email");
-        
-        HttpSession session = request.getSession();
-        session.setAttribute("gid", gid);
-        session.setAttribute("email", email);
-        this.playerDetails.put(name, gid);
-        
-        GameManager.newPlayer(session, name);
-        //forward player to the main page
-        this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
+            String playerID = request.getParameter("me");
+            String friendID = request.getParameter("friend");
+            this.invites.put(playerID, friendID);
     }
     
-    public static String getOnlineGooglePlayers() {
-        //Map onlinePlayers = this.playerDetails;
-        Object[] playersKeys = playerDetails.values().toArray();
-        String players = "";
-        for(int i=0;i<playersKeys.length;i++) {
-            players = players + playersKeys[i] +" ";
+    public static String getInvites(String id) {
+        String friendInvites = "";
+        for (Map.Entry<String, String> entry : invites.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (value.equals(id)) {
+                friendInvites = friendInvites + " " + key;
+            }
         }
-        return players;
+        return friendInvites;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
