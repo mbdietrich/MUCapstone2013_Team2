@@ -45,6 +45,14 @@
                 }
             };
             
+            var source2 = new EventSource("GameInvites");
+            source2.onmessage = function(event) {
+                if (event.data) {
+                    console.log("GameInvites" + event.data);
+                    processGameInvites(event.data);
+                }
+            };
+            
             var googleFriends;
             
             
@@ -131,6 +139,27 @@
   }
 }
 
+function processGameInvites(invites) {
+    //frist, clear the table
+    var parent = document.getElementById("gameInvites");
+    while(parent.hasChildNodes()) {
+        parent.removeChild(parent.firstChild);
+    }
+        
+    // compare invites to google friends
+    var numItems = googleFriends.items.length;
+    for (var i=0;i<numItems;i++) {
+        if(invites.indexOf(googleFriends.items[i].id) !== -1) {
+            var x=document.getElementById('gameInvites').insertRow(0);
+            var y=x.insertCell(0);
+            var z=x.insertCell(1);
+            var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
+            y.innerHTML="<img src='"+imageURL+" height='40' width='40'>";
+            z.innerHTML="<a href='linktojoingame...'>"+googleFriends.items[i].displayName+" has challenged you to a game!</a>";
+        }
+    }
+}
+
 function compareGoogleFriends(online) {
     //first, remove the table
     var parent = document.getElementById("googleFriends");
@@ -151,7 +180,7 @@ function compareGoogleFriends(online) {
                 var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
                 y.innerHTML="<img src='"+imageURL+" height='40' width='40'>";
                 var gid = "<%=gid%>";
-                z.innerHTML="<a href='SendPrivateGameRequest?social=google&me="+gid+"&friend="+googleFriends.items[i].id+"'>"+googleFriends.items[i].displayName+"</a>";
+                z.innerHTML="<a href='SendPrivateGameInvite?me="+gid+"&friend="+googleFriends.items[i].id+"'>"+googleFriends.items[i].displayName+"</a>";
             }
         }
     }
@@ -196,6 +225,7 @@ function getGoogleImageURL(url) {
                 </ul>
             </nav>
             <div class="menuRight h3"><span>PRIVATE GAME</span></div>
+            <div class="menuRight h5"><span>private game invites....</span></div>
         </div>
     <script src="sonic.js"></script>
     <script>
@@ -250,11 +280,16 @@ function getGoogleImageURL(url) {
   </span>
 </span>
             </div> 
-                
+                    <div id="friends" style="width:50%; text-align:left; float:left">
                     <table id="googleFriends" align="center" style="display:none">
                     </table>
-                <div id="loading"></div>
-                <div id="noFriends" style="display:none" class="padBottom heading notices2">None of your friends are currently online</div>
+                    <div id="loading"></div>
+                    <div id="noFriends" style="display:none" class="padBottom heading notices2">None of your friends are currently online</div>
+                    </div>
+    
+                    <div id="invites" style="width:50%; text-align:left; float:left">
+                    <table id="gameInvites" align="center"></table>
+                    </div>
                 
                 <script type="text/javascript">
       (function() {
