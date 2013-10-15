@@ -51,7 +51,7 @@ public class GameRecorder {
         for (String e: games)
         {
             GameRecord temp = players.get(e);
-            String playerTemp = "[" +temp.getGameID()+ ", " + temp.getPlayer1() + ", " + temp.getPlayer2()+"]";
+            String playerTemp = "{" + "\"gid\": \""+temp.getGameID()+ "\" , \"p1\" :\"" + temp.getPlayer1() + "\" , \"p2\" :\"" + temp.getPlayer2()+"\"}";
             gamePlayers.add(playerTemp);
         }
         return gamePlayers;

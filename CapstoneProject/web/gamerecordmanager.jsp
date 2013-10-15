@@ -30,11 +30,12 @@
                         "GameRecordGet",{type: "games"},function(data){refresh(data.games);}
                 )
             }
-           var loadCoords = function() {
-               var gameID = document.getElementById("gameList")
+           var loadCoords = function() { 
+               var gameID = document.getElementById("gameList");
+               var stru = gameID.options[gameID.selectedIndex].id;
 
                 $.getJSON(
-                        "GameRecordGet",{type: "coords", gameid: ""},function(data){alert(data.games);}
+                        "GameRecordGet",{type: "coords", gameid: stru},function(data){alert(data.games);}
                 )
             }
             
@@ -90,9 +91,9 @@
                     newLines = "<option class='alert-info'>Sorry, there are no recorded games available.</option>";
                 } else {
                     for (i = 0; i < data.length; i++) {
-                        newLines = newLines + '<option id="' + data[i] + '">' + data[i] + "</option>";
+                        newLines = newLines + '<option id="' + data[i].gid + '">' + data[i].p1 + "</option>";
                     }
-                    document.getElementById("joinButton").innerHTML = '<br><button type="button" class="btn" onclick="requestJoinPublicGame();">Join</button>';
+                    document.getElementById("joinButton").innerHTML = '<br><button type="button" class="btn" onclick="loadCoords();">Open</button>';
                 }
                 document.getElementById("gameList").innerHTML = newLines;
             }
