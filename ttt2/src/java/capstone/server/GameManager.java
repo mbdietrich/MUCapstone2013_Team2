@@ -219,7 +219,8 @@ BlockingQueue<String>>();
     
     public static void disconnect (HttpSession session) {
         GameManager.leave(session);
-        SocialLogin.playerDetails.remove(players.get(session).toString());
+        SocialLogin.googlePlayerDetails.remove(players.get(session).toString());
+        SocialLogin.facebookPlayerDetails.remove(players.get(session).toString());
         players.remove(session);
         states.remove(session);
     }

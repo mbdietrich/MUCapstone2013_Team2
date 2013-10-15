@@ -132,7 +132,7 @@
             var id = obj['id'];
             var name = obj['name'];
             var email = obj['email'];
-            var url = obj['link'];
+            //var url = obj['link'];
             window.location = "SocialLogin?gid=" + id + "&name=" + name + "&email=" + email + "&fbid=0";
             }
             
@@ -147,7 +147,7 @@
                             id = response.id;
                             name = response.name;
                             email = response.email;
-                            link = response.link;
+                            //link = response.link;
                             window.location = "SocialLogin?fbid=" + id + "&name=" + name + "&gid=0&email=" + email;
                         });
                     } else {
