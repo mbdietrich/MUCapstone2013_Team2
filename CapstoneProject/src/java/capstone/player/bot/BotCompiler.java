@@ -12,17 +12,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.tools.*;
-import javax.tools.JavaCompiler.CompilationTask;
 import org.objectweb.asm.ClassReader;
 
 /**
@@ -33,13 +33,11 @@ public class BotCompiler {
 
     private static JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
-    public static Bot createBot(String methodBody, String id, String path) throws BotCompilationException {
+    public static Bot createBot(String methodBody, String id, String path) throws BotCompilationException, IOException {
         StringWriter writer = new StringWriter();
         PrintWriter out = new PrintWriter(writer);
         out.println("public class " + id + " extends Bot {");
-        out.println("  public Coordinates next(GameState prev, int player) {");
         out.println(methodBody);
-        out.println("  }");
         out.println("  public String getName(){");
         out.println("     return \"" + id + "\"");
         out.println("  }");
@@ -53,10 +51,22 @@ public class BotCompiler {
             exception.printStackTrace();
         }
 
-        return compile(so, id, path);
+        Bot bot = compile(so, id, path, true);
+        //Success - now store the bot
+        Path FROM = Paths.get(path+"/temp/"+id+".class");
+        Path TO = Paths.get(path+"/"+id+".class");
+        CopyOption[] options = new CopyOption[]{
+            StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES
+        };
+        Files.copy(FROM, TO, options);
+        return bot;
+    }
+    
+    public static Bot load(String id, String path) throws BotCompilationException, IOException{
+        //TODO load bot
     }
 
-    private static Bot compile(JavaFileObject source, String id, String path) throws BotCompilationException {
+    private static Bot compile(JavaFileObject source, String id, String path, boolean test) throws BotCompilationException {
         if (compiler
                 == null) {
             throw new BotCompilationException("No compiler found");
@@ -66,7 +76,7 @@ public class BotCompiler {
             StandardJavaFileManager fileManager = compiler.getStandardFileManager(c,
                     Locale.ENGLISH,
                     null);
-            Iterable options = Arrays.asList("-d", path);
+            Iterable options = Arrays.asList("-d", path+"/temp");
             JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager,
                     c, options, null,
                     Arrays.asList(source));
@@ -78,7 +88,7 @@ public class BotCompiler {
             //TODO load bot
 
             try {
-                File file = new File(path);
+                File file = new File(path+"/temp");
                 URL url = file.toURL();
                 URL[] urls = new URL[]{url};
 
@@ -86,8 +96,8 @@ public class BotCompiler {
                 ClassLoader loader = new URLClassLoader(urls);
 
                 Class thisClass = loader.loadClass(id);
-                
-                securityCheck(thisClass, path);
+                if(test){
+                securityCheck(thisClass, path+"/temp");
 
                 Bot bot = (Bot)thisClass.newInstance();
                 
@@ -96,6 +106,9 @@ public class BotCompiler {
                     return bot;
                 } else {
                     throw new BotCompilationException(msg);
+                }
+                }else{
+                    return (Bot)thisClass.newInstance();
                 }
                 
             } catch (MalformedURLException ex) {
