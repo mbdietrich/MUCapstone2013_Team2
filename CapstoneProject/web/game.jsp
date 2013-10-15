@@ -35,6 +35,22 @@
 
         
         <script>
+            var source = new EventSource("GameInvites");
+            source.onmessage = function(event) {
+                if (event.data) {
+                    updateInviteMenu("yes"); //show that there are invites in the menu
+                } else {
+                    updateInviteMenu("no"); //if no request, hide menu
+                }
+            };
+            
+            function updateInviteMenu(update) {
+                if(update === "no") {
+                    document.getElementById("menuInvites").style.display="none";
+                } else {
+                    document.getElementById("menuInvites").style.display="inline";
+                }
+            }
             
             var singlePlayer = function() {
                 $.post("create", {type: "solo", botname: "DefaultBot"}, function(e) {
@@ -218,7 +234,7 @@
                                     <li><a href="#" onclick="multiPlayer();">User</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
+                            <li><a href="privateGame.jsp">Private Game</a></li>
                             <li><a href="lobby.jsp">Public Games</a></li>
                             <li><a href="gamerecordmanager.jsp">Played Games</a></li>
                             <li><a href="logout.jsp">Logout</a></li>
@@ -228,6 +244,7 @@
             </nav>
             <div class="menuRight h3"><span>GAME</span></div>
             <div class="menuRight"><button onclick="leave()" class="btn btn-xs">Leave</button></div>
+            <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
             </div>
             
         

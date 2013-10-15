@@ -48,13 +48,11 @@
             var source2 = new EventSource("GameInvites");
             source2.onmessage = function(event) {
                 if (event.data) {
-                    console.log("GameInvites" + event.data);
                     processGameInvites(event.data); //show game invites on page
                     updateInviteMenu("yes"); //show that there are invites in the menu
                 } else {
                     updateInviteMenu("no"); //if no request, hide menu
                 }
-                
             };
             
             var googleFriends;
@@ -85,9 +83,11 @@
                 });
             }
             var openPrivateGame = function(){
+                window.location = "privateGame.jsp";
+                /*
                 $.post("create", {type: "newprivate"}, function(e) {
                     document.location.href= "game.jsp";
-                })
+                })*/
             }         
             var openGame = function() {
                 $.post("create", {type: "open"}, onGameCreate);
@@ -237,7 +237,7 @@ function getGoogleImageURL(url) {
                 </ul>
             </nav>
             <div class="menuRight h3"><span>PRIVATE GAME</span></div>
-            <div class="menuRight h5" id="menuInvites" style="display:none"><span>You have been challenged to a game!</span></div>
+            <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
         </div>
     <script src="sonic.js"></script>
     <script>
