@@ -126,13 +126,17 @@
                                         //document.getElementById("isTurnAlert").style.display = '';
                                         //document.getElementById("isTurnAlert").className = 'alert alert-info';
                                     }
-                                    else{
-                                        button.disabled===false;
+                                    else if ((state.isTurn==="true")&&(state.PlayerNumber == 2)){
+                                        button.disabled===true;
                                         document.getElementById("team2").className = 'playerLabel animated bounce';
                                         document.getElementById("team1").className = 'playerLabel playerLabelLL';
                                         //document.getElementById("isTurnAlert").innerHTML = "Waiting..";
                                         //document.getElementById("isTurnAlert").style.display = '';
                                         //document.getElementById("isTurnAlert").className = 'alert alert-warning';
+                                    } else {
+                                        button.disabled===false;
+                                        document.getElementById("team2").className = 'playerLabel';
+                                        document.getElementById("team1").className = 'playerLabel';
                                     }
                                     buttonNum++;
                                 }
@@ -141,17 +145,21 @@
                         }
                     }
                     if (state.Status === state.PlayerNumber){
+                        document.getElementById("team1").innerHTML += " <span class='h3'>WINS!</span>";
+                        document.getElementById("team1").className = 'playerLabel playerLabelHL animated flash';
                         //window.alert("YOU WIN!");
-                        document.getElementById("isTurnAlert").innerHTML = "YOU WIN!";
-                        document.getElementById("isTurnAlert").style.display = '';
-                        document.getElementById("isTurnAlert").className = 'alert alert-success';
+                        //document.getElementById("isTurnAlert").innerHTML = "YOU WIN!";
+                        //document.getElementById("isTurnAlert").style.display = '';
+                        //document.getElementById("isTurnAlert").className = 'alert alert-success';
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
                     }else if (state.Status === "2" || state.Status === "1"){
+                        document.getElementById("team2").innerHTML += " <span class='h3'>WINS!</span>";
+                        document.getElementById("team2").className = 'playerLabel playerLabelHL animated flash';
                         //window.alert("SORRY, YOU LOSE.");
-                        document.getElementById("isTurnAlert").innerHTML = "YOU LOSE.";
-                        document.getElementById("isTurnAlert").style.display = '';
-                        document.getElementById("isTurnAlert").className = 'alert alert-danger';
+                        //document.getElementById("isTurnAlert").innerHTML = "YOU LOSE.";
+                        //document.getElementById("isTurnAlert").style.display = '';
+                        //document.getElementById("isTurnAlert").className = 'alert alert-danger';
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
                     }
