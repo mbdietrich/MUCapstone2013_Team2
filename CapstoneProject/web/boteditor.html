@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link rel="shortcut icon" href="images/ttt_icon.ico" />
+        <link href="css/style.css" rel="stylesheet" media="screen">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <script type="text/javascript" src="jquery-1.8.3.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <title>Edit your Bot</title>
+    </head>
+    <body>
+        <div class="navBar1">
+            <div id="menuLeft">
+                <span><a href="home.jsp"><img src="images/menu_header.png" alt="title"/></a></span>
+                
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><img src="images/menu.png" id="menuIcon" alt="menu"/></a>
+                    
+                        <ul>
+                            <li><a href="#">Play +</a>
+                                <ul>
+                                    <li><a href="#" onclick="singlePlayer();">Bot</a></li>
+                                    <li><a href="#" onclick="multiPlayer();">User</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
+                            <li><a href="lobby.jsp">Public Games</a></li>
+                            <li><a href="gamerecordmanager.jsp">Played Games</a></li>
+                            <li><a href="logout.jsp">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="menuRight h3"><span>EDITOR</span></div>
+        </div>
+        <div id="editor">foo!</div>
+        
+        <div id="edithelp">
+            Help and utility panel
+        </div>
+        
+        <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/eclipse");
+            editor.getSession().setMode("ace/mode/java");
+        </script>
+    </body>
+</html>
