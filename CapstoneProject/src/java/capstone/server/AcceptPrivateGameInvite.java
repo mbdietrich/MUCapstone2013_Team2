@@ -6,8 +6,6 @@ package capstone.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author luke
+ * @author lowkeylukey
  */
-public class SendPrivateGameInvite extends HttpServlet {
-    
-    public static Map<String, String> invites = new ConcurrentHashMap<String, String>();
+public class AcceptPrivateGameInvite extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -32,36 +28,7 @@ public class SendPrivateGameInvite extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String playerID = request.getParameter("me");
-            String friendID = request.getParameter("friend");
-            
-            //set up new game
-            GameManager.newGame(request.getSession());
-            response.getWriter().write("joined");
-            GameManager.addPrivateName(request.getSession());
-            
-            //get gameID
-            //String playerName = request.getSession().getAttribute("name").toString();
-            //String gameID = GameManager.getGameID(playerName);
-            
-            
-            this.invites.put(playerID, friendID);
-            
-            //need to transfer player to the game
-            this.getServletContext().getRequestDispatcher("/game.jsp").forward(request, response);
-            
-    }
-    
-    public static String getInvites(String id) {
-        String friendInvites = "";
-        for (Map.Entry<String, String> entry : invites.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            if (value.equals(id)) {
-                friendInvites = friendInvites + " " + key;
-            }
-        }
-        return friendInvites;
+        //need to move request from SendPrivateGameInvite.invites....
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
