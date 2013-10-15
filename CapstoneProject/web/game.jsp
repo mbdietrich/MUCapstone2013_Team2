@@ -206,6 +206,7 @@
                 <span><a href="home.jsp"><img src="images/menu_header.png" alt="title"/></a></span>
                 
             </div>
+            
             <nav>
                 <ul>
                     <li><a href="#"><img src="images/menu.png" id="menuIcon" alt="menu"/></a>
@@ -220,12 +221,13 @@
                             <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
                             <li><a href="lobby.jsp">Public Games</a></li>
                             <li><a href="gamerecordmanager.jsp">Played Games</a></li>
-                            <li><a href="accountManagement.jsp">Profile</a></li>
                             <li><a href="logout.jsp">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
+            <div class="menuRight h3"><span>GAME</span></div>
+            <div class="menuRight"><button onclick="leave()" class="btn btn-xs">Leave</button></div>
             </div>
             
         
@@ -236,7 +238,7 @@
                     <div id="team1" class="playerLabel"><h1><%= session.getAttribute("user")%></h1></div>
                 </td>
                 <td>
-                    <div class="gameDiv"><table id="gameframe"></table></div>
+                    <div class="gameDiv padTop2"><table id="gameframe"></table></div>
                 </td>
                 <td>
                     <div id="team2" class="playerLabel"><h1>Opponent</h1></div>
@@ -245,7 +247,6 @@
             <tr>
                 <td></td>
                 <td>
-                    <button onclick="leave()" class="btn btn-xs">Leave</button>
                     <div><p id="isTurnAlert" class="padBottom"></p></div>
                 </td>
                 <td></td>
@@ -253,7 +254,10 @@
         </table>
         
         
-        <div id="openWait" class="padTop">Waiting for another player to join..<br><button onclick="leave()" class="btn btn-xs">Cancel</button></div>
+        <div id="openWait" class="padTop">
+            <div class="padBottom2 notices1">Waiting for another player to join..</div>
+            <div class="padTop2"><button onclick="leave()" class="btn btn-xs">Cancel</button></div>
+        </div>
         
     </body>
 </html>

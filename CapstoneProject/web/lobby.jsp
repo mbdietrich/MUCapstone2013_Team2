@@ -132,12 +132,12 @@
                             <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
                             <li><a href="lobby.jsp">Public Games</a></li>
                             <li><a href="gamerecordmanager.jsp">Played Games</a></li>
-                            <li><a href="accountManagement.jsp">Profile</a></li>
                             <li><a href="logout.jsp">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
+            <div class="menuRight h3"><span>PUBLIC GAMES</span></div>
         </div>
         
         <div class="heading padBottom">Select a game to join: <br><br><button type="button" class="btn btn-xs" onclick="loadGames()">Click to refresh list.</button></div>

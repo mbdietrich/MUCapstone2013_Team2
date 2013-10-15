@@ -128,6 +128,7 @@
                     </li>
                 </ul>
             </nav>
+            <div class="menuRight h3"><span>PLAYED GAMES</span></div>
         </div>
         <table >
             <tr>

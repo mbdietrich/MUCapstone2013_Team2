@@ -112,18 +112,18 @@
                             <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
                             <li><a href="lobby.jsp">Public Games</a></li>
                             <li><a href="gamerecordmanager.jsp">Played Games</a></li>
-                            <li><a href="accountManagement.jsp">Profile</a></li>
                             <li><a href="logout.jsp">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
+            <div class="menuRight h3"><span>HOME</span></div>
         </div>
 
             <div class="jumbotron">
                 <div class="container">
-                    <div><h2>Welcome <%= session.getAttribute("user")%>!</h2></div>
-                        <button type="button" class="btn btn-xs btn-default" onclick="singlePlayer();">Quick Game</button>
+                    <div class="notices"><h2>Welcome <%= session.getAttribute("user")%>!</h2></div>
+                    <div class="buttons buttons1"><a href="#" onclick="singlePlayer();">Quick Game</a></div>
                 </div>
             </div> 
         

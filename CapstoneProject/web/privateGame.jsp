@@ -12,6 +12,8 @@
     if (userName == null) {
         response.sendRedirect("index.jsp");
     }
+    
+    String gid = (String) session.getAttribute("gid");
             
 %>
 
@@ -27,7 +29,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         
-        <title>TTT - Home</title>
+        <title>TTT - Private Game</title>
         
         <noscript><meta http-equiv="refresh" content="0;URL=noscript.jsp"/></noscript>
         
@@ -38,7 +40,6 @@
         <script>
             var source = new EventSource("GoogleFriends");
             source.onmessage = function(event) {
-                console.log("on message");
                 if (event.data) { // only update if the string is not empty
                     compareGoogleFriends(event.data);
                 }
@@ -136,7 +137,7 @@ function compareGoogleFriends(online) {
     while(parent.hasChildNodes()) {
         parent.removeChild(parent.firstChild);
     }
-
+    //then, rebuild the table
     var friendsToDisplay = new Array();
     var numItems = googleFriends.items.length;
     var onlinePlayers = online;
@@ -146,7 +147,11 @@ function compareGoogleFriends(online) {
                 friendsToDisplay.push(googleFriends.items[i].displayName);
                 var x=document.getElementById('googleFriends').insertRow(0);
                 var y=x.insertCell(0);
-                y.innerHTML=googleFriends.items[i].displayName;
+                var z=x.insertCell(1);
+                var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
+                y.innerHTML="<img src='"+imageURL+" height='40' width='40'>";
+                var gid = "<%=gid%>";
+                z.innerHTML="<a href='SendPrivateGameRequest?social=google&me="+gid+"&friend="+googleFriends.items[i].id+"'>"+googleFriends.items[i].displayName+"</a>";
             }
         }
     }
@@ -157,6 +162,11 @@ function compareGoogleFriends(online) {
         document.getElementById("noFriends").style.display = "none";
         document.getElementById("googleFriends").style.display = "inline-table";
     }
+}
+
+function getGoogleImageURL(url) {
+    var parts = url.split("?");
+    return parts[0];
 }
 </script>
     </head>
@@ -180,12 +190,12 @@ function compareGoogleFriends(online) {
                             <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
                             <li><a href="lobby.jsp">Public Games</a></li>
                             <li><a href="gamerecordmanager.jsp">Played Games</a></li>
-                            <li><a href="accountManagement.jsp">Profile</a></li>
                             <li><a href="logout.jsp">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
+            <div class="menuRight h3"><span>PRIVATE GAME</span></div>
         </div>
     <script src="sonic.js"></script>
     <script>
@@ -227,7 +237,7 @@ function compareGoogleFriends(online) {
 
             <div class="jumbotron">
                 <div class="container">
-                    <div class="heading1">Select a friend to play against!</div>
+                    <div class="heading1 notices1">Select a friend to play against!</div>
                 </div>
                 <span id="signinButton" style="display:none">
   <span
@@ -244,7 +254,7 @@ function compareGoogleFriends(online) {
                     <table id="googleFriends" align="center" style="display:none">
                     </table>
                 <div id="loading"></div>
-                <div id="noFriends" style="display:none" class="padBottom heading">None of your friends are currently online</div>
+                <div id="noFriends" style="display:none" class="padBottom heading notices2">None of your friends are currently online</div>
                 
                 <script type="text/javascript">
       (function() {

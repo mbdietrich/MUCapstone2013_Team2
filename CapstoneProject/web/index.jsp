@@ -198,7 +198,7 @@
                       
                         <tr id="fbPanel">
                             <td>
-                                <button type="button" onclick="fb();"class="btn btn-default" data-loading-text="Logging you in...">Log in with Facebook</button>
+                                <div class="buttons buttons1"><a href="#" onclick="fb();">Log in with Facebook</a></div>
                             </td>
                         </tr>
                         <tr>
@@ -209,7 +209,7 @@
                         </tr>
                         <tr id="gPanel">
                             <td>
-                                <button type="button" onclick="google();"class="btn btn-default" data-loading-text="Logging you in...">Log in with Google+</button>
+                                <div class="buttons buttons1"><a href="#" onclick="google();">Log in with Google+</a></div>
                             </td>
                         </tr>
                         <tr>
@@ -235,7 +235,7 @@
                         </tr>
                         <tr id="cancel" style="display:none">
                             <td>
-                                <button type="button" onclick="cancel();" class="btn btn-xs">Back</button>
+                                <div class="buttons buttons2"><a href="#" onclick="cancel();">Back</a></div>
                             </td>
                         </tr>
                 </table>

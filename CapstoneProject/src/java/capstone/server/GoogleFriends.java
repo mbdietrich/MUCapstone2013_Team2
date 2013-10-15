@@ -32,7 +32,7 @@ public class GoogleFriends extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.append("data: ");
         
-        String onlinePlayers = GameManager.getOnlineGooglePlayers();
+        String onlinePlayers = SocialLogin.getOnlineGooglePlayers();
         
         out.append(onlinePlayers);
         
