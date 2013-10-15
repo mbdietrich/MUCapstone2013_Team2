@@ -28,13 +28,14 @@ public abstract class Bot implements Player {
 
     public static final ExecutorService executor = new ThreadPoolExecutor(1, 4, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<Runnable>(10));
     
-    private static class Call implements Callable<Coordinates>{
+    static class Call implements Callable<Coordinates>{
         
-        private GameSession session;
-        private Bot me;
+        GameSession session;
+        Bot me;
         
         public Call(GameSession current, Bot me){
             session=current;
+            this.me=me;
         }
         
         @Override
@@ -60,6 +61,7 @@ public abstract class Bot implements Player {
                 future.cancel(true);
                 current.Leave(this);
             } catch (ExecutionException ex) {
+                ex.printStackTrace();
             future.cancel(true);
                 current.Leave(this);
         } catch (TimeoutException ex) {

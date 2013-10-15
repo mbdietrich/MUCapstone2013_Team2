@@ -64,6 +64,7 @@ public class BotCompiler {
     
     public static Bot load(String id, String path) throws BotCompilationException, IOException{
         //TODO load bot
+        return null;
     }
 
     private static Bot compile(JavaFileObject source, String id, String path, boolean test) throws BotCompilationException {
