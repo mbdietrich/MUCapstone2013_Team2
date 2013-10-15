@@ -7,7 +7,6 @@ package capstone.server;
 import capstone.game.*;
 import capstone.player.Bot;
 import capstone.player.GameBot;
-import capstone.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
