@@ -9,11 +9,11 @@ import java.net.URI;
 import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
 
-public class InMemoryJavaFileObject extends SimpleJavaFileObject
+public class CompilationUnit extends SimpleJavaFileObject
     {
         private String contents = null;
  
-        public InMemoryJavaFileObject(String className, String contents) throws Exception
+        public CompilationUnit(String className, String contents) throws Exception
         {
             super(URI.create("string:///" + className.replace('.', '/')
                              + JavaFileObject.Kind.SOURCE.extension), JavaFileObject.Kind.SOURCE);
