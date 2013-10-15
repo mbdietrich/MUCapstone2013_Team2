@@ -20,6 +20,7 @@
         
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/style.css" rel="stylesheet" media="screen">
+        <link href="css/animate.css" rel="stylesheet" media="screen">
         <link rel="shortcut icon" href="images/ttt_icon.ico" />
         
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -117,17 +118,21 @@
                                     else{
                                         buttonTrans.src = 'images/blank.png';
                                     }
-                                    if(state.isTurn==="true"){
+                                    if((state.isTurn==="true")&&(state.PlayerNumber == 1)){
                                         button.disabled===true;
-                                        document.getElementById("isTurnAlert").innerHTML = "YOUR TURN";
-                                        document.getElementById("isTurnAlert").style.display = '';
-                                        document.getElementById("isTurnAlert").className = 'alert alert-info';
+                                        document.getElementById("team1").className = 'playerLabel animated bounce';
+                                        document.getElementById("team2").className = 'playerLabel playerLabelLL';
+                                        //document.getElementById("isTurnAlert").innerHTML = "YOUR TURN";
+                                        //document.getElementById("isTurnAlert").style.display = '';
+                                        //document.getElementById("isTurnAlert").className = 'alert alert-info';
                                     }
                                     else{
                                         button.disabled===false;
-                                        document.getElementById("isTurnAlert").innerHTML = "Waiting..";
-                                        document.getElementById("isTurnAlert").style.display = '';
-                                        document.getElementById("isTurnAlert").className = 'alert alert-warning';
+                                        document.getElementById("team2").className = 'playerLabel animated bounce';
+                                        document.getElementById("team1").className = 'playerLabel playerLabelLL';
+                                        //document.getElementById("isTurnAlert").innerHTML = "Waiting..";
+                                        //document.getElementById("isTurnAlert").style.display = '';
+                                        //document.getElementById("isTurnAlert").className = 'alert alert-warning';
                                     }
                                     buttonNum++;
                                 }
@@ -260,13 +265,6 @@
                 <td>
                     <div id="team2" class="playerLabel"><h1>Opponent</h1></div>
                 </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <div><p id="isTurnAlert" class="padBottom"></p></div>
-                </td>
-                <td></td>
             </tr>
         </table>
         

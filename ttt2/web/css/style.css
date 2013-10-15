@@ -42,6 +42,11 @@ table, th, td{
     padding: 20px; 
 }
 
+
+
+.playerLabelLL {
+    opacity: 0.8;
+}
 #team1 {
     background: black;
     color: white;
