@@ -35,9 +35,11 @@ public class SocialLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String gid = request.getParameter("gid");
+        String email = request.getParameter("email");
         
         HttpSession session = request.getSession();
         session.setAttribute("gid", gid);
+        session.setAttribute("email", email);
         this.playerDetails.put(name, gid);
         
         GameManager.newPlayer(session, name);

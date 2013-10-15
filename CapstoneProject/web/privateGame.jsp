@@ -49,8 +49,12 @@
             source2.onmessage = function(event) {
                 if (event.data) {
                     console.log("GameInvites" + event.data);
-                    processGameInvites(event.data);
+                    processGameInvites(event.data); //show game invites on page
+                    updateInviteMenu("yes"); //show that there are invites in the menu
+                } else {
+                    updateInviteMenu("no"); //if no request, hide menu
                 }
+                
             };
             
             var googleFriends;
@@ -139,6 +143,14 @@
   }
 }
 
+function updateInviteMenu(update) {
+    if(update === "no") {
+        document.getElementById("menuInvites").style.display="none";
+    } else {
+        document.getElementById("menuInvites").style.display="inline";
+    }
+}
+
 function processGameInvites(invites) {
     //frist, clear the table
     var parent = document.getElementById("gameInvites");
@@ -225,7 +237,7 @@ function getGoogleImageURL(url) {
                 </ul>
             </nav>
             <div class="menuRight h3"><span>PRIVATE GAME</span></div>
-            <div class="menuRight h5"><span>private game invites....</span></div>
+            <div class="menuRight h5" id="menuInvites" style="display:none"><span>You have been challenged to a game!</span></div>
         </div>
     <script src="sonic.js"></script>
     <script>
@@ -287,7 +299,7 @@ function getGoogleImageURL(url) {
                     <div id="noFriends" style="display:none" class="padBottom heading notices2">None of your friends are currently online</div>
                     </div>
     
-                    <div id="invites" style="width:50%; text-align:left; float:left">
+                    <div id="gInvites" style="width:50%; text-align:left; float:left">
                     <table id="gameInvites" align="center"></table>
                     </div>
                 

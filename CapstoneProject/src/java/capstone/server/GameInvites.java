@@ -40,7 +40,7 @@ public class GameInvites extends HttpServlet {
         
         String invites = SendPrivateGameInvite.getInvites(id);
         
-        out.append("invites: " + invites);
+        out.append(invites);
         
         out.append("\n\n");
         response.flushBuffer();
