@@ -23,9 +23,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.tools.*;
 import org.objectweb.asm.ClassReader;
 
@@ -70,7 +67,7 @@ public class BotCompiler {
         try {
             //TODO load bot
             File file = new File(path);
-            URL url = file.toURL();
+            URL url = file.toURI().toURL();
             URL[] urls = new URL[]{url};
             ClassLoader loader = new URLClassLoader(urls);
             Class thisClass = loader.loadClass(id);
