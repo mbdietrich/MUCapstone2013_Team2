@@ -11,17 +11,17 @@ package capstone.player.bot;
 public class SingleClassLoader extends ClassLoader {
 
         public SingleClassLoader(ByteCode byteCode) {
-            byteCode_ = byteCode;
+            bcode = byteCode;
         }
 
         @Override
         protected Class findClass(String className) throws ClassNotFoundException {
-            return defineClass(className, byteCode_.getByteCode(), 0, byteCode_.getByteCode().length);
+            return defineClass(className, bcode.getByteCode(), 0, bcode.getByteCode().length);
         }
 
         ByteCode getFileObject() {
-            return byteCode_;
+            return bcode;
         }
 
-        private final ByteCode byteCode_;
+        private final ByteCode bcode;
     }

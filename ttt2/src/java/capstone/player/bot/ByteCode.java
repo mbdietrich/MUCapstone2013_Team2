@@ -28,8 +28,8 @@ public class ByteCode extends SimpleJavaFileObject {
 
         @Override
         public OutputStream openOutputStream() {
-            byteArrayOutputStream_ = new ByteArrayOutputStream();
-            return byteArrayOutputStream_;
+            outStream = new ByteArrayOutputStream();
+            return outStream;
         }
 
         @Override
@@ -38,8 +38,8 @@ public class ByteCode extends SimpleJavaFileObject {
         }
 
         public byte[] getByteCode() {
-            return byteArrayOutputStream_.toByteArray();
+            return outStream.toByteArray();
         }
 
-        private ByteArrayOutputStream byteArrayOutputStream_;
+        private ByteArrayOutputStream outStream;
     }

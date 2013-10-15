@@ -15,23 +15,23 @@ class SingleFileManager extends ForwardingJavaFileManager {
 
         public SingleFileManager(JavaCompiler compiler, ByteCode byteCode) {
             super(compiler.getStandardFileManager(null, null, null));
-            singleClassLoader_ = new SingleClassLoader(byteCode);
+            loader = new SingleClassLoader(byteCode);
         }
 
         @Override
         public JavaFileObject getJavaFileForOutput(JavaFileManager.Location notUsed, String className, JavaFileObject.Kind kind,
             FileObject sibling) throws IOException {
-            return singleClassLoader_.getFileObject();
+            return loader.getFileObject();
         }
 
         @Override
         public ClassLoader getClassLoader(JavaFileManager.Location location) {
-            return singleClassLoader_;
+            return loader;
         }
 
         public SingleClassLoader getClassLoader() {
-            return singleClassLoader_;
+            return loader;
         }
 
-        private final SingleClassLoader singleClassLoader_;
+        private final SingleClassLoader loader;
     }
