@@ -160,6 +160,7 @@ function processGameInvites(invites) {
         
     // compare invites to google friends
     var numItems = googleFriends.items.length;
+    var gid = "<%=gid%>";
     for (var i=0;i<numItems;i++) {
         if(invites.indexOf(googleFriends.items[i].id) !== -1) {
             var x=document.getElementById('gameInvites').insertRow(0);
@@ -167,7 +168,7 @@ function processGameInvites(invites) {
             var z=x.insertCell(1);
             var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
             y.innerHTML="<img src='"+imageURL+" height='40' width='40'>";
-            z.innerHTML="<a href='linktojoingame...'>"+googleFriends.items[i].displayName+" has challenged you to a game!</a>";
+            z.innerHTML="<a href='JoinPrivateGame?me="+gid+"&friend="+googleFriends.items[i].displayName+"'>"+googleFriends.items[i].displayName+" has challenged you to a game!</a>";
         }
     }
 }
