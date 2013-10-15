@@ -37,6 +37,9 @@ public class BotCompiler {
     public static Bot createBot(String methodBody, String id, String path) throws BotCompilationException, IOException {
         StringWriter writer = new StringWriter();
         PrintWriter out = new PrintWriter(writer);
+        out.println("import java.util.*;");
+        out.println("import capstone.game.*;");
+        out.println("import capstone.player.Bot;");
         out.println("public class " + id + " extends Bot {");
         out.println(methodBody);
         out.println("  public String getName(){");
