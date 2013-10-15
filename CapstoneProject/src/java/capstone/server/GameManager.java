@@ -5,6 +5,7 @@
 package capstone.server;
 
 import capstone.game.*;
+import capstone.player.Bot;
 import capstone.player.GameBot;
 import capstone.player.Player;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ BlockingQueue<String>>();
     public static Map<String, String> openGames = new ConcurrentHashMap<String,String>();
     public static List<String> privateGames = new ArrayList<String>();
     //For now, only one bot - DefaultBot
-    private static final Player DEFAULT_BOT = new GameBot();
+    public static final Bot DEFAULT_BOT = new GameBot();
     
 //    static{
 //        try {
@@ -84,7 +85,7 @@ BlockingQueue<String>>();
             gameSessions.get(session).Join(DEFAULT_BOT);
             openGames.remove(gameSessions.get(session).SessionID);
         } catch (IllegalGameException ex) {
-            Logger.getLogger(GameManager.class.getName()).log(Level.WARNING, "Error adding bot to game", ex);
+            Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
