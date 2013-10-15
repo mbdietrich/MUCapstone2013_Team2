@@ -147,7 +147,7 @@ BlockingQueue<String>>();
             else{
                 first = false;
             }
-            builder = builder.append('"').append("Game ").append(entry.toString()).append('"');
+            builder = builder.append(entry.toString());
             
         }
         

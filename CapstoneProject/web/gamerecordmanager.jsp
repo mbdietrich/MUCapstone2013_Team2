@@ -30,11 +30,12 @@
                         "GameRecordGet",{type: "games"},function(data){refresh(data.games);}
                 )
             }
-           var loadCoords = function() {
-               var gameID = document.getElementById("gameList")
+           var loadCoords = function() { 
+               var gameID = document.getElementById("gameList");
+               var stru = gameID.options[gameID.selectedIndex].id;
 
                 $.getJSON(
-                        "GameRecordGet",{type: "coords", gameid: ""},function(data){alert(data.games);}
+                        "GameRecordGet",{type: "coords", gameid: stru},function(data){alert(data.coords);}
                 )
             }
             
@@ -90,9 +91,10 @@
                     newLines = "<option class='alert-info'>Sorry, there are no recorded games available.</option>";
                 } else {
                     for (i = 0; i < data.length; i++) {
-                        newLines = newLines + '<option id="' + data[i] + '">' + data[i] + "</option>";
+                        if(data[i].p2 === ""){data[i].p2 = "Bot";}
+                        newLines = newLines + '<option id="' + data[i].gid + '">' + data[i].p1 +" vs " +data[i].p2+ "</option>";
                     }
-                    document.getElementById("joinButton").innerHTML = '<br><button type="button" class="btn" onclick="requestJoinPublicGame();">Join</button>';
+                    document.getElementById("joinButton").innerHTML = '<br><button type="button" class="btn" onclick="loadCoords();">Open</button>';
                 }
                 document.getElementById("gameList").innerHTML = newLines;
             }
@@ -140,6 +142,5 @@
                 <td><table id="gameframe"></table></td>
             </tr>
         </table>
-            <button onclick="loadCoords()">Load Coords</button>
     </body>
 </html>

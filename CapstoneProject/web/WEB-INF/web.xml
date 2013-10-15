@@ -81,6 +81,14 @@
         <url-pattern>/create</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>GameRecordGet</servlet-name>
+        <servlet-class>capstone.server.GameRecordGet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GameRecordGet</servlet-name>
+        <url-pattern>/GameRecordGet</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>GameStateGet</servlet-name>
         <servlet-class>capstone.server.GameStateGet</servlet-class>
     </servlet>
