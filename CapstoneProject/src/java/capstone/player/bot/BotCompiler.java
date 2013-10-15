@@ -5,6 +5,7 @@
 package capstone.player.bot;
 
 import capstone.player.Bot;
+import capstone.server.GameManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,6 +23,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.tools.*;
 import org.objectweb.asm.ClassReader;
 
@@ -39,7 +43,7 @@ public class BotCompiler {
         out.println("public class " + id + " extends Bot {");
         out.println(methodBody);
         out.println("  public String getName(){");
-        out.println("     return \"" + id + "\"");
+        out.println("     return \"" + id + " (Bot)\"");
         out.println("  }");
         out.println("}");
         out.close();
@@ -62,9 +66,19 @@ public class BotCompiler {
         return bot;
     }
     
-    public static Bot load(String id, String path) throws BotCompilationException, IOException{
-        //TODO load bot
-        return null;
+    public static Bot load(String id, String path) throws BotCompilationException{
+        try {
+            //TODO load bot
+            File file = new File(path);
+            URL url = file.toURL();
+            URL[] urls = new URL[]{url};
+            ClassLoader loader = new URLClassLoader(urls);
+            Class thisClass = loader.loadClass(id);
+            return (Bot)thisClass.newInstance();
+            
+        } catch (Exception ex) {
+            return GameManager.DEFAULT_BOT;
+        }
     }
 
     private static Bot compile(JavaFileObject source, String id, String path, boolean test) throws BotCompilationException {
