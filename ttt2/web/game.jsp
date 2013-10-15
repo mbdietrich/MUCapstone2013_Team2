@@ -20,6 +20,7 @@
         
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/style.css" rel="stylesheet" media="screen">
+        <link href="css/animate.css" rel="stylesheet" media="screen">
         <link rel="shortcut icon" href="images/ttt_icon.ico" />
         
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -83,7 +84,6 @@
                 if (state) { // only update if the string is not empty
                     
                     if(state.open){
-                        document.getElementById("isTurnAlert").style.display = 'none';
                         document.getElementById("gameArea").style.display = 'none';
                         document.getElementById("openWait").style.display = '';
                     }
@@ -117,17 +117,25 @@
                                     else{
                                         buttonTrans.src = 'images/blank.png';
                                     }
-                                    if(state.isTurn==="true"){
+                                    if((state.isTurn==="true")&&(state.PlayerNumber == 1)){
                                         button.disabled===true;
-                                        document.getElementById("isTurnAlert").innerHTML = "YOUR TURN";
-                                        document.getElementById("isTurnAlert").style.display = '';
-                                        document.getElementById("isTurnAlert").className = 'alert alert-info';
+                                        document.getElementById("team1").className = 'playerLabel animated bounce';
+                                        document.getElementById("team2").className = 'playerLabel playerLabelLL';
+                                        //document.getElementById("isTurnAlert").innerHTML = "YOUR TURN";
+                                        //document.getElementById("isTurnAlert").style.display = '';
+                                        //document.getElementById("isTurnAlert").className = 'alert alert-info';
                                     }
-                                    else{
+                                    else if ((state.isTurn==="true")&&(state.PlayerNumber == 2)){
+                                        button.disabled===true;
+                                        document.getElementById("team2").className = 'playerLabel animated bounce';
+                                        document.getElementById("team1").className = 'playerLabel playerLabelLL';
+                                        //document.getElementById("isTurnAlert").innerHTML = "Waiting..";
+                                        //document.getElementById("isTurnAlert").style.display = '';
+                                        //document.getElementById("isTurnAlert").className = 'alert alert-warning';
+                                    } else {
                                         button.disabled===false;
-                                        document.getElementById("isTurnAlert").innerHTML = "Waiting..";
-                                        document.getElementById("isTurnAlert").style.display = '';
-                                        document.getElementById("isTurnAlert").className = 'alert alert-warning';
+                                        document.getElementById("team2").className = 'playerLabel';
+                                        document.getElementById("team1").className = 'playerLabel';
                                     }
                                     buttonNum++;
                                 }
@@ -136,19 +144,29 @@
                         }
                     }
                     if (state.Status === state.PlayerNumber){
+                        document.getElementById("team1").innerHTML += " <span class='h3'>WINS!</span>";
+                        document.getElementById("team1").className = 'playerLabel playerLabelHL animated flash';
                         //window.alert("YOU WIN!");
-                        document.getElementById("isTurnAlert").innerHTML = "YOU WIN!";
-                        document.getElementById("isTurnAlert").style.display = '';
-                        document.getElementById("isTurnAlert").className = 'alert alert-success';
+                        //document.getElementById("isTurnAlert").innerHTML = "YOU WIN!";
+                        //document.getElementById("isTurnAlert").style.display = '';
+                        //document.getElementById("isTurnAlert").className = 'alert alert-success';
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
                     }else if (state.Status === "2" || state.Status === "1"){
+                        document.getElementById("team2").innerHTML += " <span class='h3'>WINS!</span>";
+                        document.getElementById("team2").className = 'playerLabel playerLabelHL animated flash';
                         //window.alert("SORRY, YOU LOSE.");
-                        document.getElementById("isTurnAlert").innerHTML = "YOU LOSE.";
-                        document.getElementById("isTurnAlert").style.display = '';
-                        document.getElementById("isTurnAlert").className = 'alert alert-danger';
+                        //document.getElementById("isTurnAlert").innerHTML = "YOU LOSE.";
+                        //document.getElementById("isTurnAlert").style.display = '';
+                        //document.getElementById("isTurnAlert").className = 'alert alert-danger';
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
+                    } else if (state.Status === "3") {
+                        document.getElementById("team2").innerHTML += " <span class='h3'>IT'S A DRAW!</span>";
+                        document.getElementById("team2").className = 'playerLabel playerLabelHL animated flash';
+                        
+                        document.getElementById("team1").innerHTML += " <span class='h3'>IT'S A DRAW!</span>";
+                        document.getElementById("team1").className = 'playerLabel playerLabelHL animated flash';
                     }
                     //if (state.Status === "1" | state.Status === "2"){
                      //   window.alert("Player " + state.Status + " Wins");
@@ -260,13 +278,6 @@
                 <td>
                     <div id="team2" class="playerLabel"><h1>Opponent</h1></div>
                 </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <div><p id="isTurnAlert" class="padBottom"></p></div>
-                </td>
-                <td></td>
             </tr>
         </table>
         
