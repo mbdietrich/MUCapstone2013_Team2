@@ -84,7 +84,6 @@
                 if (state) { // only update if the string is not empty
                     
                     if(state.open){
-                        document.getElementById("isTurnAlert").style.display = 'none';
                         document.getElementById("gameArea").style.display = 'none';
                         document.getElementById("openWait").style.display = '';
                     }
@@ -162,6 +161,12 @@
                         //document.getElementById("isTurnAlert").className = 'alert alert-danger';
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
+                    } else if (state.Status === "3") {
+                        document.getElementById("team2").innerHTML += " <span class='h3'>IT'S A DRAW!</span>";
+                        document.getElementById("team2").className = 'playerLabel playerLabelHL animated flash';
+                        
+                        document.getElementById("team1").innerHTML += " <span class='h3'>IT'S A DRAW!</span>";
+                        document.getElementById("team1").className = 'playerLabel playerLabelHL animated flash';
                     }
                     //if (state.Status === "1" | state.Status === "2"){
                      //   window.alert("Player " + state.Status + " Wins");
