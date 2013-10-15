@@ -41,11 +41,11 @@ public class GameSession {
 	public void Join(Player player) throws IllegalGameException {
 		if(player1==null){
                     player1=player;
-                    currentPlayer=player1;
                 }
                 else if(player2==null){
                     player2=player;
                     isOpen=false;
+                    currentPlayer=player1;
                     currentPlayer.notify(this);
                 }
                 else throw new IllegalGameException("Player "+player.toString()+" tried to join a full game.");
@@ -68,7 +68,7 @@ public class GameSession {
         public void move(Player player, Coordinates move){
             //TODO implement
             int playerInt;
-            if (player == this.currentPlayer) {
+            if (player.equals(this.currentPlayer)) {
                 if (GameRules.validMove(currentgame, move)) {
                     if (currentPlayer.equals(player1)) {
                         playerInt = 1;

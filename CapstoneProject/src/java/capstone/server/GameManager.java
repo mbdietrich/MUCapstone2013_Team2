@@ -201,7 +201,8 @@ BlockingQueue<String>>();
                 watchers.put(game, sessions);
             }
             sessions.add(session);
-            
+            //Initial player should start
+            players.get(session).setActive(true);
             String initialMessage = JSONBuilder.buildJSON(game, players.get(session));
             states.get(session).offer(initialMessage);
         } catch (IllegalGameException ex) {
