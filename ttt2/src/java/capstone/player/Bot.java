@@ -5,10 +5,8 @@
 package capstone.player;
 
 import capstone.game.Coordinates;
-import capstone.game.GameRules;
 import capstone.game.GameSession;
 import capstone.game.GameState;
-import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -17,8 +15,6 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
