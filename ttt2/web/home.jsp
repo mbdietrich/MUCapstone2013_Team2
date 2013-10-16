@@ -115,7 +115,7 @@
                 <span><h1><a href="home.jsp">TIC TAC TOE</a></h1></span>
                 
             </div>
-            <nav class="menuRight">
+            <nav id="menu" class="menuRight">
                 <ul>
                     <li><span>MENU</span>
                         <ul>
@@ -137,8 +137,9 @@
 
             <div class="jumbotron">
                 <div class="container">
-                    <div class="notices"><h2>Welcome <%= session.getAttribute("user")%>!</h2></div>
-                    <div class="buttons buttons1"><a href="#" onclick="singlePlayer();">Quick Game</a></div>
+                    <div class="notices"><h2>Welcome <%= session.getAttribute("user")%>!</h2></div><br>
+                    <div class="buttons buttons1"><a href="#" onclick="singlePlayer();">Play Default Bot</a></div><br>
+                    <div class="buttons buttons1"><a href="#" onclick="multiPlayer();">Play A User</a></div>
                 </div>
             </div> 
         

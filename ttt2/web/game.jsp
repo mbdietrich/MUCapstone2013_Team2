@@ -265,7 +265,7 @@
             
             <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
         </div>
-        <div><a href="#" onclick="leave();" class="buttons butons2">Quit</a></div>
+        <div id="quitButton" class="menuRight"><a href="#" onclick="leave();" class="buttons butons2">Quit</a></div>
         <table id="gameArea">
             <tr>
                 <td>

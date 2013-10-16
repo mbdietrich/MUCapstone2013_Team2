@@ -172,6 +172,7 @@ h1 {
     padding: 10px; 
     margin-left: auto;
     margin-right: auto;
+    white-space: nowrap;
 }
 
 .buttons:hover {
@@ -180,11 +181,11 @@ h1 {
 
 .buttons a {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 .buttons1 {
-    width: 200px; 
+    width: 250px; 
 }
 
 .buttons2 {
@@ -218,7 +219,7 @@ nav ul ul {
         
 nav ul {
 	
-	padding: 0 20px;
+	padding: 20px;
 	border-radius: 10px;  
 	list-style: none;
 	position: relative;
@@ -231,7 +232,7 @@ nav ul {
 
 nav ul li {
 	float: left;
-        color: black;
+        color: white;
 }
         nav ul li span {
             padding: 25px;
@@ -241,14 +242,13 @@ nav ul li {
 		background: #3498db;
 	}
 		nav ul li:hover a {
-			color: black;
-                        opacity: 0.8;
+			color: white;
 		}
 	
 	nav ul li a {
 		display: block; 
                 padding: 25px 40px;
-		color: black; 
+		color: white; 
                 text-decoration: none;
 	}
         
@@ -266,28 +266,27 @@ nav ul ul {
 	}
 		nav ul ul li a {
 			padding: 15px 40px;
-			color: black;
+			color: white;
 		}	
 			nav ul ul li a:hover {
 				background: #3498db;
-                                color: black;
+                                color: white;
 			}
                         
-nav ul ul ul {
-	position: absolute; right: 100%; top:0;
+nav ul ul {
+	position: absolute; right: 0%; top: 50px;
 }
-
 
 .navBar1 {
     display: inline-table;
     background: #3498db;
     width: 100%;
-    color: black;
+    color: white;
 }
 
 .navBar1 a { 
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 .menuLeft {
@@ -300,6 +299,17 @@ nav ul ul ul {
     float: right;
     padding: 20px;
     color: #3498db;
+}
+
+#quitButton {
+    float: right;
+    padding: 20px 60px 0px 0px;
+    
+}
+
+#quitButton a{
+    background: #e74c3c !important;
+    color: white;
 }
 
 .jumbotron {
