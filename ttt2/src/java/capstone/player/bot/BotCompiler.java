@@ -97,14 +97,25 @@ public class BotCompiler {
             String msg = TestExcecutor.testBot(bot);
                 if (msg.equals("Pass")) {
                     //Save bot
-                    File file = new File(path+"/"+id+".class");
-                    if(file.exists()){
-                        file.delete();
+                    File bytefile = new File(path+"/"+id+".class");
+                    File srcfile = new File(path+"/src/"+id+".src");
+                    if(bytefile.exists()){
+                        bytefile.delete();
                     }
-                    file.createNewFile();
-                    FileOutputStream outstr = new FileOutputStream(file);
-                    outstr.write(bCode);
-                    outstr.close();
+                    if(srcfile.exists()){
+                        srcfile.delete();
+                    }
+                    bytefile.createNewFile();
+                    srcfile.createNewFile();
+                    
+                    FileOutputStream outbyte = new FileOutputStream(bytefile);
+                    outbyte.write(bCode);
+                    outbyte.close();
+                    
+                    PrintWriter outsrc = new PrintWriter(srcfile);
+                    outsrc.print(srcfile);
+                    outsrc.close();
+                    
                     return bot;
                 } else {
                     throw new BotCompilationException(msg);

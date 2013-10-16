@@ -7,10 +7,11 @@ package capstone.server.util;
 import capstone.player.Bot;
 import capstone.player.bot.BotCompilationException;
 import capstone.player.bot.BotCompiler;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.WeakHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -40,6 +41,16 @@ public class BotManager {
             botmap.put(userid, bot);
             return bot;
         }
+    }
+    
+    public static String getSource(String userid) throws FileNotFoundException{
+        userid = userid.replace('.', '_').replace('@', '_');
+        Scanner sc = new Scanner(new File(PATH+"/src/"+userid+".src"));
+        sc.useDelimiter("\\Z");
+        String code = sc.next();
+        sc.close();
+        return code;
+        
     }
     
     public static void compile(String userid, String code) throws BotCompilationException{
