@@ -1,0 +1,3 @@
+public Coordinates next(GameState prev, int player) {
+        return capstone.server.GameManager.DEFAULT_BOT.next(prev, player);
+    }

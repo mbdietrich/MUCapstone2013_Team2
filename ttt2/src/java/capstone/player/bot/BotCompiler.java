@@ -38,7 +38,7 @@ public class BotCompiler {
         out.println("public class " + id + " extends Bot {");
         out.println(methodBody);
         out.println("  public String getName(){");
-        out.println("     return \"" + id + " (Bot)\"");
+        out.println("     return \"" + id + " (Bot)\";");
         out.println("  }");
         out.println("}");
         out.close();
@@ -86,12 +86,11 @@ public class BotCompiler {
             if (!result) {
                 throw new BotCompilationException("There was a problem compiling the code");
             }
-            //TODO load bot
 
             try {
                 Class thisClass = fileManager.getClassLoader().findClass(id);
                 byte[] bCode = fileManager.getClassLoader().getFileObject().getByteCode();
-                securityCheck(new ByteArrayInputStream(bCode));
+                securityCheck(new ByteArrayInputStream(bCode), id);
 
                 Bot bot = (Bot)thisClass.newInstance();
                 
@@ -124,12 +123,12 @@ public class BotCompiler {
         }
     }
     
-    private static void securityCheck(InputStream is) throws BotCompilationException{
+    private static void securityCheck(InputStream is, String id) throws BotCompilationException{
         try {
             DependencyCollector  collector = new DependencyCollector();
             new ClassReader(is).accept(collector, 0);
                 for (String ref:collector.getReferenced()) {
-                    if(ref.startsWith("java.util")||ref.startsWith("capstone")){
+                    if(ref.startsWith("java.util")||ref.startsWith("capstone")||ref.equals(id)){
                         continue;
                     }
                     if(ref.startsWith("java.lang")&&!ref.contains("System")){
