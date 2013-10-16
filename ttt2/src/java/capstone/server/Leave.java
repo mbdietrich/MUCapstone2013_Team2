@@ -19,6 +19,10 @@ public class Leave extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //if player is leaving a private game they have invited someone to, remove the invitation
+        SendPrivateGameInvite.invites.remove(request.getSession().getAttribute("gid").toString());
+        SendPrivateGameInvite.invites.remove(request.getSession().getAttribute("fbid").toString());
+        
         try{
         GameManager.leave(request.getSession());
         }

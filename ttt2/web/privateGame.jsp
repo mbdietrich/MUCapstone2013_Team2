@@ -68,6 +68,7 @@
                     processGameInvites(event.data); //show game invites on page
                     updateInviteMenu("yes"); //show that there are invites in the menu
                 } else {
+                    processGameInvites(event.data); //game invites that no longer exist will be cleared
                     updateInviteMenu("no"); //if no request, hide menu
                 }
             };
@@ -143,7 +144,6 @@
                         });
                         request.execute(function(resp) {
                             googleFriends = resp;
-                            console.log("set up googlefriends");
                         });
                     });
                 } else if (authResult['error']) {
