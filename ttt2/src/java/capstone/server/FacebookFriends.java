@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author luke
  */
-public class GoogleFriends extends HttpServlet {
+public class FacebookFriends extends HttpServlet {
     /**
      * Handles the HTTP
      * <code>GET</code> method.
@@ -32,7 +32,7 @@ public class GoogleFriends extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.append("data: ");
         
-        String onlinePlayers = SocialLogin.getOnlineGooglePlayers();
+        String onlinePlayers = SocialLogin.getOnlineFacebookPlayers();
         
         out.append(onlinePlayers);
         
@@ -47,6 +47,6 @@ public class GoogleFriends extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Get Google players who are online";
+        return "Get Facebook players who are online";
     }// </editor-fold>
 }
