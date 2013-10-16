@@ -1,0 +1,6 @@
+private static boolean FLAG = true;
+    
+    public Coordinates next(GameState prev, int player) {
+        while(FLAG){}                
+        return null;
+    }
