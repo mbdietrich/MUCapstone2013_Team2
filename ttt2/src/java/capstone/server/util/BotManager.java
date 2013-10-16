@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.WeakHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -43,13 +45,18 @@ public class BotManager {
         }
     }
     
-    public static String getSource(String userid) throws FileNotFoundException{
-        userid = userid.replace('.', '_').replace('@', '_');
-        Scanner sc = new Scanner(new File(PATH+"/src/"+userid+".src"));
-        sc.useDelimiter("\\Z");
-        String code = sc.next();
-        sc.close();
-        return code;
+    public static String getSource(String userid){
+        try {
+            userid = userid.replace('.', '_').replace('@', '_');
+            Scanner sc = new Scanner(new File(PATH+"/src/"+userid+".src"));
+            sc.useDelimiter("\\Z");
+            String code = sc.next();
+            sc.close();
+            return code;
+        } catch (FileNotFoundException ex) {
+            //No code to set, use default code.
+            return "";
+        }
         
     }
     

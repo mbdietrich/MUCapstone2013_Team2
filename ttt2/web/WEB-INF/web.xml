@@ -64,6 +64,10 @@
         <servlet-name>FacebookFriends</servlet-name>
         <servlet-class>capstone.server.FacebookFriends</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetSource</servlet-name>
+        <servlet-class>capstone.server.GetSource</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PlayerJoin</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -171,6 +175,10 @@
     <servlet-mapping>
         <servlet-name>FacebookFriends</servlet-name>
         <url-pattern>/FacebookFriends</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetSource</servlet-name>
+        <url-pattern>/getsource</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

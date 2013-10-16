@@ -82,6 +82,12 @@
             var editor = ace.edit("editor");
             editor.setTheme("ace/theme/eclipse");
             editor.getSession().setMode("ace/mode/java");
+            
+            $.get('getsource',{},function(data){
+                if(data!==""){
+                    editor.setValue(data, 0);
+                }
+            });
         </script>
     </body>
 </html>
