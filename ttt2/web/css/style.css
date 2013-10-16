@@ -323,18 +323,17 @@ nav ul ul {
     
 }
 #editor {
-                position: absolute;
-                top: 100px;
-                left:0;
-                bottom:0;
+                position: relative;
+                height: 480px;
                 width: 50%;
                 text-align: left;
+                display:table-cell;
             }
             
             #edithelp {
-                position: absolute;
-                top: 100px;
-                left: 50%;
+                position: relative;
                 width: 50%;
+                height: 480px;
                 text-align: left;
+                display:table-cell;
             }
