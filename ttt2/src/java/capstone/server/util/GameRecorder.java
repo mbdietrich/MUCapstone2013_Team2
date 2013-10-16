@@ -19,9 +19,18 @@ public class GameRecorder {
 
         if (!gameIDs.containsKey(player)) {
             gameIDs.put(player, new ArrayList<String>());
+            //gameIDs.get(player).add(gameID);
         }
         if (gameIDs.get(player).indexOf(gameID) == -1) {
-            GameRecord game = new GameRecord();
+            GameRecord game;
+            if(players.get(gameID) == null){
+                game = new GameRecord(); 
+                gameIDs.get(player).add(gameID);
+            }
+            else
+            {
+                game = players.get(gameID);
+            }
             game.putCoords(coords);
             if (players.get(gameID) != game)
             {
