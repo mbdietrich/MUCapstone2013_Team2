@@ -62,7 +62,7 @@
                         // login status of the person. In this case, we're handling the situation where they 
                         // have logged in to the app.
                         //testAPI();
-                        friendTest();
+                        //friendTest();
                         if(document.getElementById("fbLogin").style.display !== "none") {
                             fb();
                         }

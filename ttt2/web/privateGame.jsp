@@ -342,9 +342,6 @@
                 var url = "https://graph.facebook.com/"+id+"/picture";
                 return url;
             }
-            
-            
-            
         </script>
         <div class="navBar1">
             <div id="menuLeft">

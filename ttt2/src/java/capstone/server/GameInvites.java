@@ -37,7 +37,9 @@ public class GameInvites extends HttpServlet {
         
         HttpSession session = request.getSession();
         String id = session.getAttribute("gid").toString();
-        
+        if(id.equals("0")) {
+            id = session.getAttribute("fbid").toString();
+        }
         String invites = SendPrivateGameInvite.getInvites(id);
         
         out.append(invites);
