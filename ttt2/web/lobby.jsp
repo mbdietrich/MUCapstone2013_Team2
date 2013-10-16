@@ -87,7 +87,7 @@
             
             function requestJoinPublicGame() {
                 var s = document.getElementById("gameList");
-                var id = s[s.selectedIndex].id;
+                var id = s[s.selectedIndex].value;
                 joinPublicGame(id);
             }
             

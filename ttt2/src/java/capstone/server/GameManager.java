@@ -71,9 +71,10 @@ BlockingQueue<String>>();
                 watchers.put(game, sessions);
             }
             sessions.add(session);
-            
-            String initialMessage = JSONBuilder.buildJSON(game, players.get(session));
-            states.get(session).offer(initialMessage);
+            for(HttpSession sess: watchers.get(game)){
+                String initialMessage = JSONBuilder.buildJSON(game, players.get(sess));
+                states.get(sess).offer(initialMessage);
+            }
         } catch (IllegalGameException ex) {
             newGame(session);
         }

@@ -10,14 +10,14 @@
                 });
 
             }
-            var joinPublicGame = function() {
-                var pubName = document.getElementById("publicInput").value;
+            var joinPublicGame = function(id) {
+                var pubName = id;
                 $.post("create", {type: "public", player: pubName}, function(e) {
                     document.location.href = "game.jsp";
                 });
             }
-            var joinPrivateGame = function() {
-                var privName = document.getElementById("publicInput").value;
+            var joinPrivateGame = function(id) {
+                var privName = id;
                 $.post("create", {type: "private", player: privName}, function(e) {
                     document.location.href = "game.jsp";
                 });
