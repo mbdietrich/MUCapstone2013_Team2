@@ -5,7 +5,7 @@
 package capstone.game;
 
 import capstone.player.Player;
-import capstone.server.RemotePlayer;
+import capstone.server.util.RemotePlayer;
 import java.util.ArrayList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

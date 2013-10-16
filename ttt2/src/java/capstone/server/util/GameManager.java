@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.server;
+package capstone.server.util;
 
 import capstone.game.*;
 import capstone.player.Bot;
 import capstone.player.GameBot;
+import capstone.server.SocialLogin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

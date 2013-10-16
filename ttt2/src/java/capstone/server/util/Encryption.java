@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.server;
+package capstone.server.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

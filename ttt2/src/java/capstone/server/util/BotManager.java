@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.server;
+package capstone.server.util;
 
 import capstone.player.Bot;
 import java.util.WeakHashMap;

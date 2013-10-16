@@ -4,6 +4,7 @@
  */
 package capstone.server;
 
+import capstone.server.util.GameManager;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;

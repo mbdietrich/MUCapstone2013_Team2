@@ -4,6 +4,7 @@
  */
 package capstone.server;
 
+import capstone.server.util.GameManager;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

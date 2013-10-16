@@ -4,7 +4,7 @@
  */
 package capstone.server.jmx;
 
-import capstone.server.GameManager;
+import capstone.server.util.GameManager;
 import java.util.ArrayList;
 
 /**

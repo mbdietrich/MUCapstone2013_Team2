@@ -5,7 +5,7 @@
 package capstone.player.bot;
 
 import capstone.player.Bot;
-import capstone.server.GameManager;
+import capstone.server.util.GameManager;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;

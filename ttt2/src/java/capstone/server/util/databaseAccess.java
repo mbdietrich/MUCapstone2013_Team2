@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.server;
+package capstone.server.util;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;

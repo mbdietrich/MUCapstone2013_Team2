@@ -6,7 +6,7 @@ package capstone.player;
 
 import capstone.game.Coordinates;
 import capstone.game.GameState;
-import capstone.server.GameManager;
+import capstone.server.util.GameManager;
 
 /**
  *
