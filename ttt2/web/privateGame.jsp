@@ -101,7 +101,7 @@
                             var y=x.insertCell(0);
                             var z=x.insertCell(1);
                             var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
-                            y.innerHTML="<img src='"+imageURL+" height='40' width='40'>";
+                            y.innerHTML="<img src='"+imageURL+"' height='40' width='40'>";
                             z.innerHTML="<a href='JoinPrivateGame?friend="+googleFriends.items[i].displayName+"&friendID="+googleFriends.items[i].id+"'>"+googleFriends.items[i].displayName+" has challenged you to a game!</a>";
                         }
                     }
@@ -113,7 +113,7 @@
                            var y=x.insertCell(0);
                            var z=x.insertCell(1);
                            var imageURL = getFacebookImageURL(friend.id);
-                           y.innerHTML="<img src='"+imageURL+" height='40' width='40'>";
+                           y.innerHTML="<img src='"+imageURL+"' height='40' width='40'>";
                            z.innerHTML="<a href='JoinPrivateGame?friend="+friend.name+"&friendID="+friend.id+"'>"+friend.name+" has challenged you to a game!</a>";
                        }
                     });
@@ -174,7 +174,7 @@
                             var y=x.insertCell(0);
                             var z=x.insertCell(1);
                             var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
-                            y.innerHTML="<img src='"+imageURL+" height='40' width='40'>";
+                            y.innerHTML="<img src='"+imageURL+"' height='40' width='40'>";
                             var gid = "<%=gid%>";
                             z.innerHTML="<a href='SendPrivateGameInvite?me="+gid+"&friend="+googleFriends.items[i].id+"'>"+googleFriends.items[i].displayName+"</a>";
                         }
@@ -272,7 +272,7 @@
             
             var source = new EventSource("FacebookFriends");
             source.onmessage = function(event) {
-                var fbid = "<%=gid%>";
+                var fbid = "<%=fbid%>";
                 if (event.data) { // only update if the string is not empty
                     if(fbid !== "0") {   //only run if player is logged in with facebook
                         compareFacebookFriends(event.data);
@@ -292,18 +292,18 @@
                 
                 //check if facebook friends are online
                 $.each(facebookFriends.data,function(index,friend) {
-                       //console.log("friend: " + friend.name);
-                       if(onlinePlayers.indexOf(friend.id) !== -1) {    //if the facebook friend is online
-                           friendsToDisplay.push(friend.name);
-                           var x=document.getElementById('facebookFriends').insertRow(0);
-                           var y=x.insertCell(0);
-                           var z=x.insertCell(1);
-                           var imageURL = getFacebookImageURL(friend.id);
-                           y.innerHTML="<img src='"+imageURL+" height='40 width='40'>";
-                           var fbid = "<%=fbid%>";
-                           z.innerHTML="<a href='SendPrivateGameInvite?me="+fbid+"&friend="+friend.id+"'>"+friend.name+"</a>";
-                       }
-                    });
+                    //console.log("friend: " + friend.name);
+                    if(onlinePlayers.indexOf(friend.id) !== -1) {    //if the facebook friend is online
+                        friendsToDisplay.push(friend.name);
+                        var x=document.getElementById('facebookFriends').insertRow(0);
+                        var y=x.insertCell(0);
+                        var z=x.insertCell(1);
+                        var imageURL = getFacebookImageURL(friend.id);
+                        y.innerHTML="<img src='"+imageURL+"' height='40 width='40'>";
+                        var fbid = "<%=fbid%>";
+                        z.innerHTML="<a href='SendPrivateGameInvite?me="+fbid+"&friend="+friend.id+"'>"+friend.name+"</a>";
+                    }
+                });
                 if(friendsToDisplay.length === 0) {
                     document.getElementById("loading").style.display = "none";
                     document.getElementById("noFriends").style.display = "inline";
