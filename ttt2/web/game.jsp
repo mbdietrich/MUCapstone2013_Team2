@@ -53,18 +53,7 @@
                 }
             }
             
-            var singlePlayer = function() {
-                $.post("create", {type: "solo", botname: "DefaultBot"}, function(e) {
-                    document.location.href = "game.jsp";
-                });
-
-            }
-            var multiPlayer = function() {
-                $.post("create", {type: "any"}, function(e) {
-                    document.location.href = "game.jsp";
-                });
-
-            }
+            
             var leave = function(){
                 $.post('leave', function(e){
                     document.location.href = "home.jsp";
