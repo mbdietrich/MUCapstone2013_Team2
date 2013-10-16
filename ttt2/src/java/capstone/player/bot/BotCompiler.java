@@ -128,7 +128,7 @@ public class BotCompiler {
             DependencyCollector  collector = new DependencyCollector();
             new ClassReader(is).accept(collector, 0);
                 for (String ref:collector.getReferenced()) {
-                    if(ref.startsWith("java.util")||ref.startsWith("capstone")||ref.equals(id)){
+                    if(ref.startsWith("java.util")||ref.startsWith("capstone.game")||ref.startsWith("capstone.player")||ref.equals(id)){
                         continue;
                     }
                     if(ref.startsWith("java.lang")&&!ref.contains("System")){
