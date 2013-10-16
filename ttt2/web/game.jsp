@@ -36,8 +36,8 @@
 
         
         <script>
-            var source = new EventSource("GameInvites");
-            source.onmessage = function(event) {
+            var source2 = new EventSource("GameInvites");
+            source2.onmessage = function(event) {
                 if (event.data) {
                     updateInviteMenu("yes"); //show that there are invites in the menu
                 } else {
