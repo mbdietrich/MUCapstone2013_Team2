@@ -45,7 +45,7 @@
             window.fbAsyncInit = function() {
                 FB.init({
                     appId: '689318734429599', // App ID
-                    channelUrl: '//https://capstoneg2.jelastic.servint.net/CapstoneProject/channel.html', // Channel File
+                    channelUrl: '//https://capstoneg2.jelastic.servint.net/ttt2/channel.html', // Channel File
                     status: true, // check login status
                     cookie: true, // enable cookies to allow the server to access the session
                     xfbml: true  // parse XFBML
@@ -62,6 +62,7 @@
                         // login status of the person. In this case, we're handling the situation where they 
                         // have logged in to the app.
                         //testAPI();
+                        //friendTest();
                         if(document.getElementById("fbLogin").style.display !== "none") {
                             fb();
                         }
@@ -107,6 +108,16 @@
                 });
             }
             
+            function friendTest() {
+                FB.api('/me/friends', function(response) {
+                    //var friends = response;
+                    //console.log(friends);
+                    $.each(response.data,function(index,friend) {
+                       console.log("friend: " + friend.name); 
+                    });
+                });
+            }
+            
             function signinCallback(authResult) {
                 if (authResult['access_token']) {
                     // Successfully authorized
@@ -132,7 +143,7 @@
             var id = obj['id'];
             var name = obj['name'];
             var email = obj['email'];
-            var url = obj['link'];
+            //var url = obj['link'];
             window.location = "SocialLogin?gid=" + id + "&name=" + name + "&email=" + email + "&fbid=0";
             }
             
@@ -147,7 +158,7 @@
                             id = response.id;
                             name = response.name;
                             email = response.email;
-                            link = response.link;
+                            //link = response.link;
                             window.location = "SocialLogin?fbid=" + id + "&name=" + name + "&gid=0&email=" + email;
                         });
                     } else {

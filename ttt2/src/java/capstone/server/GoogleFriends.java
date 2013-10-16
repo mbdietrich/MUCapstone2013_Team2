@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author lowkeylukey
+ * @author luke
  */
 public class GoogleFriends extends HttpServlet {
     /**

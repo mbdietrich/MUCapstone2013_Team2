@@ -30,16 +30,53 @@
                         "GameRecordGet",{type: "games"},function(data){refresh(data.games);}
                 )
             }
-           var loadCoords = function() { 
+           var currentCoords;
+           var count = 0;
+           
+           var firstplayer = true;
+           
+           var loadCoords = function() {
+               
                var gameID = document.getElementById("gameList");
                var stru = gameID.options[gameID.selectedIndex].id;
 
                 $.getJSON(
-                        "GameRecordGet",{type: "coords", gameid: stru},function(data){alert(data.coords);}
+                        "GameRecordGet",{type: "coords", gameid: stru},function(data){setCurrentGame(data.coords);}
                 )
             }
             
-            window.onload = function() {
+            var setCurrentGame = function(game){
+                //currentCoords = null;
+                //alert(game);           
+                currentCoords = game;
+                count = 0;
+                firstplayer = true;
+                document.getElementById("gameframe").innerHTML = "";
+                initiate();
+            };
+            
+            var playGame = function(){
+                var tempbutton = document.getElementById(currentCoords[count]).firstElementChild;
+                    if(firstplayer === true){
+                        tempbutton.src = 'images/ex.png';
+                        tempbutton.className ="gameButton";
+                        firstplayer = false;
+                        count += 1;
+                    }
+                    else{
+                        tempbutton.src = 'images/oh.png';
+                        tempbutton.className ="gameButton";
+                        firstplayer = true;
+                        count += 1;
+                    }
+                };
+
+                //buttonTrans.src = 'images/ex.png';
+                //alert(tt);
+            
+            
+                
+                var initiate = function() {
 
 
                 var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;
@@ -67,13 +104,14 @@
                                 buttonTrans.src = 'images/blank.png';
                                 newButton = document.createElement('a');
                                 //newButton.type = 'button';
-                                //newButton.href = '#';
+                                
 
-                                newButton.id = a + '-' + b + '-' + i + '-' + j;
+                                newButton.id = a.toString() + b.toString() + i.toString() + j.toString();
                                 newButton.a = a;
                                 newButton.b = b;
                                 newButton.x = i;
                                 newButton.y = j;
+                                //newButton.href = alert(newButton.id);
 
                                 newButton.appendChild(buttonTrans);
                                 buttonCell = newSubRow.insertCell();
@@ -83,6 +121,12 @@
                     }
                 }
             };
+            var functionOnLoad = function(){
+                initiate();
+                loadGames();
+            }
+            window.onload = functionOnLoad;
+            
             var refresh = function(data) {
 
                 newLines = "";
@@ -142,5 +186,6 @@
                 <td><table id="gameframe"></table></td>
             </tr>
         </table>
+        <button onclick="playGame();">Next Move</button>
     </body>
 </html>

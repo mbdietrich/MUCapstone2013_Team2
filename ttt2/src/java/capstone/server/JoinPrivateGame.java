@@ -28,11 +28,13 @@ public class JoinPrivateGame extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String friend = request.getParameter("friend");
-        String gameID = GameManager.getGameID(friend);                              //Private Games
+        String friendID = request.getParameter("friendID");
+        String gameID = GameManager.getGameID(friend);
         GameManager.joinGame(request.getSession(), gameID);
         response.getWriter().write("joined");
         
-        //need to remove the request etc....
+        //remove the request
+        SendPrivateGameInvite.invites.remove(friendID);
         
         this.getServletContext().getRequestDispatcher("/game.jsp").forward(request, response);
     }

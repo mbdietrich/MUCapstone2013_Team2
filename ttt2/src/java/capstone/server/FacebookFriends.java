@@ -10,15 +10,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 
 /**
  *
- * @author lowkeylukey
+ * @author luke
  */
-public class GameInvites extends HttpServlet {
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+public class FacebookFriends extends HttpServlet {
     /**
      * Handles the HTTP
      * <code>GET</code> method.
@@ -35,14 +32,9 @@ public class GameInvites extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.append("data: ");
         
-        HttpSession session = request.getSession();
-        String id = session.getAttribute("gid").toString();
-        if(id.equals("0")) {
-            id = session.getAttribute("fbid").toString();
-        }
-        String invites = SendPrivateGameInvite.getInvites(id);
+        String onlinePlayers = SocialLogin.getOnlineFacebookPlayers();
         
-        out.append(invites);
+        out.append(onlinePlayers);
         
         out.append("\n\n");
         response.flushBuffer();
@@ -55,6 +47,6 @@ public class GameInvites extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Get Google players who are online";
-    }
+        return "Get Facebook players who are online";
+    }// </editor-fold>
 }
