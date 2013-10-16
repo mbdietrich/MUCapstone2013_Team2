@@ -79,7 +79,7 @@ input[type="text"], input[type="password"], option, td {
 
 body {
     font-family: 'Century Gothic';
-    font-size: 12px;
+    font-size: 16px;
     text-align: center;
     background: white;
     min-width: 900px;
