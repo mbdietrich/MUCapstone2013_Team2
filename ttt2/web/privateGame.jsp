@@ -1,9 +1,8 @@
-<%-- 
+<%--
     Document   : privateGame
     Created on : Oct 10, 2013, 11:25:47 AM
     Author     : luke
 --%>
-<%@page import="capstone.server.GameManager"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Collection"%>
@@ -106,7 +105,7 @@
                         }
                     }
                 } else {    //then player is logged in with facebook
-                    $.each(response.data,function(index,friend) {
+                    $.each(facebookFriends.data,function(index,friend) {
                        //console.log("friend: " + friend.name);
                        if(invites.indexOf(friend.id) !== -1) {
                            var x=document.getElementById('gameInvites').insertRow(0);
