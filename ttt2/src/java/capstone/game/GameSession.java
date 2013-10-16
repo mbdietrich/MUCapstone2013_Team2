@@ -130,11 +130,15 @@ public class GameSession {
 		 */
             if (player.equals(player1)) {
                 player1 = null;
-                gameWinner = player2;
+                if(gameWinner==null){
+                    gameWinner = player2;
+                }
             }
             else if (player.equals(player2)) {
                 player2 = null;
-                gameWinner = player1;
+                if(gameWinner==null){
+                    gameWinner = player1;
+                }
             }
 	}
         

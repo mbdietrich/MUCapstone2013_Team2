@@ -20,7 +20,8 @@ import javax.servlet.http.HttpSession;
  */
 public class SocialLogin extends HttpServlet {
     
-    public static Map<String, String> playerDetails = new ConcurrentHashMap<String, String>();
+    public static Map<String, String> googlePlayerDetails = new ConcurrentHashMap<String, String>();
+    public static Map<String, String> facebookPlayerDetails = new ConcurrentHashMap<String, String>();
 
     /**
      * Processes requests for both HTTP
@@ -36,11 +37,17 @@ public class SocialLogin extends HttpServlet {
         String name = request.getParameter("name");
         String gid = request.getParameter("gid");
         String email = request.getParameter("email");
+        String fbid = request.getParameter("fbid");
         
         HttpSession session = request.getSession();
-        session.setAttribute("gid", gid);
         session.setAttribute("email", email);
-        this.playerDetails.put(name, gid);
+        session.setAttribute("gid", gid);
+        session.setAttribute("fbid", fbid);
+        if(fbid.equals("0")) {
+            this.googlePlayerDetails.put(name, gid);
+        } else {
+            this.facebookPlayerDetails.put(name, fbid);
+        }
         
         GameManager.newPlayer(session, name);
         //forward player to the main page
@@ -49,7 +56,17 @@ public class SocialLogin extends HttpServlet {
     
     public static String getOnlineGooglePlayers() {
         //Map onlinePlayers = this.playerDetails;
-        Object[] playersKeys = playerDetails.values().toArray();
+        Object[] playersKeys = googlePlayerDetails.values().toArray();
+        String players = "";
+        for(int i=0;i<playersKeys.length;i++) {
+            players = players + playersKeys[i] +" ";
+        }
+        return players;
+    }
+    
+    public static String getOnlineFacebookPlayers() {
+        //Map onlinePlayers = this.playerDetails;
+        Object[] playersKeys = facebookPlayerDetails.values().toArray();
         String players = "";
         for(int i=0;i<playersKeys.length;i++) {
             players = players + playersKeys[i] +" ";

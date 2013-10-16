@@ -4,12 +4,10 @@
  */
 package capstone.server;
 
-import capstone.game.GameSession;
 import capstone.player.GameRecord;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GameRecorder {

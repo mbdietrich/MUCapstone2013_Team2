@@ -37,7 +37,7 @@ public class BotValidatorTest {
     
     @Test
     public void defaultBotTest() throws InvocationTargetException, IllegalAccessException{
-        Bot bot = new GameBot();
+        Bot bot = new ValidBot();
         String message = TestExcecutor.testBot(bot);
         System.out.println(message);
         assertEquals(message, "Pass");

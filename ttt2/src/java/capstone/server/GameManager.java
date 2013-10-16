@@ -7,7 +7,6 @@ package capstone.server;
 import capstone.game.*;
 import capstone.player.Bot;
 import capstone.player.GameBot;
-import capstone.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -72,9 +71,10 @@ BlockingQueue<String>>();
                 watchers.put(game, sessions);
             }
             sessions.add(session);
-            
-            String initialMessage = JSONBuilder.buildJSON(game, players.get(session));
-            states.get(session).offer(initialMessage);
+            for(HttpSession sess: watchers.get(game)){
+                String initialMessage = JSONBuilder.buildJSON(game, players.get(sess));
+                states.get(sess).offer(initialMessage);
+            }
         } catch (IllegalGameException ex) {
             newGame(session);
         }
@@ -220,7 +220,8 @@ BlockingQueue<String>>();
     
     public static void disconnect (HttpSession session) {
         GameManager.leave(session);
-        SocialLogin.playerDetails.remove(players.get(session).toString());
+        SocialLogin.googlePlayerDetails.remove(players.get(session).toString());
+        SocialLogin.facebookPlayerDetails.remove(players.get(session).toString());
         players.remove(session);
         states.remove(session);
     }

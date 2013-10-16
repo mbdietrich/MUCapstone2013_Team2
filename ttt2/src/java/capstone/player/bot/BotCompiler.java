@@ -6,23 +6,18 @@ package capstone.player.bot;
 
 import capstone.player.Bot;
 import capstone.server.GameManager;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
-import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.tools.*;
 import org.objectweb.asm.ClassReader;
 
@@ -37,29 +32,25 @@ public class BotCompiler {
     public static Bot createBot(String methodBody, String id, String path) throws BotCompilationException, IOException {
         StringWriter writer = new StringWriter();
         PrintWriter out = new PrintWriter(writer);
+        out.println("import java.util.*;");
+        out.println("import capstone.game.*;");
+        out.println("import capstone.player.Bot;");
         out.println("public class " + id + " extends Bot {");
         out.println(methodBody);
         out.println("  public String getName(){");
-        out.println("     return \"" + id + " (Bot)\"");
+        out.println("     return \"" + id + " (Bot)\";");
         out.println("  }");
         out.println("}");
         out.close();
 
         JavaFileObject so = null;
         try {
-            so = new InMemoryJavaFileObject(id, writer.toString());
+            so = new CompilationUnit(id, writer.toString());
         } catch (Exception exception) {
             exception.printStackTrace();
         }
 
-        Bot bot = compile(so, id, path, true);
-        //Success - now store the bot
-        Path FROM = Paths.get(path+"/temp/"+id+".class");
-        Path TO = Paths.get(path+"/"+id+".class");
-        CopyOption[] options = new CopyOption[]{
-            StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES
-        };
-        Files.copy(FROM, TO, options);
+        Bot bot = compile(so, id, path);
         return bot;
     }
     
@@ -78,53 +69,47 @@ public class BotCompiler {
         }
     }
 
-    private static Bot compile(JavaFileObject source, String id, String path, boolean test) throws BotCompilationException {
+    private static Bot compile(JavaFileObject source, String id, String path) throws BotCompilationException, IOException {
         if (compiler
                 == null) {
             throw new BotCompilationException("No compiler found");
         } else {
 
+            
             MyDiagnosticListener c = new MyDiagnosticListener();
-            StandardJavaFileManager fileManager = compiler.getStandardFileManager(c,
-                    Locale.ENGLISH,
-                    null);
-            Iterable options = Arrays.asList("-d", path+"/temp");
+            SingleFileManager fileManager = new SingleFileManager(compiler, new ByteCode(id));
             JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager,
-                    c, options, null,
+                    c, null, null,
                     Arrays.asList(source));
 
             boolean result = task.call();
             if (!result) {
                 throw new BotCompilationException("There was a problem compiling the code");
             }
-            //TODO load bot
 
             try {
-                File file = new File(path+"/temp");
-                URL url = file.toURL();
-                URL[] urls = new URL[]{url};
-
-                
-                ClassLoader loader = new URLClassLoader(urls);
-
-                Class thisClass = loader.loadClass(id);
-                if(test){
-                securityCheck(thisClass, path+"/temp");
+                Class thisClass = fileManager.getClassLoader().findClass(id);
+                byte[] bCode = fileManager.getClassLoader().getFileObject().getByteCode();
+                securityCheck(new ByteArrayInputStream(bCode), id);
 
                 Bot bot = (Bot)thisClass.newInstance();
                 
             String msg = TestExcecutor.testBot(bot);
                 if (msg.equals("Pass")) {
+                    //Save bot
+                    File file = new File(path+"/"+id+".class");
+                    if(file.exists()){
+                        file.delete();
+                    }
+                    file.createNewFile();
+                    FileOutputStream outstr = new FileOutputStream(file);
+                    outstr.write(bCode);
+                    outstr.close();
                     return bot;
                 } else {
                     throw new BotCompilationException(msg);
                 }
-                }else{
-                    return (Bot)thisClass.newInstance();
-                }
                 
-            } catch (MalformedURLException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
             } catch (ClassNotFoundException ex) {
                 throw new BotCompilationException("There was an error loading the bytecode");
             } catch (InstantiationException ex) {
@@ -138,34 +123,21 @@ public class BotCompiler {
         }
     }
     
-    private static void securityCheck(Class clazz, String path) throws BotCompilationException{
-        InputStream in = null;
+    private static void securityCheck(InputStream is, String id) throws BotCompilationException{
         try {
             DependencyCollector  collector = new DependencyCollector();
-            File classFile = new File(path + clazz.getName().replace('.','/')+".class");
-            in = new FileInputStream(classFile);
-            new ClassReader(in).accept(collector, 0);
-            
-            for (String ref:collector.getReferenced()) {
-                if(ref.startsWith("java.util")||ref.startsWith("capstone")){
-                    continue;
+            new ClassReader(is).accept(collector, 0);
+                for (String ref:collector.getReferenced()) {
+                    if(ref.startsWith("java.util")||ref.startsWith("capstone.game")||ref.startsWith("capstone.player")||ref.equals(id)){
+                        continue;
+                    }
+                    if(ref.startsWith("java.lang")&&!ref.contains("System")){
+                        continue;
+                    }
+                    throw new BotCompilationException("Error: Access to classes outside of bot-specific classes, java.util and java.lang (except System) not permitted.");
                 }
-                if(ref.startsWith("java.lang")&&!ref.contains("System")){
-                    continue;
-                }
-                throw new BotCompilationException("Error: Access to classes outside of bot-specific classes, java.util and java.lang (except System) not permitted.");
-            }
-            
-        } catch (FileNotFoundException ex) {
-            throw new BotCompilationException("There was an error accessing the bytecode");
         } catch (IOException ex) {
-            throw new BotCompilationException("There was an error accessing the bytecode");
-        } finally {
-            try {
-                in.close();
-            } catch (IOException ex) {
-                throw new BotCompilationException("There was an error accessing the bytecode");
-            }
+            Logger.getLogger(BotCompiler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

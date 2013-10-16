@@ -30,13 +30,13 @@ public class GameCreate extends HttpServlet {
             GameManager.joinGame(request.getSession(), gameID);
             response.getWriter().write("joined");
         }
-        if (request.getParameter("type").equals("private")) {
+        else if (request.getParameter("type").equals("private")) {
             String playerName = request.getParameter("player");
             String gameID = GameManager.getGameID(playerName);                              //Private Games
             GameManager.joinGame(request.getSession(), gameID);
             response.getWriter().write("joined");
         }
-        if (request.getParameter("type").equals("newprivate")) {
+        else if (request.getParameter("type").equals("newprivate")) {
             GameManager.newGame(request.getSession());
             response.getWriter().write("joined");
             GameManager.addPrivateName(request.getSession());
