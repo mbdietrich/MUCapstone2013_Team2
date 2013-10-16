@@ -290,9 +290,6 @@
             function getFBFriends() {
                 FB.api('/me/friends', function(response) {
                     facebookFriends = response;
-                    //$.each(response.data,function(index,friend) {
-                    //   console.log("friend: " + friend.name); 
-                    //});
                 });
             }
             
@@ -300,13 +297,51 @@
             source.onmessage = function(event) {
                 var fbid = "<%=gid%>";
                 if (event.data) { // only update if the string is not empty
-                    if(fbid !== "0") {   //only run if player is logged in with google
+                    if(fbid !== "0") {   //only run if player is logged in with facebook
                         compareFacebookFriends(event.data);
                     }
                 }
             };
             
+            function compareFacebookFriends(online) {
+                //first, remove the table
+                var parent = document.getElementById("facebookFriends");
+                while(parent.hasChildNodes()) {
+                    parent.removeChild(parent.firstChild);
+                }
+                //then, rebuild the table
+                var friendsToDisplay = new Array();
+                var onlinePlayers = online;
+                
+                //check if facebook friends are online
+                $.each(facebookFriends.data,function(index,friend) {
+                       //console.log("friend: " + friend.name);
+                       if(onlinePlayers.indexOf(friend.id) !== -1) {    //if the facebook friend is online
+                           friendsToDisplay.push(friend.name);
+                           var x=document.getElementById('facebookFriends').insertRow(0);
+                           var y=x.insertCell(0);
+                           var z=x.insertCell(1);
+                           var imageURL = getFacebookImageURL(friend.id);
+                           y.innerHTML="<img src='"+imageURL+" height='40 width='40'>";
+                           var fbid = "<%=fbid%>";
+                           z.innerHTML="<a href='SendPrivateGameInvite?me="+fbid+"&friend="+friend.id+"'>"+friend.name+"</a>";
+                       }
+                    });
+                if(friendsToDisplay.length === 0) {
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("noFriends").style.display = "inline";
+                    document.getElementById("facebookFriends").style.display = "none";
+                } else {
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("noFriends").style.display = "none";
+                    document.getElementById("facebookFriends").style.display = "inline-table";
+                }
+            }
             
+            function getFacebookImageURL(id) {
+                var url = "https://graph.facebook.com/"+id+"/picture";
+                return url;
+            }
             
             
             
