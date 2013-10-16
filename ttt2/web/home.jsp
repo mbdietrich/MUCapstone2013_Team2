@@ -111,30 +111,27 @@
     </head>
     <body>
         <div class="navBar1">
-            <div id="menuLeft">
-                <span><a href="home.jsp"><img src="images/menu_header.png" alt="title"/></a></span>
+            <div class="menuLeft">
+                <span><h1><a href="home.jsp">TIC TAC TOE</a></h1></span>
                 
             </div>
-            <nav>
+            <nav class="menuRight">
                 <ul>
-                    <li><a href="#"><img src="images/menu.png" id="menuIcon" alt="menu"/></a>
-                    
+                    <li><span>MENU</span>
                         <ul>
-                            <li><a href="#">Play +</a>
-                                <ul>
-                                    <li><a href="#" onclick="singlePlayer();">Bot</a></li>
-                                    <li><a href="#" onclick="multiPlayer();">User</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#" onclick="openPrivateGame();">Private Game</a></li>
-                            <li><a href="lobby.jsp">Public Games</a></li>
+                            <li><a href="#" onclick="singlePlayer();">Play Default Bot</a></li>
+                            <li><a href="#" onclick="multiPlayer();">Play Another User</a></li>
+                            <li><a href="#" onclick="openPrivateGame();">Play Private Game</a></li>
+                            <li><a href="boteditor.html">Create Bot</a></li>
+                            <li><a href="#">Bot Lobby</a></li>
+                            <li><a href="lobby.jsp">Game Lobby</a></li>
                             <li><a href="gamerecordmanager.jsp">Played Games</a></li>
                             <li><a href="logout.jsp">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
-            <div class="menuRight h3"><span>HOME</span></div>
+            
             <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
         </div>
 

@@ -16,7 +16,7 @@ table, th, td{
 }
 
 .subTable {
-    border: 5px solid black !important;
+    border: 5px solid white !important;
     padding: 10px;
 }
 
@@ -45,11 +45,22 @@ table, th, td{
 }
 
 .playerLabelLL {
-    opacity: 0.8;
+    opacity: 0.5;
+    background: gray;
+    color: white;
 }
 
 .playerLabelHL {
-    background: white !important;
+    background: #1abc9c !important;
+    color: black !important;
+}
+
+.playerLabelDraw {
+    background: gray !important;
+    color: black !important;
+}
+.playerLabelWin {
+    background: #9b59b6 !important;
     color: black !important;
 }
 #gameList {
@@ -72,7 +83,7 @@ body {
     text-align: center;
     background: white;
     min-width: 900px;
-    background: #ff9966;
+    
 }
 
 
@@ -156,8 +167,8 @@ h1 {
 }
 
 .buttons {
-    background: black;
-    color: white;
+    background: #3498db;
+    color: black;
     padding: 10px; 
     margin-left: auto;
     margin-right: auto;
@@ -169,7 +180,7 @@ h1 {
 
 .buttons a {
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 .buttons1 {
@@ -220,13 +231,18 @@ nav ul {
 
 nav ul li {
 	float: left;
+        color: black;
 }
+        nav ul li span {
+            padding: 25px;
+            cursor:pointer; 
+        }
 	nav ul li:hover {
-		background: black;
-		
+		background: #3498db;
 	}
 		nav ul li:hover a {
-			color: #ff9966;
+			color: black;
+                        opacity: 0.8;
 		}
 	
 	nav ul li a {
@@ -237,7 +253,7 @@ nav ul li {
 	}
         
 nav ul ul {
-	background: black; 
+	background: #3498db; 
         border-radius: 0px; 
         padding: 0;
 	position: absolute; 
@@ -253,40 +269,49 @@ nav ul ul {
 			color: black;
 		}	
 			nav ul ul li a:hover {
-				background: black;
+				background: #3498db;
+                                color: black;
 			}
                         
 nav ul ul ul {
 	position: absolute; right: 100%; top:0;
 }
 
-#menuIcon {
-    width: 40px;
-    height: 40px;
-}
 
 .navBar1 {
     display: inline-table;
-    background: black;
+    background: #3498db;
     width: 100%;
+    color: black;
 }
 
-#menuLeft {
+.navBar1 a { 
+    text-decoration: none;
+    color: black;
+}
+
+.menuLeft {
     float: left;
     display: block;
-    padding: 20px 0px 0px 20px;
+    padding: 10px;
 }
 
 .menuRight {
     float: right;
-    padding: 30px 0px 0px 20px;
-    color: #ff9966;
+    padding: 20px;
+    color: #3498db;
 }
 
 .jumbotron {
-    background: #ff9966;
+    background: white;
 }
 
+#loginGoogle {
+    background: #e74c3c;
+}
+#loginFB {
+    
+}
 #editor {
                 position: absolute;
                 top: 100px;

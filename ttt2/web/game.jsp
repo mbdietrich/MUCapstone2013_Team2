@@ -119,16 +119,20 @@
                                     }
                                     if((state.isTurn==="true")&&(state.PlayerNumber == 1)){
                                         button.disabled===true;
-                                        document.getElementById("team1").className = 'playerLabel animated bounce';
+                                        document.getElementById("team1").className = 'playerLabel playerLabelHL animated bounce';
+                                        document.getElementById("team1Alert").innerHTML = "YOUR TURN";
                                         document.getElementById("team2").className = 'playerLabel playerLabelLL';
+                                        document.getElementById("team2Alert").innerHTML = "WAIT..";
                                         //document.getElementById("isTurnAlert").innerHTML = "YOUR TURN";
                                         //document.getElementById("isTurnAlert").style.display = '';
                                         //document.getElementById("isTurnAlert").className = 'alert alert-info';
                                     }
                                     else if ((state.isTurn==="true")&&(state.PlayerNumber == 2)){
                                         button.disabled===true;
-                                        document.getElementById("team2").className = 'playerLabel animated bounce';
+                                        document.getElementById("team2").className = 'playerLabel playerLabelHL animated bounce';
+                                        document.getElementById("team2Alet").innerHTML = "YOUR TURN";
                                         document.getElementById("team1").className = 'playerLabel playerLabelLL';
+                                        document.getElementById("team1Alert").innerHTML = "WAIT..";
                                         //document.getElementById("isTurnAlert").innerHTML = "Waiting..";
                                         //document.getElementById("isTurnAlert").style.display = '';
                                         //document.getElementById("isTurnAlert").className = 'alert alert-warning';
@@ -136,6 +140,8 @@
                                         button.disabled===false;
                                         document.getElementById("team2").className = 'playerLabel';
                                         document.getElementById("team1").className = 'playerLabel';
+                                        document.getElementById("team2Alert").innerHTML = "";
+                                        document.getElementById("team1Alert").innerHTML = "";
                                     }
                                     buttonNum++;
                                 }
@@ -144,8 +150,8 @@
                         }
                     }
                     if (state.Status === state.PlayerNumber){
-                        document.getElementById("team1").innerHTML += " <span class='h3'>WINS!</span>";
-                        document.getElementById("team1").className = 'playerLabel playerLabelHL animated flash';
+                        document.getElementById("team1Alert").innerHTML = "WINS!";
+                        document.getElementById("team1").className = 'playerLabel playerLabelWin animated flash';
                         //window.alert("YOU WIN!");
                         //document.getElementById("isTurnAlert").innerHTML = "YOU WIN!";
                         //document.getElementById("isTurnAlert").style.display = '';
@@ -153,8 +159,8 @@
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
                     }else if (state.Status === "2" || state.Status === "1"){
-                        document.getElementById("team2").innerHTML += " <span class='h3'>WINS!</span>";
-                        document.getElementById("team2").className = 'playerLabel playerLabelHL animated flash';
+                        document.getElementById("team2Alert").innerHTML = "WINS!";
+                        document.getElementById("team2").className = 'playerLabel playerLabelWin animated flash';
                         //window.alert("SORRY, YOU LOSE.");
                         //document.getElementById("isTurnAlert").innerHTML = "YOU LOSE.";
                         //document.getElementById("isTurnAlert").style.display = '';
@@ -162,11 +168,11 @@
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
                     } else if (state.Status === "3") {
-                        document.getElementById("team2").innerHTML += " <span class='h3'>IT'S A DRAW!</span>";
-                        document.getElementById("team2").className = 'playerLabel playerLabelHL animated flash';
+                        document.getElementById("team2Alert").innerHTML = "IT'S A DRAW!";
+                        document.getElementById("team2").className = 'playerLabel playerLabelDraw animated flash';
                         
-                        document.getElementById("team1").innerHTML += " <span class='h3'>IT'S A DRAW!</span>";
-                        document.getElementById("team1").className = 'playerLabel playerLabelHL animated flash';
+                        document.getElementById("team1Alert").innerHTML = "IT'S A DRAW!";
+                        document.getElementById("team1").className = 'playerLabel playerLabelDraw animated flash';
                     }
                     //if (state.Status === "1" | state.Status === "2"){
                      //   window.alert("Player " + state.Status + " Wins");
@@ -236,47 +242,40 @@
     </head>
     <body onunload="$.post('leave');">
         <div class="navBar1">
-            <div id="menuLeft">
-                <span><a href="home.jsp"><img src="images/menu_header.png" alt="title"/></a></span>
+            <div class="menuLeft">
+                <span><h1><a href="home.jsp">TIC TAC TOE</a></h1></span>
                 
             </div>
-            
-            <nav>
+            <nav class="menuRight">
                 <ul>
-                    <li><a href="#"><img src="images/menu.png" id="menuIcon" alt="menu"/></a>
-                    
+                    <li><span>MENU</span>
                         <ul>
-                            <li><a href="#">Play +</a>
-                                <ul>
-                                    <li><a href="#" onclick="singlePlayer();">Bot</a></li>
-                                    <li><a href="#" onclick="multiPlayer();">User</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="privateGame.jsp">Private Game</a></li>
-                            <li><a href="lobby.jsp">Public Games</a></li>
+                            <li><a href="#" onclick="singlePlayer();">Play Default Bot</a></li>
+                            <li><a href="#" onclick="multiPlayer();">Play Another User</a></li>
+                            <li><a href="#" onclick="openPrivateGame();">Play Private Game</a></li>
+                            <li><a href="boteditor.html">Create Bot</a></li>
+                            <li><a href="#">Bot Lobby</a></li>
+                            <li><a href="lobby.jsp">Game Lobby</a></li>
                             <li><a href="gamerecordmanager.jsp">Played Games</a></li>
                             <li><a href="logout.jsp">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
-            <div class="menuRight h3"><span>GAME</span></div>
-            <div class="menuRight"><button onclick="leave()" class="btn btn-xs">Leave</button></div>
-            <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
-            </div>
             
-        
-        
+            <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
+        </div>
+        <div><a href="#" onclick="leave();" class="buttons butons2">Quit</a></div>
         <table id="gameArea">
             <tr>
                 <td>
-                    <div id="team1" class="playerLabel"><h1><%= session.getAttribute("user")%></h1></div>
+                    <div id="team1" class="playerLabel"><h1><%= session.getAttribute("user")%></h1><span class="h3" id="team1Alert"></span></div>
                 </td>
                 <td>
-                    <div class="gameDiv padTop2"><table id="gameframe"></table></div>
+                    <div class="gameDiv"><table id="gameframe"></table></div>
                 </td>
                 <td>
-                    <div id="team2" class="playerLabel"><h1>Opponent</h1></div>
+                    <div id="team2" class="playerLabel"><h1>Opponent</h1><span class="h3" id="team2Alert"></span></div>
                 </td>
             </tr>
         </table>
