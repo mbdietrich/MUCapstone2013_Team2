@@ -54,7 +54,7 @@ public class BotCompiler {
         return bot;
     }
     
-    public static Bot load(String id, String path) throws BotCompilationException{
+    public static Bot load(String id, String path){
         try {
             //TODO load bot
             File file = new File(path);

@@ -14,17 +14,11 @@
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="gamemethods.js"></script>
         <title>Edit your Bot</title>
-        
-        <script>
-            
-            //TODO submitting and returning info
-            
-        </script>
     </head>
     <body>
         <div class="navBar1">
             <div class="menuLeft">
-                <span><h1><a href="home.jsp">TIC TAC TOE</a></h1></span>
+                <h1><a href="home.jsp"><span>TIC TAC TOE</span></a></h1>
                 
             </div>
             <nav class="menuRight">
@@ -64,15 +58,15 @@
                 </li>
             </ul>
         <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade in active" id="home">
+        <div class="tab-pane fade in active" id="home"><br>
           Submission form here...
         </div>
-        <div class="tab-pane fade" id="dropdown1">
-          <h2>GameSession</h2><br><br>
+        <div class="tab-pane fade" id="dropdown1"><br>
+          <h2>GameSession</h2><br>
           <b>GameSession</b> stores all information about the current game.
         </div>
-        <div class="tab-pane fade" id="dropdown2">
-          <h2>GameState</h2><br><br>
+        <div class="tab-pane fade" id="dropdown2"><br>
+          <h2>GameState</h2><br>
           <b>GameState</b> contains the current state of the game.
         </div>
       </div>
@@ -80,6 +74,11 @@
         </div>
         <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
         <script>
+            
+            function submitCode(){
+                
+            }
+            
             var editor = ace.edit("editor");
             editor.setTheme("ace/theme/eclipse");
             editor.getSession().setMode("ace/mode/java");

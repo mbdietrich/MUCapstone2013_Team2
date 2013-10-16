@@ -10,7 +10,7 @@ package capstone.player.bot;
  */
 public class BotCompilationException extends Exception {
 
-    BotCompilationException(String msg) {
+    public BotCompilationException(String msg) {
         super(msg);
     }
     

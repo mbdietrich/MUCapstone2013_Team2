@@ -5,7 +5,12 @@
 package capstone.server.util;
 
 import capstone.player.Bot;
+import capstone.player.bot.BotCompilationException;
+import capstone.player.bot.BotCompiler;
+import java.io.IOException;
 import java.util.WeakHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -14,6 +19,8 @@ import javax.servlet.http.HttpSession;
  * Keeps a list of active bots in a weak map.
  */
 public class BotManager {
+    
+    private static final String PATH = "bots";
     
     //Map player IDs to their bots
     private static WeakHashMap<String, Bot> botmap = new WeakHashMap<String, Bot>();
@@ -29,8 +36,19 @@ public class BotManager {
             return bot;
         }
         else{
-            //TODO load bot
+            bot = BotCompiler.load(userid, PATH);
+            botmap.put(userid, bot);
+            return bot;
         }
-        return GameManager.DEFAULT_BOT;
+    }
+    
+    public static void compile(String userid, String code) throws BotCompilationException{
+        userid = userid.replace('.', '_').replace('@', '_');
+        try {
+            Bot bot = BotCompiler.createBot(code, userid, PATH);
+            botmap.put(userid, bot);
+        } catch (IOException ex) {
+            throw new BotCompilationException("Internal error saving bot.");
+        }
     }
 }
