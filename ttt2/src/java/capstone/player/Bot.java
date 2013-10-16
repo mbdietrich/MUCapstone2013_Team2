@@ -7,6 +7,8 @@ package capstone.player;
 import capstone.game.Coordinates;
 import capstone.game.GameSession;
 import capstone.game.GameState;
+import capstone.server.GameManager;
+import capstone.server.GameRecorder;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -36,7 +38,9 @@ public abstract class Bot implements Player {
         
         @Override
         public Coordinates call() throws Exception {
-                return me.next(session.getCurrentGame(), session.getPlayerNumber(me));
+                Coordinates newCoord = me.next(session.getCurrentGame(), session.getPlayerNumber(me));
+                GameRecorder.record(GameManager.getAnyGameID(session), "Bot", newCoord.getAllCoords());
+                return newCoord;
         }
     };
 
