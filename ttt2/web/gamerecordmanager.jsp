@@ -58,13 +58,13 @@
             var playGame = function(){
                 var tempbutton = document.getElementById(currentCoords[count]).firstElementChild;
                     if(firstplayer === true){
-                        tempbutton.src = 'images/ex.png';
+                        tempbutton.src = 'images/oh.png';
                         tempbutton.className ="gameButton";
                         firstplayer = false;
                         count += 1;
                     }
                     else{
-                        tempbutton.src = 'images/oh.png';
+                        tempbutton.src = 'images/ex.png';
                         tempbutton.className ="gameButton";
                         firstplayer = true;
                         count += 1;

@@ -49,7 +49,7 @@
                             $("#gameList").html(data);
                         }
                 );
-            }
+            };
             $().ready(function() {
                 // load conversation after page is loaded
                 loadGames();
@@ -59,7 +59,7 @@
 
             var onGameCreate = function(data) {
                 //TODO update lobby.jsp if the player has created a game
-            }
+            };
             
             //listen for game invites
             var source2 = new EventSource("GameInvites");
@@ -68,6 +68,7 @@
                     processGameInvites(event.data); //show game invites on page
                     updateInviteMenu("yes"); //show that there are invites in the menu
                 } else {
+                    processGameInvites(event.data); //game invites that no longer exist will be cleared
                     updateInviteMenu("no"); //if no request, hide menu
                 }
             };
@@ -269,8 +270,8 @@
                 });
             }
             
-            var source = new EventSource("FacebookFriends");
-            source.onmessage = function(event) {
+            var source3 = new EventSource("FacebookFriends");
+            source3.onmessage = function(event) {
                 var fbid = "<%=fbid%>";
                 if (event.data) { // only update if the string is not empty
                     if(fbid !== "0") {   //only run if player is logged in with facebook
