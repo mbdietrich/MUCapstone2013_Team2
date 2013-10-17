@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 public class BotManager {
     
-    private static final String PATH = "bots";
+    private static final String PATH = "..\\ttt2\\bots";
     
     //Map player IDs to their bots
     private static WeakHashMap<String, Bot> botmap = new WeakHashMap<String, Bot>();
