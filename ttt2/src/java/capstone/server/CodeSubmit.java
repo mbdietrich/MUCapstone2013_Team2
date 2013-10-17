@@ -24,7 +24,7 @@ public class CodeSubmit extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         String s = request.getParameter("code");
         try {
-            String filename = "/WEB-INF/lib/botcode.jar";
+            String filename = "/WEB-INF/libs/";
             ServletContext context = this.getServletContext();
             String pathname = context.getRealPath(filename);
 

@@ -24,7 +24,7 @@ public class BotCompilerTest {
     
     @BeforeClass
     public static void setUp() throws MalformedURLException{
-        JARPATH = new File("web/WEB-INF/lib/botcode.jar").toURI().toURL();
+        JARPATH = new File("web/WEB-INF/libs/").toURI().toURL();
     }
     
     //Valid compilation

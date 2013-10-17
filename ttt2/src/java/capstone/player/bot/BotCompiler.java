@@ -72,11 +72,12 @@ public class BotCompiler {
         }
     }
 
-    private static Bot compile(JavaFileObject source, String id, String path, URL jarpath) throws BotCompilationException, IOException {
+    private static Bot compile(JavaFileObject source, String id, String path, URL jpath) throws BotCompilationException, IOException {
         if (compiler
                 == null) {
             throw new BotCompilationException("No compiler found");
         } else {
+            URL jarpath=new URL(jpath, "botcode.jar");
             MyDiagnosticListener c = new MyDiagnosticListener();
             SingleFileManager fileManager = new SingleFileManager(compiler, new ByteCode(id), jarpath);
             Iterable<String> options = Arrays.asList("-cp", jarpath.getFile());

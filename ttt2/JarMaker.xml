@@ -15,8 +15,8 @@
   </target>
   
   <target name="jar" depends="compile">
-      <mkdir dir="${jar}/lib"/>
-      <jar jarfile="${jar}/lib/botcode.jar"
+      <mkdir dir="${jar}/libs"/>
+      <jar jarfile="${jar}/libs/botcode.jar"
            basedir="${build}/web/WEB-INF/classes"
         includes="**/capstone/**"/>
   </target>
