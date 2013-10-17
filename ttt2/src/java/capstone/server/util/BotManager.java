@@ -10,6 +10,8 @@ import capstone.player.bot.BotCompiler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Scanner;
 import java.util.WeakHashMap;
 import java.util.logging.Level;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpSession;
 public class BotManager {
     
     private static final String PATH = "..\\ttt2\\bots";
+    private static URL JARPATH;
     
     //Map player IDs to their bots
     private static WeakHashMap<String, Bot> botmap = new WeakHashMap<String, Bot>();
@@ -60,13 +63,15 @@ public class BotManager {
         
     }
     
-    public static void compile(String userid, String code) throws BotCompilationException{
+    public static void compile(String userid, String code, String jarpath) throws BotCompilationException{
+        
+        
         userid = userid.replace('.', '_').replace('@', '_');
         try {
-            Bot bot = BotCompiler.createBot(code, userid, PATH);
+            Bot bot = BotCompiler.createBot(code, userid, PATH, new File(jarpath).toURI().toURL());
             botmap.put(userid, bot);
         } catch (IOException ex) {
-            throw new BotCompilationException("Internal error saving bot.");
+            throw new BotCompilationException("Internal error validating bot.");
         }
     }
 }

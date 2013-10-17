@@ -5,6 +5,7 @@
 package capstone.player.bot;
 
 import java.io.IOException;
+import java.net.URL;
 import javax.tools.FileObject;
 import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaCompiler;
@@ -13,9 +14,10 @@ import javax.tools.JavaFileObject;
 
 class SingleFileManager extends ForwardingJavaFileManager {
 
-        public SingleFileManager(JavaCompiler compiler, ByteCode byteCode) {
+        public SingleFileManager(JavaCompiler compiler, ByteCode byteCode, URL rest) {
             super(compiler.getStandardFileManager(null, null, null));
-            loader = new SingleClassLoader(byteCode);
+            URL[] urls = {rest};
+            loader = new SingleClassLoader(byteCode, urls);
         }
 
         @Override
