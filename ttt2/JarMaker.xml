@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="changeme" default="jar" basedir=".">
+    
+    <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="jar"  location="web/WEB-INF"/>
+  
+
+  <target name="init">
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src}" destdir="${build}" failonerror="false"/>
+  </target>
+  
+  <target name="jar" depends="compile">
+      <mkdir dir="${jar}/lib"/>
+      <jar jarfile="${jar}/lib/botcode.jar"
+           basedir="${build}/web/WEB-INF/classes"
+        includes="**/capstone/**"/>
+  </target>
+  
+</project>

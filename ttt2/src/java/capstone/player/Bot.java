@@ -24,6 +24,8 @@ import java.util.concurrent.TimeoutException;
  */
 public abstract class Bot implements Player {
 
+    private static final Bot DEFAULT = new GameBot();
+    
     public static final ExecutorService executor = new ThreadPoolExecutor(1, 4, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<Runnable>(10));
     
     static class Call implements Callable<Coordinates>{
@@ -61,7 +63,7 @@ public abstract class Bot implements Player {
                 future.cancel(true);
                 current.Leave(this);
             } catch (ExecutionException ex) {
-                ex.printStackTrace();
+                current.Leave(this);
             future.cancel(true);
                 current.Leave(this);
         } catch (TimeoutException ex) {
@@ -81,5 +83,9 @@ public abstract class Bot implements Player {
             }
         }
         return false;
+    }
+    
+    public static Bot defaultBot(){
+        return DEFAULT;
     }
 }

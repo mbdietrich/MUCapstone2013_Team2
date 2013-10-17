@@ -5,7 +5,6 @@
 package capstone.player;
 import capstone.game.*;
 import java.util.*;
-import org.apache.catalina.Session;
 
 public class GameBot extends Bot
 {
