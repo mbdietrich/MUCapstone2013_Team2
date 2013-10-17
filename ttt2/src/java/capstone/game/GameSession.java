@@ -121,10 +121,19 @@ public class GameSession {
         }
 
         public String getOpponentName(Player player){
-            if(player.equals(player1)){
-                return player2.getName();
+            if(player1 == null | player2 == null)
+            {
+                return null;
+                
             }
-            else return player1.getName();
+            else{
+                if(player.equals(player1)){
+                    return player2.getName();
+                }
+                else return player1.getName();
+                
+            
+            }
         }
         
         /**
