@@ -84,7 +84,7 @@ public class BotCompiler {
 
             boolean result = task.call();
             if (!result) {
-                throw new BotCompilationException("There was a problem compiling the code");
+                throw new BotCompilationException(c.toString());
             }
 
             try {
