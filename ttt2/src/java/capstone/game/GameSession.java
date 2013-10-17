@@ -120,6 +120,13 @@ public class GameSession {
 
         }
 
+        public String getOpponentName(Player player){
+            if(player.equals(player1)){
+                return player2.getName();
+            }
+            else return player1.getName();
+        }
+        
         /**
          * Used by a player to leave the game.
          * @param player The Player who is leaving the game.

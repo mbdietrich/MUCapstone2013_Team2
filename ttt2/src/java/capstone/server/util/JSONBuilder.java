@@ -21,6 +21,8 @@ public class JSONBuilder {
         .append("{")
         .append(buildPlayerNumber(game, target))
         .append(",")
+        .append(buildOpponent(game,target))
+        .append(",")
         .append(buildIsTurn(game,target))
         .append(",")
         .append(buildGameStatus(game, target))
@@ -28,7 +30,9 @@ public class JSONBuilder {
         .append(buildGameWon(game))
         .append(",")
         .append(buildBoardObject(game))
-        .append("}");
+        .append("}")
+        .append(buildSubGameStatus(game))
+        .append(",");
         
         return builder.toString();
     }
@@ -122,5 +126,26 @@ public class JSONBuilder {
     	}
     	builder=builder.append("]");
     	return builder.toString();
+    }
+
+    private static String buildSubGameStatus(GameSession game) {
+        StringBuilder builder = new StringBuilder("\"Substatus\":[");
+        for (int i = 0; i < 3; i++){
+    		for(int j=0; j<3; j++){
+                    builder=builder.append("\"").append(Integer.toString(game.getCurrentGame().getStatusboard()[i][j])).append("\"");
+                    if(i<2||j<2){
+                        builder=builder.append(",");
+                    }
+                }
+        }
+        builder=builder.append("]");
+        return builder.toString();
+    }
+
+    private static String buildOpponent(GameSession game, RemotePlayer target) {
+        StringBuilder builder = new StringBuilder("\"Opponent\": ");
+        
+        builder = builder.append("\"").append(game.getOpponentName(target)).append("\"");
+        return builder.toString();
     }
 }

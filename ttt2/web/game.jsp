@@ -86,6 +86,8 @@
                     //state.isTurn
                     //state.Status
                     //state.Board
+                    //state.Substatus
+                    //state.Opponent
                     var subgame=0;
                     for(a = 0;a<3;a++){
                         for(b = 0;b<3;b++){
