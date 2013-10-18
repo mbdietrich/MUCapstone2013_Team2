@@ -36,7 +36,7 @@ public class GameRecorder {
             {
                 players.put(gameID, game);
             }
-            gameIDs.get(player).add(gameID);
+            //gameIDs.get(player).add(gameID);
         } 
         else {
             players.get(gameID).putCoords(coords);
