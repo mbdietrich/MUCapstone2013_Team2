@@ -16,9 +16,10 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="gamemethods.js"</script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
+        
 
         <title>TTT - Game Record Manager</title>
 
@@ -36,7 +37,7 @@
            var firstplayer = true;
            
            var loadCoords = function() {
-               
+               show();
                var gameID = document.getElementById("gameList");
                var stru = gameID.options[gameID.selectedIndex].id;
 
@@ -124,11 +125,13 @@
             var functionOnLoad = function(){
                 initiate();
                 loadGames();
+                hide();
             }
             var hide = function(){
-                alert(document.getElementById("gameframe").style.visibility);
-                document.getElementById("gameframe").style.visibility = "hidden";
-                
+                document.getElementById("playButton").style.visibility = "hidden"; 
+            }
+            var show = function(){
+                document.getElementById("playButton").style.visibility = "visible"; 
             }
             window.onload = functionOnLoad;
             
@@ -186,9 +189,10 @@
                         <div id="joinButton"></div>
                     </div></td>
                 <td><table id="gameframe"></table></td>
+                <td><a id="playButton" href="#" onclick="playGame();"><image src= "images/play.png"></button>Next Move</td>
             </tr>
+            
         </table>
-        <button onclick="playGame();">Next Move</button>
-        <button onclick="hide();">Hide</button>
+        
     </body>
 </html>
