@@ -123,15 +123,15 @@ public class BotCompiler {
                 }
 
             } catch (ClassNotFoundException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
+                throw new BotCompilationException("There was an error loading the bytecode: Could not find class");
             } catch (InstantiationException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
+                throw new BotCompilationException("There was an error loading the bytecode: Could not instantiate bot");
             } catch (IllegalAccessException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
+                throw new BotCompilationException("There was an error loading the bytecode: Illegal access modifier");
             } catch (SecurityException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
+                throw new BotCompilationException("There was an error loading the bytecode: Security Violation");
             } catch (NoSuchMethodException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
+                throw new BotCompilationException("Method must be called nextMove.");
             }
 
         }
