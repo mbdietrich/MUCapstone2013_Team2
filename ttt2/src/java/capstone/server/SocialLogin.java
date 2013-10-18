@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
+
 /**
  *
  * @author luke
@@ -23,6 +24,7 @@ public class SocialLogin extends HttpServlet {
     
     public static Map<String, String> googlePlayerDetails = new ConcurrentHashMap<String, String>();
     public static Map<String, String> facebookPlayerDetails = new ConcurrentHashMap<String, String>();
+    public static Map<String, HttpSession> emailDetails = new ConcurrentHashMap<String, HttpSession>();
 
     /**
      * Processes requests for both HTTP
@@ -50,6 +52,9 @@ public class SocialLogin extends HttpServlet {
             this.facebookPlayerDetails.put(name, fbid);
         }
         
+        //record email details
+        this.emailDetails.put(email, session);
+        
         GameManager.newPlayer(session, name);
         //forward player to the main page
         this.getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
@@ -66,13 +71,16 @@ public class SocialLogin extends HttpServlet {
     }
     
     public static String getOnlineFacebookPlayers() {
-        //Map onlinePlayers = this.playerDetails;
         Object[] playersKeys = facebookPlayerDetails.values().toArray();
         String players = "";
         for(int i=0;i<playersKeys.length;i++) {
             players = players + playersKeys[i] +" ";
         }
         return players;
+    }
+    
+    public static Map<String, HttpSession> getEmailDetails() {
+        return emailDetails;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
