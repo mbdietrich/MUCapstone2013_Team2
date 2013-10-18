@@ -65,7 +65,7 @@
                         {a:a,b:b,x:x,y:y}
                     );
             }
-            
+            var opponent;
             var onState = function(e) {
                 var evt = e || window.event;
                 var data;
@@ -77,6 +77,10 @@
                         document.getElementById("openWait").style.display = '';
                     }
                     else if(!state.waiting){
+                    opponent = state.Opponent.toString();
+                    if (opponent != null) {
+                        document.getElementById("team2").firstElementChild.innerHTML = opponent;
+                    }
                     document.getElementById("openWait").style.display = 'none';
                     document.getElementById("gameArea").style.display = '';
 
@@ -141,6 +145,10 @@
                         }
                     }
                     if (state.Status === state.PlayerNumber){
+                        opponent = state.Opponent.toString();
+                        if (opponent != null) {
+                            document.getElementById("team2").firstElementChild.innerHTML = opponent;
+                        }
                         document.getElementById("team1Alert").innerHTML = "WINS!";
                         document.getElementById("team1").className = 'playerLabel playerLabelWin animated flash';
                         //window.alert("YOU WIN!");
@@ -150,6 +158,10 @@
                         //$.post('leave');
                         //window.location.href="/CapstoneProject/home.jsp";
                     }else if (state.Status === "2" || state.Status === "1"){
+                        opponent = state.Opponent.toString();
+                        if (opponent != null) {
+                            document.getElementById("team2").firstElementChild.innerHTML = opponent;
+                        }
                         document.getElementById("team2Alert").innerHTML = "WINS!";
                         document.getElementById("team2").className = 'playerLabel playerLabelWin animated flash';
                         //window.alert("SORRY, YOU LOSE.");
