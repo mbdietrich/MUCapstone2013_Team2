@@ -63,6 +63,18 @@ public class GameBot extends Bot
                 Coordinates posMove = checkSubGame(subBoard, opPlayer);
                 if (posMove.getInnerX() != 3)
                 {
+                    Coordinates posMove2 = checkSubGame(subBoard, player);
+                    if (posMove2.getInnerX()!= 3)
+                    {
+                        tempMove.setOuterX(i);
+                        tempMove.setOuterY(j);
+                        tempMove.setInnerX(posMove2.getInnerX());
+                        tempMove.setInnerY(posMove2.getInnerY());
+                        if (GameRules.validMove(prev, tempMove))
+                        {
+                            return tempMove;
+                        }
+                    }
                     tempMove.setOuterX(i);
                     tempMove.setOuterY(j);
                     tempMove.setInnerX(posMove.getInnerX());
