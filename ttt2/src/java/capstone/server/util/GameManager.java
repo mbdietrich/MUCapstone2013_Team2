@@ -95,6 +95,20 @@ BlockingQueue<String>>();
         }
     }
     
+    public static void playerBotJoin(HttpSession session, Bot bot){
+        try {
+            gameSessions.get(session).Join(bot);
+            GameSession game = gameSessions.get(session);
+            openGames.remove(gameSessions.get(session).SessionID);
+            for(HttpSession sess: watchers.get(game)){
+                String initialMessage = JSONBuilder.buildJSON(game, players.get(sess));
+                states.get(sess).offer(initialMessage);
+            }
+        } catch (IllegalGameException ex) {
+            Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public static String getPublicGames(){
         StringBuilder builder = new StringBuilder("{\"games\":[");
         boolean first = true;

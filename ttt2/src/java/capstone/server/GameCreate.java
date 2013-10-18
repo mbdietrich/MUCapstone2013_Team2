@@ -4,6 +4,8 @@
  */
 package capstone.server;
 
+import capstone.player.Bot;
+import capstone.server.util.BotManager;
 import capstone.server.util.GameManager;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -51,6 +53,10 @@ public class GameCreate extends HttpServlet {
                 response.getWriter().write("joined");
             }
             response.getWriter().close();
+        } else if(request.getParameter("type").equals("bot")) {
+            GameManager.newGame(request.getSession());
+            Bot bot = BotManager.getBot(request.getParameter("botID"));
+            GameManager.playerBotJoin(request.getSession(), bot);
         } else {
 
             GameManager.newGame(request.getSession());
