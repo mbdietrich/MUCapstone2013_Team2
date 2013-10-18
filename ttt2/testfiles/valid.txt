@@ -3,8 +3,8 @@
             for(int j = 0; j<3; j++){
                 for(int k = 0; k<3; k++){
                     for(int l = 0; l<3; l++){
-                    if(board[i][j][k][l]==0){
-                        int[][] retVal = {{i,j},{k,l}};
+                    if(validMove(board,new int[][]{new int[]{i,j},new int[]{k,l}})){
+                        int[][] retVal = {new int[]{i,j},new int[]{k,l}};
                         return retVal;
                     }
                     }

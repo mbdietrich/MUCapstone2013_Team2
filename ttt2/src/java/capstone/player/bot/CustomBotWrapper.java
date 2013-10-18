@@ -22,11 +22,13 @@ public class CustomBotWrapper extends Bot {
     private Method name;
     private Object bot;
 
-    public CustomBotWrapper(Class clazz) throws InstantiationException, IllegalAccessException, NoSuchMethodException {
-        Class[] inputTypes = {int[][][][].class, int.class};
-        impl = clazz.getMethod("nextMove", inputTypes);
+    public CustomBotWrapper(Class clazz) throws InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+        impl = clazz.getMethod("nextMove", new Class[]{int[][][][].class, int.class});
         name = clazz.getMethod("getName", new Class[0]);
-        bot = clazz.newInstance();
+        Method myValidMove = CustomBotWrapper.class.getMethod("validMove", new Class[]{int[][][][].class, int[][].class});
+        Method myBoardStatus = CustomBotWrapper.class.getMethod("boardStatus", new Class[]{int[][].class});
+        
+        bot = clazz.getConstructor(Method.class, Method.class).newInstance(myValidMove, myBoardStatus);
     }
 
     @Override
@@ -69,11 +71,11 @@ public class CustomBotWrapper extends Bot {
     }
  
     //TODO wrap these
-    public boolean validMove(int[][][][] board, int[][] coord){
+    public static boolean validMove(int[][][][] board, int[][] coord){
         return GameRules.validMove(new GameState(board), new Coordinates(coord[0][0],coord[0][1],coord[1][0],coord[1][1]));
     }
     
-    public int boardStatus(int[][] board){
+    public static int boardStatus(int[][] board){
         return GameRules.checkStatusBoard(board);
     }
 }
