@@ -41,7 +41,7 @@ public abstract class Bot implements Player {
         @Override
         public Coordinates call() throws Exception {
                 Coordinates newCoord = me.next(session.getCurrentGame(), session.getPlayerNumber(me));
-                GameRecorder.record(GameManager.getAnyGameID(session), "Bot", newCoord.getAllCoords());
+                //GameRecorder.record(GameManager.getAnyGameID(session), "Bot", newCoord.getAllCoords());
                 return newCoord;
         }
     };

@@ -2,6 +2,8 @@
 package capstone.game;
 
 import capstone.player.*;
+import capstone.server.util.GameManager;
+import capstone.server.util.GameRecorder;
 import java.util.UUID;
 
 public class GameSession {
@@ -77,6 +79,7 @@ public class GameSession {
                         playerInt = 2;
                     }
                     currentgame.PlacePiece(move, playerInt);
+                    GameRecorder.record(GameManager.getAnyGameID(this), currentPlayer.getName(), move.toString());
                     
                     if (currentPlayer.equals(player1)) {
                         currentPlayer = player2;

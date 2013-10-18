@@ -296,7 +296,7 @@ BlockingQueue<String>>();
             if (GameRules.validMove(board, coords)){
                 player.setActive(false);
                 game.move(player, coords);
-                GameRecorder.record(getAnyGameID(game), session.getAttribute("user").toString(), coords.getAllCoords());
+                //GameRecorder.record(getAnyGameID(game), session.getAttribute("user").toString(), coords.getAllCoords());
                 for(HttpSession s: watchers.get(game)){
                 String nextState=JSONBuilder.buildJSON(game, players.get(s));
                 states.get(s).offer(nextState);
