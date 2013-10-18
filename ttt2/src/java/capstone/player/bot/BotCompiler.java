@@ -13,12 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.tools.*;
@@ -32,17 +29,20 @@ public class BotCompiler {
 
     private static JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
-    public static Bot createBot(String methodBody, String id, String path, URL jarpath) throws BotCompilationException, IOException {
+    public static Bot createBot(String methodBody, String id, String path) throws BotCompilationException, IOException {
         StringWriter writer = new StringWriter();
         PrintWriter out = new PrintWriter(writer);
+        
+        //Declaration
         out.println("import java.util.*;");
-        out.println("import capstone.game.*;");
-        out.println("import capstone.player.Bot;");
-        out.println("public class " + id + " extends Bot {");
+        out.println("public class " + id + " {");
+        //Method
         out.println(methodBody);
+        //Name
         out.println("  public String getName(){");
         out.println("     return \"" + id + " (Bot)\";");
         out.println("  }");
+        //Other
         out.println("}");
         out.close();
 
@@ -53,7 +53,7 @@ public class BotCompiler {
             exception.printStackTrace();
         }
 
-        Bot bot = compile(so, id, path, jarpath);
+        Bot bot = compile(so, id, path);
         return bot;
     }
 
@@ -65,24 +65,22 @@ public class BotCompiler {
             URL[] urls = new URL[]{url};
             ClassLoader loader = new URLClassLoader(urls);
             Class thisClass = loader.loadClass(id);
-            return (Bot) thisClass.newInstance();
+            return new CustomBotWrapper(thisClass);
 
         } catch (Exception ex) {
             return GameManager.DEFAULT_BOT;
         }
     }
 
-    private static Bot compile(JavaFileObject source, String id, String path, URL jpath) throws BotCompilationException, IOException {
+    private static Bot compile(JavaFileObject source, String id, String path) throws BotCompilationException, IOException {
         if (compiler
                 == null) {
             throw new BotCompilationException("No compiler found");
         } else {
-            URL jarpath=new URL(jpath, "botcode.jar");
             MyDiagnosticListener c = new MyDiagnosticListener();
-            SingleFileManager fileManager = new SingleFileManager(compiler, new ByteCode(id), jarpath);
-            Iterable<String> options = Arrays.asList("-cp", jarpath.getFile());
+            SingleFileManager fileManager = new SingleFileManager(compiler, new ByteCode(id));
             JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager,
-                    c, options, null,
+                    c, null, null,
                     Arrays.asList(source));
 
             boolean result = task.call();
@@ -91,16 +89,12 @@ public class BotCompiler {
             }
 
             try {
-                if (!JarLoader.INITIALIZED) {
-                    JarLoader.addURL(jarpath);
-                    JarLoader.INITIALIZED = true;
-                }
 
                 Class thisClass = fileManager.getClassLoader().findClass(id);
                 byte[] bCode = fileManager.getClassLoader().getFileObject().getByteCode();
                 securityCheck(new ByteArrayInputStream(bCode), id);
 
-                Bot bot = (Bot) thisClass.newInstance();
+                Bot bot = new CustomBotWrapper(thisClass);
 
                 String msg = TestExcecutor.testBot(bot);
                 if (msg.equals("Pass")) {
@@ -131,13 +125,15 @@ public class BotCompiler {
                 }
 
             } catch (ClassNotFoundException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
+                throw new BotCompilationException("There was an error loading the bytecode: Could not find class");
             } catch (InstantiationException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
+                throw new BotCompilationException("There was an error loading the bytecode: Could not instantiate bot");
             } catch (IllegalAccessException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
+                throw new BotCompilationException("There was an error loading the bytecode: Illegal access modifier");
             } catch (SecurityException ex) {
-                throw new BotCompilationException("There was an error loading the bytecode");
+                throw new BotCompilationException("There was an error loading the bytecode: Security Violation");
+            } catch (NoSuchMethodException ex) {
+                throw new BotCompilationException("Method must be called nextMove.");
             }
 
         }
@@ -148,13 +144,13 @@ public class BotCompiler {
             DependencyCollector collector = new DependencyCollector();
             new ClassReader(is).accept(collector, 0);
             for (String ref : collector.getReferenced()) {
-                if (ref.startsWith("java.util") || ref.startsWith("capstone.game") || ref.startsWith("capstone.player") || ref.equals(id)) {
+                if (ref.startsWith("java.util") || ref.equals(id)) {
                     continue;
                 }
                 if (ref.startsWith("java.lang") && !ref.contains("System")) {
                     continue;
                 }
-                throw new BotCompilationException("Error: Access to classes outside of bot-specific classes, java.util and java.lang (except System) not permitted.");
+                throw new BotCompilationException("Error: Access to classes outside of java.util and java.lang (except System) not permitted.");
             }
         } catch (IOException ex) {
             Logger.getLogger(BotCompiler.class.getName()).log(Level.SEVERE, null, ex);

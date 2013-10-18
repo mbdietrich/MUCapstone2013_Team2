@@ -1,3 +1,3 @@
-    public Coordinates next(GameState prev, int player) {
-        return new Coordinates(0,0,0);
+    public int[][] nextMove(int[][][][] board, int player) {
+        return new String();
     }

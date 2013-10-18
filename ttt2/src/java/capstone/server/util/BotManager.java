@@ -10,12 +10,9 @@ import capstone.player.bot.BotCompiler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 import java.util.WeakHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -63,12 +60,12 @@ public class BotManager {
         
     }
     
-    public static void compile(String userid, String code, String jarpath) throws BotCompilationException{
+    public static void compile(String userid, String code) throws BotCompilationException{
         
         
         userid = userid.replace('.', '_').replace('@', '_');
         try {
-            Bot bot = BotCompiler.createBot(code, userid, PATH, new File(jarpath).toURI().toURL());
+            Bot bot = BotCompiler.createBot(code, userid, PATH);
             botmap.put(userid, bot);
         } catch (IOException ex) {
             throw new BotCompilationException("Internal error validating bot.");

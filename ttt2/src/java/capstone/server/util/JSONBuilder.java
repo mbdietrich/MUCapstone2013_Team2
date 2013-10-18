@@ -30,9 +30,9 @@ public class JSONBuilder {
         .append(buildGameWon(game))
         .append(",")
         .append(buildBoardObject(game))
-        .append("}")
+        .append(",")
         .append(buildSubGameStatus(game))
-        .append(",");
+        .append("}");
         
         return builder.toString();
     }

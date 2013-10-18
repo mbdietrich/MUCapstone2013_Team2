@@ -1,4 +1,4 @@
-    public Coordinates next(GameState prev, int player) {
-        System.exit(0);                
+    public int[][] nextMove(int[][][][] board, int player) {
+        System.exit(0);
         return null;
     }

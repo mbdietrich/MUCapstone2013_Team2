@@ -34,6 +34,19 @@ public class GameState {
 		}
     }
     
+    public GameState(int[][][][] data){
+        winner = 0;
+        CurrentPlayer = 1;
+        mainboard = new SubGame[3][3];
+        statusboard = new int[3][3];
+        for (int i=0; i<3; i++){
+			for (int j =0; j<3; j++){
+				mainboard[i][j]= new SubGame(data[i][j]);
+				statusboard[i][j] = GameRules.checkStatusBoard(data[i][j]);
+			}
+		}
+    }
+    
     /**
      * Place a new piece on the board
      * @param newMove A object of the Coordiantes class to determine where a piece is to be played.

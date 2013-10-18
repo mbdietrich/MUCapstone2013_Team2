@@ -84,7 +84,12 @@ BlockingQueue<String>>();
     public static void BotJoin(HttpSession session){
         try {
             gameSessions.get(session).Join(DEFAULT_BOT);
+            GameSession game = gameSessions.get(session);
             openGames.remove(gameSessions.get(session).SessionID);
+            for(HttpSession sess: watchers.get(game)){
+                String initialMessage = JSONBuilder.buildJSON(game, players.get(sess));
+                states.get(sess).offer(initialMessage);
+            }
         } catch (IllegalGameException ex) {
             Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, null, ex);
         }
