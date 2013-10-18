@@ -79,7 +79,7 @@ public class GameSession {
                         playerInt = 2;
                     }
                     currentgame.PlacePiece(move, playerInt);
-                    GameRecorder.record(GameManager.getAnyGameID(this), currentPlayer.getName(), move.toString());
+                    GameRecorder.record(GameManager.getAnyGameID(this), currentPlayer.getName(), move.getAllCoords());
                     
                     if (currentPlayer.equals(player1)) {
                         currentPlayer = player2;

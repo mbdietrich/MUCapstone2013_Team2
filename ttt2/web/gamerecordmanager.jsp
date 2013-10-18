@@ -58,13 +58,13 @@
             var playGame = function(){
                 var tempbutton = document.getElementById(currentCoords[count]).firstElementChild;
                     if(firstplayer === true){
-                        tempbutton.src = 'images/oh.png';
+                        tempbutton.src = 'images/ex.png';
                         tempbutton.className ="gameButton";
                         firstplayer = false;
                         count += 1;
                     }
                     else{
-                        tempbutton.src = 'images/ex.png';
+                        tempbutton.src = 'images/oh.png';
                         tempbutton.className ="gameButton";
                         firstplayer = true;
                         count += 1;
@@ -125,6 +125,11 @@
                 initiate();
                 loadGames();
             }
+            var hide = function(){
+                alert(document.getElementById("gameframe").style.visibility);
+                document.getElementById("gameframe").style.visibility = "hidden";
+                
+            }
             window.onload = functionOnLoad;
             
             var refresh = function(data) {
@@ -184,5 +189,6 @@
             </tr>
         </table>
         <button onclick="playGame();">Next Move</button>
+        <button onclick="hide();">Hide</button>
     </body>
 </html>
