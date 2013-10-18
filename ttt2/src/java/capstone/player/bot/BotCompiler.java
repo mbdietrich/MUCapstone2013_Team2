@@ -13,12 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.tools.*;
@@ -32,15 +29,20 @@ public class BotCompiler {
 
     private static JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
-    public static Bot createBot(String methodBody, String id, String path, URL jarpath) throws BotCompilationException, IOException {
+    public static Bot createBot(String methodBody, String id, String path) throws BotCompilationException, IOException {
         StringWriter writer = new StringWriter();
         PrintWriter out = new PrintWriter(writer);
+        
+        //Declaration
         out.println("import java.util.*;");
         out.println("public class " + id + " {");
+        //Method
         out.println(methodBody);
+        //Name
         out.println("  public String getName(){");
         out.println("     return \"" + id + " (Bot)\";");
         out.println("  }");
+        //Other
         out.println("}");
         out.close();
 
@@ -51,7 +53,7 @@ public class BotCompiler {
             exception.printStackTrace();
         }
 
-        Bot bot = compile(so, id, path, jarpath);
+        Bot bot = compile(so, id, path);
         return bot;
     }
 
@@ -70,7 +72,7 @@ public class BotCompiler {
         }
     }
 
-    private static Bot compile(JavaFileObject source, String id, String path, URL jpath) throws BotCompilationException, IOException {
+    private static Bot compile(JavaFileObject source, String id, String path) throws BotCompilationException, IOException {
         if (compiler
                 == null) {
             throw new BotCompilationException("No compiler found");

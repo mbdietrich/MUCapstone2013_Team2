@@ -5,6 +5,7 @@
 package capstone.player.bot;
 
 import capstone.game.Coordinates;
+import capstone.game.GameRules;
 import capstone.game.GameState;
 import capstone.player.Bot;
 import java.lang.reflect.InvocationTargetException;
@@ -65,5 +66,14 @@ public class CustomBotWrapper extends Bot {
         } catch (InvocationTargetException ex) {
             return "";
         }
+    }
+ 
+    //TODO wrap these
+    public boolean validMove(int[][][][] board, int[][] coord){
+        return GameRules.validMove(new GameState(board), new Coordinates(coord[0][0],coord[0][1],coord[1][0],coord[1][1]));
+    }
+    
+    public int boardStatus(int[][] board){
+        return GameRules.checkStatusBoard(board);
     }
 }

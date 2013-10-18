@@ -24,11 +24,8 @@ public class CodeSubmit extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         String s = request.getParameter("code");
         try {
-            String filename = "/WEB-INF/libs/";
-            ServletContext context = this.getServletContext();
-            String pathname = context.getRealPath(filename);
 
-            BotManager.compile(request.getSession().getAttribute("email").toString(), s, pathname);
+            BotManager.compile(request.getSession().getAttribute("email").toString(), s);
             response.getWriter().print("OK!");
         } catch (BotCompilationException e) {
             response.getWriter().print(e.getMessage());
