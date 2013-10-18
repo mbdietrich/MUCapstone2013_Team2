@@ -41,10 +41,33 @@
             <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
         </div>
         <div style="display: table; width:100%;">
-        <div id="editor">public Coordinates next(GameState prev, int player){
-    //Insert your code here
-    return new Coordinates(-1,-1,-1,-1);
-}</div>
+        <div id="editor">
+        public int[][] nextMove(int[][][][] board, int player) {
+        
+        //Example bot
+        //i,j loop through subgames
+        //k and l loop within the subgame
+        //Find first valid tile and occupy it
+        
+        for(int i = 0; i&lt;3; i++){
+            for(int j = 0; j&lt;3; j++){
+                for(int k = 0; k&lt;3; k++){
+                    for(int l = 0; l&lt;3; l++){
+                    
+                        int[] outer = {i,j};
+                        int[] inner = {k,l}
+                        int[][] move = {outer, inner};
+                        if(validMove(board,move)){
+                            return move;
+                        }
+                        
+                    }
+                }
+            }
+        }
+    //No valid move - will never be called
+    return null;
+    }</div>
         
         <div id="edithelp">
             <ul id="myTab" class="nav nav-tabs">
