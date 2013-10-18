@@ -25,7 +25,7 @@ public class MyDiagnosticListener implements DiagnosticListener<JavaFileObject>
         public String toString(){
             StringWriter writer = new StringWriter();
             for(Diagnostic d: messages){
-                writer.write("Line: "+(d.getLineNumber()-4)+"; "+d.getMessage(Locale.US)+"<br>");
+                writer.write("Line: "+(d.getLineNumber()-2)+"; "+d.getMessage(Locale.US)+"<br>");
             }
             return writer.toString();
         }
