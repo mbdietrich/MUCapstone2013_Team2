@@ -1,9 +1,7 @@
 <%-- 
-    Document   : lobby
-    Created on : 20/09/2013, 7:45:02 PM
-    Author     : Max
-
-    For advanced game settings, send the player here.
+    Document   : botLobby
+    Created on : Oct 18, 2013, 12:02:17 PM
+    Author     : luke
 --%>
 
 <%
@@ -29,7 +27,7 @@
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="gamemethods.js"></script>
         
-        <title>TTT - Lobby</title>
+        <title>TTT - Bot Lobby</title>
         
         <noscript><meta http-equiv="refresh" content="0;URL=noscript.jsp"/></noscript>
         
@@ -51,44 +49,39 @@
                 }
             }
             
-            var refresh = function(data) {
-                            
-                            newLines = "";
-                            
-                            if(data.length === 0){
-                                newLines = "<option class='alert-info'>Sorry, there are no open games available.</option>";
-                            }else{
-                                for(i=0;i<data.length; i++){
-                                    newLines = newLines+'<option id="' + data[i]+ '">' + data[i] + "</option>";
-                               }
-                                document.getElementById("joinButton").innerHTML= '<br><button type="button" class="btn" onclick="requestJoinPublicGame();">Join</button>';
-                            }
-                            document.getElementById("gameList").innerHTML=newLines;
-                            
-                        };
-
-            var loadGames = function() {
-                $.getJSON(
-                        "GetPublicGames",
-                        function(data){refresh(data.games);}
-                );
-                $.getJSON(
-                        "GetPrivateGames",
-                        function(data){refresh(data.games);}
-            );  
-                    
-            };
-
-            window.onload = loadGames;
-
-            var onGameCreate = function(data) {
-                //TODO update lobby.jsp if the player has created a game
+            var botSource = new EventSource("GetBots");
+            botSource.onmessage = function(event) {
+                updateBotList(event.data);
             }
             
-            function requestJoinPublicGame() {
-                var s = document.getElementById("gameList");
+            function updateBotList(details) {
+                var parent = document.getElementById("botList");
+                while(parent.hasChildNodes()) {
+                    parent.removeChild(parent.firstChild);
+                }
+                
+                var botDetails = details.split(", ");
+                var i = 0;
+                var newLines = "";
+                if(botDetails.length === 1) {
+                    newLines = "<option class='alert-info'>Sorry, there are no bots available to play.</option>";
+                } else {
+                    while (i+1 < botDetails.length) {
+                        newLines = newLines + '<option id="' + botDetails[i+1] + '">' + botDetails[i] + "</option>";
+                        i = i+2;
+                    }
+                    document.getElementById("joinButton").innerHTML = '<br><button type="button" class="btn" onclick="requestPlayBot();">Play</button>';
+                }
+                document.getElementById("botList").innerHTML = newLines;
+            }
+            
+            
+            function requestPlayBot() {
+                var s = document.getElementById("botList");
                 var id = s[s.selectedIndex].value;
-                joinPublicGame(id);
+                $.post("create", {type: "bot", botID: id}, function(e) {
+                    document.location.href = "game.jsp";
+                });
             }
             
         </script>
@@ -119,9 +112,9 @@
             <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
         </div>
         
-        <div class="heading padBottom">Select a game to join: <br><br><button type="button" class="btn btn-xs" onclick="loadGames()">Click to refresh list.</button></div>
+        <div class="heading padBottom">Select a bot to play.<br><br></div>
         <div>
-            <select class="input-sm" multiple="no" id="gameList"></select> 
+            <select class="input-sm" multiple="no" id="botList"></select> 
             <div id="joinButton"></div>
         </div>
         

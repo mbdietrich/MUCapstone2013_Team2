@@ -167,7 +167,7 @@
                             <li><a href="#" onclick="multiPlayer();">Play Another User</a></li>
                             <li><a href="#" onclick="openPrivateGame();">Play Private Game</a></li>
                             <li><a href="boteditor.html">Create Bot</a></li>
-                            <li><a href="#">Bot Lobby</a></li>
+                            <li><a href="botLobby.jsp">Bot Lobby</a></li>
                             <li><a href="lobby.jsp">Game Lobby</a></li>
                             <li><a href="gamerecordmanager.jsp">Played Games</a></li>
                             <li><a href="logout.jsp">Logout</a></li>
