@@ -25,7 +25,7 @@ public class SubGame {
 	 */	
         public SubGame(int[][] data){
             board = data;
-            status=0;
+            status=GameRules.checkStatusBoard(data);
         }
 	
 	/**

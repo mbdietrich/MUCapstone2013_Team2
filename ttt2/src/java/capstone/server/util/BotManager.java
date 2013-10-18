@@ -71,4 +71,8 @@ public class BotManager {
             throw new BotCompilationException("Internal error validating bot.");
         }
     }
+    
+    public static WeakHashMap<String, Bot> getAllBots() {
+        return botmap;
+    }
 }

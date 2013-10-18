@@ -86,7 +86,7 @@ public class TestExcecutor {
                 try {
                     String s;
                     try {
-                        s = future.get(2, TimeUnit.SECONDS);
+                        s = future.get(1, TimeUnit.MINUTES);
                     } catch (TimeoutException ex) {
                         return "Test "+m.getName()+" timed out";
                     }

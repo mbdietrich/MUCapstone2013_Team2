@@ -25,4 +25,9 @@ public class CompilationUnit extends SimpleJavaFileObject
         {
             return contents;
         }
+        
+        
+        public String toString(){
+            return contents;
+        }
     }

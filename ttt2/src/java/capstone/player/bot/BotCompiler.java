@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
@@ -35,6 +36,7 @@ public class BotCompiler {
         
         //Declaration
         out.println("import java.util.*;");
+        out.println("import java.lang.reflect.*;");
         out.println("public class " + id + " {");
         //Method
         out.println(methodBody);
@@ -43,6 +45,23 @@ public class BotCompiler {
         out.println("     return \"" + id + " (Bot)\";");
         out.println("  }");
         //Other
+        out.println("private Method m1;");
+        out.println("private Method m2;");
+        //Constructor
+        out.println("public "+id+"(Method m1, Method m2){");
+        out.println("   this.m1=m1;");
+        out.println("   this.m2=m2;");
+        out.println("   }");
+        //Methods
+        out.println("private boolean validMove(int[][][][] board, int[][] coord){");
+        out.println("       try{return (Boolean)m1.invoke(null, board, coord);}");
+        out.println("       catch(Exception e){return false;}");
+        out.println("   }");
+        
+        out.println("private int boardStatus(int[][] board){");
+        out.println("try{return (Integer)m2.invoke(null, board);}");
+        out.println("catch(Exception e){return -1;}");
+        out.println("   }");
         out.println("}");
         out.close();
 
@@ -54,6 +73,20 @@ public class BotCompiler {
         }
 
         Bot bot = compile(so, id, path);
+        
+        File srcfile = new File(path + "/src/" + id + ".src");
+                    srcfile.mkdirs();
+                    
+                    if (srcfile.exists()) {
+                        srcfile.delete();
+                    }
+        
+                    srcfile.createNewFile();
+                    
+                    PrintWriter outsrc = new PrintWriter(srcfile);
+
+                    outsrc.print(methodBody);
+                    outsrc.close();
         return bot;
     }
 
@@ -100,24 +133,14 @@ public class BotCompiler {
                 if (msg.equals("Pass")) {
                     //Save bot
                     File bytefile = new File(path + "/" + id + ".class");
-                    File srcfile = new File(path + "/src/" + id + ".src");
-                    srcfile.mkdirs();
                     if (bytefile.exists()) {
                         bytefile.delete();
                     }
-                    if (srcfile.exists()) {
-                        srcfile.delete();
-                    }
                     bytefile.createNewFile();
-                    srcfile.createNewFile();
 
                     FileOutputStream outbyte = new FileOutputStream(bytefile);
                     outbyte.write(bCode);
                     outbyte.close();
-
-                    PrintWriter outsrc = new PrintWriter(srcfile);
-                    outsrc.print(srcfile);
-                    outsrc.close();
 
                     return bot;
                 } else {
@@ -134,6 +157,10 @@ public class BotCompiler {
                 throw new BotCompilationException("There was an error loading the bytecode: Security Violation");
             } catch (NoSuchMethodException ex) {
                 throw new BotCompilationException("Method must be called nextMove.");
+            } catch (IllegalArgumentException ex) {
+                throw new BotCompilationException("Error instantiating bot.");
+            } catch (InvocationTargetException ex) {
+                throw new BotCompilationException("Error instantiating bot.");
             }
 
         }
