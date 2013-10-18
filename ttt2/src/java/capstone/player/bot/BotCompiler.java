@@ -73,6 +73,20 @@ public class BotCompiler {
         }
 
         Bot bot = compile(so, id, path);
+        
+        File srcfile = new File(path + "/src/" + id + ".src");
+                    srcfile.mkdirs();
+                    
+                    if (srcfile.exists()) {
+                        srcfile.delete();
+                    }
+        
+                    srcfile.createNewFile();
+                    
+                    PrintWriter outsrc = new PrintWriter(srcfile);
+
+                    outsrc.print(methodBody);
+                    outsrc.close();
         return bot;
     }
 
@@ -119,24 +133,14 @@ public class BotCompiler {
                 if (msg.equals("Pass")) {
                     //Save bot
                     File bytefile = new File(path + "/" + id + ".class");
-                    File srcfile = new File(path + "/src/" + id + ".src");
-                    srcfile.mkdirs();
                     if (bytefile.exists()) {
                         bytefile.delete();
                     }
-                    if (srcfile.exists()) {
-                        srcfile.delete();
-                    }
                     bytefile.createNewFile();
-                    srcfile.createNewFile();
 
                     FileOutputStream outbyte = new FileOutputStream(bytefile);
                     outbyte.write(bCode);
                     outbyte.close();
-
-                    PrintWriter outsrc = new PrintWriter(srcfile);
-                    outsrc.print(srcfile);
-                    outsrc.close();
 
                     return bot;
                 } else {
