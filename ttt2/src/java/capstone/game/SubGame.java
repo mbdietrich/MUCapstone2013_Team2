@@ -18,6 +18,15 @@ public class SubGame {
 		}
 		status = 0;
 	}
+        
+        /**
+	 * Constructor. 
+	 * Wraps an integer matrix into a SubGame.
+	 */	
+        public SubGame(int[][] data){
+            board = data;
+            status=0;
+        }
 	
 	/**
 	 * In addition to the usual setter for the board, which sets the entire 2D array, I've included this
