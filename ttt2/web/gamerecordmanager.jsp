@@ -48,6 +48,11 @@
                 }
                 );
             };
+            
+            var identify = function() {
+                
+            }
+            
 
             var setCurrentGame = function(game) {
                 //currentCoords = null;
@@ -127,7 +132,7 @@
                         if (data[i].p2 === "") {
                             data[i].p2 = "Bot";
                         }
-                        newLines = newLines + '<option id="' + data[i].gid + '">' + data[i].p1 + " vs " + data[i].p2 + "</option>";
+                        newLines = newLines + '<option id="' + data[i].gid + '">' + "X " + data[i].p1 + " vs " + data[i].p2 + " O" + "</option>";
                     }
                     document.getElementById("joinButton").innerHTML = '<br><button type="button" class="btn" onclick="loadCoords();">Open</button>';
                 }
