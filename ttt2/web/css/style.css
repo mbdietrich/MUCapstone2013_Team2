@@ -277,6 +277,40 @@ nav ul ul {
 	position: absolute; right: 0%; top: 50px;
 }
 
+
+
+
+
+
+
+
+
+nav ul ul ul {
+	background: #3498db; 
+        border-radius: 0px; 
+        padding: 0;
+	position: absolute; 
+        top: 0;
+        right: 100%;
+}
+	nav ul ul ul li {
+		float: none; 
+		border-top: 1px solid white;
+		position: relative;
+	}
+		nav ul ul ul li a {
+			padding: 15px 40px;
+			color: white;
+		}	
+			nav ul ul ul li a:hover {
+				background: #3498db;
+                                color: white;
+			}
+                        
+nav ul ul ul {
+	position: absolute; right: 100%; top: 0;
+}
+
 .navBar1 {
     display: inline-table;
     background: #3498db;
