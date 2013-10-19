@@ -231,7 +231,7 @@
                                         class="g-signin"
                                         data-callback="signinCallback"
                                         data-clientid="1062173662525.apps.googleusercontent.com"
-                                        data-scope="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+                                        data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
                                         data-cookiepolicy="single_host_origin"
                                         data-requestvisibleactions="http://schemas.google.com/AddActivity"
                                         data-scope="https://www.googleapis.com/auth/plus.login">
