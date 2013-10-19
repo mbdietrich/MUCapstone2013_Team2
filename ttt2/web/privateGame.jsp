@@ -62,29 +62,31 @@
             };
             
             //listen for game invites
-            var source2 = new EventSource("GameInvites");
-            source2.onmessage = function(event) {
+            var sourceInvites = new EventSource("GameInvites");
+            sourceInvites.onmessage = function(event) {
                 if (event.data) {
                     processGameInvites(event.data); //show game invites on page
                     updateInviteMenu("yes"); //show that there are invites in the menu
                 } else {
-                    processGameInvites(event.data); //game invites that no longer exist will be cleared
+                    processGameInvites(event.data); //show game invites on page
                     updateInviteMenu("no"); //if no request, hide menu
                 }
             };
             
             function updateInviteMenu(update) {
                 if(update === "no") {
-                    document.getElementById("menuInvites").style.display="none";
+                    document.getElementById("challengeMenu").style.visibility="hidden";
                 } else {
-                    document.getElementById("menuInvites").style.display="inline";
+                    document.getElementById("challengeMenu").style.visibility="visible";
+
                 }
             }
             
             var googleFriends;
             var facebookFriends;
             
-            function processGameInvites(invites) {
+            /*
+            function processGameInvites2(invites) {
                 //frist, clear the table
                 var parent = document.getElementById("gameInvites");
                 while(parent.hasChildNodes()) {
@@ -119,11 +121,47 @@
                     });
                 }
             }
+            */
             
+            
+            function processGameInvites(invites) {
+                //frist, clear the table
+                var parent = document.getElementById("challengeMenu");
+                while(parent.hasChildNodes()) {
+                    parent.removeChild(parent.firstChild);
+                }
+                
+                var insert = "<li><span>CHALLENGES!</span><ul>";
+                
+                //if player logged in with google
+                if("<%=fbid%>" === "0") {
+                    // compare invites to google friends
+                    var numItems = googleFriends.items.length;
+                    for (var i=0;i<numItems;i++) {
+                        if(invites.indexOf(googleFriends.items[i].id) !== -1) {
+                            var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
+                            insert = insert + "<li><img src='"+imageURL+"' height='40' width='40'>";
+                            insert = insert + "<a href='JoinPrivateGame?friend="+googleFriends.items[i].displayName+"&friendID="+googleFriends.items[i].id+"'>"+googleFriends.items[i].displayName+"</a></li>";
+                        }
+                    }
+                    insert = insert + "</ul></li>";
+                    document.getElementById("challengeMenu").innerHTML = insert;
+                } else {    //then player is logged in with facebook
+                    $.each(facebookFriends.data,function(index,friend) {
+                       if(invites.indexOf(friend.id) !== -1) {
+                           var imageURL = getFacebookImageURL(friend.id);
+                           insert = insert + "<li><img src='"+imageURL+"' height='40' width='40'>";
+                           insert = insert + "<a href='JoinPrivateGame?friend="+friend.name+"&friendID="+friend.id+"'>"+friend.name+"</a></li>";
+                       }
+                    });
+                    insert = insert + "</ul></li>";
+                    document.getElementById("challengeMenu").innerHTML = insert;
+                }
+            }
             
             //handle google invites
-            var source = new EventSource("GoogleFriends");
-            source.onmessage = function(event) {
+            var sourceGFriends = new EventSource("GoogleFriends");
+            sourceGFriends.onmessage = function(event) {
                 var gid = "<%=gid%>";
                 if (event.data) { // only update if the string is not empty
                     if(gid !== "0") {   //only run if player is logged in with google
@@ -155,7 +193,8 @@
                     console.log('Sign-in state: ' + authResult['error']);
                 }
             }
-
+            
+            /*
             function compareGoogleFriends(online) {
                 //first, remove the table
                 var parent = document.getElementById("googleFriends");
@@ -177,6 +216,7 @@
                             y.innerHTML="<img src='"+imageURL+"' height='40' width='40'>";
                             var gid = "<%=gid%>";
                             z.innerHTML="<a href='SendPrivateGameInvite?me="+gid+"&friend="+googleFriends.items[i].id+"'>"+googleFriends.items[i].displayName+"</a>";
+                            document.getElementById("privateGameMenu").innerHTML="<li><a href='SendPrivateGameInvite?me="+gid+"&friend="+googleFriends.items[i].id+"'><img src='"+imageURL+"' height='40' width='40'>"+googleFriends.items[i].displayName+"</a></li>";
                         }
                     }
                 }
@@ -190,6 +230,38 @@
                     document.getElementById("googleFriends").style.display = "inline-table";
                 }
             }
+            */
+            
+            function compareGoogleFriends(online) {
+                //first, remove the table
+                var parent = document.getElementById("googleFriends");
+                while(parent.hasChildNodes()) {
+                    parent.removeChild(parent.firstChild);
+                }
+                //then, rebuild the table
+                var friendsToDisplay = new Array();
+                var numItems = googleFriends.items.length;
+                var onlinePlayers = online;
+                for (var i=0;i<numItems;i++) {
+                    if(onlinePlayers.indexOf(googleFriends.items[i].id) !== -1) {   //if the google friend is online
+                        if(friendsToDisplay.indexOf(googleFriends.items[i].displayName) === -1) {    
+                            friendsToDisplay.push(googleFriends.items[i].displayName);
+                            var x=document.getElementById('googleFriends').insertRow(0);
+                            var y=x.insertCell(0);
+                            var z=x.insertCell(1);
+                            var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
+                            var gid = "<%=gid%>";
+                            document.getElementById("privateGameMenu").innerHTML="<li><a href='SendPrivateGameInvite?me="+gid+"&friend="+googleFriends.items[i].id+"'><img src='"+imageURL+"' height='40' width='40'>"+googleFriends.items[i].displayName+"</a></li>";
+                        }
+                    }
+                }
+                if(friendsToDisplay.length === 0) {
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("privateGameMenu").innerHTML = "<li>No friends online</li>";
+                } else {
+                    document.getElementById("loading").style.display = "none";
+                }
+            }
 
             function getGoogleImageURL(url) {
                 var parts = url.split("?");
@@ -197,7 +269,7 @@
             }
 </script>
     </head>
-    <body onload="load();">
+    <body onload="loadAnimation();">
         <div id="fb-root"></div>
         <script>
             // handle facebook friends
@@ -270,8 +342,8 @@
                 });
             }
             
-            var source3 = new EventSource("FacebookFriends");
-            source3.onmessage = function(event) {
+            var sourceFBFriends = new EventSource("FacebookFriends");
+            sourceFBFriends.onmessage = function(event) {
                 var fbid = "<%=fbid%>";
                 if (event.data) { // only update if the string is not empty
                     if(fbid !== "0") {   //only run if player is logged in with facebook
@@ -280,6 +352,7 @@
                 }
             };
             
+            /*
             function compareFacebookFriends(online) {
                 //first, remove the table
                 var parent = document.getElementById("facebookFriends");
@@ -302,6 +375,7 @@
                         y.innerHTML="<img src='"+imageURL+"' height='40 width='40'>";
                         var fbid = "<%=fbid%>";
                         z.innerHTML="<a href='SendPrivateGameInvite?me="+fbid+"&friend="+friend.id+"'>"+friend.name+"</a>";
+                        document.getElementById("privateGameMenu").innerHTML="<li><a href='SendPrivateGameInvite?me="+fbid+"&friend="+friend.id+"'><img src='"+imageURL+"' height='40 width='40'>"+friend.name+"</a></li>";
                     }
                 });
                 if(friendsToDisplay.length === 0) {
@@ -312,6 +386,38 @@
                     document.getElementById("loading").style.display = "none";
                     document.getElementById("noFriends").style.display = "none";
                     document.getElementById("facebookFriends").style.display = "inline-table";
+                }
+            }
+            */
+           
+            function compareFacebookFriends(online) {
+                //first, remove the table
+                var parent = document.getElementById("facebookFriends");
+                while(parent.hasChildNodes()) {
+                    parent.removeChild(parent.firstChild);
+                }
+                //then, rebuild the table
+                var friendsToDisplay = new Array();
+                var onlinePlayers = online;
+                
+                //check if facebook friends are online
+                $.each(facebookFriends.data,function(index,friend) {
+                    //console.log("friend: " + friend.name);
+                    if(onlinePlayers.indexOf(friend.id) !== -1) {    //if the facebook friend is online
+                        friendsToDisplay.push(friend.name);
+                        var x=document.getElementById('facebookFriends').insertRow(0);
+                        var y=x.insertCell(0);
+                        var z=x.insertCell(1);
+                        var imageURL = getFacebookImageURL(friend.id);
+                        var fbid = "<%=fbid%>";
+                        document.getElementById("privateGameMenu").innerHTML="<li><a href='SendPrivateGameInvite?me="+fbid+"&friend="+friend.id+"'><img src='"+imageURL+"' height='40 width='40'>"+friend.name+"</a></li>";
+                    }
+                });
+                if(friendsToDisplay.length === 0) {
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("privateGameMenu").innerHTML = "<li>No friends online</li>";
+                } else {
+                    document.getElementById("loading").style.display = "none";
                 }
             }
             
@@ -331,7 +437,10 @@
                         <ul>
                             <li><a href="#" onclick="singlePlayer();">Play Default Bot</a></li>
                             <li><a href="#" onclick="multiPlayer();">Play Another User</a></li>
-                            <li><a href="#" onclick="openPrivateGame();">Play Private Game</a></li>
+                            <li><a href="#">Play Private Game</a>
+                                <ul id="privateGameMenu"></ul>
+                                <ul id="loading"></ul>
+                            </li>
                             <li><a href="boteditor.html">Create Bot</a></li>
                             <li><a href="botLobby.jsp">Bot Lobby</a></li>
                             <li><a href="lobby.jsp">Game Lobby</a></li>
@@ -340,14 +449,16 @@
                         </ul>
                     </li>
                 </ul>
+                <ul style="visibility:hidden" id="challengeMenu">
+                </ul>
             </nav>
             
-            <div class="menuRight h5" id="menuInvites" style="display:none"><span><a href="privateGame.jsp">You have been challenged to a game!</a></span></div>
         </div>
     <script src="sonic.js"></script>
     <script>
         var loader = new Sonic({
 
+                /*
 		width: 50,
 		height: 50,
 
@@ -371,10 +482,31 @@
 		path: [
 			['arc', 25, 25, 15, 0, 360]
 		]
+                */
+               width: 100,
+		height: 50,
+
+		stepsPerFrame: 1,
+		trailLength: 1,
+		pointDistance: .1,
+		fps: 15,
+		padding: 10,
+		//step: 'fader',
+
+		fillColor: '#ffffff',
+
+		setup: function() {
+			this._.lineWidth = 20;
+		},
+
+		path: [
+			['line', 0, 20, 100, 20],
+			['line', 100, 20, 0, 20]
+		]
 
 	});
         
-        function load() {
+        function loadAnimation() {
         loader.play();
         document.getElementById("loading").appendChild(loader.canvas);
         }
