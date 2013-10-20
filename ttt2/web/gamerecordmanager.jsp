@@ -441,6 +441,9 @@
 	});
         
         function loadAnimation() {
+        initiate();
+        loadGames();
+        hide();
         loader.play();
         document.getElementById("loading").appendChild(loader.canvas);
         }
