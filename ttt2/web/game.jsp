@@ -351,11 +351,12 @@
                         }
                     }
                 }
+                loadAnimation();
             };
         </script>
 
     </head>
-    <body onload="loadAnimation();" onunload="$.post('leave');">
+    <body onunload="$.post('leave');">
         <div id="fb-root"></div>
         <script>
             // handle facebook friends
