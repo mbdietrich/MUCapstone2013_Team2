@@ -168,15 +168,17 @@ h1 {
 
 .buttons {
     background: #3498db;
-    color: black;
+    color: white;
     padding: 10px; 
     margin-left: auto;
     margin-right: auto;
     white-space: nowrap;
+    text-decoration: none;
 }
 
 .buttons:hover {
     opacity: 0.8;
+    text-decoration: none;
 }
 
 .buttons a {
@@ -357,17 +359,24 @@ nav ul ul ul {
     
 }
 #editor {
-                position: relative;
-                height: 480px;
-                width: 50%;
+                
+                height: 500px;
+                width: 700px;
                 text-align: left;
-                display:table-cell;
+                display:block;
+                border: 5px solid black;
+            }
+            
+            
+            #botEditor {
+
+                text-align: center;
+                width: 80%;
             }
             
             #edithelp {
-                position: relative;
-                width: 50%;
-                height: 480px;
+                height: 500px;
+                width: 700px;
                 text-align: left;
-                display:table-cell;
+                display:block;
             }
