@@ -186,6 +186,7 @@
                     
                     if(state.open){
                         document.getElementById("gameArea").style.display = 'none';
+                        document.getElementById("quitButton").style.display = 'none';
                         document.getElementById("openWait").style.display = '';
                     }
                     else if(!state.waiting){

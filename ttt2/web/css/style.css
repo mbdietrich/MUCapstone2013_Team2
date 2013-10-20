@@ -315,7 +315,7 @@ nav ul ul ul {
 
 .navBar1 {
     display: inline-table;
-    background: #3498db;
+    background: #2980b9;
     width: 100%;
     color: white;
 }
@@ -344,8 +344,12 @@ nav ul ul ul {
 }
 
 #quitButton a{
-    background: #e74c3c !important;
+    background: #bdc3c7;
     color: white;
+}
+
+#quitButton a:hover {
+    background: #e74c3c !important;
 }
 
 .jumbotron {
@@ -376,7 +380,8 @@ nav ul ul ul {
             
             #edithelp {
                 height: 500px;
-                width: 700px;
+                width: 300px;
                 text-align: left;
                 display:block;
+                float: left;
             }
