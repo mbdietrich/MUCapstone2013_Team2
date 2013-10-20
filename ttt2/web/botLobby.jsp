@@ -320,7 +320,7 @@
                 <span><h1><a href="home.jsp">TIC TAC TOE</a></h1></span>
                 
             </div>
-            <nav class="menuRight">
+            <nav id="menu" class="menuRight">
                 <ul>
                     <li><span>MENU</span>
                         <ul>
