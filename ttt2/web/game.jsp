@@ -208,6 +208,7 @@
                     //state.Opponent
                     var subgame=0;
                     var subgameWin;
+                    var subWin;
                     for(a = 0;a<3;a++){
                         for(b = 0;b<3;b++){
                             var buttonNum=0;
@@ -216,7 +217,7 @@
                                     button=document.getElementById(a+'-'+b+'-'+x+'-'+y);
                                     buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).firstElementChild;
                                     value=state.Board[subgame][buttonNum];
-                                    var subgameWin = state.Substatus[a][b];
+                                    subgameWin = document.getElementById(a + '-' + b);
                                     if(value==1){
                                         buttonTrans.src = 'images/ex.png';
                                         buttonTrans.className ="gameButton";
@@ -227,7 +228,7 @@
                                     }
                                     else{
                                         buttonTrans.src = 'images/blank.png';
-                                        if ((state.Substatus[a][b] == 1)||(state.Substatus[a][b] == 1)){
+                                        if ((state.Substatus[a][b] === "2") || (state.Substatus[a][b] === "1")){
                                             buttonTrans.className = "gameButton lockGameButton";
                                         }
                                     }
@@ -323,8 +324,10 @@
                     newRow = buttonFrame.insertRow();
                     for (b = 2; b >= 0; b--) {
                         newCell = newRow.insertCell();
+                        newCell.className = 'subTable'
                         subTable=document.createElement('table');
-                        subTable.className = 'subTable';
+                        //subTable.className = 'subTable';
+                        subTable.id = (a + '-' + b);
                         newCell.appendChild(subTable);
                         for (i = 2; i >= 0; i--) {
                             newSubRow=subTable.insertRow();

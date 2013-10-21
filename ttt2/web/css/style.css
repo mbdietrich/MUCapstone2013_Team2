@@ -15,10 +15,7 @@ table, th, td{
     text-align: center;
 }
 
-.subTable {
-    border: 2px solid black !important;
-    padding: 10px;
-}
+
 
 #gameframe {
     border: 10px solid black;
@@ -27,9 +24,15 @@ table, th, td{
     background-color: white;
 }
 #gameframe td {
-    padding: 0px;
+    padding: 3px;
     height: 50px;
-    width: 50px;   
+    width: 50px; 
+    
+}
+
+.subTable {
+    border: 2px solid black;
+    border-collapse: collapse;
 }
 /*GAME AREA*/
 #gameArea {
@@ -50,7 +53,7 @@ table, th, td{
 }
 
 .playerLabelHL {
-    background: #1abc9c !important;
+    background: #2ecc71 !important;
     color: black !important;
 }
 
@@ -78,7 +81,7 @@ input[type="text"], input[type="password"], option, td {
 
 body {
     font-family: 'Century Gothic';
-    font-size: 16px;
+    font-size: 20px;
     text-align: center;
     background: white;
     min-width: 900px;
@@ -155,6 +158,10 @@ h1 {
     height: 50px;
 }
 
+.subgameWin {
+    background: #1abc9c;
+}
+
 .notices1 {
     width: 50%;
     margin-left: auto;
@@ -174,18 +181,24 @@ h1 {
 }
 
 .buttons {
-    background: #3498db;
+    background: #2980b9;
     color: white;
     padding: 10px; 
     margin-left: auto;
     margin-right: auto;
     white-space: nowrap;
     text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 .buttons:hover {
     opacity: 0.8;
     text-decoration: none;
+    cursor: pointer;
+    background: #3498db;
+    color: white;
 }
 
 .buttons a {
@@ -194,32 +207,29 @@ h1 {
 }
 
 .buttons1 {
-    width: 250px; 
+    width: 300px; 
+    font-size: 25px !important;
 }
 
 .buttons2 {
-    width: 100px;
+    width: 150px;
+    font-size: 20px !important;
 }
 
-.buttonForm:hover {
-    background-color: black;
-    color: white;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.buttonForm {
-    background-color: #d58512;
-    color: black;
-}
 
 /* MENU */
 nav {
     white-space: nowrap;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: ultra-expanded;
+    
 }
 nav ul ul {
 	display: none;
-        
+        opacity: 1 !important;
+        z-index: 1;
+        background: #2980b9;
 }
 
 	nav ul li:hover > ul {
@@ -248,7 +258,7 @@ nav ul li {
             cursor:pointer; 
         }
 	nav ul li:hover {
-		background: #3498db;
+		background: #2980b9;
 	}
 		nav ul li:hover a {
 			color: white;
@@ -262,7 +272,7 @@ nav ul li {
 	}
         
 nav ul ul {
-	background: #3498db; 
+	background: #2980b9; 
         border-radius: 0px; 
         padding: 0;
 	position: absolute; 
@@ -278,12 +288,12 @@ nav ul ul {
 			color: white;
 		}	
 			nav ul ul li a:hover {
-				background: #3498db;
+				background: #2980b9;
                                 color: white;
 			}
                         
 nav ul ul {
-	position: absolute; right: 0%; top: 50px;
+	position: absolute; right: 0%; top: 70px;
 }
 
 
@@ -295,7 +305,7 @@ nav ul ul {
 
 
 nav ul ul ul {
-	background: #3498db; 
+	background: #2980b9; 
         border-radius: 0px; 
         padding: 0;
 	position: absolute; 
@@ -312,7 +322,7 @@ nav ul ul ul {
 			color: white;
 		}	
 			nav ul ul ul li a:hover {
-				background: #3498db;
+				background: #2980b9;
                                 color: white;
 			}
                         
@@ -322,7 +332,7 @@ nav ul ul ul {
 
 .navBar1 {
     display: inline-table;
-    background: #2980b9;
+    background: #1a5c88;
     width: 100%;
     color: white;
 }
@@ -357,6 +367,7 @@ nav ul ul ul {
 
 #quitButton a:hover {
     background: #e74c3c !important;
+    opacity: 1;
 }
 
 .jumbotron {
@@ -364,10 +375,16 @@ nav ul ul ul {
 }
 
 #loginGoogle {
+    background: #c0392b;
+    font-size: 20px !important;
+}
+
+#loginGoogle:hover {
     background: #e74c3c;
 }
+
 #loginFB {
-    
+    font-size: 20px !important;
 }
 #editor {
                 
