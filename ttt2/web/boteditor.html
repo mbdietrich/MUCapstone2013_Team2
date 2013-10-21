@@ -47,32 +47,30 @@
                 <tr>
                     <td  id="editor">
                         <div>
-                            public int[][] nextMove(int[][][][] board, int player) {
+public int[][] nextMove(int[][][][] board, int player) {
+    //Example bot
+    //i,j loop through subgames
+    //k and l loop within the subgame
+    //Find first valid move and occupy it
 
-                            //Example bot
-                            //i,j loop through subgames
-                            //k and l loop within the subgame
-                            //Find first valid tile and occupy it
+    for(int i = 0; i&lt;3; i++){
+        for(int j = 0; j&lt;3; j++){
+            for(int k = 0; k&lt;3; k++){
+                for(int l = 0; l&lt;3; l++){
 
-                            for(int i = 0; i&lt;3; i++){
-                                for(int j = 0; j&lt;3; j++){
-                                    for(int k = 0; k&lt;3; k++){
-                                        for(int l = 0; l&lt;3; l++){
-
-                                            int[] outer = {i,j};
-                                            int[] inner = {k,l};
-                                            int[][] move = {outer, inner};
-                                            if(validMove(board,move)){
-                                                return move;
-                                            }
-
-                                        }
-                                    }
-                                }
-                            }
-                        //No valid move - will never be called
-                        return null;
-                        }
+                    int[] outer = {i,j};
+                    int[] inner = {k,l};
+                    int[][] move = {outer, inner};
+                    if(validMove(board,move)){
+                        return move;
+                    }
+                }
+            }
+       }
+    }
+    //No valid move - will never be called
+    return null;
+}
                         </div>
                     </td>
                     <td>
