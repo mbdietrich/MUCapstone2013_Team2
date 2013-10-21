@@ -211,12 +211,13 @@
                     for(a = 0;a<3;a++){
                         for(b = 0;b<3;b++){
                             var buttonNum=0;
+                            //var subTableID = a + "-" + b;
                             for(x = 0;x<3;x++){
                                 for(y = 0;y<3;y++){
                                     button=document.getElementById(a+'-'+b+'-'+x+'-'+y);
                                     buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).firstElementChild;
                                     value=state.Board[subgame][buttonNum];
-                                    var subgameWin = state.Substatus[a][b];
+                                    //subgameWin = document.getElementById(a + '-' + b);
                                     if(value==1){
                                         buttonTrans.src = 'images/ex.png';
                                         buttonTrans.className ="gameButton";
@@ -229,6 +230,7 @@
                                         buttonTrans.src = 'images/blank.png';
                                         if ((state.Substatus[a][b] == 1)||(state.Substatus[a][b] == 1)){
                                             buttonTrans.className = "gameButton lockGameButton";
+                                            document.getElementByID(a + '-' + b).firstElementChild.className = "subgameWin";
                                         }
                                     }
                                     if((state.isTurn==="true")&&(state.PlayerNumber == 1)){
@@ -325,6 +327,7 @@
                         newCell = newRow.insertCell();
                         subTable=document.createElement('table');
                         subTable.className = 'subTable';
+                        subTable.id = (a + '-' + b);
                         newCell.appendChild(subTable);
                         for (i = 2; i >= 0; i--) {
                             newSubRow=subTable.insertRow();
