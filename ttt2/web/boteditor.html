@@ -82,26 +82,44 @@
                             <li class="dropdown">
                                 <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
-                                    <li><a href="#dropdown1" tabindex="-1" data-toggle="tab">GameSession</a></li>
-                                    <li><a href="#dropdown2" tabindex="-1" data-toggle="tab">GameState</a></li>
+                                    <li><a href="#dropdown1" tabindex="-1" data-toggle="tab">nextMove</a></li>
+                                    <li><a href="#dropdown2" tabindex="-1" data-toggle="tab">validMove</a></li>
+                                    <li><a href="#dropdown3" tabindex="-1" data-toggle="tab">boardStatus</a></li>
                                 </ul>
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade in active" id="home"><br>
-
-                            <a href="#" onclick="submitCode();" class="buttons buttons2">Submit Code</a>
+                                
+                                <br><br>
+                                <a href="#" onclick="submitCode();" class="buttons buttons2">Submit Code</a>
                             <div id="messages">
 
                             </div>
                             </div>
                             <div class="tab-pane fade" id="dropdown1"><br>
-                                <h2>GameSession</h2><br>
-                                <b>GameSession</b> stores all information about the current game.
+                                
+                                <h2>int[][] nextMove(int[][][][] board, int player)</h2><br><br>
+                                This method takes a game board and player number, and returns a move position. The bot must implement this method.<br><br>
+                                    <b>board<b>: A 3x3x3x3 matrix; the first two variables are the subgame coordinates, the next two the tile coordinates within the subgame.<br>
+                                        0 indicates an empty tile, 1/2 indicates player 1/2 have placed a tile there.<br><br>
+                                    <b>player</b>: The player number associated with this bot (1 or 2).<br><br>
+                                    <b>Returns</b>: A 2x2 matrix of coords. move[0] indicates the outer game coordinates, move[1] the inner game coordinates.
+                                
                             </div>
                             <div class="tab-pane fade" id="dropdown2"><br>
-                                <h2>GameState</h2><br>
-                                <b>GameState</b> contains the current state of the game.
+                                <h2>boolean validMove(int[][][][] board, int[][] move)</h2><br><br>
+                                    <b>board</b>: A 3x3x3x3 matrix; the first two variables are the subgame coordinates, the next two the tile coordinates within the subgame.<br>
+                                        0 indicates an empty tile, 1/2 indicates player 1/2 have placed a tile there.<br><br>
+                                    <b>move: </b>A 2x2 matrix of coords. move[0] indicates the outer game coordinates, move[1] the inner game coordinates.<br><br>
+                                    <b>Returns: </b>true if the move is valid, false otherwise.
+                                    
+                            </div>
+                            <div class="tab-pane fade" id="dropdown3"><br>
+                                <h2>int boardStatus(int[][] subboard)</h2><br><br>
+                                    <b>subboard</b>: A 3x3 matrix representing the subgame.<br><br>
+                                    <b>Returns: </b>0 if unfinished, 1/2 if Player 1/2 won the subgame, 3 if a draw.
+                                    
                             </div>
                         </div>
                         </div>

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  */
 public class BotManager {
     
-    private static final String PATH = "..\\ttt2\\bots";
+    private static final String PATH = "\\bots";
     private static URL JARPATH;
     
     //Map player IDs to their bots

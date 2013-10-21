@@ -133,9 +133,11 @@ public class BotCompiler {
                 if (msg.equals("Pass")) {
                     //Save bot
                     File bytefile = new File(path + "/" + id + ".class");
+                    
                     if (bytefile.exists()) {
                         bytefile.delete();
                     }
+                    bytefile.mkdirs();
                     bytefile.createNewFile();
 
                     FileOutputStream outbyte = new FileOutputStream(bytefile);
