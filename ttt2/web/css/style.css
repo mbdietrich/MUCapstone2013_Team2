@@ -213,6 +213,7 @@ h1 {
 
 .buttons2 {
     width: 150px;
+    margin: 10px;
     font-size: 20px !important;
 }
 
@@ -399,7 +400,7 @@ nav ul ul ul {
             #botEditor {
 
                 text-align: center;
-                width: 80%;
+                width: 95%;
             }
             
             #edithelp {
@@ -408,4 +409,8 @@ nav ul ul ul {
                 text-align: left;
                 display:block;
                 float: left;
+            }
+            
+            #messages {
+                margin: 10% 2% 2% 2%;
             }
