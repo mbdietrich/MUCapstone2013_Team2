@@ -31,7 +31,7 @@ public class BotManager {
     }
     
     public static Bot getBot(String userid, String PATH){
-        userid = userid.replace('.', '_').replace('@', '_');
+        userid = "C"+userid.replace('.', '_').replace('@', '_');
         Bot bot = botmap.get(userid);
         
         if(bot!=null){
@@ -46,7 +46,7 @@ public class BotManager {
     
     public static String getSource(String userid, String PATH){
         try {
-            userid = userid.replace('.', '_').replace('@', '_');
+            userid = "C"+userid.replace('.', '_').replace('@', '_');
             Scanner sc = new Scanner(new File(PATH+"src"+sep+userid+".src"));
             sc.useDelimiter("\\Z");
             String code = sc.next();
@@ -61,7 +61,7 @@ public class BotManager {
     public static void compile(String userid, String code, String PATH) throws BotCompilationException{
         
         
-        userid = userid.replace('.', '_').replace('@', '_');
+        userid = "C"+userid.replace('.', '_').replace('@', '_');
         try {
             Bot bot = BotCompiler.createBot(code, userid, PATH);
             botmap.put(userid, bot);
