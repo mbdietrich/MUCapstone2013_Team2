@@ -207,6 +207,7 @@
                     //state.Substatus
                     //state.Opponent
                     var subgame=0;
+                    var subgameWin;
                     for(a = 0;a<3;a++){
                         for(b = 0;b<3;b++){
                             var buttonNum=0;
@@ -215,6 +216,7 @@
                                     button=document.getElementById(a+'-'+b+'-'+x+'-'+y);
                                     buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).firstElementChild;
                                     value=state.Board[subgame][buttonNum];
+                                    var subgameWin = state.Substatus[a][b];
                                     if(value==1){
                                         buttonTrans.src = 'images/ex.png';
                                         buttonTrans.className ="gameButton";
@@ -225,6 +227,9 @@
                                     }
                                     else{
                                         buttonTrans.src = 'images/blank.png';
+                                        if ((state.Substatus[a][b] == 1)||(state.Substatus[a][b] == 1)){
+                                            buttonTrans.className = "gameButton lockGameButton";
+                                        }
                                     }
                                     if((state.isTurn==="true")&&(state.PlayerNumber == 1)){
                                         button.disabled===true;
@@ -483,8 +488,8 @@
                 <ul>
                     <li><span>MENU</span>
                         <ul>
-                            <li><a href="#" onclick="singlePlayer();">Play Default Bot</a></li>
-                            <li><a href="#" onclick="multiPlayer();">Play Another User</a></li>
+                            <li onclick="singlePlayer();"><a href="#" onclick="singlePlayer();">Play Default Bot</a></li>
+                            <li onclick="multiPlayer();"><a href="#" onclick="multiPlayer();">Play Another User</a></li>
                             <li><a href="#">Play Private Game</a>
                                 <ul id="privateGameMenu"></ul>
                                 <ul id="loading"></ul>
@@ -502,7 +507,7 @@
             </nav>
             
         </div>
-        <div id="quitButton" class="menuRight"><a href="#" onclick="leave();" class="buttons butons2">Quit</a></div>
+        <div id="quitButton" class="menuRight" onclick="leave();"><a href="#" onclick="leave();" class="buttons butons2">Quit</a></div>
         <script src="sonic.js"></script>
     <script>
         var loader = new Sonic({

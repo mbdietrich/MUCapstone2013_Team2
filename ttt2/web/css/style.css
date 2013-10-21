@@ -16,7 +16,7 @@ table, th, td{
 }
 
 .subTable {
-    border: 5px solid white !important;
+    border: 2px solid black !important;
     padding: 10px;
 }
 
@@ -132,11 +132,17 @@ h1 {
 }
 
 .fadeGameButton:hover {
-    opacity: 0.5;
+    opacity: 0.5;   
 }
 
 .lockGameButton:hover {
-    opacity: 0.3;
+    opacity: 0.15;
+    cursor:not-allowed;
+}
+
+.lockGameButton {
+    opacity: 0.15;
+     cursor:not-allowed;
 }
 
 .recentMove {
@@ -145,6 +151,8 @@ h1 {
 
 .gameButton {
     padding: 5px 5px 5px 5px;
+    width: 50px;
+    height: 50px;
 }
 
 .notices1 {
