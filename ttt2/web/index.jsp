@@ -209,7 +209,7 @@
                       
                         <tr id="fbPanel">
                             <td>
-                                <div class="buttons buttons1" onclick="fb();"><a href="#" onclick="fb();">Log in with Facebook</a></div>
+                                <div class="buttons buttons1" id="loginFB" onclick="fb();"><a href="#" onclick="fb();">Log in with Facebook</a></div>
                             </td>
                         </tr>
                         <tr>

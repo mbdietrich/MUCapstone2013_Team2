@@ -15,10 +15,7 @@ table, th, td{
     text-align: center;
 }
 
-.subTable {
-    border: 2px solid black !important;
-    padding: 10px;
-}
+
 
 #gameframe {
     border: 10px solid black;
@@ -27,9 +24,15 @@ table, th, td{
     background-color: white;
 }
 #gameframe td {
-    padding: 0px;
+    padding: 3px;
     height: 50px;
-    width: 50px;   
+    width: 50px; 
+    
+}
+
+.subTable {
+    border: 2px solid black;
+    border-collapse: collapse;
 }
 /*GAME AREA*/
 #gameArea {
@@ -50,7 +53,7 @@ table, th, td{
 }
 
 .playerLabelHL {
-    background: #1abc9c !important;
+    background: #2ecc71 !important;
     color: black !important;
 }
 
@@ -78,7 +81,7 @@ input[type="text"], input[type="password"], option, td {
 
 body {
     font-family: 'Century Gothic';
-    font-size: 16px;
+    font-size: 20px;
     text-align: center;
     background: white;
     min-width: 900px;
@@ -186,6 +189,8 @@ h1 {
     white-space: nowrap;
     text-decoration: none;
     cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 .buttons:hover {
@@ -193,6 +198,7 @@ h1 {
     text-decoration: none;
     cursor: pointer;
     background: #3498db;
+    color: white;
 }
 
 .buttons a {
@@ -201,11 +207,13 @@ h1 {
 }
 
 .buttons1 {
-    width: 250px; 
+    width: 300px; 
+    font-size: 25px !important;
 }
 
 .buttons2 {
-    width: 100px;
+    width: 150px;
+    font-size: 20px !important;
 }
 
 
@@ -213,13 +221,15 @@ h1 {
 nav {
     white-space: nowrap;
     font-size: 20px;
+    font-weight: 500;
+    font-stretch: ultra-expanded;
     
 }
 nav ul ul {
 	display: none;
         opacity: 1 !important;
         z-index: 1;
-        font-size: 20px;
+        background: #2980b9;
 }
 
 	nav ul li:hover > ul {
@@ -283,7 +293,7 @@ nav ul ul {
 			}
                         
 nav ul ul {
-	position: absolute; right: 0%; top: 50px;
+	position: absolute; right: 0%; top: 70px;
 }
 
 
@@ -357,6 +367,7 @@ nav ul ul ul {
 
 #quitButton a:hover {
     background: #e74c3c !important;
+    opacity: 1;
 }
 
 .jumbotron {
@@ -365,6 +376,7 @@ nav ul ul ul {
 
 #loginGoogle {
     background: #c0392b;
+    font-size: 20px !important;
 }
 
 #loginGoogle:hover {
@@ -372,7 +384,7 @@ nav ul ul ul {
 }
 
 #loginFB {
-    
+    font-size: 20px !important;
 }
 #editor {
                 

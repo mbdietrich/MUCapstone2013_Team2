@@ -324,8 +324,9 @@
                     newRow = buttonFrame.insertRow();
                     for (b = 2; b >= 0; b--) {
                         newCell = newRow.insertCell();
+                        newCell.className = 'subTable'
                         subTable=document.createElement('table');
-                        subTable.className = 'subTable';
+                        //subTable.className = 'subTable';
                         subTable.id = (a + '-' + b);
                         newCell.appendChild(subTable);
                         for (i = 2; i >= 0; i--) {
