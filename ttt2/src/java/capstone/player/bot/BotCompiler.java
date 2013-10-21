@@ -29,11 +29,12 @@ import org.objectweb.asm.ClassReader;
 public class BotCompiler {
 
     private static JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+    private static final String sep = System.getProperty("file.separator");
 
     public static Bot createBot(String methodBody, String id, String path) throws BotCompilationException, IOException {
         StringWriter writer = new StringWriter();
         PrintWriter out = new PrintWriter(writer);
-        
+
         //Declaration
         out.println("import java.util.*;");
         out.println("import java.lang.reflect.*;");
@@ -48,7 +49,7 @@ public class BotCompiler {
         out.println("private Method m1;");
         out.println("private Method m2;");
         //Constructor
-        out.println("public "+id+"(Method m1, Method m2){");
+        out.println("public " + id + "(Method m1, Method m2){");
         out.println("   this.m1=m1;");
         out.println("   this.m2=m2;");
         out.println("   }");
@@ -57,7 +58,7 @@ public class BotCompiler {
         out.println("       try{return (Boolean)m1.invoke(null, board, coord);}");
         out.println("       catch(Exception e){return false;}");
         out.println("   }");
-        
+
         out.println("private int boardStatus(int[][] board){");
         out.println("try{return (Integer)m2.invoke(null, board);}");
         out.println("catch(Exception e){return -1;}");
@@ -73,26 +74,28 @@ public class BotCompiler {
         }
 
         Bot bot = compile(so, id, path);
-        
-        File srcfile = new File(path + "/src/" + id + ".src");
-                    srcfile.mkdirs();
-                    
-                    if (srcfile.exists()) {
-                        srcfile.delete();
-                    }
-        
-                    srcfile.createNewFile();
-                    
-                    PrintWriter outsrc = new PrintWriter(srcfile);
 
-                    outsrc.print(methodBody);
-                    outsrc.close();
+        File srcfolder = new File(path + "src" + sep);
+        srcfolder.mkdirs();
+        File srcfile = new File(path + "src" + sep + id + ".src");
+
+        if (srcfile.exists()) {
+            srcfile.delete();
+        }
+
+        srcfile.createNewFile();
+
+        PrintWriter outsrc = new PrintWriter(srcfile);
+
+        outsrc.print(methodBody);
+        outsrc.close();
         return bot;
     }
 
     public static Bot load(String id, String path) {
         try {
             //TODO load bot
+            path=path+id+".class";
             File file = new File(path);
             URL url = file.toURI().toURL();
             URL[] urls = new URL[]{url};
@@ -101,6 +104,7 @@ public class BotCompiler {
             return new CustomBotWrapper(thisClass);
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             return GameManager.DEFAULT_BOT;
         }
     }
@@ -132,12 +136,13 @@ public class BotCompiler {
                 String msg = TestExcecutor.testBot(bot);
                 if (msg.equals("Pass")) {
                     //Save bot
-                    File bytefile = new File(path + "/" + id + ".class");
-                    
+                    File folder = new File(path);
+                    folder.mkdirs();
+                    File bytefile = new File(path + id + ".class");
+
                     if (bytefile.exists()) {
                         bytefile.delete();
                     }
-                    bytefile.mkdirs();
                     bytefile.createNewFile();
 
                     FileOutputStream outbyte = new FileOutputStream(bytefile);

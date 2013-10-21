@@ -10,14 +10,9 @@ import capstone.player.bot.BotCompiler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.WeakHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -28,7 +23,8 @@ import javax.servlet.http.HttpSession;
 public class BotManager {
     
     //Map player IDs to their bots
-    private static WeakHashMap<String, Bot> botmap = new WeakHashMap<String, Bot>();
+    private static Map<String, Bot> botmap = new WeakHashMap<String, Bot>();
+    private static final String sep = System.getProperty("file.separator");
     
     public static Bot getBot(HttpSession session, String PATH){
         return getBot(session.getAttribute("email").toString(), PATH);
@@ -51,7 +47,7 @@ public class BotManager {
     public static String getSource(String userid, String PATH){
         try {
             userid = userid.replace('.', '_').replace('@', '_');
-            Scanner sc = new Scanner(new File(PATH,"/src/"+userid+".src"));
+            Scanner sc = new Scanner(new File(PATH+"src"+sep+userid+".src"));
             sc.useDelimiter("\\Z");
             String code = sc.next();
             sc.close();
@@ -74,7 +70,7 @@ public class BotManager {
         }
     }
     
-    public static WeakHashMap<String, Bot> getAllBots() {
+    public static Map<String, Bot> getAllBots() {
         return botmap;
     }
 }
