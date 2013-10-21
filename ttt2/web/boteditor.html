@@ -60,7 +60,7 @@
                                         for(int l = 0; l&lt;3; l++){
 
                                             int[] outer = {i,j};
-                                            int[] inner = {k,l}
+                                            int[] inner = {k,l};
                                             int[][] move = {outer, inner};
                                             if(validMove(board,move)){
                                                 return move;
@@ -101,7 +101,7 @@
                                 
                                 <h2>int[][] nextMove(int[][][][] board, int player)</h2><br><br>
                                 This method takes a game board and player number, and returns a move position. The bot must implement this method.<br><br>
-                                    <b>board<b>: A 3x3x3x3 matrix; the first two variables are the subgame coordinates, the next two the tile coordinates within the subgame.<br>
+                                    <b>board</b>: A 3x3x3x3 matrix; the first two variables are the subgame coordinates, the next two the tile coordinates within the subgame.<br>
                                         0 indicates an empty tile, 1/2 indicates player 1/2 have placed a tile there.<br><br>
                                     <b>player</b>: The player number associated with this bot (1 or 2).<br><br>
                                     <b>Returns</b>: A 2x2 matrix of coords. move[0] indicates the outer game coordinates, move[1] the inner game coordinates.
