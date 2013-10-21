@@ -151,7 +151,7 @@
                 }
                 if(friendsToDisplay.length === 0) {
                     document.getElementById("loading").style.display = "none";
-                    document.getElementById("privateGameMenu").innerHTML = "<li>No friends online</li>";
+                    document.getElementById("privateGameMenu").innerHTML = "<li><a href='#'>No friends online</a></li>";
                 } else {
                     document.getElementById("loading").style.display = "none";
                 }
@@ -304,7 +304,7 @@
                 });
                 if(friendsToDisplay.length === 0) {
                     document.getElementById("loading").style.display = "none";
-                    document.getElementById("privateGameMenu").innerHTML = "<li>No friends online</li>";
+                    document.getElementById("privateGameMenu").innerHTML = "<li><a href='#'>No friends online</a></li>";
                 } else {
                     document.getElementById("loading").style.display = "none";
                 }
@@ -391,7 +391,7 @@
         
         <div class="heading padBottom">Select a bot to play.<br><br></div>
         <div>
-            <select class="input-sm" multiple="no" id="botList"></select> 
+            <select class="input-sm" multiple="no" id="botList" size="10"></select> 
             <div id="joinButton"></div>
         </div>
      <script type="text/javascript">

@@ -145,7 +145,7 @@
                 }
                 if (friendsToDisplay.length === 0) {
                     document.getElementById("loading").style.display = "none";
-                    document.getElementById("privateGameMenu").innerHTML = "<li>No friends online</li>";
+                    document.getElementById("privateGameMenu").innerHTML = "<li><a href='#'>No friends online</a></li>";
                 } else {
                     document.getElementById("loading").style.display = "none";
                 }
@@ -377,7 +377,7 @@
                 });
                 if (friendsToDisplay.length === 0) {
                     document.getElementById("loading").style.display = "none";
-                    document.getElementById("privateGameMenu").innerHTML = "<li>No friends online</li>";
+                    document.getElementById("privateGameMenu").innerHTML = "<li><a href='#'>No friends online</a></li>";
                 } else {
                     document.getElementById("loading").style.display = "none";
                 }
