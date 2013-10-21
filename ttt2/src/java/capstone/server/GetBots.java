@@ -54,7 +54,7 @@ public class GetBots extends HttpServlet {
             String email = entry.getKey();
             HttpSession session = entry.getValue();
             email = email.replace('.', '_').replace('@', '_');
-            if(botIDs.contains(email)) {
+            if(botIDs.contains("C"+email)) {
                 String botsPlayerName = session.getAttribute("user").toString();
                 botDetails = botDetails + botsPlayerName + ", " + email + ", ";
             }

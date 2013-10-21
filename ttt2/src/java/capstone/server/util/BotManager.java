@@ -10,9 +10,9 @@ import capstone.player.bot.BotCompiler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.WeakHashMap;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 public class BotManager {
     
     //Map player IDs to their bots
-    private static Map<String, Bot> botmap = new WeakHashMap<String, Bot>();
+    private static Map<String, Bot> botmap = new HashMap<String, Bot>();
     private static final String sep = System.getProperty("file.separator");
     
     public static Bot getBot(HttpSession session, String PATH){
