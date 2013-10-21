@@ -178,18 +178,21 @@ h1 {
 }
 
 .buttons {
-    background: #3498db;
+    background: #2980b9;
     color: white;
     padding: 10px; 
     margin-left: auto;
     margin-right: auto;
     white-space: nowrap;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .buttons:hover {
     opacity: 0.8;
     text-decoration: none;
+    cursor: pointer;
+    background: #3498db;
 }
 
 .buttons a {
@@ -205,28 +208,18 @@ h1 {
     width: 100px;
 }
 
-.buttonForm:hover {
-    background-color: black;
-    color: white;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.buttonForm {
-    background-color: #d58512;
-    color: black;
-}
 
 /* MENU */
 nav {
     white-space: nowrap;
+    font-size: 20px;
     
 }
 nav ul ul {
 	display: none;
         opacity: 1 !important;
         z-index: 1;
-        
+        font-size: 20px;
 }
 
 	nav ul li:hover > ul {
@@ -255,7 +248,7 @@ nav ul li {
             cursor:pointer; 
         }
 	nav ul li:hover {
-		background: #3498db;
+		background: #2980b9;
 	}
 		nav ul li:hover a {
 			color: white;
@@ -269,7 +262,7 @@ nav ul li {
 	}
         
 nav ul ul {
-	background: #3498db; 
+	background: #2980b9; 
         border-radius: 0px; 
         padding: 0;
 	position: absolute; 
@@ -285,7 +278,7 @@ nav ul ul {
 			color: white;
 		}	
 			nav ul ul li a:hover {
-				background: #3498db;
+				background: #2980b9;
                                 color: white;
 			}
                         
@@ -302,7 +295,7 @@ nav ul ul {
 
 
 nav ul ul ul {
-	background: #3498db; 
+	background: #2980b9; 
         border-radius: 0px; 
         padding: 0;
 	position: absolute; 
@@ -319,7 +312,7 @@ nav ul ul ul {
 			color: white;
 		}	
 			nav ul ul ul li a:hover {
-				background: #3498db;
+				background: #2980b9;
                                 color: white;
 			}
                         
@@ -329,7 +322,7 @@ nav ul ul ul {
 
 .navBar1 {
     display: inline-table;
-    background: #2980b9;
+    background: #1a5c88;
     width: 100%;
     color: white;
 }
@@ -371,8 +364,13 @@ nav ul ul ul {
 }
 
 #loginGoogle {
+    background: #c0392b;
+}
+
+#loginGoogle:hover {
     background: #e74c3c;
 }
+
 #loginFB {
     
 }
