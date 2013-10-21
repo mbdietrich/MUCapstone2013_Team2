@@ -10,13 +10,14 @@ import java.io.IOException;
 import java.util.Scanner;
 import org.junit.Test;
 import capstone.player.bot.BotCompilationException;
+import java.net.URL;
 
 /**
  *
  * @author Max
  */
 public class BotCompilerTest {
-    private static final String PATH = "build/test";
+    private static final String PATH = "./build/test";
     
     //Valid compilation
     @Test

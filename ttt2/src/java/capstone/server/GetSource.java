@@ -6,6 +6,7 @@ package capstone.server;
 
 import capstone.server.util.BotManager;
 import java.io.IOException;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class GetSource extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");
         response.setCharacterEncoding ("UTF-8");
-        response.getWriter().write(BotManager.getSource(request.getSession().getAttribute("email").toString()));
+        response.getWriter().write(BotManager.getSource(request.getSession().getAttribute("email").toString(), this.getServletContext().getRealPath(".")));
         response.getWriter().close();
     }
 }

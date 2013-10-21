@@ -8,6 +8,7 @@ import capstone.player.Bot;
 import capstone.server.util.BotManager;
 import capstone.server.util.GameManager;
 import java.io.IOException;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +56,7 @@ public class GameCreate extends HttpServlet {
             response.getWriter().close();
         } else if(request.getParameter("type").equals("bot")) {
             GameManager.newGame(request.getSession());
-            Bot bot = BotManager.getBot(request.getParameter("botID"));
+            Bot bot = BotManager.getBot(request.getParameter("botID"), this.getServletContext().getRealPath("."));
             GameManager.playerBotJoin(request.getSession(), bot);
         } else {
 

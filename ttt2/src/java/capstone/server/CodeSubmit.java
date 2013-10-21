@@ -25,7 +25,7 @@ public class CodeSubmit extends HttpServlet {
         String s = request.getParameter("code");
         try {
 
-            BotManager.compile(request.getSession().getAttribute("email").toString(), s);
+            BotManager.compile(request.getSession().getAttribute("email").toString(), s, this.getServletContext().getRealPath("."));
             response.getWriter().print("OK!");
         } catch (BotCompilationException e) {
             response.getWriter().print(e.getMessage());

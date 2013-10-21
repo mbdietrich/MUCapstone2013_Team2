@@ -10,9 +10,14 @@ import capstone.player.bot.BotCompiler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Scanner;
 import java.util.WeakHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -22,19 +27,17 @@ import javax.servlet.http.HttpSession;
  */
 public class BotManager {
     
-    private static final String PATH = "..\\ttt2\\bots";
-    private static URL JARPATH;
-    
     //Map player IDs to their bots
     private static WeakHashMap<String, Bot> botmap = new WeakHashMap<String, Bot>();
     
-    public static Bot getBot(HttpSession session){
-        return getBot(session.getAttribute("email").toString());
+    public static Bot getBot(HttpSession session, String PATH){
+        return getBot(session.getAttribute("email").toString(), PATH);
     }
     
-    public static Bot getBot(String userid){
+    public static Bot getBot(String userid, String PATH){
         userid = userid.replace('.', '_').replace('@', '_');
         Bot bot = botmap.get(userid);
+        
         if(bot!=null){
             return bot;
         }
@@ -45,10 +48,10 @@ public class BotManager {
         }
     }
     
-    public static String getSource(String userid){
+    public static String getSource(String userid, String PATH){
         try {
             userid = userid.replace('.', '_').replace('@', '_');
-            Scanner sc = new Scanner(new File(PATH+"/src/"+userid+".src"));
+            Scanner sc = new Scanner(new File(PATH,"/src/"+userid+".src"));
             sc.useDelimiter("\\Z");
             String code = sc.next();
             sc.close();
@@ -57,10 +60,9 @@ public class BotManager {
             //No code to set, use default code.
             return "";
         }
-        
     }
     
-    public static void compile(String userid, String code) throws BotCompilationException{
+    public static void compile(String userid, String code, String PATH) throws BotCompilationException{
         
         
         userid = userid.replace('.', '_').replace('@', '_');
