@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +42,7 @@ public class GetBots extends HttpServlet {
         out.append("data: ");
         
         //get all bots
-        WeakHashMap<String, Bot> bots = BotManager.getAllBots();
+        Map<String, Bot> bots = BotManager.getAllBots();
         //get player emails
         Map<String, HttpSession> emails = SocialLogin.getEmailDetails();
         //compare emails to bots in order to find user the bot relates to
@@ -55,7 +54,7 @@ public class GetBots extends HttpServlet {
             String email = entry.getKey();
             HttpSession session = entry.getValue();
             email = email.replace('.', '_').replace('@', '_');
-            if(botIDs.contains(email)) {
+            if(botIDs.contains("C"+email)) {
                 String botsPlayerName = session.getAttribute("user").toString();
                 botDetails = botDetails + botsPlayerName + ", " + email + ", ";
             }

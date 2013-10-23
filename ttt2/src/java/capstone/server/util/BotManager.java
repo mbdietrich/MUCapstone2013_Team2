@@ -10,9 +10,9 @@ import capstone.player.bot.BotCompiler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.WeakHashMap;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -22,19 +22,18 @@ import javax.servlet.http.HttpSession;
  */
 public class BotManager {
     
-    private static final String PATH = "..\\ttt2\\bots";
-    private static URL JARPATH;
-    
     //Map player IDs to their bots
-    private static WeakHashMap<String, Bot> botmap = new WeakHashMap<String, Bot>();
+    private static Map<String, Bot> botmap = new HashMap<String, Bot>();
+    private static final String sep = System.getProperty("file.separator");
     
-    public static Bot getBot(HttpSession session){
-        return getBot(session.getAttribute("email").toString());
+    public static Bot getBot(HttpSession session, String PATH){
+        return getBot(session.getAttribute("email").toString(), PATH);
     }
     
-    public static Bot getBot(String userid){
-        userid = userid.replace('.', '_').replace('@', '_');
+    public static Bot getBot(String userid, String PATH){
+        userid = "C"+userid.replace('.', '_').replace('@', '_');
         Bot bot = botmap.get(userid);
+        
         if(bot!=null){
             return bot;
         }
@@ -45,10 +44,10 @@ public class BotManager {
         }
     }
     
-    public static String getSource(String userid){
+    public static String getSource(String userid, String PATH){
         try {
-            userid = userid.replace('.', '_').replace('@', '_');
-            Scanner sc = new Scanner(new File(PATH+"/src/"+userid+".src"));
+            userid = "C"+userid.replace('.', '_').replace('@', '_');
+            Scanner sc = new Scanner(new File(PATH+"src"+sep+userid+".src"));
             sc.useDelimiter("\\Z");
             String code = sc.next();
             sc.close();
@@ -57,13 +56,12 @@ public class BotManager {
             //No code to set, use default code.
             return "";
         }
-        
     }
     
-    public static void compile(String userid, String code) throws BotCompilationException{
+    public static void compile(String userid, String code, String PATH) throws BotCompilationException{
         
         
-        userid = userid.replace('.', '_').replace('@', '_');
+        userid = "C"+userid.replace('.', '_').replace('@', '_');
         try {
             Bot bot = BotCompiler.createBot(code, userid, PATH);
             botmap.put(userid, bot);
@@ -72,7 +70,7 @@ public class BotManager {
         }
     }
     
-    public static WeakHashMap<String, Bot> getAllBots() {
+    public static Map<String, Bot> getAllBots() {
         return botmap;
     }
 }

@@ -151,7 +151,7 @@
                 }
                 if(friendsToDisplay.length === 0) {
                     document.getElementById("loading").style.display = "none";
-                    document.getElementById("privateGameMenu").innerHTML = "<li>No friends online</li>";
+                    document.getElementById("privateGameMenu").innerHTML = "<li><a href='#'>No friends online</a></li>";
                 } else {
                     document.getElementById("loading").style.display = "none";
                 }
@@ -180,7 +180,7 @@
                     newLines = "<option class='alert-info'>Sorry, there are no bots available to play.</option>";
                 } else {
                     while (i+1 < botDetails.length) {
-                        newLines = newLines + '<option id="' + botDetails[i+1] + '">' + botDetails[i] + "</option>";
+                        newLines = newLines + '<option value="' + botDetails[i+1] + '" id="' + botDetails[i+1] + '">' + botDetails[i] + "</option>";
                         i = i+2;
                     }
                     document.getElementById("joinButton").innerHTML = '<br><button type="button" class="btn" onclick="requestPlayBot();">Play</button>';
@@ -304,7 +304,7 @@
                 });
                 if(friendsToDisplay.length === 0) {
                     document.getElementById("loading").style.display = "none";
-                    document.getElementById("privateGameMenu").innerHTML = "<li>No friends online</li>";
+                    document.getElementById("privateGameMenu").innerHTML = "<li><a href='#'>No friends online</a></li>";
                 } else {
                     document.getElementById("loading").style.display = "none";
                 }
@@ -391,7 +391,7 @@
         
         <div class="heading padBottom">Select a bot to play.<br><br></div>
         <div>
-            <select class="input-sm" multiple="no" id="botList"></select> 
+            <select class="input-sm" multiple="no" id="botList" size="10"></select> 
             <div id="joinButton"></div>
         </div>
      <script type="text/javascript">

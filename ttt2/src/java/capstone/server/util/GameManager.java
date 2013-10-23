@@ -249,18 +249,28 @@ BlockingQueue<String>>();
     public static void leave(HttpSession session){
         GameSession game = gameSessions.remove(session);
         if(game!=null){
-        game.Leave(players.get(session));
-        if(watchers.get(game)!=null){
+        game.replace(players.get(session),BotManager.getBot(session, session.getServletContext().getRealPath(".")));
+        watchers.get(game).remove(session);
+        if(watchers.get(game)!=null&&!watchers.get(game).isEmpty()){
         for(HttpSession s: watchers.get(game)){
             String nextState=JSONBuilder.buildJSON(game, players.get(s));
             states.get(s).offer(nextState);
         }
         }
-        removePrivateName(session);
-        gameIDs.remove(game.SessionID);
-        openGames.remove(game.SessionID);
-        states.get(session).clear();
-        watchers.remove(game);
+        else{
+            removePrivateName(session);
+            gameIDs.remove(game.SessionID);
+            openGames.remove(game.SessionID);
+            states.get(session).clear();
+            watchers.remove(game);
+        }
+        if(game.isOpen()){
+            removePrivateName(session);
+            gameIDs.remove(game.SessionID);
+            openGames.remove(game.SessionID);
+            states.get(session).clear();
+            watchers.remove(game);
+        }
         }
     }
     

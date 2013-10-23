@@ -53,6 +53,26 @@ public class GameSession {
                 else throw new IllegalGameException("Player "+player.toString()+" tried to join a full game.");
 	}
         
+        public void replace(Player oldPlayer, Player newPlayer){
+            boolean notify = false;
+            if(oldPlayer.equals(player1)){
+                player1=newPlayer;
+                if(getCurrentPlayer().equals(oldPlayer)){
+                    notify=true;
+                }
+                
+            }
+            else if(oldPlayer.equals(player2)){
+                player2=newPlayer;
+                if(getCurrentPlayer().equals(oldPlayer)){
+                    notify=true;
+                }
+            }
+            if(notify){
+                newPlayer.notify(this);
+            }
+        }
+        
         public boolean isOpen(){
             return isOpen;
         }
