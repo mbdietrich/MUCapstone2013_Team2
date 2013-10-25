@@ -238,9 +238,6 @@
                                         document.getElementById("team1Alert").innerHTML = "YOUR TURN";
                                         document.getElementById("team2").className = 'playerLabel playerLabelLL';
                                         document.getElementById("team2Alert").innerHTML = "WAIT..";
-                                        //document.getElementById("isTurnAlert").innerHTML = "YOUR TURN";
-                                        //document.getElementById("isTurnAlert").style.display = '';
-                                        //document.getElementById("isTurnAlert").className = 'alert alert-info';
                                     }
                                     else if ((state.isTurn==="true")&&(state.PlayerNumber == 2)){
                                         button.disabled===true;
@@ -248,9 +245,6 @@
                                         document.getElementById("team2Alet").innerHTML = "YOUR TURN";
                                         document.getElementById("team1").className = 'playerLabel playerLabelLL';
                                         document.getElementById("team1Alert").innerHTML = "WAIT..";
-                                        //document.getElementById("isTurnAlert").innerHTML = "Waiting..";
-                                        //document.getElementById("isTurnAlert").style.display = '';
-                                        //document.getElementById("isTurnAlert").className = 'alert alert-warning';
                                     } else {
                                         button.disabled===false;
                                         document.getElementById("team2").className = 'playerLabel';
@@ -271,12 +265,6 @@
                         }
                         document.getElementById("team1Alert").innerHTML = "WINS!";
                         document.getElementById("team1").className = 'playerLabel playerLabelWin animated flash';
-                        //window.alert("YOU WIN!");
-                        //document.getElementById("isTurnAlert").innerHTML = "YOU WIN!";
-                        //document.getElementById("isTurnAlert").style.display = '';
-                        //document.getElementById("isTurnAlert").className = 'alert alert-success';
-                        //$.post('leave');
-                        //window.location.href="/CapstoneProject/home.jsp";
                     }else if (state.Status === "2" || state.Status === "1"){
                         opponent = state.Opponent.toString();
                         if (opponent != null) {
@@ -284,12 +272,6 @@
                         }
                         document.getElementById("team2Alert").innerHTML = "WINS!";
                         document.getElementById("team2").className = 'playerLabel playerLabelWin animated flash';
-                        //window.alert("SORRY, YOU LOSE.");
-                        //document.getElementById("isTurnAlert").innerHTML = "YOU LOSE.";
-                        //document.getElementById("isTurnAlert").style.display = '';
-                        //document.getElementById("isTurnAlert").className = 'alert alert-danger';
-                        //$.post('leave');
-                        //window.location.href="/CapstoneProject/home.jsp";
                     } else if (state.Status === "3") {
                         document.getElementById("team2Alert").innerHTML = "IT'S A DRAW!";
                         document.getElementById("team2").className = 'playerLabel playerLabelDraw animated flash';
@@ -297,10 +279,6 @@
                         document.getElementById("team1Alert").innerHTML = "IT'S A DRAW!";
                         document.getElementById("team1").className = 'playerLabel playerLabelDraw animated flash';
                     }
-                    //if (state.Status === "1" | state.Status === "2"){
-                     //   window.alert("Player " + state.Status + " Wins");
-                     //   window.location.href="/CapstoneProject/home.jsp";
-                    //}
                     }
                 }
             };
@@ -332,11 +310,6 @@
                         for (i = 2; i >= 0; i--) {
                             newSubRow=subTable.insertRow();
                             for (j = 2; j >= 0; j--) {
-                                
-                                //buttonTrans = document.createElement('span');
-                                //newButton = document.createElement('button');
-                                //newButton.type = 'button';
-                                //newButton.className = 'btn btn-default';
                                 
                                 buttonTrans = document.createElement('img');
                                 buttonTrans.className = 'fadeGameButton gameButton';
