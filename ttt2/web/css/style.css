@@ -269,6 +269,7 @@
 		border-collapse: collapse;
                 position: relative;
                 display: table-cell;
+                
 	}
 	/*player alerts*/
 	.playerLabel {
@@ -333,8 +334,7 @@
 	}
         .subGame {
             position: absolute;
-            top: 0;
-            left: 0;
+            margin: -5px 0 0 -5px;
             padding: 5px;
             display: table-cell;
         }

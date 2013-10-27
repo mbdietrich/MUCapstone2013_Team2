@@ -222,7 +222,7 @@
                                     if ((state.Substatus[subgame][buttonNum] === "2")){
                                             document.getElementById(a+'-'+b).firstElementChild.className = "subGame";
                                             document.getElementById(a + '-' + b + 'span').className = "subGameWin";
-                                            document.getElementById(a + '-' + b + 'span').innerHTML = "<img src='images/oh_win.png'>";
+                                            document.getElementById(a + '-' + b + 'span').innerHTML = "<img src='images/oh_win2.png'>";
                                         } else if ((state.Substatus[subgame][buttonNum] === "1")){
                                             document.getElementById(a+'-'+b).firstElementChild.className = "subGame";
                                             document.getElementById(a + '-' + b + 'span').className = "subGameWin";
