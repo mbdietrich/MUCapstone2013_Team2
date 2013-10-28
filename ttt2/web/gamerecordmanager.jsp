@@ -210,7 +210,7 @@
                 }
             };
             var initiate = function() {
-                var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;
+                var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell, subGameWin;
                 buttonFrame = document.getElementById('gameframe');
 
                 for (a = 2; a >= 0; a--) {
@@ -218,9 +218,13 @@
                     newRow = buttonFrame.insertRow();
                     for (b = 2; b >= 0; b--) {
                         newCell = newRow.insertCell();
-                        subTable = document.createElement('table');
-                        subTable.className = 'subTable';
+                        newCell.className = 'subTable';
+                        newCell.id = (a + '-' + b);
+                        subTable=document.createElement('table');
+                        subGameWin = document.createElement('span');
+                        subGameWin.id = (a + '-' + b + 'span');
                         newCell.appendChild(subTable);
+                        newCell.appendChild(subGameWin);
                         for (i = 2; i >= 0; i--) {
                             newSubRow = subTable.insertRow();
                             for (j = 2; j >= 0; j--) {
@@ -481,8 +485,8 @@
                         <div id="joinButton"></div>
                     </div></td>
                 <td><table id="gameframe"></table></td>
-                <td><a id="playButton" href="#" onclick="playGame();"><image src= "images/play.png"></button>Next Move</br></a>
-                    <a id="backButton" href="#" onclick="backGame();"><image src="images/back.png"></button>Back Move</a>
+                <td><div class="buttons buttons2 padBottom" id="playButton" ><a href="#" onclick="playGame();">Next Move</a></div><br>
+                    <div class="buttons buttons2 padBottom" id="backButton" ><a href="#" onclick="backGame();">Back Move</a></div>
                 </td>
             </tr> 
         </table>

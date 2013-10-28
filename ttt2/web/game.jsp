@@ -218,6 +218,17 @@
                                     buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).firstElementChild;
                                     value=state.Board[subgame][buttonNum];
                                     subgameWin = document.getElementById(a + '-' + b);
+                                    
+                                    if ((state.Substatus[subgame][buttonNum] === "2")){
+                                            document.getElementById(a+'-'+b).firstElementChild.className = "subGame";
+                                            document.getElementById(a + '-' + b + 'span').className = "subGameWin";
+                                            document.getElementById(a + '-' + b + 'span').innerHTML = "<img src='images/oh_win2.png'>";
+                                        } else if ((state.Substatus[subgame][buttonNum] === "1")){
+                                            document.getElementById(a+'-'+b).firstElementChild.className = "subGame";
+                                            document.getElementById(a + '-' + b + 'span').className = "subGameWin";
+                                            document.getElementById(a + '-' + b + 'span').innerHTML = "<img src='images/ex_win.png'>";
+                                        }
+                                    
                                     if(value==1){
                                         buttonTrans.src = 'images/ex.png';
                                         buttonTrans.className ="gameButton";
@@ -228,9 +239,7 @@
                                     }
                                     else{
                                         buttonTrans.src = 'images/blank.png';
-                                        if ((state.Substatus[a][b] === "2") || (state.Substatus[a][b] === "1")){
-                                            buttonTrans.className = "gameButton lockGameButton";
-                                        }
+                                        
                                     }
                                     if((state.isTurn==="true")&&(state.PlayerNumber == 1)){
                                         button.disabled===true;
@@ -294,7 +303,7 @@
                 window.onload = function() {
                 
                 
-                var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell;
+                var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell, subGameWin;
                 buttonFrame = document.getElementById('gameframe');
 
                 for (a = 2; a >= 0; a--) {
@@ -302,11 +311,13 @@
                     newRow = buttonFrame.insertRow();
                     for (b = 2; b >= 0; b--) {
                         newCell = newRow.insertCell();
-                        newCell.className = 'subTable'
+                        newCell.className = 'subTable';
+                        newCell.id = (a + '-' + b);
                         subTable=document.createElement('table');
-                        //subTable.className = 'subTable';
-                        subTable.id = (a + '-' + b);
+                        subGameWin = document.createElement('span');
+                        subGameWin.id = (a + '-' + b + 'span');
                         newCell.appendChild(subTable);
+                        newCell.appendChild(subGameWin);
                         for (i = 2; i >= 0; i--) {
                             newSubRow=subTable.insertRow();
                             for (j = 2; j >= 0; j--) {
@@ -315,7 +326,6 @@
                                 buttonTrans.className = 'fadeGameButton gameButton';
                                 buttonTrans.src = 'images/blank.png';
                                 newButton = document.createElement('a');
-                                //newButton.type = 'button';
                                 newButton.href = '#';         
                                 
                                 newButton.id=a+'-'+b+'-'+i+'-'+j;
