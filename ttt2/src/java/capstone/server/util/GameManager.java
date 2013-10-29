@@ -140,7 +140,12 @@ BlockingQueue<String>>();
     }
     public static String getPrivateGames(HttpSession session){
         StringBuilder builder = new StringBuilder("{\"games\":[");
-        List<String> friends = databaseAccess.getFriends(session.getAttribute("user").toString());
+        
+        //FIXME
+        //Friend list here
+        List<String> friends = new ArrayList<String>();
+        //
+        
         boolean first = true;
         for(Entry<String, String> entry: openGames.entrySet()){
             if(!first){
@@ -322,7 +327,7 @@ BlockingQueue<String>>();
         GameState board = game.getCurrentGame();
         //only move if we're supposed to
         if(player.isActive()){
-            if (GameRules.validMove(board, coords)){
+            if (GameRules.validMove(board, coords)&&!game.isOpen()&&game.getCurrentPlayer().equals(player)){
                 player.setActive(false);
                 game.move(player, coords);
                 //GameRecorder.record(getAnyGameID(game), session.getAttribute("user").toString(), coords.getAllCoords());
