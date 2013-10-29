@@ -134,31 +134,8 @@ public class GameManager {
             privateGames.remove(username);
         }
     }
-
-    public static String getPrivateGames(HttpSession session) {
-        StringBuilder builder = new StringBuilder("{\"games\":[");
-
-        //FIXME
-        //Friend list here
-        List<String> friends = new ArrayList<String>();
-        //
-
-        boolean first = true;
-        for (Entry<String, String> entry : openGames.entrySet()) {
-            if (!first) {
-                builder = builder.append(", ");
-            } else {
-                first = false;
-            }
-            if (privateGames.indexOf(entry.getValue()) != -1 && friends.indexOf(entry.getValue()) != -1) {
-                builder = builder.append('"').append("PRIVATE " + entry.getValue()).append('"');
-            }
-        }
-
-        return builder.append("]}").toString();
-    }
-
-    public static String getRecordedGames(HttpSession session) {
+    
+    public static String getRecordedGames(HttpSession session){
         StringBuilder builder = new StringBuilder("{\"games\":[");
         String user = session.getAttribute("user").toString();
         List games = GameRecorder.getGames(user);

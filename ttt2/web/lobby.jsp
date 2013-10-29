@@ -185,11 +185,6 @@
                         "GetPublicGames",
                         function(data){refresh(data.games);}
                 );
-                $.getJSON(
-                        "GetPrivateGames",
-                        function(data){refresh(data.games);}
-            );  
-                    
             };
 
             window.onload = loadGames;
