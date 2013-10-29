@@ -104,7 +104,6 @@ public class BotCompiler {
             return new CustomBotWrapper(thisClass);
 
         } catch (Exception ex) {
-            ex.printStackTrace();
             return GameManager.DEFAULT_BOT;
         }
     }
