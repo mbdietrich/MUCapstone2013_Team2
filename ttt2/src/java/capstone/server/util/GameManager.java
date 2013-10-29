@@ -56,8 +56,9 @@ BlockingQueue<String>>();
     //Add a player to an existing game
     public static void joinGame(HttpSession session, String gameID){
         try {
+            if(gameSessions.containsKey(session)){
             leave(session);
-            
+            }
             session.getServletContext().log("Player joining game session (ID "+gameID+")");
             RemotePlayer player = players.get(session);
             GameSession game = gameIDs.get(gameID);
@@ -254,7 +255,9 @@ BlockingQueue<String>>();
     public static void leave(HttpSession session){
         GameSession game = gameSessions.remove(session);
         if(game!=null){
-        game.replace(players.get(session),BotManager.getBot(session, session.getServletContext().getRealPath(".")));
+            if(!game.isOpen()){
+                game.replace(players.get(session),BotManager.getBot(session, session.getServletContext().getRealPath(".")));
+            }
         watchers.get(game).remove(session);
         if(watchers.get(game)!=null&&!watchers.get(game).isEmpty()){
         for(HttpSession s: watchers.get(game)){
@@ -341,7 +344,12 @@ BlockingQueue<String>>();
     }
 
     public static void joinAnyGame(HttpSession session) {
-        synchronized(openGames){        
+        synchronized(openGames){
+        if(openGames.isEmpty()){
+            GameManager.newGame(session);
+            return;
+        }
+        else{
         String firstOpen = openGames.keySet().iterator().next();
         String firstPlayer = openGames.values().iterator().next();
         if (privateGames.indexOf(firstPlayer) == -1)
@@ -350,6 +358,7 @@ BlockingQueue<String>>();
         }
         else{
             GameManager.newGame(session);
+        }
         }
         }
     }
