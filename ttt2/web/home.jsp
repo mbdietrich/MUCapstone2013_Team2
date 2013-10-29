@@ -34,7 +34,6 @@
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="jquery.layout-latest.min.js"></script>
         <script src="gamemethods.js"></script>
         
         <script>

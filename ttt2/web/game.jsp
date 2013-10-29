@@ -7,11 +7,11 @@
 --%>
 
 <%
-    String userName = (String)session.getAttribute("user");
-    if(userName == null) {
+    String userName = (String) session.getAttribute("user");
+    if (userName == null) {
         response.sendRedirect("index.jsp");
     }
-    
+
     String gid = (String) session.getAttribute("gid");
     String fbid = (String) session.getAttribute("fbid");
 %>
@@ -20,26 +20,150 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/style.css" rel="stylesheet" media="screen">
         <link href="css/animate.css" rel="stylesheet" media="screen">
         <link rel="shortcut icon" href="images/ttt_icon.ico" />
-        
+
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <title>TTT - Game On!</title>
-        
+
         <noscript><meta http-equiv="refresh" content="0;URL=noscript.jsp"/></noscript>
-        
+
         <script type="text/javascript" src="jquery-1.8.3.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="gamemethods.js"></script>
 
-        
+
         <script>
+
+            var onState = function(e) {
+                var evt = e || window.event;
+                var data;
+                var state = jQuery.parseJSON(evt.data);
+                if (state) { // only update if the string is not empty
+
+                    if (state.open) {
+                        document.getElementById("gameArea").style.display = 'none';
+                        document.getElementById("quitButton").style.display = 'none';
+                        document.getElementById("openWait").style.display = '';
+                    }
+                    else if (!state.waiting) {
+                        opponent = state.Opponent.toString();
+                        if (opponent != null) {
+                            document.getElementById("team2").firstElementChild.innerHTML = opponent;
+                        }
+                        document.getElementById("openWait").style.display = 'none';
+                        document.getElementById("gameArea").style.display = '';
+
+                        //TODO parse state in
+                        //variables:
+                        //state.PlayerNumber
+                        //state.isTurn
+                        //state.Status
+                        //state.Board
+                        //state.Substatus
+                        //state.Opponent
+                        var subgame = 0;
+                        var subgameWin;
+                        var subWin;
+                        for (a = 0; a < 3; a++) {
+                            for (b = 0; b < 3; b++) {
+                                var buttonNum = 0;
+                                for (x = 0; x < 3; x++) {
+                                    for (y = 0; y < 3; y++) {
+                                        button = document.getElementById(a + '-' + b + '-' + x + '-' + y);
+                                        buttonTrans = document.getElementById(a + '-' + b + '-' + x + '-' + y).firstElementChild;
+                                        value = state.Board[subgame][buttonNum];
+                                        subgameWin = document.getElementById(a + '-' + b);
+
+                                        if ((state.Substatus[subgame][buttonNum] === "2")) {
+                                            document.getElementById(a + '-' + b).firstElementChild.className = "subGame";
+                                            document.getElementById(a + '-' + b + 'span').className = "subGameWin";
+                                            document.getElementById(a + '-' + b + 'span').innerHTML = "<img src='images/oh_win2.png'>";
+                                        } else if ((state.Substatus[subgame][buttonNum] === "1")) {
+                                            document.getElementById(a + '-' + b).firstElementChild.className = "subGame";
+                                            document.getElementById(a + '-' + b + 'span').className = "subGameWin";
+                                            document.getElementById(a + '-' + b + 'span').innerHTML = "<img src='images/ex_win.png'>";
+                                        }
+
+                                        if (value == 1) {
+                                            buttonTrans.src = 'images/ex.png';
+                                            buttonTrans.className = "gameButton";
+                                        }
+                                        else if (value == 2) {
+                                            buttonTrans.src = 'images/oh.png';
+                                            buttonTrans.className = "gameButton";
+                                        }
+                                        else {
+                                            buttonTrans.src = 'images/blank.png';
+
+                                        }
+                                        if ((state.isTurn === "true") && (state.PlayerNumber == 1)) {
+                                            button.disabled === true;
+                                            document.getElementById("team1").className = 'playerLabel playerLabelHL animated bounce';
+                                            document.getElementById("team1Alert").innerHTML = "YOUR TURN";
+                                            document.getElementById("team2").className = 'playerLabel playerLabelLL';
+                                            document.getElementById("team2Alert").innerHTML = "WAIT..";
+                                        }
+                                        else if ((state.isTurn === "true") && (state.PlayerNumber == 2)) {
+                                            button.disabled === true;
+                                            document.getElementById("team2").className = 'playerLabel playerLabelHL animated bounce';
+                                            document.getElementById("team2Alet").innerHTML = "YOUR TURN";
+                                            document.getElementById("team1").className = 'playerLabel playerLabelLL';
+                                            document.getElementById("team1Alert").innerHTML = "WAIT..";
+                                        } else {
+                                            button.disabled === false;
+                                            document.getElementById("team2").className = 'playerLabel';
+                                            document.getElementById("team1").className = 'playerLabel';
+                                            document.getElementById("team2Alert").innerHTML = "";
+                                            document.getElementById("team1Alert").innerHTML = "";
+                                        }
+                                        buttonNum++;
+                                    }
+                                }
+                                subgame++;
+                            }
+                        }
+                        if (state.Status === state.PlayerNumber) {
+                            opponent = state.Opponent.toString();
+                            if (opponent != null) {
+                                document.getElementById("team2").firstElementChild.innerHTML = opponent;
+                            }
+                            document.getElementById("team1Alert").innerHTML = "WINS!";
+                            document.getElementById("team1").className = 'playerLabel playerLabelWin animated flash';
+                        } else if (state.Status === "2" || state.Status === "1") {
+                            opponent = state.Opponent.toString();
+                            if (opponent != null) {
+                                document.getElementById("team2").firstElementChild.innerHTML = opponent;
+                            }
+                            document.getElementById("team2Alert").innerHTML = "WINS!";
+                            document.getElementById("team2").className = 'playerLabel playerLabelWin animated flash';
+                        } else if (state.Status === "3") {
+                            document.getElementById("team2Alert").innerHTML = "IT'S A DRAW!";
+                            document.getElementById("team2").className = 'playerLabel playerLabelDraw animated flash';
+
+                            document.getElementById("team1Alert").innerHTML = "IT'S A DRAW!";
+                            document.getElementById("team1").className = 'playerLabel playerLabelDraw animated flash';
+                        }
+                    }
+                }
+            };
+
+            var source = new EventSource("state");
+            source.onmessage = onState;
+            source.addEventListener("state", onState);
+            source.onclose = function() {
+                console.log('Connection closed');
+            }
+            source.onerror = function(e) {
+                console.log(e);
+            }
+
             //listen for game invites
             var sourceInvites = new EventSource("GameInvites");
             sourceInvites.onmessage = function(event) {
@@ -51,60 +175,60 @@
                     updateInviteMenu("no"); //if no request, hide menu
                 }
             };
-            
+
             function updateInviteMenu(update) {
-                if(update === "no") {
-                    document.getElementById("challengeMenu").style.visibility="hidden";
+                if (update === "no") {
+                    document.getElementById("challengeMenu").style.visibility = "hidden";
                 } else {
-                    document.getElementById("challengeMenu").style.visibility="visible";
+                    document.getElementById("challengeMenu").style.visibility = "visible";
 
                 }
             }
-            
+
             var googleFriends;
             var facebookFriends;
-            
+
             function processGameInvites(invites) {
                 //frist, clear the table
                 var parent = document.getElementById("challengeMenu");
-                while(parent.hasChildNodes()) {
+                while (parent.hasChildNodes()) {
                     parent.removeChild(parent.firstChild);
                 }
-                
+
                 var insert = "<li><span>CHALLENGES!</span><ul>";
-                
+
                 //if player logged in with google
-                if("<%=fbid%>" === "0") {
+                if ("<%=fbid%>" === "0") {
                     // compare invites to google friends
                     var numItems = googleFriends.items.length;
-                    for (var i=0;i<numItems;i++) {
-                        if(invites.indexOf(googleFriends.items[i].id) !== -1) {
+                    for (var i = 0; i < numItems; i++) {
+                        if (invites.indexOf(googleFriends.items[i].id) !== -1) {
                             var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
-                            insert = insert + "<li><img src='"+imageURL+"' height='40' width='40'>";
-                            insert = insert + "<a href='JoinPrivateGame?friend="+googleFriends.items[i].displayName+"&friendID="+googleFriends.items[i].id+"'>"+googleFriends.items[i].displayName+"</a></li>";
+                            insert = insert + "<li><img src='" + imageURL + "' height='40' width='40'>";
+                            insert = insert + "<a href='JoinPrivateGame?friend=" + googleFriends.items[i].displayName + "&friendID=" + googleFriends.items[i].id + "'>" + googleFriends.items[i].displayName + "</a></li>";
                         }
                     }
                     insert = insert + "</ul></li>";
                     document.getElementById("challengeMenu").innerHTML = insert;
                 } else {    //then player is logged in with facebook
-                    $.each(facebookFriends.data,function(index,friend) {
-                       if(invites.indexOf(friend.id) !== -1) {
-                           var imageURL = getFacebookImageURL(friend.id);
-                           insert = insert + "<li><img src='"+imageURL+"' height='40' width='40'>";
-                           insert = insert + "<a href='JoinPrivateGame?friend="+friend.name+"&friendID="+friend.id+"'>"+friend.name+"</a></li>";
-                       }
+                    $.each(facebookFriends.data, function(index, friend) {
+                        if (invites.indexOf(friend.id) !== -1) {
+                            var imageURL = getFacebookImageURL(friend.id);
+                            insert = insert + "<li><img src='" + imageURL + "' height='40' width='40'>";
+                            insert = insert + "<a href='JoinPrivateGame?friend=" + friend.name + "&friendID=" + friend.id + "'>" + friend.name + "</a></li>";
+                        }
                     });
                     insert = insert + "</ul></li>";
                     document.getElementById("challengeMenu").innerHTML = insert;
                 }
             }
-            
+
             //handle google invites
             var sourceGFriends = new EventSource("GoogleFriends");
             sourceGFriends.onmessage = function(event) {
                 var gid = "<%=gid%>";
                 if (event.data) { // only update if the string is not empty
-                    if(gid !== "0") {   //only run if player is logged in with google
+                    if (gid !== "0") {   //only run if player is logged in with google
                         compareGoogleFriends(event.data);
                     }
                 }
@@ -117,8 +241,8 @@
                     document.getElementById('signinButton').setAttribute('style', 'display: none');
                     gapi.client.load('plus', 'v1', function() {
                         var request = gapi.client.plus.people.list({
-                            'userId' : 'me',
-                            'collection' : 'visible'
+                            'userId': 'me',
+                            'collection': 'visible'
                         });
                         request.execute(function(resp) {
                             googleFriends = resp;
@@ -133,28 +257,28 @@
                     console.log('Sign-in state: ' + authResult['error']);
                 }
             }
-            
+
             function compareGoogleFriends(online) {
                 //first, remove the table
                 var parent = document.getElementById("privateGameMenu");
-                while(parent.hasChildNodes()) {
+                while (parent.hasChildNodes()) {
                     parent.removeChild(parent.firstChild);
                 }
                 //then, rebuild the table
                 var friendsToDisplay = new Array();
                 var numItems = googleFriends.items.length;
                 var onlinePlayers = online;
-                for (var i=0;i<numItems;i++) {
-                    if(onlinePlayers.indexOf(googleFriends.items[i].id) !== -1) {   //if the google friend is online
-                        if(friendsToDisplay.indexOf(googleFriends.items[i].displayName) === -1) {    
+                for (var i = 0; i < numItems; i++) {
+                    if (onlinePlayers.indexOf(googleFriends.items[i].id) !== -1) {   //if the google friend is online
+                        if (friendsToDisplay.indexOf(googleFriends.items[i].displayName) === -1) {
                             friendsToDisplay.push(googleFriends.items[i].displayName);
                             var imageURL = getGoogleImageURL(googleFriends.items[i].image.url);
                             var gid = "<%=gid%>";
-                            document.getElementById("privateGameMenu").innerHTML="<li><a href='SendPrivateGameInvite?me="+gid+"&friend="+googleFriends.items[i].id+"'><img src='"+imageURL+"' height='40' width='40'>"+googleFriends.items[i].displayName+"</a></li>";
+                            document.getElementById("privateGameMenu").innerHTML = "<li><a href='SendPrivateGameInvite?me=" + gid + "&friend=" + googleFriends.items[i].id + "'><img src='" + imageURL + "' height='40' width='40'>" + googleFriends.items[i].displayName + "</a></li>";
                         }
                     }
                 }
-                if(friendsToDisplay.length === 0) {
+                if (friendsToDisplay.length === 0) {
                     document.getElementById("loading").style.display = "none";
                     document.getElementById("privateGameMenu").innerHTML = "<li><a href='#'>No friends online</a></li>";
                 } else {
@@ -166,143 +290,29 @@
                 var parts = url.split("?");
                 return parts[0];
             }
-            
-            var leave = function(){
-                $.post('leave', function(e){
+
+            var leave = function() {
+                $.post('leave', function(e) {
                     document.location.href = "home.jsp";
                 });
             }
-            var makeMove = function(a, b, x, y){
+            var makeMove = function(a, b, x, y) {
                 $.post(
-                        "move", 
-                        {a:a,b:b,x:x,y:y}
-                    );
+                        "move",
+                        {a: a, b: b, x: x, y: y}
+                );
             }
             var opponent;
-            var onState = function(e) {
-                var evt = e || window.event;
-                var data;
-                var state = jQuery.parseJSON(evt.data);
-                if (state) { // only update if the string is not empty
-                    
-                    if(state.open){
-                        document.getElementById("gameArea").style.display = 'none';
-                        document.getElementById("quitButton").style.display = 'none';
-                        document.getElementById("openWait").style.display = '';
-                    }
-                    else if(!state.waiting){
-                    opponent = state.Opponent.toString();
-                    if (opponent != null) {
-                        document.getElementById("team2").firstElementChild.innerHTML = opponent;
-                    }
-                    document.getElementById("openWait").style.display = 'none';
-                    document.getElementById("gameArea").style.display = '';
 
-                    //TODO parse state in
-                    //variables:
-                    //state.PlayerNumber
-                    //state.isTurn
-                    //state.Status
-                    //state.Board
-                    //state.Substatus
-                    //state.Opponent
-                    var subgame=0;
-                    var subgameWin;
-                    var subWin;
-                    for(a = 0;a<3;a++){
-                        for(b = 0;b<3;b++){
-                            var buttonNum=0;
-                            for(x = 0;x<3;x++){
-                                for(y = 0;y<3;y++){
-                                    button=document.getElementById(a+'-'+b+'-'+x+'-'+y);
-                                    buttonTrans=document.getElementById(a+'-'+b+'-'+x+'-'+y).firstElementChild;
-                                    value=state.Board[subgame][buttonNum];
-                                    subgameWin = document.getElementById(a + '-' + b);
-                                    
-                                    if ((state.Substatus[subgame][buttonNum] === "2")){
-                                            document.getElementById(a+'-'+b).firstElementChild.className = "subGame";
-                                            document.getElementById(a + '-' + b + 'span').className = "subGameWin";
-                                            document.getElementById(a + '-' + b + 'span').innerHTML = "<img src='images/oh_win2.png'>";
-                                        } else if ((state.Substatus[subgame][buttonNum] === "1")){
-                                            document.getElementById(a+'-'+b).firstElementChild.className = "subGame";
-                                            document.getElementById(a + '-' + b + 'span').className = "subGameWin";
-                                            document.getElementById(a + '-' + b + 'span').innerHTML = "<img src='images/ex_win.png'>";
-                                        }
-                                    
-                                    if(value==1){
-                                        buttonTrans.src = 'images/ex.png';
-                                        buttonTrans.className ="gameButton";
-                                    }
-                                    else if(value==2){
-                                        buttonTrans.src = 'images/oh.png';
-                                        buttonTrans.className = "gameButton";
-                                    }
-                                    else{
-                                        buttonTrans.src = 'images/blank.png';
-                                        
-                                    }
-                                    if((state.isTurn==="true")&&(state.PlayerNumber == 1)){
-                                        button.disabled===true;
-                                        document.getElementById("team1").className = 'playerLabel playerLabelHL animated bounce';
-                                        document.getElementById("team1Alert").innerHTML = "YOUR TURN";
-                                        document.getElementById("team2").className = 'playerLabel playerLabelLL';
-                                        document.getElementById("team2Alert").innerHTML = "WAIT..";
-                                    }
-                                    else if ((state.isTurn==="true")&&(state.PlayerNumber == 2)){
-                                        button.disabled===true;
-                                        document.getElementById("team2").className = 'playerLabel playerLabelHL animated bounce';
-                                        document.getElementById("team2Alet").innerHTML = "YOUR TURN";
-                                        document.getElementById("team1").className = 'playerLabel playerLabelLL';
-                                        document.getElementById("team1Alert").innerHTML = "WAIT..";
-                                    } else {
-                                        button.disabled===false;
-                                        document.getElementById("team2").className = 'playerLabel';
-                                        document.getElementById("team1").className = 'playerLabel';
-                                        document.getElementById("team2Alert").innerHTML = "";
-                                        document.getElementById("team1Alert").innerHTML = "";
-                                    }
-                                    buttonNum++;
-                                }
-                            }
-                            subgame++;
-                        }
-                    }
-                    if (state.Status === state.PlayerNumber){
-                        opponent = state.Opponent.toString();
-                        if (opponent != null) {
-                            document.getElementById("team2").firstElementChild.innerHTML = opponent;
-                        }
-                        document.getElementById("team1Alert").innerHTML = "WINS!";
-                        document.getElementById("team1").className = 'playerLabel playerLabelWin animated flash';
-                    }else if (state.Status === "2" || state.Status === "1"){
-                        opponent = state.Opponent.toString();
-                        if (opponent != null) {
-                            document.getElementById("team2").firstElementChild.innerHTML = opponent;
-                        }
-                        document.getElementById("team2Alert").innerHTML = "WINS!";
-                        document.getElementById("team2").className = 'playerLabel playerLabelWin animated flash';
-                    } else if (state.Status === "3") {
-                        document.getElementById("team2Alert").innerHTML = "IT'S A DRAW!";
-                        document.getElementById("team2").className = 'playerLabel playerLabelDraw animated flash';
-                        
-                        document.getElementById("team1Alert").innerHTML = "IT'S A DRAW!";
-                        document.getElementById("team1").className = 'playerLabel playerLabelDraw animated flash';
-                    }
-                    }
-                }
-            };
-            
-            
-                source = new EventSource("state");
-                source.onmessage = onState;
-                
-                $(window).unload(function () {
-                    $.post('leave');
-                });
-                
-                window.onload = function() {
-                
-                
+
+
+            $(window).unload(function() {
+                $.post('leave');
+            });
+
+            window.onload = function() {
+
+
                 var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell, subGameWin;
                 buttonFrame = document.getElementById('gameframe');
 
@@ -313,32 +323,32 @@
                         newCell = newRow.insertCell();
                         newCell.className = 'subTable';
                         newCell.id = (a + '-' + b);
-                        subTable=document.createElement('table');
+                        subTable = document.createElement('table');
                         subGameWin = document.createElement('span');
                         subGameWin.id = (a + '-' + b + 'span');
                         newCell.appendChild(subTable);
                         newCell.appendChild(subGameWin);
                         for (i = 2; i >= 0; i--) {
-                            newSubRow=subTable.insertRow();
+                            newSubRow = subTable.insertRow();
                             for (j = 2; j >= 0; j--) {
-                                
+
                                 buttonTrans = document.createElement('img');
                                 buttonTrans.className = 'fadeGameButton gameButton';
                                 buttonTrans.src = 'images/blank.png';
                                 newButton = document.createElement('a');
-                                newButton.href = '#';         
-                                
-                                newButton.id=a+'-'+b+'-'+i+'-'+j;
-                                newButton.a=a;
-                                newButton.b=b;
-                                newButton.x=i;
-                                newButton.y=j;
-                                
+                                newButton.href = '#';
+
+                                newButton.id = a + '-' + b + '-' + i + '-' + j;
+                                newButton.a = a;
+                                newButton.b = b;
+                                newButton.x = i;
+                                newButton.y = j;
+
                                 newButton.appendChild(buttonTrans);
                                 newButton.onclick = function() {
-                                    makeMove(this.a,this.b,this.x,this.y);
+                                    makeMove(this.a, this.b, this.x, this.y);
                                 };
-                                buttonCell=newSubRow.insertCell();
+                                buttonCell = newSubRow.insertCell();
                                 buttonCell.appendChild(newButton);
                             }
                         }
@@ -406,7 +416,7 @@
                 js.src = "//connect.facebook.net/en_US/all.js";
                 ref.parentNode.insertBefore(js, ref);
             }(document));
-            
+
             // Here we run a very simple test of the Graph API after login is successful. 
             // This testAPI() function is only called in those cases. 
             function testAPI() {
@@ -415,60 +425,60 @@
                     console.log('Good to see you, ' + response.name + '.');
                 });
             }
-            
+
             function getFBFriends() {
                 FB.api('/me/friends', function(response) {
                     facebookFriends = response;
                 });
             }
-            
+
             var sourceFBFriends = new EventSource("FacebookFriends");
             sourceFBFriends.onmessage = function(event) {
                 var fbid = "<%=fbid%>";
                 if (event.data) { // only update if the string is not empty
-                    if(fbid !== "0") {   //only run if player is logged in with facebook
+                    if (fbid !== "0") {   //only run if player is logged in with facebook
                         compareFacebookFriends(event.data);
                     }
                 }
-            };            
-           
+            };
+
             function compareFacebookFriends(online) {
                 //first, remove the table
                 var parent = document.getElementById("privateGameMenu");
-                while(parent.hasChildNodes()) {
+                while (parent.hasChildNodes()) {
                     parent.removeChild(parent.firstChild);
                 }
                 //then, rebuild the table
                 var friendsToDisplay = new Array();
                 var onlinePlayers = online;
-                
+
                 //check if facebook friends are online
-                $.each(facebookFriends.data,function(index,friend) {
+                $.each(facebookFriends.data, function(index, friend) {
                     //console.log("friend: " + friend.name);
-                    if(onlinePlayers.indexOf(friend.id) !== -1) {    //if the facebook friend is online
+                    if (onlinePlayers.indexOf(friend.id) !== -1) {    //if the facebook friend is online
                         friendsToDisplay.push(friend.name);
                         var imageURL = getFacebookImageURL(friend.id);
                         var fbid = "<%=fbid%>";
-                        document.getElementById("privateGameMenu").innerHTML="<li><a href='SendPrivateGameInvite?me="+fbid+"&friend="+friend.id+"'><img src='"+imageURL+"' height='40 width='40'>"+friend.name+"</a></li>";
+                        document.getElementById("privateGameMenu").innerHTML = "<li><a href='SendPrivateGameInvite?me=" + fbid + "&friend=" + friend.id + "'><img src='" + imageURL + "' height='40 width='40'>" + friend.name + "</a></li>";
                     }
                 });
-                if(friendsToDisplay.length === 0) {
+                if (friendsToDisplay.length === 0) {
                     document.getElementById("loading").style.display = "none";
                     document.getElementById("privateGameMenu").innerHTML = "<li><a href='#'>No friends online</a></li>";
                 } else {
                     document.getElementById("loading").style.display = "none";
                 }
             }
-            
+
             function getFacebookImageURL(id) {
-                var url = "https://graph.facebook.com/"+id+"/picture";
+                var url = "https://graph.facebook.com/" + id + "/picture";
                 return url;
             }
         </script>
         <div class="navBar1">
             <div class="menuLeft">
                 <span><h1><a href="home.jsp">TIC TAC TOE</a></h1></span>
-                
+
             </div>
             <nav class="menuRight">
                 <ul>
@@ -491,54 +501,50 @@
                 <ul style="visibility:hidden" id="challengeMenu">
                 </ul>
             </nav>
-            
+
         </div>
         <div id="quitButton" class="menuRight" onclick="leave();"><a href="#" onclick="leave();" class="buttons butons2">Quit</a></div>
         <script src="sonic.js"></script>
-    <script>
-        var loader = new Sonic({
+        <script>
+            var loader = new Sonic({
+                width: 100,
+                height: 50,
+                stepsPerFrame: 1,
+                trailLength: 1,
+                pointDistance: .1,
+                fps: 15,
+                padding: 10,
+                //step: 'fader',
 
-               width: 100,
-		height: 50,
+                fillColor: '#ffffff',
+                setup: function() {
+                    this._.lineWidth = 20;
+                },
+                path: [
+                    ['line', 0, 20, 100, 20],
+                    ['line', 100, 20, 0, 20]
+                ]
 
-		stepsPerFrame: 1,
-		trailLength: 1,
-		pointDistance: .1,
-		fps: 15,
-		padding: 10,
-		//step: 'fader',
+            });
 
-		fillColor: '#ffffff',
-
-		setup: function() {
-			this._.lineWidth = 20;
-		},
-
-		path: [
-			['line', 0, 20, 100, 20],
-			['line', 100, 20, 0, 20]
-		]
-
-	});
-        
-        function loadAnimation() {
-        loader.play();
-        document.getElementById("loading").appendChild(loader.canvas);
-        }
-    </script>
-    <span id="signinButton" style="display:none">
-  <span
-    class="g-signin"
-    data-callback="signinCallback"
-    data-clientid="1062173662525.apps.googleusercontent.com"
-    data-cookiepolicy="single_host_origin"
-    data-requestvisibleactions="http://schemas.google.com/AddActivity"
-    data-scope="https://www.googleapis.com/auth/plus.login">>
-  </span>
-</span>
-                <span id="facebookButton" style="display:none">
-                    <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email"></fb:login-button>
-                </span>
+            function loadAnimation() {
+                loader.play();
+                document.getElementById("loading").appendChild(loader.canvas);
+            }
+        </script>
+        <span id="signinButton" style="display:none">
+            <span
+                class="g-signin"
+                data-callback="signinCallback"
+                data-clientid="1062173662525.apps.googleusercontent.com"
+                data-cookiepolicy="single_host_origin"
+                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                data-scope="https://www.googleapis.com/auth/plus.login">>
+            </span>
+        </span>
+        <span id="facebookButton" style="display:none">
+            <fb:login-button show-faces="true" width="200" max-rows="1" autologoutlink="true" scope="email"></fb:login-button>
+        </span>
         <table id="gameArea">
             <tr>
                 <td>
@@ -552,18 +558,21 @@
                 </td>
             </tr>
         </table>
-        
-        
+
+
         <div id="openWait" class="padTop">
             <div class="padBottom2 notices1">Waiting for another player to join..</div>
             <div class="padTop2"><button onclick="leave()" class="btn btn-xs">Cancel</button></div>
         </div>
-     <script type="text/javascript">
-      (function() {
-       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-       po.src = 'https://apis.google.com/js/client:plusone.js';
-       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-     })();
-    </script>   
+        <script type="text/javascript">
+            (function() {
+                var po = document.createElement('script');
+                po.type = 'text/javascript';
+                po.async = true;
+                po.src = 'https://apis.google.com/js/client:plusone.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(po, s);
+            })();
+        </script>   
     </body>
 </html>

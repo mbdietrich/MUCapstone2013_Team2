@@ -19,17 +19,22 @@ import javax.servlet.http.HttpServletResponse;
 public class GameStateGet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        try{
         response.setContentType("text/event-stream");
         response.setCharacterEncoding ("UTF-8");
         String state=GameManager.getGame(request.getSession());
         
         PrintWriter out = response.getWriter();
+        out.append("event: state\n\n");
         out.append("retry: 50\n");
         out.append("data:");
         out.append(state);
         out.append("\n\n");
         response.flushBuffer();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
