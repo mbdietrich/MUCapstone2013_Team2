@@ -206,7 +206,7 @@
             window.fbAsyncInit = function() {
                 FB.init({
                     appId: '689318734429599', // App ID
-                    channelUrl: '//https://capstoneg2.jelastic.servint.net/ttt2/channel.html', // Channel File
+                    channelUrl: '//http://se-projects.massey.ac.nz/ttt2/channel.html', // Channel File
                     status: true, // check login status
                     cookie: true, // enable cookies to allow the server to access the session
                     xfbml: true  // parse XFBML
