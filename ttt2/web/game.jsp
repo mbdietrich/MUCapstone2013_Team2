@@ -161,7 +161,8 @@
                 console.log('Connection closed');
             }
             source.onerror = function(e) {
-                console.log(e);
+                //Ignore for now
+                //console.log(e);
             }
 
             //listen for game invites

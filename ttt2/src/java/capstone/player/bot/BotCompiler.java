@@ -70,7 +70,7 @@ public class BotCompiler {
         try {
             so = new CompilationUnit(id, writer.toString());
         } catch (Exception exception) {
-            exception.printStackTrace();
+            //Won't happen
         }
 
         Bot bot = compile(so, id, path);
