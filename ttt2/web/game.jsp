@@ -204,7 +204,7 @@
 
                 //if player logged in with google
                 if ("<%=fbid%>" === "0") {
-                    if(googleFriends === "") {
+                    if(!googleFriends.items || googleFriends === "") {
                         return;
                     }
                     // compare invites to google friends
@@ -270,7 +270,7 @@
             }
 
             function compareGoogleFriends(online) {
-                if(googleFriends === "") {
+                if(!googleFriends.items || googleFriends === "") {
                     return;
                 }
                 //first, remove the table
