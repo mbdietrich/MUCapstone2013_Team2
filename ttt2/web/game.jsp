@@ -59,6 +59,7 @@
                         }
                         document.getElementById("openWait").style.display = 'none';
                         document.getElementById("gameArea").style.display = '';
+                        document.getElementById("quitButton").style.display = '';
 
                         //TODO parse state in
                         //variables:
@@ -103,26 +104,6 @@
                                             buttonTrans.src = 'images/blank.png';
 
                                         }
-                                        if ((state.isTurn === "true")) {
-                                            button.disabled === true;
-                                            document.getElementById("team1").className = 'playerLabel playerLabelHL animated bounce';
-                                            document.getElementById("team1Alert").innerHTML = "YOUR TURN";
-                                            document.getElementById("team2").className = 'playerLabel playerLabelLL';
-                                            document.getElementById("team2Alert").innerHTML = "WAIT..";
-                                        }
-                                        else if ((state.isTurn === "false")) {
-                                            button.disabled === true;
-                                            document.getElementById("team2").className = 'playerLabel playerLabelHL animated bounce';
-                                            document.getElementById("team2Alert").innerHTML = "OPPONENT'S TURN";
-                                            document.getElementById("team1").className = 'playerLabel playerLabelLL';
-                                            document.getElementById("team1Alert").innerHTML = "WAIT..";
-                                        } else {
-                                            button.disabled === false;
-                                            document.getElementById("team2").className = 'playerLabel';
-                                            document.getElementById("team1").className = 'playerLabel';
-                                            document.getElementById("team2Alert").innerHTML = "";
-                                            document.getElementById("team1Alert").innerHTML = "";
-                                        }
                                         buttonNum++;
                                     }
                                 }
@@ -136,6 +117,8 @@
                             }
                             document.getElementById("team1Alert").innerHTML = "WINS!";
                             document.getElementById("team1").className = 'playerLabel playerLabelWin animated flash';
+                            document.getElementById("team2Alert").innerHTML = " ";
+                            document.getElementnBYID("team2").className = 'playerLabel';
                         } else if (state.Status === "2" || state.Status === "1") {
                             opponent = state.Opponent.toString();
                             if (opponent != null) {
@@ -143,12 +126,33 @@
                             }
                             document.getElementById("team2Alert").innerHTML = "WINS!";
                             document.getElementById("team2").className = 'playerLabel playerLabelWin animated flash';
+                            document.getElementById("team1Alert").innerHTML = " ";
+                            document.getElementnBYID("team1").className = 'playerLabel';
                         } else if (state.Status === "3") {
                             document.getElementById("team2Alert").innerHTML = "IT'S A DRAW!";
                             document.getElementById("team2").className = 'playerLabel playerLabelDraw animated flash';
 
                             document.getElementById("team1Alert").innerHTML = "IT'S A DRAW!";
                             document.getElementById("team1").className = 'playerLabel playerLabelDraw animated flash';
+                        } else if ((state.isTurn === "true")) {
+                            button.disabled === true;
+                            document.getElementById("team1").className = 'playerLabel playerLabelHL animated bounce';
+                            document.getElementById("team1Alert").innerHTML = "YOUR TURN";
+                            document.getElementById("team2").className = 'playerLabel playerLabelLL';
+                            document.getElementById("team2Alert").innerHTML = "WAIT..";
+                        }
+                        else if ((state.isTurn === "false")) {
+                            button.disabled === true;
+                            document.getElementById("team2").className = 'playerLabel playerLabelHL animated bounce';
+                            document.getElementById("team2Alert").innerHTML = "OPPONENT'S TURN";
+                            document.getElementById("team1").className = 'playerLabel playerLabelLL';
+                            document.getElementById("team1Alert").innerHTML = "WAIT..";
+                        } else {
+                            button.disabled === false;
+                            document.getElementById("team2").className = 'playerLabel';
+                            document.getElementById("team1").className = 'playerLabel';
+                            document.getElementById("team2Alert").innerHTML = "";
+                            document.getElementById("team1Alert").innerHTML = "";
                         }
                     }
                 }
