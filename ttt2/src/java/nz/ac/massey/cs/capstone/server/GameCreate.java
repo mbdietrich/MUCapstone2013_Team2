@@ -9,6 +9,8 @@ import nz.ac.massey.cs.capstone.server.util.BotManager;
 import nz.ac.massey.cs.capstone.server.util.GameManager;
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,10 @@ public class GameCreate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
+        
+        
+            Logger.getLogger(GameCreate.class.getName()).log(Level.INFO, "Path: "+request.getContextPath());
+        
         response.setContentType("text");
         response.setCharacterEncoding("UTF-8");
 
