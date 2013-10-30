@@ -46,7 +46,7 @@
             window.fbAsyncInit = function() {
                 FB.init({
                     appId: '689318734429599', // App ID
-                    channelUrl: '//https://capstoneg2.jelastic.servint.net/ttt2/channel.html', // Channel File
+                    channelUrl: '//http://se-projects.massey.ac.nz/ttt2/channel.html', // Channel File
                     status: true, // check login status
                     cookie: true, // enable cookies to allow the server to access the session
                     xfbml: true  // parse XFBML
@@ -63,7 +63,6 @@
                         // login status of the person. In this case, we're handling the situation where they 
                         // have logged in to the app.
                         //testAPI();
-                        //friendTest();
                         if(document.getElementById("fbLogin").style.display !== "none") {
                             fb();
                         }
@@ -109,20 +108,10 @@
                 });
             }
             
-            function friendTest() {
-                FB.api('/me/friends', function(response) {
-                    //var friends = response;
-                    //console.log(friends);
-                    $.each(response.data,function(index,friend) {
-                       console.log("friend: " + friend.name); 
-                    });
-                });
-            }
-            
             function signinCallback(authResult) {
                 if (authResult['access_token']) {
                     // Successfully authorized
-                    if (authResult['error'] == undefined) {
+                    if (authResult['error'] === undefined) {
                         gapi.auth.setToken(authResult); //store the returned token
                         if (document.getElementById("gLogin").style.display === "table-cell") {
                             gapi.client.load('oauth2', 'v2', function() {
@@ -210,7 +199,7 @@
                       
                         <tr id="fbPanel">
                             <td>
-                                <div class="buttons buttons1" id="loginFB" onclick="fb();"><a href="#" onclick="fb();">Log in with Facebook</a></div>
+                                <div class="buttons buttons1" id="loginFB"><a href="#" onclick="fb();">Log in with Facebook</a></div>
                             </td>
                         </tr>
                         <tr>
@@ -221,7 +210,7 @@
                         </tr>
                         <tr id="gPanel">
                             <td>
-                                <div class="buttons buttons1" id="loginGoogle" onclick="google();"><a href="#" onclick="google();">Log in with Google+</a></div>
+                                <div class="buttons buttons1" id="loginGoogle" ><a href="#" onclick="google();">Log in with Google+</a></div>
                             </td>
                         </tr>
                         <tr>
