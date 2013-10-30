@@ -236,7 +236,7 @@ public class GameManager {
                 game.replace(players.get(session), BotManager.getBot(session, session.getServletContext().getRealPath(".")));
             }
             
-            Logger.getLogger(GameManager.class.getName()).log(Level.INFO, "Player "+session.getAttribute("user").toString()+" left game "+game.SessionID);
+            Logger.getLogger(GameManager.class.getName()).log(Level.INFO, "Player {0} left game {1}", new Object[]{session.getAttribute("user").toString(), game.SessionID});
             
             watchers.get(game).remove(session);
             if (watchers.get(game) != null && !watchers.get(game).isEmpty()) {
