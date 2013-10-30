@@ -2,75 +2,75 @@
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <listener>
         <description>HttpSessionListener</description>
-        <listener-class>capstone.server.SessionCleanupService</listener-class>
+        <listener-class>nz.ac.massey.cs.capstone.server.SessionCleanupService</listener-class>
     </listener>
     <servlet>
         <servlet-name>PlayerJoin</servlet-name>
-        <servlet-class>capstone.server.PlayerJoin</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.PlayerJoin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FriendManager</servlet-name>
-        <servlet-class>capstone.server.FriendManager</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.FriendManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfileManager</servlet-name>
-        <servlet-class>capstone.server.ProfileManager</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.ProfileManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetPublicGames</servlet-name>
-        <servlet-class>capstone.server.GetPublicGames</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GetPublicGames</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FacebookManager</servlet-name>
-        <servlet-class>capstone.server.FacebookManager</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.FacebookManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetPrivateGames</servlet-name>
-        <servlet-class>capstone.server.GetPrivateGames</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GetPrivateGames</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GoogleManager</servlet-name>
-        <servlet-class>capstone.server.GoogleManager</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GoogleManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SocialLogin</servlet-name>
-        <servlet-class>capstone.server.SocialLogin</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.SocialLogin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PrivateGameMatch</servlet-name>
-        <servlet-class>capstone.server.PrivateGameMatch</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.PrivateGameMatch</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GoogleFriends</servlet-name>
-        <servlet-class>capstone.server.GoogleFriends</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GoogleFriends</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SendPrivateGameInvite</servlet-name>
-        <servlet-class>capstone.server.SendPrivateGameInvite</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.SendPrivateGameInvite</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GameInvites</servlet-name>
-        <servlet-class>capstone.server.GameInvites</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GameInvites</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AcceptPrivateGameInvite</servlet-name>
-        <servlet-class>capstone.server.AcceptPrivateGameInvite</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.AcceptPrivateGameInvite</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>JoinPrivateGame</servlet-name>
-        <servlet-class>capstone.server.JoinPrivateGame</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.JoinPrivateGame</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FacebookFriends</servlet-name>
-        <servlet-class>capstone.server.FacebookFriends</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.FacebookFriends</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetSource</servlet-name>
-        <servlet-class>capstone.server.GetSource</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GetSource</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetBots</servlet-name>
-        <servlet-class>capstone.server.GetBots</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GetBots</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PlayerJoin</servlet-name>
@@ -78,7 +78,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Leave</servlet-name>
-        <servlet-class>capstone.server.Leave</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.Leave</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Leave</servlet-name>
@@ -86,7 +86,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Join</servlet-name>
-        <servlet-class>capstone.server.GameJoin</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GameJoin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Join</servlet-name>
@@ -94,7 +94,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>GameCreate</servlet-name>
-        <servlet-class>capstone.server.GameCreate</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GameCreate</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GameCreate</servlet-name>
@@ -102,7 +102,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>GameRecordGet</servlet-name>
-        <servlet-class>capstone.server.GameRecordGet</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GameRecordGet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GameRecordGet</servlet-name>
@@ -110,7 +110,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>GameStateGet</servlet-name>
-        <servlet-class>capstone.server.GameStateGet</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.GameStateGet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GameStateGet</servlet-name>
@@ -118,11 +118,11 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>MakeMove</servlet-name>
-        <servlet-class>capstone.server.MakeMove</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.MakeMove</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CodeSubmit</servlet-name>
-        <servlet-class>capstone.server.CodeSubmit</servlet-class>
+        <servlet-class>nz.ac.massey.cs.capstone.server.CodeSubmit</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MakeMove</servlet-name>

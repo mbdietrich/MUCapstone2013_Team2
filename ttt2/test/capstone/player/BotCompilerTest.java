@@ -4,12 +4,13 @@
  */
 package capstone.player;
 
-import capstone.player.bot.BotCompiler;
+import nz.ac.massey.cs.capstone.player.Bot;
+import nz.ac.massey.cs.capstone.player.bot.BotCompiler;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import org.junit.Test;
-import capstone.player.bot.BotCompilationException;
+import nz.ac.massey.cs.capstone.player.bot.BotCompilationException;
 import java.net.URL;
 
 /**

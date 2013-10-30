@@ -4,9 +4,10 @@
  */
 package capstone.player;
 
-import capstone.game.Coordinates;
-import capstone.game.GameState;
-import capstone.server.util.GameManager;
+import nz.ac.massey.cs.capstone.player.Bot;
+import nz.ac.massey.cs.capstone.game.Coordinates;
+import nz.ac.massey.cs.capstone.game.GameState;
+import nz.ac.massey.cs.capstone.server.util.GameManager;
 
 /**
  *

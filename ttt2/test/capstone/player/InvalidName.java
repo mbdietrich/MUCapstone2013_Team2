@@ -4,6 +4,8 @@
  */
 package capstone.player;
 
+import nz.ac.massey.cs.capstone.player.GameBot;
+
 /**
  *
  * @author Max

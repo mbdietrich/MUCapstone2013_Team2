@@ -4,6 +4,9 @@
  */
 package capstone.game;
 
+import nz.ac.massey.cs.capstone.game.Coordinates;
+import nz.ac.massey.cs.capstone.game.GameState;
+import nz.ac.massey.cs.capstone.game.SubGame;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

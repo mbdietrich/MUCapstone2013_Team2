@@ -4,7 +4,8 @@
  */
 package capstone.player;
 
-import capstone.player.bot.TestExcecutor;
+import nz.ac.massey.cs.capstone.player.Bot;
+import nz.ac.massey.cs.capstone.player.bot.TestExcecutor;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.lang.reflect.InvocationTargetException;

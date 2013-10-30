@@ -4,8 +4,12 @@
  */
 package capstone.game;
 
-import capstone.player.Player;
-import capstone.server.util.RemotePlayer;
+import nz.ac.massey.cs.capstone.game.Coordinates;
+import nz.ac.massey.cs.capstone.game.GameSession;
+import nz.ac.massey.cs.capstone.game.GameState;
+import nz.ac.massey.cs.capstone.game.IllegalGameException;
+import nz.ac.massey.cs.capstone.player.Player;
+import nz.ac.massey.cs.capstone.server.util.RemotePlayer;
 import java.util.ArrayList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
