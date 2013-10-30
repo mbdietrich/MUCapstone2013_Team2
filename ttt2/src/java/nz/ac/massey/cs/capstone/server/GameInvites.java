@@ -33,6 +33,7 @@ public class GameInvites extends HttpServlet {
         response.setContentType("text/event-stream");
         response.setCharacterEncoding ("UTF-8");
         PrintWriter out = response.getWriter();
+        out.append("retry: 5000s\n");
         out.append("data: ");
         
         HttpSession session = request.getSession();

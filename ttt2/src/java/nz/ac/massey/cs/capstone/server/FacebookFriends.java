@@ -30,6 +30,7 @@ public class FacebookFriends extends HttpServlet {
         response.setContentType("text/event-stream");
         response.setCharacterEncoding ("UTF-8");
         PrintWriter out = response.getWriter();
+        out.append("retry: 10000s\n");
         out.append("data: ");
         
         String onlinePlayers = SocialLogin.getOnlineFacebookPlayers();
