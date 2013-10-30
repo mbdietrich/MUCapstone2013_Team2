@@ -59,6 +59,7 @@
                         }
                         document.getElementById("openWait").style.display = 'none';
                         document.getElementById("gameArea").style.display = '';
+                        document.getElementById("quitButton").style.display = '';
 
                         //TODO parse state in
                         //variables:
@@ -103,26 +104,6 @@
                                             buttonTrans.src = 'images/blank.png';
 
                                         }
-                                        if ((state.isTurn === "true")) {
-                                            button.disabled === true;
-                                            document.getElementById("team1").className = 'playerLabel playerLabelHL animated bounce';
-                                            document.getElementById("team1Alert").innerHTML = "YOUR TURN";
-                                            document.getElementById("team2").className = 'playerLabel playerLabelLL';
-                                            document.getElementById("team2Alert").innerHTML = "WAIT..";
-                                        }
-                                        else if ((state.isTurn === "false")) {
-                                            button.disabled === true;
-                                            document.getElementById("team2").className = 'playerLabel playerLabelHL animated bounce';
-                                            document.getElementById("team2Alert").innerHTML = "OPPONENT'S TURN";
-                                            document.getElementById("team1").className = 'playerLabel playerLabelLL';
-                                            document.getElementById("team1Alert").innerHTML = "WAIT..";
-                                        } else {
-                                            button.disabled === false;
-                                            document.getElementById("team2").className = 'playerLabel';
-                                            document.getElementById("team1").className = 'playerLabel';
-                                            document.getElementById("team2Alert").innerHTML = "";
-                                            document.getElementById("team1Alert").innerHTML = "";
-                                        }
                                         buttonNum++;
                                     }
                                 }
@@ -136,6 +117,8 @@
                             }
                             document.getElementById("team1Alert").innerHTML = "WINS!";
                             document.getElementById("team1").className = 'playerLabel playerLabelWin animated flash';
+                            document.getElementById("team2Alert").innerHTML = " ";
+                            document.getElementnBYID("team2").className = 'playerLabel';
                         } else if (state.Status === "2" || state.Status === "1") {
                             opponent = state.Opponent.toString();
                             if (opponent != null) {
@@ -143,12 +126,33 @@
                             }
                             document.getElementById("team2Alert").innerHTML = "WINS!";
                             document.getElementById("team2").className = 'playerLabel playerLabelWin animated flash';
+                            document.getElementById("team1Alert").innerHTML = " ";
+                            document.getElementnBYID("team1").className = 'playerLabel';
                         } else if (state.Status === "3") {
                             document.getElementById("team2Alert").innerHTML = "IT'S A DRAW!";
                             document.getElementById("team2").className = 'playerLabel playerLabelDraw animated flash';
 
                             document.getElementById("team1Alert").innerHTML = "IT'S A DRAW!";
                             document.getElementById("team1").className = 'playerLabel playerLabelDraw animated flash';
+                        } else if ((state.isTurn === "true")) {
+                            button.disabled === true;
+                            document.getElementById("team1").className = 'playerLabel playerLabelHL animated bounce';
+                            document.getElementById("team1Alert").innerHTML = "YOUR TURN";
+                            document.getElementById("team2").className = 'playerLabel playerLabelLL';
+                            document.getElementById("team2Alert").innerHTML = "WAIT..";
+                        }
+                        else if ((state.isTurn === "false")) {
+                            button.disabled === true;
+                            document.getElementById("team2").className = 'playerLabel playerLabelHL animated bounce';
+                            document.getElementById("team2Alert").innerHTML = "OPPONENT'S TURN";
+                            document.getElementById("team1").className = 'playerLabel playerLabelLL';
+                            document.getElementById("team1Alert").innerHTML = "WAIT..";
+                        } else {
+                            button.disabled === false;
+                            document.getElementById("team2").className = 'playerLabel';
+                            document.getElementById("team1").className = 'playerLabel';
+                            document.getElementById("team2Alert").innerHTML = "";
+                            document.getElementById("team1Alert").innerHTML = "";
                         }
                     }
                 }
@@ -186,8 +190,8 @@
                 }
             }
 
-            var googleFriends;
-            var facebookFriends;
+            var googleFriends = "";
+            var facebookFriends = "";
 
             function processGameInvites(invites) {
                 //frist, clear the table
@@ -200,6 +204,9 @@
 
                 //if player logged in with google
                 if ("<%=fbid%>" === "0") {
+                    if(googleFriends === "") {
+                        return;
+                    }
                     // compare invites to google friends
                     var numItems = googleFriends.items.length;
                     for (var i = 0; i < numItems; i++) {
@@ -212,6 +219,9 @@
                     insert = insert + "</ul></li>";
                     document.getElementById("challengeMenu").innerHTML = insert;
                 } else {    //then player is logged in with facebook
+                    if(facebookFriends === "") {
+                        return;
+                    }
                     $.each(facebookFriends.data, function(index, friend) {
                         if (invites.indexOf(friend.id) !== -1) {
                             var imageURL = getFacebookImageURL(friend.id);
@@ -260,6 +270,9 @@
             }
 
             function compareGoogleFriends(online) {
+                if(googleFriends === "") {
+                    return;
+                }
                 //first, remove the table
                 var parent = document.getElementById("privateGameMenu");
                 while (parent.hasChildNodes()) {
@@ -305,6 +318,42 @@
             }
             var opponent;
 
+            var createButton = function(w, x, y, z) {
+                var newButton, buttonTrans;
+                buttonTrans = document.createElement('img');
+                buttonTrans.className = 'fadeGameButton gameButton';
+                buttonTrans.src = 'images/blank.png';
+                newButton = document.createElement('a');
+                newButton.href = '#';
+
+                newButton.id = w + '-' + x + '-' + y + '-' + z;
+                newButton.a = w;
+                newButton.b = x;
+                newButton.x = y;
+                newButton.y = z;
+
+                newButton.appendChild(buttonTrans);
+                newButton.onclick = function()
+                {
+                    makeMove(this.a, this.b, this.x, this.y);
+                };
+                return newButton;
+
+
+            };
+            var createSubgame = function(w, x, sTable) {
+                for (i = 0; i < 3; i++) {
+                    var newSubRow = sTable.insertRow(0);
+                    for (j = 0; j < 3; j++) {
+                        var tempButton = createButton(w, x, i, j);
+                        var buttonCell = newSubRow.insertCell(0);
+                        buttonCell.appendChild(tempButton);
+                    }
+                }
+
+            }
+
+
 
 
             $(window).unload(function() {
@@ -314,14 +363,14 @@
             window.onload = function() {
 
 
-                var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell, subGameWin;
+                var buttonFrame, newRow, newCell, subTable, subGameWin;
                 buttonFrame = document.getElementById('gameframe');
 
-                for (a = 2; a >= 0; a--) {
+                for (a = 0; a < 3; a++) {
                     //Create a new row of subgames
-                    newRow = buttonFrame.insertRow();
-                    for (b = 2; b >= 0; b--) {
-                        newCell = newRow.insertCell();
+                    newRow = buttonFrame.insertRow(0);
+                    for (b = 0; b < 3; b++) {
+                        newCell = newRow.insertCell(0);
                         newCell.className = 'subTable';
                         newCell.id = (a + '-' + b);
                         subTable = document.createElement('table');
@@ -329,34 +378,15 @@
                         subGameWin.id = (a + '-' + b + 'span');
                         newCell.appendChild(subTable);
                         newCell.appendChild(subGameWin);
-                        for (i = 2; i >= 0; i--) {
-                            newSubRow = subTable.insertRow();
-                            for (j = 2; j >= 0; j--) {
-
-                                buttonTrans = document.createElement('img');
-                                buttonTrans.className = 'fadeGameButton gameButton';
-                                buttonTrans.src = 'images/blank.png';
-                                newButton = document.createElement('a');
-                                newButton.href = '#';
-
-                                newButton.id = a + '-' + b + '-' + i + '-' + j;
-                                newButton.a = a;
-                                newButton.b = b;
-                                newButton.x = i;
-                                newButton.y = j;
-
-                                newButton.appendChild(buttonTrans);
-                                newButton.onclick = function() {
-                                    makeMove(this.a, this.b, this.x, this.y);
-                                };
-                                buttonCell = newSubRow.insertCell();
-                                buttonCell.appendChild(newButton);
-                            }
-                        }
+                        createSubgame(a,b,subTable);
                     }
                 }
                 loadAnimation();
             };
+            for (a = 0; a < 3; a++){
+                for (b = 0; b < 3; b++){
+                }
+            }
         </script>
 
     </head>
@@ -444,6 +474,9 @@
             };
 
             function compareFacebookFriends(online) {
+                if(facebookFriends === "") {
+                    return;
+                }
                 //first, remove the table
                 var parent = document.getElementById("privateGameMenu");
                 while (parent.hasChildNodes()) {
