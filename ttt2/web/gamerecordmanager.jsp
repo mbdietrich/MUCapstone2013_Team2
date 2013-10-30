@@ -222,10 +222,10 @@
                 var buttonFrame, newRow, newCell, subTable, newSubRow, newButton, buttonCell, subGameWin;
                 buttonFrame = document.getElementById('gameframe');
 
-                for (a = 2; a >= 0; a--) {
+                for (a = 0; a < 3; a++) {
                     //Create a new row of subgames
                     newRow = buttonFrame.insertRow(0);
-                    for (b = 2; b >= 0; b--) {
+                    for (b = 0; b < 3; b++) {
                         newCell = newRow.insertCell(0);
                         newCell.className = 'subTable';
                         newCell.id = (a + '-' + b);
@@ -234,9 +234,9 @@
                         subGameWin.id = (a + '-' + b + 'span');
                         newCell.appendChild(subTable);
                         newCell.appendChild(subGameWin);
-                        for (i = 2; i >= 0; i--) {
+                        for (i = 0; i < 3; i++) {
                             newSubRow = subTable.insertRow(0);
-                            for (j = 2; j >= 0; j--) {
+                            for (j = 0; j < 3; j++) {
                                 buttonTrans = document.createElement('img');
                                 buttonTrans.className = 'fadeGameButton gameButton';
                                 buttonTrans.src = 'images/blank.png';
