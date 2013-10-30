@@ -379,8 +379,8 @@
             <div class="jumbotron">
                 <div class="container">
                     <div class="notices"><h2>Welcome <%= session.getAttribute("user")%>!</h2></div><br>
-                    <div class="buttons buttons1" onclick="singlePlayer();"><a href="#" onclick="singlePlayer();">Play Default Bot</a></div><br>
-                    <div class="buttons buttons1" onclick="multiPlayer();"><a href="#" onclick="multiPlayer();">Play A User</a></div>
+                    <div class="buttons buttons1" onclick="singlePlayer(event);"><a href="#" onclick="singlePlayer(event);">Play Default Bot</a></div><br>
+                    <div class="buttons buttons1" onclick="multiPlayer(event);"><a href="#" onclick="multiPlayer(event);">Play A User</a></div>
                 </div>
             </div> 
     <script type="text/javascript">

@@ -103,17 +103,17 @@
                                             buttonTrans.src = 'images/blank.png';
 
                                         }
-                                        if ((state.isTurn === "true") && (state.PlayerNumber == 1)) {
+                                        if ((state.isTurn === "true")) {
                                             button.disabled === true;
                                             document.getElementById("team1").className = 'playerLabel playerLabelHL animated bounce';
                                             document.getElementById("team1Alert").innerHTML = "YOUR TURN";
                                             document.getElementById("team2").className = 'playerLabel playerLabelLL';
                                             document.getElementById("team2Alert").innerHTML = "WAIT..";
                                         }
-                                        else if ((state.isTurn === "true") && (state.PlayerNumber == 2)) {
+                                        else if ((state.isTurn === "false")) {
                                             button.disabled === true;
                                             document.getElementById("team2").className = 'playerLabel playerLabelHL animated bounce';
-                                            document.getElementById("team2Alet").innerHTML = "YOUR TURN";
+                                            document.getElementById("team2Alert").innerHTML = "OPPONENT'S TURN";
                                             document.getElementById("team1").className = 'playerLabel playerLabelLL';
                                             document.getElementById("team1Alert").innerHTML = "WAIT..";
                                         } else {

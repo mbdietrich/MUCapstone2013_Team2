@@ -189,13 +189,14 @@ public class GameManager {
     }
 
     //Create a new game session
-    public static synchronized void newGame(HttpSession session) {
+    public static void newGame(HttpSession session) {
         GameSession game = new GameSession();
         gameIDs.put(game.SessionID, game);
         try {
             game.Join(players.get(session));
             gameSessions.put(session, game);
             openGames.put(game.SessionID, session.getAttribute("user").toString());
+            
             Logger.getLogger(GameManager.class.getName()).log(Level.INFO, "Player "+session.getAttribute("user").toString()+" joined game"+game.SessionID);
             List<HttpSession> sessions = watchers.get(game);
             if (sessions == null) {
@@ -235,7 +236,7 @@ public class GameManager {
                 game.replace(players.get(session), BotManager.getBot(session, session.getServletContext().getRealPath(".")));
             }
             
-            Logger.getLogger(GameManager.class.getName()).log(Level.INFO, "Player "+session.getAttribute("name").toString()+" left game "+game.SessionID);
+            Logger.getLogger(GameManager.class.getName()).log(Level.INFO, "Player "+session.getAttribute("user").toString()+" left game "+game.SessionID);
             
             watchers.get(game).remove(session);
             if (watchers.get(game) != null && !watchers.get(game).isEmpty()) {
