@@ -210,7 +210,7 @@
                       
                         <tr id="fbPanel">
                             <td>
-                                <div class="buttons buttons1" id="loginFB" onclick="fb();"><a href="#" onclick="fb();">Log in with Facebook</a></div>
+                                <div class="buttons buttons1" id="loginFB"><a href="#" onclick="fb();">Log in with Facebook</a></div>
                             </td>
                         </tr>
                         <tr>
@@ -221,7 +221,7 @@
                         </tr>
                         <tr id="gPanel">
                             <td>
-                                <div class="buttons buttons1" id="loginGoogle" onclick="google();"><a href="#" onclick="google();">Log in with Google+</a></div>
+                                <div class="buttons buttons1" id="loginGoogle" ><a href="#" onclick="google();">Log in with Google+</a></div>
                             </td>
                         </tr>
                         <tr>
