@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class GameStateGet extends HttpServlet{
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response){
         try{
         response.setContentType("text/event-stream");
         response.setCharacterEncoding ("UTF-8");
@@ -33,7 +33,7 @@ public class GameStateGet extends HttpServlet{
         response.flushBuffer();
         }
         catch(Exception e){
-            e.printStackTrace();
+            //Do nothing - events should keep firing
         }
     }
 

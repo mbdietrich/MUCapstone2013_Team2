@@ -1,5 +1,6 @@
         var singlePlayer = function() {
                 $.post("create", {type: "solo", botname: "DefaultBot"}, function(e) {
+                    e.stopPropagation();
                     document.location.href = "game.jsp";
                 });
 

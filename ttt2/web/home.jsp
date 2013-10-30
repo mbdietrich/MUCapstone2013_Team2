@@ -311,7 +311,7 @@
                 <ul>
                     <li><span>MENU</span>
                         <ul>
-                            <li><a href="#" onclick="singlePlayer();">Play Default Bot</a></li>
+                            <li><a href="#" onclick="singlePlayer();" >Play Default Bot</a></li>
                             <li><a href="#" onclick="multiPlayer();">Play Another User</a></li>
                             <li><a href="#">Play Private Game</a>
                                 <ul id="privateGameMenu"></ul>
