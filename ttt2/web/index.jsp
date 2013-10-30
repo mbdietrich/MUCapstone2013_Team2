@@ -63,7 +63,6 @@
                         // login status of the person. In this case, we're handling the situation where they 
                         // have logged in to the app.
                         //testAPI();
-                        //friendTest();
                         if(document.getElementById("fbLogin").style.display !== "none") {
                             fb();
                         }
@@ -109,20 +108,10 @@
                 });
             }
             
-            function friendTest() {
-                FB.api('/me/friends', function(response) {
-                    //var friends = response;
-                    //console.log(friends);
-                    $.each(response.data,function(index,friend) {
-                       console.log("friend: " + friend.name); 
-                    });
-                });
-            }
-            
             function signinCallback(authResult) {
                 if (authResult['access_token']) {
                     // Successfully authorized
-                    if (authResult['error'] == undefined) {
+                    if (authResult['error'] === undefined) {
                         gapi.auth.setToken(authResult); //store the returned token
                         if (document.getElementById("gLogin").style.display === "table-cell") {
                             gapi.client.load('oauth2', 'v2', function() {
