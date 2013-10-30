@@ -215,9 +215,9 @@
 
                 for (a = 2; a >= 0; a--) {
                     //Create a new row of subgames
-                    newRow = buttonFrame.insertRow();
+                    newRow = buttonFrame.insertRow(0);
                     for (b = 2; b >= 0; b--) {
-                        newCell = newRow.insertCell();
+                        newCell = newRow.insertCell(0);
                         newCell.className = 'subTable';
                         newCell.id = (a + '-' + b);
                         subTable=document.createElement('table');
@@ -226,7 +226,7 @@
                         newCell.appendChild(subTable);
                         newCell.appendChild(subGameWin);
                         for (i = 2; i >= 0; i--) {
-                            newSubRow = subTable.insertRow();
+                            newSubRow = subTable.insertRow(0);
                             for (j = 2; j >= 0; j--) {
                                 buttonTrans = document.createElement('img');
                                 buttonTrans.className = 'fadeGameButton gameButton';
@@ -234,7 +234,7 @@
                                 newButton = document.createElement('a');
                                 newButton.id = a.toString() + b.toString() + i.toString() + j.toString();
                                 newButton.appendChild(buttonTrans);
-                                buttonCell = newSubRow.insertCell();
+                                buttonCell = newSubRow.insertCell(0);
                                 buttonCell.appendChild(newButton);
                             }
                         }
