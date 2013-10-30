@@ -58,8 +58,8 @@
                 }
             }
             
-            var googleFriends;
-            var facebookFriends;
+            var googleFriends = "";
+            var facebookFriends = "";
             
             function processGameInvites(invites) {
                 //frist, clear the table
@@ -72,6 +72,9 @@
                 
                 //if player logged in with google
                 if("<%=fbid%>" === "0") {
+                    if(googleFriends === "") {
+                        return;
+                    }
                     // compare invites to google friends
                     var numItems = googleFriends.items.length;
                     for (var i=0;i<numItems;i++) {
@@ -84,6 +87,9 @@
                     insert = insert + "</ul></li>";
                     document.getElementById("challengeMenu").innerHTML = insert;
                 } else {    //then player is logged in with facebook
+                    if(facebookFriends === "") {
+                        return;
+                    }
                     $.each(facebookFriends.data,function(index,friend) {
                        if(invites.indexOf(friend.id) !== -1) {
                            var imageURL = getFacebookImageURL(friend.id);
@@ -132,6 +138,9 @@
             }
             
             function compareGoogleFriends(online) {
+                if(googleFriends === "") {
+                    return;
+                }
                 //first, remove the table
                 var parent = document.getElementById("privateGameMenu");
                 while(parent.hasChildNodes()) {
@@ -285,6 +294,9 @@
             };            
            
             function compareFacebookFriends(online) {
+                if(facebookFriends === "") {
+                    return;
+                }
                 //first, remove the table
                 var parent = document.getElementById("privateGameMenu");
                 while(parent.hasChildNodes()) {
