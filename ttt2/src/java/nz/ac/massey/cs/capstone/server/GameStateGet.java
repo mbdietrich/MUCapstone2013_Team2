@@ -22,8 +22,8 @@ public class GameStateGet extends HttpServlet{
         response.setContentType("text/event-stream");
         response.setCharacterEncoding ("UTF-8");
         PrintWriter out = response.getWriter();
-        out.append("event: state\n\n");
-        out.append("retry: 50\n");
+        //out.append("event: state\n\n");
+        out.append("retry: 500\n");
         out.append("data:");
         try{
             String state=GameManager.getGame(request.getSession());
@@ -33,8 +33,10 @@ public class GameStateGet extends HttpServlet{
         catch(Exception e){
             out.append("{\"waiting\": \"true\"}");
         }
+        finally{
         out.append("\n\n");
         response.flushBuffer();
+        }
     }
 
     @Override

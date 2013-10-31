@@ -160,7 +160,7 @@
 
             var source = new EventSource("state");
             source.onmessage = onState;
-            source.addEventListener("state", onState);
+            //source.addEventListener("state", onState);
             source.onclose = function() {
                 console.log('Connection closed');
             }
