@@ -234,13 +234,15 @@
                 }
             }
 
-            //handle google invites
-            var sourceGFriends = new EventSource("GoogleFriends");
-            sourceGFriends.onmessage = function(event) {
+            //get online players
+            var sourceFriends = new EventSource("OnlineFriends");
+            sourceFriends.onmessage = function(event) {
                 var gid = "<%=gid%>";
-                if (event.data) { // only update if the string is not empty
-                    if (gid !== "0") {   //only run if player is logged in with google
+                if(event.data) {
+                    if(gid !== "0") {
                         compareGoogleFriends(event.data);
+                    } else {
+                        compareFacebookFriends(event.data);
                     }
                 }
             };
@@ -462,16 +464,6 @@
                     facebookFriends = response;
                 });
             }
-
-            var sourceFBFriends = new EventSource("FacebookFriends");
-            sourceFBFriends.onmessage = function(event) {
-                var fbid = "<%=fbid%>";
-                if (event.data) { // only update if the string is not empty
-                    if (fbid !== "0") {   //only run if player is logged in with facebook
-                        compareFacebookFriends(event.data);
-                    }
-                }
-            };
 
             function compareFacebookFriends(online) {
                 if(facebookFriends === "") {

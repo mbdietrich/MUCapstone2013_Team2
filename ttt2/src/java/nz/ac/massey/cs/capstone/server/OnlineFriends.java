@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author luke
+ * @author lowkeylukey
  */
-public class FacebookFriends extends HttpServlet {
-    /**
+public class OnlineFriends extends HttpServlet {
+/**
      * Handles the HTTP
      * <code>GET</code> method.
      *
@@ -33,9 +33,11 @@ public class FacebookFriends extends HttpServlet {
         out.append("retry: 10000s\n");
         out.append("data: ");
         
-        String onlinePlayers = SocialLogin.getOnlineFacebookPlayers();
+        String onlineGPlayers = SocialLogin.getOnlineGooglePlayers();
+        String onlineFBPlayers = SocialLogin.getOnlineFacebookPlayers();
         
-        out.append(onlinePlayers);
+        out.append(onlineGPlayers);
+        out.append(onlineFBPlayers);
         
         out.append("\n\n");
         response.flushBuffer();
@@ -48,6 +50,6 @@ public class FacebookFriends extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Get Facebook players who are online";
+        return "Get players who are online";
     }// </editor-fold>
 }

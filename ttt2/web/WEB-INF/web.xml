@@ -72,6 +72,10 @@
         <servlet-name>GetBots</servlet-name>
         <servlet-class>nz.ac.massey.cs.capstone.server.GetBots</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OnlineFriends</servlet-name>
+        <servlet-class>nz.ac.massey.cs.capstone.server.OnlineFriends</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PlayerJoin</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -195,6 +199,10 @@
     <servlet-mapping>
         <servlet-name>GetBots</servlet-name>
         <url-pattern>/GetBots</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OnlineFriends</servlet-name>
+        <url-pattern>/OnlineFriends</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
