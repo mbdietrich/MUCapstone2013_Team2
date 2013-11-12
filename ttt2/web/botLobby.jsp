@@ -187,12 +187,12 @@
                 var botDetails = details.split(", ");
                 var i = 0;
                 var newLines = "";
-                if(botDetails.length === 1) {
+                if(details === "") {
                     newLines = "<option class='alert-info'>Sorry, there are no bots available to play.</option>";
                 } else {
-                    while (i+1 < botDetails.length) {
-                        newLines = newLines + '<option value="' + botDetails[i+1] + '" id="' + botDetails[i+1] + '">' + botDetails[i] + "</option>";
-                        i = i+2;
+                    while (i < botDetails.length) {
+                        newLines = newLines + '<option value="' + botDetails[i] + '" id="' + botDetails[i] + '">' + botDetails[i] + "</option>";
+                        i = i+1;
                     }
                     document.getElementById("joinButton").innerHTML = '<br><button type="button" class="btn" onclick="requestPlayBot();">Play</button>';
                 }

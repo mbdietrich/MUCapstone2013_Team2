@@ -39,6 +39,7 @@ public class GetBots extends HttpServlet {
         response.setContentType("text/event-stream");
         response.setCharacterEncoding ("UTF-8");
         PrintWriter out = response.getWriter();
+        out.append("retry: 5000\n");
         out.append("data: ");
         
         //get all bots
@@ -56,7 +57,12 @@ public class GetBots extends HttpServlet {
             email = email.replace('.', '_').replace('@', '_');
             if(botIDs.contains("C"+email)) {
                 String botsPlayerName = session.getAttribute("user").toString();
-                botDetails = botDetails + botsPlayerName + ", " + email + ", ";
+                if(botDetails.isEmpty()){
+                    botDetails = email;
+                }
+                else{
+                botDetails = botDetails + ", " + email;
+                }
             }
         }
         
